@@ -1,0 +1,11 @@
+* text=auto
+
+*.fbx binary
+*.glb binary
+*.blend binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.tga binary
+*.exr binary
+*.unitypackage binary

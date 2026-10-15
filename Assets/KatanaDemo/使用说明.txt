@@ -1,0 +1,37 @@
+混元斗笠剑士 V3 · 持刀呼吸循环
+更新日期：2026-10-15
+
+打开 Scenes/KatanaCombatDemo.unity，进入 Play 即自动播放 HoldKatanaIdle 持刀呼吸循环。当前周期为 3 秒，保留用户手摆的持刀姿势；原 V3 模型和展示场景文件内容未修改。
+
+主要资产（路径相对于 Assets/KatanaDemo/）
+  Models/Hunyuan_Douli_LegClearance_v3.fbx：正式角色模型，14 个网格、14747 个顶点、38 根骨骼。
+  Models/Katana_Prop.glb：独立武士刀。
+  Materials/HunyuanV3.mat 和 Models/HunyuanTextures/：角色的 URP 材质与贴图。
+  Prefabs/DouliSwordsman.prefab：正式角色，已保存基准姿势、武器挂点和呼吸动画配置。
+  Prefabs/HunyuanV3_UserPose.prefab：保留的静态姿势副本。
+  Animations/HoldKatanaIdle_Source.fbx：Generic 动画来源。
+  Animations/HoldKatanaIdle.anim：适配当前角色的 3 秒循环片段。
+  Animations/DouliSwordsman.controller：默认播放 HoldKatanaIdle 的动画控制器。
+
+使用与继续调整
+  在其他场景中拖入 Prefabs/DouliSwordsman.prefab 即可使用。
+  Animator 位于 Character Model，已启用并绑定上述控制器，关闭 Apply Root Motion。
+  动画只驱动 Hunyuan_Douli_Rig/root 以下子骨骼，保留原 Rig/root 和角色容器的变换；无需运行时 IK。
+  武器位于 RightHand/KatanaGrip。保留 KatanaGrip 的握刀偏移、朝向和尺寸，以及其下 Katana 的局部变换。
+  继续调整姿势时也需同步修改动画，避免播放时被动画曲线覆盖。单独拖入模型 FBX 仍显示默认绑定姿态。
+
+验证与限制
+  已完成实际 Play 的 0、0.6、1.2、2.4、3 秒采样及超过两个周期的自由播放检查。
+  循环首尾一致，Rig/root/髋部/脚部无漂移，双手与刀的相对握持稳定；检查时控制台无错误或警告。
+  当前 V3 保留原拓扑、UV、蒙皮权重与贴图；大幅抬腿仍可能穿过前襟，本呼吸动画不改变该限制。
+
+外部源文件（路径相对于 F:/WorkingFiles/OC Design/）
+  斗笠剑士/模型资源/hunyuan-leg-clearance-v3/output/：原 V3 主模型与使用说明。
+  斗笠剑士/模型资源/hunyuan-breathing-idle/output/：当前动画 Blender、完整 FBX、仅动画 FBX 和使用说明。
+  斗笠剑士/模型资源/hunyuan-breathing-idle/analysis/：Unity 接入及运行验证报告。
+  斗笠剑士/图片资源/模型预览/hunyuan-breathing-idle/：MP4、GIF、静态预览及 Unity_HoldKatanaIdle.jpg 场景截图。
+  旧呼吸版本已删除，仅保留当前 3 秒版本。
+
+用户姿势恢复资料
+  斗笠剑士/整理记录/Unity切换混元V3/旧姿势恢复备份.unitypackage 保留旧模型上的原手摆姿势及依赖，不参与当前场景。
+  同目录保留原始姿势快照与保留说明；历史腿部检查场景和 V2 备份已在此前清理中删除。

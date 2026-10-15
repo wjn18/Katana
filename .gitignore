@@ -1,0 +1,46 @@
+# Unity generated folders
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Bb]uild/
+/[Bb]uilds/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+
+# Local validation captures
+/Captures/
+/KatanaCaptures/
+
+# IDE and generated solution files
+/.vscode/
+/.vs/
+/.idea/
+*.csproj
+*.sln
+*.slnx
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Local credentials and machine files
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
+*.pfx
+*.p12
+.DS_Store
+Thumbs.db
+
+# Unity crash reports
+sysinfo.txt
+crash.dmp
