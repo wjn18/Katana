@@ -12,7 +12,7 @@ namespace OCDesign
         [SerializeField] private Transform movementCamera;
 
         [Header("Movement")]
-        [SerializeField, Min(0f)] private float moveSpeed = 0.21875f;
+        [SerializeField, Min(0f)] private float moveSpeed = 1f;
         [SerializeField, Min(0.001f)] private float authoredMoveSpeed = 0.21875f;
         [SerializeField, Min(0f)] private float turnSpeed = 720f;
         [Tooltip("The model's walking forward direction, in degrees from this root's local +Z.")]
@@ -28,11 +28,11 @@ namespace OCDesign
         private Quaternion startRotation;
         private Vector3 previousPosition;
 
-        public void Configure(Animator targetAnimator, float yawOffset, float speed)
+        public void Configure(Animator targetAnimator, float yawOffset, float speed, float requestedMoveSpeed = 1f)
         {
             animator = targetAnimator;
             modelForwardYawOffset = yawOffset;
-            moveSpeed = Mathf.Max(0f, speed);
+            moveSpeed = Mathf.Max(0f, requestedMoveSpeed);
             authoredMoveSpeed = Mathf.Max(0.001f, speed);
         }
 
