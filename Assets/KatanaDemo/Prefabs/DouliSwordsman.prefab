@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::OCDesign.HoldKatanaMovement
   animator: {fileID: 1360425491852841481}
   movementCamera: {fileID: 0}
-  moveSpeed: 0.24119957
+  moveSpeed: 1
   authoredMoveSpeed: 0.24119957
   turnSpeed: 720
   modelForwardYawOffset: -50.65272
