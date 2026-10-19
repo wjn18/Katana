@@ -1,37 +1,55 @@
-混元斗笠剑士 V3 · 持刀呼吸循环
-更新日期：2026-10-15
+斗笠剑士 · Unity 资源与使用入口
+更新日期：2026-10-19
+以下路径相对于 Assets/KatanaDemo/。目录与后续维护规则见 资源目录规范.md。
 
-打开 Scenes/KatanaCombatDemo.unity，进入 Play 即自动播放 HoldKatanaIdle 持刀呼吸循环。当前周期为 3 秒，保留用户手摆的持刀姿势；原 V3 模型和展示场景文件内容未修改。
+打刀 Generic
+  命名于2026-10-19统一为Uchigatana；完整玩家与独立武器各一个Prefab，均在使用，无重复或废弃Prefab可删。
+  场景：UchigatanaCombat/Scenes/UchigatanaCombatDemo.unity
+  角色：UchigatanaCombat/Prefabs/UchigatanaCombatPlayer.prefab
+  动画：UchigatanaCombat/Animations/Generic/，包含 UchigatanaIdle、UchigatanaSlowWalk、UchigatanaFastWalk、UchigatanaRun、UchigatanaAttack 五套片段及同名 _Source.fbx。
+  控制器：同目录 UchigatanaCombat.controller；额外源动作状态 UchigatanaSourceAttack01 保留第三方 Motion。
+  组件：UchigatanaCombat/Runtime/UchigatanaMovement.cs；外观层 UchigatanaVisual，挂点 UchigatanaGrip，武器实例 Uchigatana。
+  独立武器：Weapons/Uchigatana/Prefabs/InitialUchigatana.prefab 与 Weapons/Uchigatana/Models/Uchigatana_Initial.glb，保持现用资源。
+  本轮独立静态检查57/57通过；60个Transform的原姿势与挂点保持，无缺失脚本。
+  实际Play七阶段通过：Idle、W慢走、Shift快走、Ctrl+Shift奔跑优先、鼠标左键攻击后恢复Run、停步Idle、攻击中R复位。
+  攻击锁定位移漂移为0，攻击中重复TryAttack拒绝；额外UchigatanaSourceAttack01状态保留。已查看Idle截图，角色与武器显示正常。
+  收尾为Edit、场景无待保存修改、编译完成；移动组件与Animator启用，speed=1，输入设置恢复，Console错误/警告均为0。
+  本轮报告：工作区 斗笠剑士/整理记录/打刀命名统一与Prefab核查-2026-10-19.json；既有动画检查属于原制作轮次。
+  Play 自动播放3秒持刀呼吸；WASD/方向键慢走，Shift快走，Ctrl奔跑，左键单次攻击，R复位。
+  原定制动作仍为Generic，不能直接作为Humanoid肌肉动画使用。
 
-主要资产（路径相对于 Assets/KatanaDemo/）
-  Models/Hunyuan_Douli_LegClearance_v3.fbx：正式角色模型，14 个网格、14747 个顶点、38 根骨骼。
-  Models/Katana_Prop.glb：独立武士刀。
-  Materials/HunyuanV3.mat 和 Models/HunyuanTextures/：角色的 URP 材质与贴图。
-  Prefabs/DouliSwordsman.prefab：正式角色，已保存基准姿势、武器挂点和呼吸动画配置。
-  Prefabs/HunyuanV3_UserPose.prefab：保留的静态姿势副本。
-  Animations/HoldKatanaIdle_Source.fbx：Generic 动画来源。
-  Animations/HoldKatanaIdle.anim：适配当前角色的 3 秒循环片段。
-  Animations/DouliSwordsman.controller：默认播放 HoldKatanaIdle 的动画控制器。
+薙刀 Humanoid 战斗
+  场景：NaginataCombat/Scenes/NaginataThirdPersonCombat.unity
+  唯一完整角色：NaginataCombat/Prefabs/NaginataCombatPlayer.prefab，保留原完整玩家GUID。
+  外观层：Prefab内部NaginataVisual，包含角色、Avatar、薙刀和握持辅助；不再使用独立DouliNaginata.prefab。
+  移动配置：NaginataCombat/Config/NaginataMovement.asset；装配工具：NaginataCombat/Editor/NaginataCombatSetup.cs。
+  运行/输入/配置/控制器/攻击动作/特效/装配工具均在 NaginataCombat/；完整操作见该目录使用说明.txt。
+  WASD移动、Shift奔跑、鼠标环绕、左键逐次普通连招、右键重击、数字1–6单招、Esc释放鼠标。
+  保留原Avatar和用户NaginataGrip；握持辅助只调手臂，不覆盖武器Transform。
 
-使用与继续调整
-  在其他场景中拖入 Prefabs/DouliSwordsman.prefab 即可使用。
-  Animator 位于 Character Model，已启用并绑定上述控制器，关闭 Apply Root Motion。
-  动画只驱动 Hunyuan_Douli_Rig/root 以下子骨骼，保留原 Rig/root 和角色容器的变换；无需运行时 IK。
-  武器位于 RightHand/KatanaGrip。保留 KatanaGrip 的握刀偏移、朝向和尺寸，以及其下 Katana 的局部变换。
-  继续调整姿势时也需同步修改动画，避免播放时被动画曲线覆盖。单独拖入模型 FBX 仍显示默认绑定姿态。
+共用资产
+  Characters/Douli/Models/Generic/：原V3 Generic模型。
+  Characters/Douli/Models/Humanoid/：已验证的Humanoid模型及Avatar。
+  Characters/Douli/Materials/ 与 Textures/：角色材质和贴图。
+  Characters/Douli/Animations/Humanoid/：NaginataIdle、NaginataWalk、NaginataRun、NaginataPreviewAttack01、NaginataPreviewAttack03五个.anim；战斗复用前三个，预览使用全部五个。
+  这五个片段来自既有Hammer源动作，项目内名称于2026-10-19统一；第三方原包2Handed_Hammer_Set保留来源原名，通用Combat代码按职责保留名称。
+  Weapons/Uchigatana/：当前2722三角面的初始打刀模型与Prefab。
+  Weapons/Naginata/：Unity现用2694三角面薙刀、Prefab及握持辅助代码；本次未替换成外部V2模型。
 
-验证与限制
-  已完成实际 Play 的 0、0.6、1.2、2.4、3 秒采样及超过两个周期的自由播放检查。
-  循环首尾一致，Rig/root/髋部/脚部无漂移，双手与刀的相对握持稳定；检查时控制台无错误或警告。
-  当前 V3 保留原拓扑、UV、蒙皮权重与贴图；大幅抬腿仍可能穿过前襟，本呼吸动画不改变该限制。
+唯一常驻测试场景
+  Tests/CharacterPreview.unity：实例化唯一完整NaginataCombatPlayer.prefab，只在场景实例上关闭战斗运行组件和CharacterController胶囊、覆盖预览控制器；角色握持辅助保留。
+  独立的 Animation Preview Controls 对象引用角色Animator和相机。
+  Play数字1–5切Idle/Walk/Run/Attack01/Attack03，空格暂停，R重播，左右键环绕。
+  Tools/CharacterPreview/ 保存该场景实际使用的通用工具与控制器。
+  正式场景/Prefab不依赖Tests或预览工具；Tests不保存模型、Prefab、脚本、程序集、截图或报告。
 
-外部源文件（路径相对于 F:/WorkingFiles/OC Design/）
-  斗笠剑士/模型资源/hunyuan-leg-clearance-v3/output/：原 V3 主模型与使用说明。
-  斗笠剑士/模型资源/hunyuan-breathing-idle/output/：当前动画 Blender、完整 FBX、仅动画 FBX 和使用说明。
-  斗笠剑士/模型资源/hunyuan-breathing-idle/analysis/：Unity 接入及运行验证报告。
-  斗笠剑士/图片资源/模型预览/hunyuan-breathing-idle/：MP4、GIF、静态预览及 Unity_HoldKatanaIdle.jpg 场景截图。
-  旧呼吸版本已删除，仅保留当前 3 秒版本。
+外部制作资料
+  工作区 斗笠剑士/模型资源/ 保存角色/武器源文件；动画资源/保存动作源与接入工具。
+  图片资源/保存预览；整理记录/保存必要的简短迁移与恢复结论。
+  旧姿势恢复包保存在 整理记录/Unity切换混元V3/，不参与当前运行。
 
-用户姿势恢复资料
-  斗笠剑士/整理记录/Unity切换混元V3/旧姿势恢复备份.unitypackage 保留旧模型上的原手摆姿势及依赖，不参与当前场景。
-  同目录保留原始姿势快照与保留说明；历史腿部检查场景和 V2 备份已在此前清理中删除。
+限制
+  V3大幅抬腿仍可能穿前襟；薙刀Humanoid动作源于Hammer动作，与原持刀姿势不同，不保证全姿态无穿模。
+  缺少逐指骨骼；平地握持辅助不等于完整武器碰撞或地形系统。
+  战斗尚无敌人、命中/扣血或相机避障。目录迁移与Prefab合并未改变这些功能边界。
+  此前薙刀单Prefab合并和命名统一的结构、引用、保持性和编译检查已完成，六招/五预览的基本Play回归通过；详细结果见NaginataCombat/验证摘要.txt。恢复场景Assets/_Recovery/0.unity保留解除旧视觉Prefab最外层链接后的14网格普通对象NaginataRecoveryPreview，未替换为完整玩家Prefab。

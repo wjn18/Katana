@@ -1,14 +1,18 @@
 # Katana
 
-斗笠剑士的 Unity 演示项目，包含混元 V3 角色、持刀呼吸与行走动画，以及平地移动测试。
+斗笠剑士的 Unity 演示项目，包含打刀 Generic 动画与平地操控，以及薙刀 Humanoid 第三人称战斗。
 
 ## 打开项目
 
-1. 安装 Unity **6000.6.5f1**，在 Unity Hub 中添加仓库根目录。
+1. 安装 Unity **6000.6.5f1**，在 Unity Hub 中添加此项目目录。
 2. 首次打开等待 Unity 还原 `Packages/` 中声明的依赖并导入资源。Git 包依赖需要联网访问 GitHub。
-3. 打开 `Assets/KatanaDemo/Scenes/KatanaCombatDemo.unity`，进入 Play。
+3. 打刀入口为 `Assets/KatanaDemo/UchigatanaCombat/Scenes/UchigatanaCombatDemo.unity`；薙刀入口为 `Assets/KatanaDemo/NaginataCombat/Scenes/NaginataThirdPersonCombat.unity`。
 
-WASD / 方向键移动，R 复位。当前移动用于平地测试，尚未包含重力、碰撞或攻击；角色大幅抬腿仍存在衣物穿模。
+打刀进入 Play 后自动待机，WASD / 方向键慢走，Shift 快走，Ctrl 奔跑，左键单次攻击，R 复位。完整玩家为 `UchigatanaCombat/Prefabs/UchigatanaCombatPlayer.prefab`，独立武器为 `Weapons/Uchigatana/Prefabs/InitialUchigatana.prefab`；两者均有实际引用。
+
+薙刀支持 WASD 移动、Shift 奔跑、鼠标环绕、左键逐次连招、右键重击和数字 1–6 单招。完整操作见 `Assets/KatanaDemo/NaginataCombat/使用说明.txt`。
+
+打刀移动用于平地测试，无重力或碰撞；两种武器当前均无敌人或命中扣血，角色大幅抬腿仍可能出现衣物穿模。当前目录与维护规则见 `Assets/KatanaDemo/资源目录规范.md`。
 
 ## 仓库内容
 
