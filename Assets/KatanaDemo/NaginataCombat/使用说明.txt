@@ -1,0 +1,142 @@
+薙刀普通连段与空中重击
+更新日期：2026-10-19
+
+打开与操作
+打开 Scenes/NaginataThirdPersonCombat.unity，进入 Play，并点击 Game 窗口。
+WASD / 方向键：相对镜头的八方向移动，角色平滑朝移动方向转身。
+Shift：奔跑；默认步行 1.6 米/秒、奔跑 3.2 米/秒。
+鼠标移动：环绕视角；俯角限制 15–65 度。
+鼠标左键：普通攻击从 01 起手，连续点击按 01→02→04→05→06 衔接；停止点击则当前招式完整收招。
+每段最多缓存一次下一段请求，不会把同一点击带到再下一段；不点续招时不会自动播完整套，长按也不会自动连发。
+鼠标右键：用户自改 NaginataHeavyAttack03Fix 空中重击，包含角色胶囊的实际离地、滞空和落地。
+右键只在空闲时接受；普通攻击或重击进行中点击右键会被忽略，不抢断、不缓存。重击中左键同样忽略。
+数字 1–6：单招测试，3 为当前 Fix 重击，其余对应普通招式；数字键触发的单招不接入左键连段。
+Esc：释放鼠标并停止接收操控，不是暂停动画；再次左键点击捕获鼠标，该次点击不会攻击。
+攻击期间停止普通行走，按方向键可在本招跨步窗口内短促移动；首次实际跨步时转向该方向并锁定到本招结束；视角仍可转动。动作结束后按当前输入恢复移动或待机。
+每招第一次真正跨步时，按当时镜头方向与方向键锁定移动方向，并将角色朝向同步转过去；起手时不提前锁定。无方向输入则原地攻击；跨步中松键会急刹，本招内再次按键不重启跨步。
+第6招只在首击跨一步，两次挥击保持同一朝向，第二次回斩原地完成；重击仅在下劈附近加入水平跨步，原垂直腾空曲线保持。
+同帧多键按左键、右键、数字从小到大的顺序取一个请求；第五段不能缓存下一套普通连段。
+普通连段衔接点默认为 01/04 的 60%、02/05 的 62%，续招输入窗口到当前招式的 90%；可在配置中调整。
+动作时间轴为60 fps、非循环，默认运行倍率为1。原六招为120 Hz半帧烘焙；Fix保留用户非均匀关键时序，以更密FBX采样原样导出。
+普通 01/02/04/05/06 的完整片段时长为 1.35/1.416667/1.216667/1.266667/1.616667 秒。
+当前Fix重击为2.75秒，0–1.40秒与旧2.25秒Heavy03保持一致；起跳0.22秒、顶点1.275秒、落稳1.50秒，后段按用户时间调整回守至2.75秒。跳高与姿态沿用用户源；旧Heavy03和原1.80秒第三招的来源资料保留，当前Unity独立片段与状态以“交付与来源”所列为准。
+
+交付与来源
+本目录下 Runtime/ 为运行代码，Editor/ 为装配工具；有结论的一次性回归测试在验收后清理。
+Prefabs/NaginataCombatPlayer.prefab 是唯一完整角色入口，保留原完整玩家Prefab的GUID。内部NaginataVisual保存外观、Avatar、薙刀与握持辅助，独立DouliNaginata.prefab已合并移除；正式依赖已迁出Tests。
+Config/CombatControls.inputactions 为独立输入绑定；不会更改项目已有 InputSystem_Actions。
+Config/NaginataMovement.asset 保存移动参数；五个普通 NaginataAttack 配置保存连段衔接/输入窗口，
+NaginataHeavyAttack03Fix.asset 保存当前重击参数和按Fix时序同步的airborneHeight离地高度曲线。
+Animations/NaginataCombat.controller 是当前角色使用的新控制器；五个普通状态按顺序横向排列，重击状态独立一行。
+Idle/Walk/Run引用../Characters/Douli/Animations/Humanoid/中的NaginataIdle/NaginataWalk/NaginataRun.anim。当前独立攻击片段为01/02/04/05/06及Heavy03Fix；旧Hammer控制器与03/Heavy03独立片段已不存在，不重建。
+当前重击为Animations/NaginataHeavyAttack03Fix.anim；NaginataSources/保存同名导入FBX。旧Heavy03的源FBX与配置仍在，独立.anim已不存在；失效Animator状态已清理。
+2026-10-19项目自有薙刀场景、Prefab、移动配置和五个Humanoid片段统一为Naginata命名；装配类/文件为Editor/NaginataCombatSetup.cs。角色Animator使用NaginataCombat.controller，通用Combat代码仍按职责命名。
+六招源于原包 Humanoid/Inplace/attack01_inplace.fbx–attack06_inplace.fbx，经 Blender 分段重定时，
+收浅身体下沉与胸部摆动，并降低 03 的跳跃高度；四肢 IK 保持相应脚部和手部目标。
+原六招外部交付在斗笠剑士/动画资源/naginata-attacks/output/，预览仍在图片资源/模型预览/naginata-attacks/。
+当前重击源为斗笠剑士/动画资源/naginata-combat/output/NaginataHeavyAttack03Fix.blend及同名.fbx；用户Blend只读原样导出，旧NaginataHeavyAttack03.blend/.fbx保留。
+本轮预览位于 斗笠剑士/图片资源/模型预览/naginata-combat/；打开和重导入说明见各自外部 output/使用说明.txt。
+旧 HammerAttack01_Once.anim、HammerAttack03_Once.anim 及 Attack01/Attack03 配置由六招取代，不再作为当前运行依赖。
+原2Handed_Hammer_Set源包FBX保留来源原名。../Characters/Douli/Animations/Humanoid/中的五个共用片段为NaginataIdle、NaginataWalk、NaginataRun、NaginataPreviewAttack01、NaginataPreviewAttack03；PreviewAttack仅供常驻预览，不替代当前六招。
+完整Prefab默认使用正式NaginataCombat控制器，NaginataVisual保留Avatar、薙刀和TwoHandPolearmGrip；不依赖预览工具。
+NaginataGrip的用户挂点保存在内置NaginataVisual层级中，连段和运动代码不修改该挂点。
+TwoHandPolearmGrip 新增可选 useWorldGround，当前第三人称 Prefab 启用，以实际地面射线防止起跳后辅助地面随角色升高。
+共享脚本的该选项默认关闭；常驻预览场景沿用原平地辅助行为。辅助仍只调整手臂/手腕，不覆盖武器 Transform。
+唯一常驻预览场景为../Tests/CharacterPreview.unity，实例化同一个NaginataCombatPlayer.prefab；只在场景实例上关闭战斗运行组件和CharacterController胶囊、覆盖预览控制器，保留握持辅助。角色/武器资源归正式目录，Generic角色保持。
+演示场景未加入或替换现有 Build Settings；需要打包时手动选择此场景。
+
+代码职责
+Runtime/Input/CombatInputSource.cs：输入抽象；控制器只依赖操作意图，可替换为 AI 或回放输入。
+Runtime/Input/CombatInputFrame.cs：不可变单帧快照，默认值不会触发攻击。
+Runtime/Input/CombatPlayerInput.cs：Input System 适配、私有动作实例、按下边沿和焦点/鼠标生命周期。
+Runtime/CombatActorController.cs：组合入口；固定顺序协调输入、攻击、运动与动画，绑定场景相机。
+Runtime/CombatCharacterMotor.cs：CharacterController 位移、水平转向、加减速、重力、攻击跨步与基于重击进度的真实离地运动。
+Runtime/CombatAnimationDriver.cs：唯一 Animator 写入入口、五段顺序与一次续招缓存；以当前/目标动画实际进度协调跨步、重击高度和伤害窗口开关。
+Runtime/CombatMovementSettings.cs / CombatAttackDefinition.cs：只存配置，不存每个角色的运行状态。
+Runtime/Camera/CombatOrbitCamera.cs：独立相机，接收 Look 意图并在 LateUpdate 平滑跟随玩家容器。
+Runtime/CombatControlsOverlay.cs：可单独移除的演示操作提示。
+Runtime/OCDesign.Combat.asmdef：独立运行程序集，仅依赖 Unity 与 Input System，不依赖旧预览脚本。
+各组件包含中文 XML 摘要、关键逻辑注释和 Inspector 参数说明。
+
+跨步与预留伤害窗口
+配置保存在当前6个CombatAttackDefinition（01、02、Heavy03Fix、04、05、06）。stepSpeed横轴是本招归一化动画时间，纵轴是目标速度（米/秒）；起步为平方增长，出招段维持较高速度，末段急减至0。加速度为18＋目标速度×10米/秒²，普通制动90米/秒²，重击制动130米/秒²；窗口结束后水平速度归零。
+damageWindows为Vector2[]，每项x/y是归一化开始/结束时间；06有两个分离窗口，中间不开放判定。下表为运行倍率1时对应的秒数，峰值是配置目标速度，不是实测距离或碰撞后的速度。
+
+动作        伤害窗口（秒）            跨步开始/峰值/结束（秒）   目标峰速（米/秒）
+01          0.42–0.56                 0.34 / 0.45 / 0.63         4.5
+02          0.36–0.52                 0.28 / 0.40 / 0.59         4.0
+04          0.27–0.44                 0.20 / 0.31 / 0.51         3.8
+05          0.33–0.53                 0.25 / 0.38 / 0.60         4.2
+06          0.26–0.41、0.94–1.16      0.19 / 0.30 / 0.48         4.0（仅首击）
+Heavy03Fix  1.34–1.46                 1.26 / 1.35 / 1.51         6.2
+
+01/02/04/05的配置窗口结束安排在各自下一段衔接点之前；06作为最后一招，回斩保留第二伤害窗口但没有第二次跨步。
+目前只提供窗口查询和开关事件，没有敌人、命中碰撞或扣血实现。CombatAnimationDriver.IsDamageWindowActive表示当前是否开放，ActiveDamageWindowIndex表示窗口索引（关闭后为-1），DamageWindowChanged(attack, serial, bool)通知对应攻击和出招序号的开关。
+后续伤害模块可用CombatAttackDefinition.GetDamageWindow(index)读取时间范围，以Driver.AttackSerial区分每次出招，并自行记录命中目标去重；需要06两段分别命中时可再结合窗口索引。现阶段不在Driver或Motor内施加伤害。
+
+后续扩展
+调手感：编辑NaginataMovement的速度/加减速/转速，编辑相机的距离/灵敏度/跟随时间。
+改按键：编辑 CombatControls.inputactions，保持 Gameplay 与现有 Action 名称即可。
+替换招式：给新的非循环动画建 Animator 状态；在对应攻击资产填完整状态路径和速度。
+调连段：普通配置的 Combo Link Normalized 为最早衔接点，Combo Input Close Normalized 为最后续招输入时刻。
+调重击：airborneHeight 横轴为归一化动画时间、纵轴为玩家胶囊离地米数；曲线首尾保持零高度。
+当前数组固定为六项，顺序 01、02、重击03、04、05、06；若增加新招，需同步驱动器顺序/验证和输入映射。
+接入 AI：继承 CombatInputSource，返回移动/攻击意图，调用 actor.Configure 注入。
+新场景：放入角色 Prefab 与带 CombatOrbitCamera 的 Camera；调用 BindCamera 或在 Inspector 绑定。
+  只有未显式绑定时才在 Start 查询一次 Camera.main；不要把相机挂成角色的子对象。
+新增伤害系统时使用独立战斗模块管理命中窗口和伤害，避免塞进输入或 CharacterMotor。
+当前 Animator 参数约定：MoveSpeed(float，0/1/2 对应 Idle/Walk/Run)、AttackSpeed(float)。
+当前状态路径：Base Layer.Locomotion、Base Layer.NaginataAttack01/02/04/05/06、Base Layer.NaginataHeavyAttack03Fix；旧失效Base Layer.NaginataHeavyAttack03状态已在此前目录整理时清理。
+输入 Attack01–Attack06 对应单招测试数组 0–5；PrimaryAttack 输出起手/续招意图，SecondaryAttack 仅输出重击意图。
+状态间由 AnimationDriver 单一管理，不依赖动画事件或另一套自动过渡条件。
+
+装配与测试
+用户Fix重导入使用外部动画资源/naginata-combat/下的export_user_fix.py → import_user_fix_unity.cs.txt → connect_user_fix_unity.cs.txt。
+export_user_fix.py只读取用户Blend并导出/验证；不能用build_heavy_attack.py重建或替代Fix。后两份为定向Unity Editor方法体，应在Edit环境按其检查条件执行。
+Editor/NaginataCombatSetup.cs提供菜单OC Design > Combat > Create Or Update Naginata Demo，检查五个普通.anim和独立重击.anim后，
+定向同步正式控制器、攻击配置、数字键绑定及Prefab攻击数组；不重建已不存在的旧HammerCombat.controller。
+装配器保留现有 Locomotion、用户移动参数与武器挂点；仅在场景缺失时新建场景，最后打开演示场景。
+工具不生成旧锤击副本，不调用全局 AssetDatabase.SaveAssets；当前场景有未保存修改时不会执行装配。
+需要回归时使用临时EditMode/PlayMode测试，完成后按目录规范清理；先前OCDesign.Combat.Tests测试程序集已在资源归组收尾移除，不是常驻运行依赖。
+测试使用真实交付Prefab/控制器/Avatar；PlayMode通过可控输入源推进真实帧，且隔离于用户场景。2026-10-19单Prefab合并和命名统一已完成结构、引用与保持性检查，Unity编译完成、NaginataCombatSetup新类已加载、Console无error；六招/五预览的基本Play回归通过，不能把此前目录归组或功能测试直接记作本轮运行通过。
+恢复场景Assets/_Recovery/0.unity解除旧视觉Prefab最外层链接，保留14个网格的普通场景对象NaginataRecoveryPreview，未替换成完整玩家Prefab；常驻CharacterPreview仍复用唯一完整玩家Prefab。
+验证结论和限制见同目录 验证摘要.txt。
+Fix替换阶段（本轮跨步之前）的导出10/10、Unity Edit10/10、Play11/11通过，离地曲线2430点映射误差最大1.43e-6米；外部analysis/user_fix_export.json、unity_user_fix_integration.json、unity_user_fix_tests.json为对应历史报告，不作为本轮跨步验证。
+旧Heavy03的Blender11/12、保持性6/6、Unity Edit10/10和Play11/11均是历史结果，与本轮Fix报告分开保留。
+
+当前范围与限制
+实现方向移动、奔跑、第三人称镜头、五段普通连段、攻击跨步和空中重击，预留伤害窗口查询/事件；没有敌人、命中碰撞、扣血、锁定或闪避。
+CharacterController 有基础重力、碰撞和重击起跳；没有独立自由跳跃、移动平台、复杂地形贴合或相机避障。
+演示场地用于平地验证。镜头跟随角色容器，不跟随翻转攻击的髋部，以保持视角稳定。
+Root Motion关闭；攻击跨步通过CharacterController.Move推进玩家容器，重击同时按独立高度曲线改变世界高度。
+高度跟随动画实际进度，顶碰后停止上升并恢复重力；重击中断时以重力落地，不瞬移到地面。
+空中骨骼姿态与容器高度同时作用于最终画面，需结合当前主角检查腾空和落斩效果。
+原衣物/逐指/握持辅助的限制仍在，视觉检查不代表所有动作和视角完全无穿模。
+镜头沿用既有默认 16:9 配置；极窄纵横比或新增障碍需要再调镜头。
+默认输入面向单个本地键鼠玩家；手柄、多玩家与运行时重绑 UI 尚未实现。
+
+薙刀风切特效（2026-10-19）
+NaginataCombatPlayer.prefab的CombatBladeRibbon覆盖当前六招，材质沿用已验收第一招的青白细亮刀弧。
+发射窗口（动画原速秒）：01 0.36–0.59；02 0.30–0.60；Heavy03Fix 1.28–1.49；04 0.21–0.50；05 0.27–0.56；06 0.20–0.44及0.88–1.19。发射结束后残留0.13秒。
+在最终握持辅助完成后采真实刀刃世界轨迹；06两段、连招换招及中断分别清空，不把蓄势接成光面。材质深度测试、无贴图、无命中火星或爆炸。
+数字1–6可单招查看，左键连招/右键重击沿用原操作；动画、控制器、移动、伤害窗口与武器挂点保持。
+菜单OC Design > Combat > Install Naginata Blade Wind (All Six)可定向重装；类名Attack01VfxSetup保留兼容。
+详细参数、实际Play GIF、验证与回退记录见外部斗笠剑士/动画资源/naginata-vfx/output/使用说明.txt；预览在斗笠剑士/图片资源/模型预览/naginata-vfx/。
+
+重击落地反馈（2026-10-19）
+Heavy03Fix在落地前6帧开始向前传播黑色地裂，少量灰褐低尘沿裂纹顺序冒出；按数字3或右键查看。此效果替代此前的青白冲击圆环。
+CombatLandingImpact仅在重击下降阶段只读预测未来0.10秒的接地，确认地面后提前6帧（按60 fps为0.10秒）同时启动地裂与低尘，每次重击仅一次。提前发射时将角色前向和世界落点锁定到预测地面；实际接地只补记、不重复触发，也不重新锁定落点或方向。裂纹向前逐段显露、短暂残留后淡出，不随玩家移动或转向漂移。外观与尺寸、传播和消退参数保持，以当前组件和外部任务说明为准。
+中断、Animator或组件禁用、切换出招会清空效果，普通五招不触发。预测只读查询未来接地与地面，不推进或改写Motor运动、胶囊位置和动画；LastCollisionFlags继续用于实际碰撞观测。
+菜单OC Design > Combat > Install Heavy Landing Impact可定向装配。继续使用独立组件、两材质与VFX/Shaders/GroundImpact.shader；VFX/HeavyLandingRing.mat已移动更名为VFX/HeavyLandingFracture.mat，保持GUID并使用Mode 2，VFX/HeavyLandingDust.mat负责低尘。
+本轮动画、控制器、武器挂点、移动和六招刀光保持。地裂为贴近地面的片状视觉网格，不修改地形、不产生物理裂口，当前适用于平地；复杂台阶、边缘和地形贴合需另行适配。
+当前工具、说明与记录见外部斗笠剑士/动画资源/naginata-ground-fracture/；图片预览在同角色图片资源/模型预览/naginata-ground-fracture/。naginata-heavy-impact/及其同名图片目录保留已被替代圆环的历史资料与回退，非当前效果。六招刀光资料继续使用naginata-vfx/。
+
+API 参考
+Unity CharacterController.Move（位移不自动施加重力）：
+https://docs.unity3d.com/ScriptReference/CharacterController.Move.html
+Unity Input System InputAction（按下边沿与动作生命周期）：
+https://docs.unity3d.com/Packages/com.unity.inputsystem@1.20/api/UnityEngine.InputSystem.InputAction.html
+
+上一阶段清理记录：旧第三人称 HammerAttack01_Once.anim / HammerAttack03_Once.anim 及meta、旧Config/Attack01.asset / Attack03.asset及meta已删除；原包与当时独立Hammer测试资源保留。这些是当时的清理与验证记录；当前五个共用片段及唯一完整Prefab按上文命名，本轮合并验证另见验证摘要.txt。
+
+地裂提前发射功能阶段的历史结果：PlayMode 12/12通过；双镜头60 fps实录的首次裂纹网格均精确提前6帧：斜侧86→92、游戏镜头85→91（发射→接地），发射时角色胶囊均尚未接地。该阶段回归覆盖下降期提前发射、实际接地与发射相差约0.10秒、提前发射后中断清空且接地不补发，以及六招刀光；不作为2026-10-19单Prefab合并的验证结论。

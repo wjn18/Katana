@@ -1,0 +1,6 @@
+{
+  "name": "OCDesign.Combat",
+  "rootNamespace": "OCDesign.Combat",
+  "references": ["Unity.InputSystem"],
+  "autoReferenced": true
+}

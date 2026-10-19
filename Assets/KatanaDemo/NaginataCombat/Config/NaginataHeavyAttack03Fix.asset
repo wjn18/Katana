@@ -1,0 +1,221 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 263a372a71e52bb4b83c2a23ea4fbde0, type: 3}
+  m_Name: NaginataHeavyAttack03Fix
+  m_EditorClassIdentifier: OCDesign.Combat::OCDesign.Combat.CombatAttackDefinition
+  displayName: Naginata Heavy Attack 03 Fix
+  statePath: Base Layer.NaginataHeavyAttack03Fix
+  playbackSpeed: 1
+  blendInSeconds: 0.08
+  lockMovement: 1
+  lockRotation: 1
+  comboLinkNormalized: 0.6
+  comboInputCloseNormalized: 0.9
+  airborneHeight:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.08
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.18181819
+      value: 0.96
+      inSlope: 5.753175
+      outSlope: 5.753175
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.34545454
+      value: 1.3
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.45454547
+      value: 1.3
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.47272724
+      value: 1.2477953
+      inSlope: -5.3165865
+      outSlope: -15.94976
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.48363635
+      value: 1
+      inSlope: -25.339281
+      outSlope: -25.339281
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.49333334
+      value: 0.68
+      inSlope: -31.058825
+      outSlope: -31.058825
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5090909
+      value: 0.18670994
+      inSlope: -25.926817
+      outSlope: -8.642272
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5181818
+      value: 0.115186594
+      inSlope: -7.023748
+      outSlope: -21.071243
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.52
+      value: 0.08
+      inSlope: -17.558825
+      outSlope: -17.558825
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5212121
+      value: 0.060547225
+      inSlope: -14.584362
+      outSlope: -4.861454
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.530303
+      value: 0.026226945
+      inSlope: -2.7846978
+      outSlope: -8.354094
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.53333336
+      value: 0.008176029
+      inSlope: -3.8466094
+      outSlope: -1.2822031
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.54242426
+      value: 0.001173906
+      inSlope: -0.35397005
+      outSlope: -1.0619102
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.54545456
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  comboConfigurationVersion: 1
+  stepSpeed:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.45818183
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.4909091
+      value: 6.2
+      inSlope: 378.88873
+      outSlope: -23.249996
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5309091
+      value: 5.27
+      inSlope: -23.249996
+      outSlope: -289.85028
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5490909
+      value: 0
+      inSlope: -289.85028
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  stepBaseAcceleration: 18
+  stepSpeedAccelerationGain: 10
+  stepBraking: 130
+  damageWindows:
+  - {x: 0.48727274, y: 0.5309091}
+  attackTimingConfigurationVersion: 1

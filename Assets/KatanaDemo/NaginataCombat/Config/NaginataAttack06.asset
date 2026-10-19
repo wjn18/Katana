@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 263a372a71e52bb4b83c2a23ea4fbde0, type: 3}
+  m_Name: NaginataAttack06
+  m_EditorClassIdentifier: OCDesign.Combat::OCDesign.Combat.CombatAttackDefinition
+  displayName: Naginata Attack 06
+  statePath: Base Layer.NaginataAttack06
+  playbackSpeed: 1
+  blendInSeconds: 0.08
+  lockMovement: 1
+  lockRotation: 1
+  comboLinkNormalized: 0.6
+  comboInputCloseNormalized: 0.9
+  airborneHeight:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  comboConfigurationVersion: 1
+  stepSpeed:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.11752577
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.18556702
+      value: 4
+      inSlope: 117.575745
+      outSlope: -8.818183
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.25360826
+      value: 3.4
+      inSlope: -8.818183
+      outSlope: -78.52382
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.29690722
+      value: 0
+      inSlope: -78.52382
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  stepBaseAcceleration: 18
+  stepSpeedAccelerationGain: 10
+  stepBraking: 90
+  damageWindows:
+  - {x: 0.16082473, y: 0.25360826}
+  - {x: 0.5814433, y: 0.7175257}
+  attackTimingConfigurationVersion: 1

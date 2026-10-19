@@ -1,0 +1,80 @@
+2026-10-19 薙刀单Prefab与命名统一（结构、编译及基本Play回归通过）
+本轮入口为Scenes/NaginataThirdPersonCombat.unity和唯一Prefabs/NaginataCombatPlayer.prefab；完整玩家GUID沿用原值，外观合入内部NaginataVisual，不再交付独立DouliNaginata.prefab。
+移动配置为Config/NaginataMovement.asset，装配类/文件为Editor/NaginataCombatSetup.cs；五个共用Humanoid片段统一为NaginataIdle/Walk/Run和NaginataPreviewAttack01/03，第三方2Handed_Hammer_Set来源原名保留。
+CharacterPreview实例化唯一完整Prefab，并以场景覆盖关闭战斗运行组件和CharacterController胶囊、切换预览控制器，握持辅助保留。Assets/_Recovery/0.unity解除旧视觉Prefab最外层链接，保留14个网格的普通场景对象并命名NaginataRecoveryPreview；该恢复对象未改成完整玩家Prefab。
+已确认：独立DouliNaginata.prefab及meta删除，NaginataCombat/Prefabs/仅保留唯一完整角色；9项改名的meta与GUID保持，58个角色Transform逐项一致、Avatar一致；5个anim除各自单个m_Name外原文保持，86个保护文件哈希保持。
+引用检查：全Assets旧视觉GUID引用为0，运行资源旧Hammer名称残留为0；正式依赖不落在Tests或Tools。原第三方2Handed_Hammer_Set保留来源名，历史文档中的旧名称不作为运行残留。
+Unity编译完成，NaginataCombatSetup新类已加载，Console无error。实际Play基本回归通过：六招全部观察到目标状态、播放进度超过1并返回Locomotion，缺失脚本为0；重击根节点升高约1.30000007米。五个预览状态全部匹配且时间推进，场景上的战斗组件和CharacterController胶囊均保持禁用。
+已查看重击空中与预览Idle截图，角色、材质和薙刀正常加载。本轮范围为六招和五个预览状态的播放回归，未重跑旧完整输入/碰撞测试，不据此宣称全姿态无穿模。临时后台运行开关已恢复原false。
+收尾已退出Play并回到Edit，活动场景为NaginataThirdPersonCombat.unity，isDirty=false、isCompiling=false、runInBackground=false；Prefab缺失脚本为0，Console error/warning均为0。简短记录：工作区斗笠剑士/整理记录/薙刀Prefab精简与命名统一-2026-10-19.json。
+以下2026-10-19目录整理和各功能验证均为合并前历史记录，其中“三个角色Prefab”等计数、旧文件名及“当前”措辞只对应其记录时点，不作为本轮结构或运行验证。
+
+2026-10-19 资源目录整理验证（当前）
+场景/Prefab/控制器按KatanaCombat、NaginataCombat归组，共用角色与武器分别归Characters/Douli、Weapons。
+正式运行依赖已迁出Tests；唯一常驻测试场景为Tests/CharacterPreview.unity，通用预览工具在Tools/CharacterPreview/。
+三个角色Prefab全部局部变换与整理前完全一致；三个场景无缺失脚本、材质、蒙皮骨骼引用。
+60个正式资产的递归依赖检查通过，均不引用Tests或预览工具。原模型、贴图、动画片段、材质和保留资源的.meta字节一致。
+EditMode10/10；PlayMode首轮25/26，校正临时测试对极低跨步速度阈值的误判后，连招定向复测1/1；共36个独立检查项已有通过结果。
+常驻预览场景五动作实际播放通过，原战斗运行代码未改；控制器仅删除引用已不存在动画的旧重击状态，七个有效状态数据保持。
+一次性测试脚本、模拟输入、测试程序集和本次验证工具均已清理，清理后项目独立编译通过。
+规范见../资源目录规范.md；完整简短迁移记录见工作区斗笠剑士/整理记录/Unity资源归组-2026-10-19.json。
+以下为先前各功能接入的历史验证，资源现状以本节和当前目录为准。
+
+攻击跨步与预留伤害窗口（2026-10-16，当前运行版本）
+六招在出伤害前约0.07–0.08秒开始短促跨步，速度平方增长到峰值，随后高速挥击，挥击窗口结束后0.05–0.07秒内刹停。
+按方向键才跨步；第一次实际移动时按镜头相对方向同步设置移动方向与角色朝向，锁向至本招结束。松键急刹，本招不重新起步，下一招跨步时重新取方向。
+第六招只有首击的一次跨步，回斩原地，两次挥击保持相同朝向；各有独立damageWindows，中间关闭。
+角色移动通过CharacterController.Move处理碰撞；重击保持Fix的2.75秒动画和1.30米根高度曲线，只在下劈附近加入水平跨步。
+跨步初次接入（同步转向细化前）：Unity EditMode10/10、PlayMode14/14，合计24/24通过；PlayMode用时43.313秒。
+同步转向细化后：PlayMode14/14重新通过（43.542秒），覆盖首次跨步同帧转向、前摇保留朝向、换键/转镜头/松键/收招不改向、下一招重新定向及无输入原地保向。
+第六招首窗后改按反方向，第二斩位移保持在2毫米容差内，两次伤害开启时根朝向差小于0.02度。报告：analysis/attack_step_facing_tests.json。
+真实帧六招01/02/HeavyFix/04/05/06跨步距离为0.717/0.705/0.835/0.687/0.875/0.646米，实际峰速4.398/3.948/5.911/3.736/4.173/3.922米每秒。
+距离为本次空旷平地、完整持键和播放倍率1测得；方向输入时机、帧率与碰撞会影响实际距离。
+覆盖四向与斜向等速、窗口外站定、晚按键、方向锁定、松键0.15秒内急刹、本招不重启、连段重新选向、真实墙碰及原有浮空/顶碰/中断恢复。
+伤害接口覆盖每窗一开一关、同一serial不重复、06两窗间隔、跳帧跨窗、外部动画打断与Driver禁用立即关闭；只预留API，不包含敌人、命中检测或扣血。
+当前六配置新增stepSpeed/加速度/制动/damageWindows；原动画、旧重击配置、Animator控制器、Prefab和场景保持。
+报告：动画资源/naginata-combat/analysis/attack_step_configuration.json、attack_step_tests.json、attack_step_preservation.json。
+
+以下为Fix动画接入阶段的历史验证；动画来源与保留关系继续有效。
+用户 Fix 重击接入验证（2026-10-16）
+右键与数字3使用 NaginataHeavyAttack03Fix：完整2.75秒，60fps，非循环，播放倍率1。
+来源为用户手改的 动画资源/naginata-combat/output/NaginataHeavyAttack03Fix.blend，原文件只读导出。
+旧 NaginataHeavyAttack03 的 Blender/FBX/anim/config 和 Animator 状态全部保留，原五个普通攻击绑定保持。
+Fix 自身动作前1.40秒保持，落地姿态改至1.50秒，后段收招延长；角色胶囊高度按同一时间映射同步，峰值仍1.30米。
+Blender 导出回查10/10；1981姿态最大骨骼位置/转角误差约0.0412毫米/0.0128度。
+高度映射2430采样最大差1.43e-6米。Unity EditMode10/10、PlayMode11/11通过，PlayMode用时42.712秒。
+本轮覆盖Fix资源/实际Prefab绑定、旧状态与资源保留、五连段、重击真实起落、同帧再次起跳、中断和顶碰恢复。
+预览332点采样挂点位置/旋转/缩放差均0；左手目标全部可达，最大握持轴误差约0.190毫米，杆轴端点最低离地约0.183米。
+独立预览：图片资源/模型预览/naginata-combat/NaginataHeavyAttack03Fix.gif 与同名jpg。视觉采样不代表所有视角无穿模。
+本轮报告：动画资源/naginata-combat/analysis/user_fix_export.json、unity_user_fix_tests.json、user_fix_height_validation.json。
+测试与预览完成时Console错误0；之后发现用户已进入Play，保留该播放状态，不自动停止或保存运行场景。
+
+以下为旧2.25秒重击的历史验证，不能替代上方Fix检查。
+薙刀普通连段与空中重击验证摘要
+日期：2026-10-16
+
+本轮范围
+新 NaginataCombat.controller 使用五个普通状态和独立 NaginataHeavyAttack03；旧 HammerCombat.controller 和原六个 NaginataAttack 片段保留。
+左键连续点击顺序为 01→02→04→05→06，单次缓存下一段；没有续点则当前招完整收招，持键不自动连发。
+右键只在空闲时触发独立重击，忙时不抢断、不排队；数字 1–6 为单招测试，3 映射新重击。
+新重击片段 2.25 秒、时间轴 60 fps、实际 120 Hz 半帧烘焙；空中蓄势保持，下劈0.45秒压为0.15秒（约3倍），实际跳高约为上一版两倍。
+角色胶囊通过 CharacterController.Move 实际离地，曲线以 Animator 当前/目标状态的归一化进度为时钟。
+TwoHandPolearmGrip 的可选 useWorldGround 仅在第三人称 Prefab 开启，避免辅助地面跟随起跳上升；原独立测试默认行为保持。
+
+本轮测试
+Unity EditMode 10/10、PlayMode 11/11，合计 21/21 通过；本次提速/增高后 PlayMode 用时 40.31 秒，测试后 Console errors=0。
+EditMode 覆盖移动方向、默认输入、输入绑定、新控制器五个普通片段/独立重击及交付场景配置。
+PlayMode 以正式倍率 1 推进真实帧，覆盖六招单独播放与恢复、完整五段顺序、单击只一招、一次缓存不溢出、运动锁与拒绝重击抢断，
+以及真实胶囊1.3米跃升（峰值检查1.1–1.4米）、滞空/落地、重击中断后重力恢复且不瞬移、顶碰停止上升、组件中断/恢复、重击结束同帧再次起手也能重新起跳和挂点保持。
+本轮画面预览目录：斗笠剑士/图片资源/模型预览/naginata-combat/。
+本轮外部源和检查资料：斗笠剑士/模型资源/naginata-combat/。
+
+保留与历史边界
+原六招及上一阶段的单招验证保留在 模型资源/naginata-attacks/，其检查结果与本轮连段/空中重击测试分开。
+更早的 HammerAttack01_Once/HammerAttack03_Once 及旧 Attack01/Attack03 配置已在上一阶段确认无引用后删除。
+本轮保留旧 HammerCombat.controller、原 NaginataAttack03 1.80 秒片段、原包 FBX、独立 Hammer 测试资源和正式 Generic 角色。
+
+限制
+现有衣物、斗笠与长杆交叠、抬腿接近前襟及逐指握持问题仍需按最终动作和视角观察。
+普通 06 的源末姿残差继续由回 Idle 过渡处理；关键姿态或采样数值不代表连续时间完全无穿模。
+没有伤害、命中、敌人、独立自由跳跃或复杂地形适配；相机仍无避障。

@@ -20,8 +20,11 @@ MonoBehaviour:
     rid: 5695937847775199305
   m_ActivePlatformGuid: 
   m_AdditionalPlatformBuildSettings: []
-  m_OverrideGlobalSceneList: 0
-  m_Scenes: []
+  m_OverrideGlobalSceneList: 1
+  m_Scenes:
+  - m_enabled: 1
+    m_path: Assets/KatanaDemo/NaginataCombat/Scenes/NaginataThirdPersonCombat.unity
+    m_guid: 234d5cfafaa77c248a51a5d29c134696
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
