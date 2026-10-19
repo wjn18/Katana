@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/KatanaDemo/Scenes/KatanaCombatDemo.unity
+    path: Assets/KatanaDemo/UchigatanaCombat/Scenes/UchigatanaCombatDemo.unity
     guid: 4244c15630a215d40b9483090eeee079
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
