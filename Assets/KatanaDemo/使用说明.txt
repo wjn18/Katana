@@ -53,3 +53,5 @@
   缺少逐指骨骼；平地握持辅助不等于完整武器碰撞或地形系统。
   战斗尚无敌人、命中/扣血或相机避障。目录迁移与Prefab合并未改变这些功能边界。
   此前薙刀单Prefab合并和命名统一的结构、引用、保持性和编译检查已完成，六招/五预览的基本Play回归通过；详细结果见NaginataCombat/验证摘要.txt。恢复场景Assets/_Recovery/0.unity保留解除旧视觉Prefab最外层链接后的14网格普通对象NaginataRecoveryPreview，未替换为完整玩家Prefab。
+
+2026-10-20 新增独立打刀 Humanoid 战斗模块：Katana/Assets/KatanaDemo/SamuraiCombat/，入口 Scenes/SamuraiCombatDemo.unity。包含完整玩家 SamuraiCombatPlayer.prefab、训练对手 SamuraiTrainingOpponent.prefab 与独立武器装配 SamuraiUchigatana.prefab；共用已有Humanoid模型/Avatar和2722三角面打刀网格，不替换原Generic打刀或薙刀角色。ARPGSamurai原包只读；23个派生动画通过Blender MCP处理RootT.x/z为0，其他128条曲线保持，Idle/Walk/Run/Guard循环。WASD行走、Shift奔跑、左键四段连击、右键点重击/长按1.5秒蓄力松开、空格八向闪避、F原地格挡、T训练敌人/木桩、R复位；含命中/伤害、耐力、完美格挡/破防、受击死亡和后摇取消。外部制作在斗笠剑士/动画资源/samurai-combat/，图片在图片资源/模型预览/samurai-combat/。根曲线Blend不含完整角色姿态场景；后续完整姿态调整仍通过Blender MCP。当前Play集成131/131通过，已检查关键姿势与实际AI攻击；衣物、斗笠和逐指限制保留，详情以模块使用说明及外部验证报告为准。

@@ -1,0 +1,99 @@
+斗笠 · ARPG Samurai 独立战斗系统（2026-10-20）
+
+入口
+打开 Scenes/SamuraiCombatDemo.unity，进入 Play。点击游戏画面捕获鼠标。
+玩家 Prefabs/SamuraiCombatPlayer.prefab；训练对手 Prefabs/SamuraiTrainingOpponent.prefab。
+武器 Prefabs/SamuraiUchigatana.prefab 是独立装配副本，共用现有2722三角面的低模打刀网格/材质。
+角色沿用共享斗笠Humanoid模型/Avatar，分别拥有独立完整角色和武器实例。
+原UchigatanaCombat、NaginataCombat、角色模型和第三方动画包不由本模块修改。
+
+操作
+WASD / 方向键：相机相对行走，3米/秒。
+Shift + 方向：奔跑，5米/秒，持续消耗耐力；耗尽后转步行，恢复15%耐力可再次跑。
+鼠标移动：未锁定时环绕；滚轮：缩放；相机有环境球形避障。
+Tab / 鼠标中键：锁定或解除屏幕中心附近的敌人。12米内获取，超过14米、死亡、隐藏或持续被墙遮挡0.35秒时解除。
+锁定时镜头同时跟随双方；移动与闪避方向保持相机相对，角色面朝敌人，侧移/后退使用对应方向动画。攻击只在每段开始瞄准，出招后不持续追踪转向。
+左键：普通攻击。每段有效窗口再次点击接下一段，最多缓存一段，完整顺序Combo1→2→3→4。
+长按左键不自动连击；停止点击会完整收招。攻击前摇和命中段锁定普通移动。
+右键轻点后松开：重击。按住进入蓄力，1.5秒充满后松开释放蓄力斩。
+蓄力准备动画只播放一次，之后保持末帧；满蓄攻击不可格挡。若满蓄时耐力不足38但够26，降级普通重击。
+空格：按方向八向闪避；无方向输入时后撤。2.3米位移由CharacterController驱动，遇墙停止。
+F：持续按住为原地正面格挡；正面半角65°。新举防后的0.20秒内首次受到可格挡的正面攻击，即完美格挡／弹反：不扣生命或防御耐力，敌人硬直1.1秒，玩家播放Parry并在0.28秒恢复后可反击。
+弹反与完美格挡是同一机制，没有独立Q键。举防窗口冷却0.7秒，长按或冷却中连按不刷新窗口；窗口外继续普通格挡。举防本身不额外扣耐力，普通挡刀仍按命中扣除耐力。
+攻击命中段结束后的取消窗口允许用闪避或格挡取消后摇，前摇不能随意取消。
+受击打断攻击或蓄力；格挡扣耐力，耐力耗尽破防并损失部分生命。背后及不可格挡攻击直接受击。
+T：切换主动训练敌人 / 木桩。主动敌人在交战间隙保持约1.9–2.3米中心距，有限侧移观察；预警时接近约1.35米出招，收招后退回约2.1米。
+过近时后退；玩家进攻时选择格挡或撤离；耐力低于28%退避，恢复至58%再主动进攻。遇墙、无落脚面或目标逃离时调整侧移或取消预警。到达容差0.04米，避免精确浮点距离导致停滞。
+R：重置双方生命、耐力、位置与姿态。死亡后仍可复位。
+Esc：释放鼠标并清空锁定及尚未发出的蓄力/格挡/缓存；再次点击仅捕获鼠标，不顺带攻击。R及失焦也解除锁定。
+失焦后不发起新的敌方攻击；已在播放的动作会继续完成。
+
+参数与代码
+Config/SamuraiPlayer.asset 和 TrainingOpponent.asset：移动速度、生命、耐力、格挡及相机无关的战斗参数。
+Config/Combo1–4.asset、Heavy.asset、Charged.asset、Dodge*.asset：伤害、耐力、跨步、命中/连接/取消/无敌窗口。
+普通攻击伤害20/24/27/35，耐力12/14/16/19；重击40/26；满蓄65/38；闪避耐力22。
+玩家第一段Combo1跨步1.00米（原0.30米），时段仍为归一化0.04–0.34，命中窗0.12–0.34不变，继续使用刀刃轨迹判定。位移走CharacterController，近身和墙体会截停；不是必须走满1米。训练对手第一段使用独立Config/TrainingCombo1.asset，仍跨步0.30米，复用同一Combo1动画/状态，其他连段配置保持。
+普通连段连接归一化时间约0.3673/0.5000/0.4231；这些点接近原包下一段起姿，短混合衔接。
+Runtime/SamuraiCombatant.cs：角色组合入口，保存场景引用、组装服务并转发兼容接口/事件；不再集中实现全部战斗算法。
+SamuraiActionController：动作状态、连段、蓄力、取消与输入缓存；SamuraiAnimationDriver：Animator播放/进度及八方向步态；SamuraiCharacterMotor：胶囊移动、重力、转向与动作跨步。
+SamuraiVitals：生命/耐力与恢复；SamuraiDefense：F持防、完美格挡窗口与冷却；SamuraiDamageResolver：伤害、防御和受击反应结算。
+WeaponTrailDetector：独立几何查询器，只返回Collider接触，不依赖角色或伤害规则；SamuraiWeaponAttack：有效窗口、阵营过滤、每招去重与受击接口适配。
+上述服务是普通C#对象，由SamuraiCombatant创建，不需要逐个挂到GameObject。配置仍为原ScriptableObject，已有Prefab与场景引用继续使用。
+SamuraiPlayerInput、SamuraiTrainingEnemy：键鼠与AI各自提交一帧意图，不能再加第二个Tick驱动。
+SamuraiOrbitCamera、SamuraiCombatHUD：镜头、生命耐力和敌方预警；SamuraiPlayerPresentation管理独立玩家所需相机/HUD的创建与清理。
+SamuraiTargetLock：按需搜索屏幕内敌方活目标，以屏幕中心优先；持续锁定只检查当前目标。
+SamuraiBehaviorTree提供独立Selector/Sequence等节点，SamuraiEnemySensors负责视线、路径和落脚面查询，SamuraiTrainingEnemy组合优先策略：不可战斗→动作承诺→受击恢复→恢复间距→防守反应→预警进攻→接近→间距观察。它生成输入，不直接移动角色Transform。
+刀刃采用武器挂点轨迹ShapeCast：BladeBase/BladeTip为随武器运动的虚拟Transform，不添加武器Collider或Rigidbody。LateUpdate读取动画完成后的世界位置，裁剪Animator有效攻击窗口，再沿刀根、刀尖和刀身插值点逐条执行上一帧→当前帧的Physics.SphereCastNonAlloc；半径0.13米，沿刀身插值点间距不超过该半径。高速位移不再受原32个离散时间样本限制。
+起始刀位用OverlapCapsuleNonAlloc补偿Cast不报告的初始重叠与静止接触。各轨迹在最近环境碰撞处截断，身体和接触时刀根另作遮挡检查；按接触时间结算，成功弹反会立即停止本招后续伤害。受击体仍是对手CharacterController胶囊，每次出招对每个目标只结算一次，过滤同队、死亡、停用目标与Trigger；缓冲区满时回退到完整查询。当前无分部位伤害。
+轨迹在相邻动画采样姿态之间作直线插值，属于带厚度的武器轨迹近似；不能还原极低帧率下两次采样之间未观察到的完整转动弧线。连段切换、受击、闪避/格挡取消、复位或停用会清除旧轨迹，避免跨动作连线伤人。
+Scene判定显示：打开Scene视图的Gizmos。青色胶囊为当前刀位和检测半径，Base/Tip标出挂点；Play出招时黄色显示有效窗口内的查询轨迹，最近一帧显示各条SphereCast厚度。红点为实际伤害接触，绿点为格挡/弹反/闪避接触；黄色查询范围本身不表示已造成伤害。
+角色根对象上的独立WeaponTrailGizmos组件可关闭显示或调整历史保留时间（默认0.8秒，最多256段）；暂停Play可停住轨迹查看。Game视图即使开启Gizmos也不会绘制这些标记；记录和绘制逻辑只在编辑器编译，绘制阶段不执行物理检测。实现为Runtime/WeaponTrailGizmos.cs，可移除而不影响战斗；原SamuraiCombatant.Gizmos.cs的partial实现已移除。
+新敌人可复用SamuraiCombatant.ReceiveHit；其他受击对象可实现ISamuraiDamageReceiver，不必继承SamuraiCombatant。StateChanged/HitReceived/HitDealt/Died继续兼容，DamageDealt新增通用受击对象与命中点事件。
+新动作需同时配置ActionDefinition、对应Animator状态和经过Blender处理的Humanoid片段。
+职责、调用顺序和新增技能/特效/可破坏物示例见同目录《架构与扩展说明.txt》。
+Editor/SamuraiCombatSetup.cs 是本模块显式装配工具；重建会重设本模块默认参数/Prefab，调参后不要随意执行。
+独立玩家Prefab放入其他场景时使用已有MainCamera的朝向；没有主相机则生成自有环绕相机及HUD。完整训练场仍以上述场景为入口。
+
+动画与来源
+Animations/ 中38个派生Humanoid .anim，由Blender MCP执行外部prepare_inplace_blender.py生成。本轮新增Parry与7向Walk、7向Run；前向沿用原Walk/Run。
+原包为 Assets/ARPGPack/ARPGSamurai/Animations/Humanoid/；移动优先选IPC版本。
+Blender FCurve将Humanoid Body RootT.x/z统一设0，保留RootT.y、RootQ转体/翻滚和其余128条曲线。
+Idle、各方向Walk/Run、Guard循环；Parry、Charge、所有出招/受击/死亡均不循环。
+状态关闭Foot IK，因为原包脚部IK目标曲线保留原样；Animator Apply Root Motion关闭。
+移动、攻击跨步及闪避全部移动完整玩家根与胶囊；动画只表现相对身体动作，不再产生数米根位移。
+外部工具与来源：工作区 斗笠剑士/动画资源/samurai-combat/。
+output/Samurai_InPlace_Roots.blend保存首版23段，Samurai_Defense_Roots.blend保存本轮新增15段根曲线处理工程；它们不是完整角色动作场景。继续编辑身体动作时用原Generic FBX take经Blender修改并重新适配Humanoid。
+该方案保留Unity肌肉序列化，避免一次无必要的FBX往返改变Humanoid重定向。
+
+验证与限制
+以下数字属于各自制作阶段的历史验证，不代替模块拆分后的回归结果；当前验证摘要另见同目录《验证摘要.txt》。
+武器轨迹ShapeCast更新阶段：41/41项真实PhysX边界检查通过，覆盖64米单帧横穿、刀刃中段旋转、起始/静止接触、整窗跨越与裁剪、去重/过滤、墙体、弹反先后顺序、状态打断及70目标缓存溢出。另在实际Play内手动驱动真实Animator/CharacterController，以30/60/144Hz分别验证四段普攻、重击、蓄力斩，18/18均单次命中且伤害正确。59个动画/控制器/配置/Prefab/场景资产哈希保持；该阶段一次性验证工具已清理。报告见外部analysis/weapon_trail_validation.json。
+首版Play集成131/131与输入48/48属于初始制作验证，详见历史报告。
+弹反与锁定扩展阶段Play集成39/39通过，涵盖合并F窗口/冷却/反击、方向动画、锁定丢失、遮挡、AI出招与后撤，另含30/60/144Hz及距离容差回归。虚拟输入22/22通过：F、Tab/中键、清锁、捕获隔离、方向分离。虚拟设备检查不代表实体键鼠或操作系统焦点的人工验收。
+首版独立动画检查23/23；弹反与方向移动新增片段15/15通过，水平根曲线归零，其他肌肉/高度/旋转曲线与时长保持源文件。
+训练敌人实际自由运行已完成接近、出招、命中和击败玩家；姿势预览在角色图片资源/模型预览/samurai-combat/。
+这些检查不等于所有姿态无穿模。斗笠、前襟/披风在翻滚、深蹲和大幅挥刀时仍有接触/穿插；原模型没有独立逐指动画，左手握柄不能保证每帧严密贴合。
+当前为可玩的单人训练战斗基础：有伤害、碰撞、敌人和防御；不含导航寻路、联网、存档、装备背包、完整关卡或音效/技能特效系统。
+
+刀光首版（2026-10-20）
+玩家与训练对手的四段普攻、重击、蓄力斩均已挂载青白刀光，沿实际BladeBase/BladeTip采样，正常Update/LateUpdate即可显示。独立表现组件为Runtime/SamuraiBladeRibbon.cs；角色Inspector中的各招配置可调整发射窗口、残留时间、强度与刀刃覆盖比例。
+VFX/SamuraiBladeWind.mat为独立材质，共用NaginataCombat/VFX/Shaders/BladeWindRibbon.shader。Editor/SamuraiBladeVfxSetup.cs提供菜单“OC Design/Samurai/Install Blade Wind”，只定向安装两个完整角色Prefab及材质，不重建战斗；重新安装会按工具默认值配置各招刀光。
+26/26项手动Play真实Animator采样检查通过，包含30/60/144 Hz下六招18组及连段、打断、复位、禁用、蓄力检查；另已捕获并查看六招正常实时Play画面，首版待用户试玩反馈。外部制作资料在斗笠剑士/动画资源/samurai-vfx/，预览在图片资源/模型预览/samurai-vfx/。动画、模型、伤害、移动配置及旧薙刀效果保持。
+
+蓄力与完美释放（2026-10-20）
+按住右键时刀身逐渐变亮，1.5秒满蓄后以3.5 Hz柔和脉冲闪烁；满蓄后的0.25秒窗口内进一步强化。当前有效时间为[1.5,1.75)秒，只出现一次，继续持有不会刷新。窗口内松开且有足够耐力成功释放Charged，生命伤害由65变为130，耐力伤害不变；窗口外满蓄释放仍为65，耐力不足回退Heavy不触发暴击。提前释放和直接请求Charged同样不触发完美释放。
+窗口提示为“PERFECT RELEASE - 2X DAMAGE”，暴击攻击提示为“CRITICAL x2”。玩家暴击释放时出现0.5秒蓝紫屏幕裂纹，无黑底，边缘压暗参数edgeDarkening为0.065；普通释放不显示屏幕裂纹。
+Runtime/SamuraiChargeBladeGlow.cs负责双Prefab刀身光，Runtime/SamuraiCriticalScreenFlash.cs仅挂在玩家上；材质分别为VFX/SamuraiChargeBlade.mat与VFX/SamuraiCriticalScreen.mat。Profile中的chargeCriticalWindowSeconds与chargeCriticalDamageMultiplier控制窗口和倍率。Editor/SamuraiChargeVfxSetup.cs菜单“OC Design/Samurai/Install Charge Effects”定向装配，保留已有刀光和战斗参数，不重建战斗。
+本轮57/57项检查分为42项核心与15项表现；核心包含边界、30/60/144 Hz、耐力回退、中断复位及倍率不继承，伤害检查以合成端点执行真实PhysX与ReceiveHit，不能当作完整动画命中全流程验证。正常Update实时截图已查看。外部说明与报告位于斗笠剑士/动画资源/samurai-charge-vfx/；图片及用户参考位于图片资源/模型预览/samurai-charge-vfx/。
+
+重击反馈与蓄力冲刺镜头（2026-10-20）
+右键点按重击、长按后松开蓄力斩沿用原操作。实际结算为命中、击杀或破防时，攻击者与受击角色局部停顿：重击0.075秒、蓄力0.14秒；普通格挡结算停顿减半。空挥、闪避、完美格挡/弹反以及普攻不触发这套反馈。同一招攻击者和镜头只触发一次，每个实际受击角色各自停顿。
+停顿冻结对应角色动画、战斗Clock、位移/重力、AI决策计时及武器采样；结束后恢复进入停顿前的Animator.speed，全局Time.timeScale保持。期间的攻击按下/松开、闪避等输入边沿会缓存，恢复后仍由原动作窗口决定是否执行；R复位可立即清除停顿。
+玩家参与重击命中时，镜头默认旋转震屏0.17秒/0.8°；蓄力为0.27秒/1.35°。震屏继续使用真实时间推进，可在局部顿帧中呈现；真正暂停游戏时不推进。震屏从Orbit每帧无震屏姿态叠加，不改变相机位置、锁定和碰撞逻辑。
+蓄力斩的冲刺镜头读取Charged当前stepStart/stepEnd，并按玩家真实水平位移速度渐入，默认最多增加14°视野及-0.22 LensDistortion。当前相机基础FOV为48°。墙前静止、局部顿帧、冲刺结束、取消/复位或禁用时恢复普通视野与此前后处理状态；运行时独立Volume仅作用于玩家镜头，不修改全局Volume资产。
+SamuraiImpactFeedback挂在玩家与训练对手完整Prefab，SamuraiCombatCameraFeedback挂在场景相机；PlayerInput.Start同时补齐运行时相机接线。重装使用Editor/SamuraiImpactFeedbackSetup.cs菜单“OC Design/Samurai/Install Impact And Rush Feedback”，需处于已保存的SamuraiCombatDemo编辑场景，只定向安装相关组件，保留既有战斗、刀光与镜头调参。
+外部操作、verify_impact/verify_camera/capture_live工具及检查位于斗笠剑士/动画资源/samurai-impact-vfx/，图片位于斗笠剑士/图片资源/模型预览/samurai-impact-vfx/。本轮66/66项分层检查通过（核心40项、镜头26项）：核心使用合成刀端执行真实PhysX→DamageDealt→反馈链，镜头使用临时克隆的真实CharacterController位移、墙阻挡及动作采样；不等同全部正式动画命中验证。另已确认正式动画正常Update实时命中：Heavy伤害40、双方停顿0.075秒，暴击Charged伤害130、双方停顿0.14秒；画面已检查，详见samurai-impact-vfx/analysis/live_capture.json。分项报告为同任务analysis/impact_validation.json与camera_feedback_validation.json。
+
+
+蓄力近身命中修复（2026-10-20）
+Charged沿用原刀轨，增加前方0.8米表面距离、55°半角的近身补偿，覆盖既有0.10–0.42伤害窗内的身体路径；普通攻击/Heavy不启用，伤害65/130、4米跨步与0.14秒命中停顿保持。操作不变；完整参数、距离/偏移矩阵及实时验证统一见工作区斗笠剑士/动画资源/samurai-charged-hit/output/使用说明.txt，本轮摘要见同目录《验证摘要.txt》。

@@ -1,0 +1,41 @@
+using UnityEngine;
+
+namespace OCDesign.Samurai
+{
+    /// <summary>F持防、按下边沿、完美格挡窗口与冷却；不控制动画或生命。</summary>
+    public sealed class SamuraiDefense
+    {
+        readonly SamuraiCombatProfile profile;
+        float raisedAt = float.NegativeInfinity, readyAt;
+        bool consumed;
+        public bool GuardHeld { get; private set; }
+        public bool FreshPress { get; private set; }
+        public SamuraiDefense(SamuraiCombatProfile profile) { this.profile = profile; }
+        public void Reset()
+        {
+            GuardHeld = FreshPress = consumed = false;
+            raisedAt = float.NegativeInfinity; readyAt = 0f;
+        }
+        public void ReadInput(bool held, bool pressed)
+        {
+            FreshPress = held && (pressed || !GuardHeld);
+            GuardHeld = held;
+        }
+        public void TryRaise(float now, bool fresh)
+        {
+            if (!fresh || !GuardHeld || now < readyAt) return;
+            raisedAt = now; consumed = false;
+            readyAt = now + Mathf.Max(profile.parryActiveSeconds, profile.parryCooldownSeconds);
+        }
+        public bool WindowOpen(float now, bool guardState) => GuardHeld && guardState && !consumed
+            && now >= raisedAt && now - raisedAt < Mathf.Max(.01f, profile.parryActiveSeconds);
+        public float CooldownRemaining(float now) => Mathf.Max(0f, readyAt - now);
+        public void ConsumeWindow() => consumed = true;
+        public void CloseWindow() => raisedAt = float.NegativeInfinity;
+        public void CancelInput()
+        {
+            GuardHeld = FreshPress = false; consumed = true;
+            CloseWindow(); // 冷却不会因松键、失焦或动作切换清零。
+        }
+    }
+}

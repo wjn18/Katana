@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd39590d26de9c4291373becd55be53, type: 3}
+  m_Name: Combo4
+  m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiActionDefinition
+  clip: {fileID: 7400000, guid: d30740fe7f5591d42b35700d08b9900d, type: 2}
+  stateName: Combo4
+  damage: 35
+  staminaDamage: 50.75
+  staminaCost: 19
+  unblockable: 0
+  damageStart: 0.12
+  damageEnd: 0.48
+  comboInputStart: 0.06
+  comboInputEnd: 0.84
+  comboLink: 0.76
+  cancelStart: 0.56
+  stepDistance: 0.5
+  stepStart: 0.04
+  stepEnd: 0.48
+  invulnerableStart: 0.1
+  invulnerableEnd: 0.58

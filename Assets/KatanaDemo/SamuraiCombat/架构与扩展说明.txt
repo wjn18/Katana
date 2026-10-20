@@ -1,0 +1,175 @@
+SamuraiCombat 架构与扩展说明
+更新：2026-10-20
+本文相对路径以 Assets/KatanaDemo/SamuraiCombat 为基准。
+
+一、使用方式与组成
+
+SamuraiCombatant 是角色组合入口（门面），挂在角色根对象上，继续保存 Animator、CharacterController、Profile、BladeBase、BladeTip 和阵营引用。它在初始化时创建普通 C# 服务、连接事件，并保留既有输入、AI、HUD使用的公开接口。
+
+普通 C# 服务不是 MonoBehaviour，不需要也不能逐个拖到 GameObject：
+- SamuraiActionController：动作状态、连段、蓄力、取消窗口、闪避输入缓存和动作时钟。
+- SamuraiCharacterMotor：CharacterController移动、重力、转向、动作步进与复位。
+- SamuraiAnimationDriver：Animator状态播放/查询、八方向片段选择、方向迟滞和步态相位衔接。
+- SamuraiVitals：生命、耐力、消耗与恢复延迟；实现只读ISamuraiVitalsView。
+- SamuraiDefense：F按下边沿、持防、完美格挡窗口、消费与冷却；不直接扣血或播放动画。
+- SamuraiDamageResolver：普通受击、闪避、格挡、完美格挡、破防和死亡规则；通过ISamuraiCombatReactions请求反应。
+- SamuraiWeaponAttack：攻击有效窗口、轨迹采样、阵营过滤、单招去重、遮挡和向受击对象提交伤害。
+- WeaponTrailDetector：只做胶囊重叠、刀身虚拟点SphereCast及遮挡查询，返回按接触时间排序的几何结果；不知道生命、动作、阵营或SamuraiCombatant。
+- SamuraiEnemySensors：敌人的视线、移动路径和落脚面检查。
+- SamuraiBehaviorTree中的节点：通用ConditionNode、ActionNode、Sequence和Selector，不依赖Unity或角色类型。
+- SamuraiPlayerPresentation：独立玩家所需默认相机/HUD的创建与清理，由玩家输入组件管理生命周期。
+
+需要挂在场景对象上的组件：
+- SamuraiCombatant，以及Animator、CharacterController等场景组件。
+- 玩家使用SamuraiPlayerInput；训练对手使用SamuraiTrainingEnemy。每个角色只能有一个Tick输入驱动。
+- SamuraiTargetLock负责选择和保持锁定目标。
+- SamuraiOrbitCamera、SamuraiCombatHUD负责镜头和UI。
+- WeaponTrailGizmos是可选观察组件，挂在角色根对象上，独立开关；仅Scene视图记录/绘制，不参与命中结算。
+
+SamuraiCombatProfile和SamuraiActionDefinition仍为ScriptableObject配置资产。运行服务共享配置引用，各角色的当前生命、耐力、窗口、缓存与命中集合分别保存在服务实例内。原角色Prefab的SamuraiCombatant字段和脚本GUID继续沿用。
+
+二、调用方向与时序
+
+输入或AI
+  → SamuraiInputFrame
+  → SamuraiCombatant.Tick
+  → SamuraiActionController
+  → 动作许可/连段时序，以及移动、动画、耐力、防御服务
+
+Unity完成Animator骨骼求值
+  → SamuraiCombatant.LateUpdate
+  → EvaluateWeaponContacts
+  → SamuraiWeaponAttack.Sample
+  → WeaponTrailDetector.Query / Obstructed
+  → ISamuraiDamageReceiver.ReceiveHit
+  → 对手的SamuraiDamageResolver
+  → 对手生命/耐力及ISamuraiCombatReactions
+
+动作切换会取消旧轨迹；新攻击开始才建立新一招采样。命中回调若触发弹反、状态打断或切换招式，攻击编号和轨迹版本检查会终止旧查询的后续结算，不将旧刀位写回新动作。
+
+普通运行只由LateUpdate采样一次。手动模拟或验证时，可在Tick、Animator.Update和Physics.SyncTransforms之后调用EvaluateWeaponContacts；不要再在正常Update额外调用它。
+
+三、对外接口
+
+Runtime/SamuraiCombatContracts.cs集中定义输入帧、状态/命中结果、伤害数据及接口。
+
+actor.Vitals：ISamuraiVitalsView，只读生命/耐力和Changed事件。
+actor.Actions：ISamuraiActionView，只读状态/当前动作/攻击编号，并提供TryStartAttack合法动作请求。
+actor.Movement / actor.Animation：较低层的移动和动画服务入口；正常战斗统一由动作协调器使用，扩展时避免多个模块同时驱动同一胶囊或Animator。
+actor.Weapon：武器攻击适配服务，可观察SweepQueried、ContactResolved和HistoryCleared事件。
+
+角色事件：
+- StateChanged(string)：动作状态变化，可驱动准备、挥砍、受击等表现；事件发生时按状态名判断，不假设动作配置已完成后续赋值。
+- HitReceived(SamuraiHitResult)：自身受击结算结果。
+- HitDealt(SamuraiCombatant, SamuraiHitResult)：兼容原角色对角色通知。
+- DamageDealt(ISamuraiDamageReceiver, SamuraiHitResult, Vector3)：通用目标及世界命中点，适合新命中特效、音效或战斗日志。
+- Died()：死亡通知。
+
+订阅者应成对订阅/取消订阅。Configure会重建服务并重置角色；若直接订阅某个服务实例，在重新Configure之后需重新取得引用。通常表现功能优先订阅SamuraiCombatant上的稳定事件。
+
+四、新增技能或攻击
+
+同类型近战技能通常只需：
+1. 创建SamuraiActionDefinition资产，填写对应Animator状态名、片段、伤害、耐力、命中窗口、位移和取消窗口。
+2. 在角色Animator Controller中加入对应状态，确保状态名一致。
+3. 动画若需要编辑，仍通过Blender MCP制作并保持in-place，再按现有流程接入。
+4. 在现有输入或技能请求入口调用下面的方法；技能自己的冷却/解锁条件由技能模块管理。
+
+示例（命名空间OCDesign.Samurai；在角色初始化之后调用）：
+
+bool TrySkill(SamuraiCombatant actor, SamuraiActionDefinition skill, Vector3 direction)
+{
+    return actor.Actions != null
+        && actor.Actions.TryStartAttack(skill, -1, direction);
+}
+
+-1表示独立攻击，不进入普通连击序号。请求只在角色可行动状态接受，还会检查动作配置、Animator状态和耐力；返回false时不要先行扣除技能资源或播放成功特效。
+已有四段普攻与蓄力释放由SamuraiActionController在合法窗口内部提交。需要新增跳跃、施法等全新状态时，在协调器中明确其时序/打断规则，再调用已有服务；不要从输入脚本直接改Animator状态来绕过战斗时序。
+技能入口不应额外调用第二次Tick，否则会重复推进移动、恢复和时间。
+
+五、接命中特效、音效或飘字
+
+把表现写在独立MonoBehaviour中，订阅actor.DamageDealt。例如回调签名：
+
+void OnDamage(ISamuraiDamageReceiver target, SamuraiHitResult result, Vector3 point)
+{
+    if (result == SamuraiHitResult.Hit || result == SamuraiHitResult.Killed)
+        SpawnHitEffect(point);
+}
+
+SpawnHitEffect由自己的对象池/表现模块实现。格挡、完美格挡、闪避使用各自结果分支；几何接触不等于实际伤害，不能对所有事件统一播放流血。需要受击方音效可订阅HitReceived；命中点由DamageDealt提供。
+刀光如需直接观察检测轨迹，可订阅actor.Weapon.SweepQueried；只作表现，不在回调里再次伤害目标。不要在绘制Gizmos时执行物理查询。
+
+六、新增可破坏物或其他受击对象
+
+在带有启用的非Trigger Collider的根对象上，实现ISamuraiDamageReceiver。Collider可以位于其子对象；所在Layer必须包含在攻击者Profile.hitMask中。每个受击根返回统一接口实例，多个子碰撞体仍按同一目标去重。
+
+示例：
+
+public sealed class BreakableTarget : MonoBehaviour, ISamuraiDamageReceiver
+{
+    [SerializeField] int team = 1;
+    [SerializeField] float health = 50f;
+    public Transform DamageRoot => transform;
+    public int Team => team;
+    public bool CanReceiveDamage => isActiveAndEnabled && health > 0f;
+
+    public SamuraiHitResult ReceiveHit(SamuraiDamageHit hit)
+    {
+        if (!CanReceiveDamage || (hit.Source != null && hit.Source.Team == Team))
+            return SamuraiHitResult.Ignored;
+        health = Mathf.Max(0f, health - Mathf.Max(0f, hit.Damage));
+        return health <= 0f ? SamuraiHitResult.Killed : SamuraiHitResult.Hit;
+    }
+
+    public void Stagger(float seconds) { }
+}
+
+此类需要using UnityEngine和using OCDesign.Samurai。示例不包含模型破碎/销毁，由自身表现和生命周期处理；非角色可选择忽略Stagger。需要格挡等完整规则的新角色可复用SamuraiDamageResolver与相关服务，或直接使用现有完整角色组件。
+SamuraiTargetLock与训练AI当前仍以SamuraiCombatant为角色目标；自定义可破坏物已经能被武器命中，但要成为锁定或AI目标，仍需扩展相应目标选择规则。
+
+七、单独复用武器几何查询
+
+WeaponTrailDetector是完全独立于本战斗角色的几何查询器。创建自己的实例，实现IWeaponTrailFilter.IsTarget/IsEnvironment，提交WeaponTrailSweep中的上一帧/当前帧Base、Tip和Radius，然后调用Query(sweep, hitMask, obstructionMask, filter)。
+Query返回IReadOnlyList<WeaponTrailContact>，包含Collider、世界接触点、该时刻刀根和归一化轨迹时间。结果使用查询器内部缓冲，只在下一次Query或QuerySector之前有效；不要长期保存该列表，也不要在遍历期间用同一实例递归查询。过滤器应只判断，不修改场景或重新发起检测。
+几何层保留不同刀身轨迹上的接触，由上层完成视线检查和按受击目标去重。角色战斗直接使用SamuraiWeaponAttack即可获得现有有效窗口、阵营及伤害适配。
+
+2026-10-20新增QuerySector供Charged近身补偿：按最近表面距离和水平夹角筛选，结果仍复用同一缓冲；此查询的Time为距离/reach的排序值，BladeBase为查询原点，不代表刀轨接触时间/实际刀根。SamuraiWeaponAttack先完成原轨迹结算，再将身体路径裁入伤害窗按有界间距查询扇区，复用ResolveContacts与同一targets去重。配置与本轮边界见工作区斗笠剑士/动画资源/samurai-charged-hit/output/使用说明.txt。
+
+八、修改入口速查
+
+连段/蓄力/取消/新动作状态：SamuraiActionController
+走跑/重力/胶囊/冲刺位移：SamuraiCharacterMotor及Profile/ActionDefinition参数
+八方向动画和混合播放：SamuraiAnimationDriver
+生命、耐力、恢复：SamuraiVitals
+F窗口和冷却：SamuraiDefense
+格挡伤害、破防、受击规则：SamuraiDamageResolver
+刀刃SphereCast/初始重叠/几何遮挡：WeaponTrailDetector
+有效窗口裁剪、单招去重、受击接口：SamuraiWeaponAttack
+Scene轨迹显示：WeaponTrailGizmos
+敌人决策：SamuraiTrainingEnemy；环境检测：SamuraiEnemySensors；通用树节点：SamuraiBehaviorTree
+键鼠意图：SamuraiPlayerInput；锁定：SamuraiTargetLock
+相机/HUD：SamuraiOrbitCamera、SamuraiCombatHUD；默认展示对象生命周期：SamuraiPlayerPresentation
+
+本次拆分保留现有操作、参数、动画和武器轨迹算法。完整操作与模型/动画限制见《使用说明.txt》，验证结果见《验证摘要.txt》。
+
+九、独立刀光表现（2026-10-20）
+
+Runtime/SamuraiBladeRibbon.cs只读取SamuraiCombatant动作状态、Animator进度与实际BladeBase/BladeTip，在LateUpdate生成世界空间残迹；正常Update/LateUpdate流程可用，不提交战斗Tick，不修改命中窗口、骨骼或移动。玩家与训练对手均配置四段普攻、重击和蓄力斩；连段、打断、复位及禁用时清除旧轨迹。新增攻击通过组件AttackProfile配置发射窗口、残留时间、强度与覆盖比例。
+材质VFX/SamuraiBladeWind.mat独立于薙刀材质，共用NaginataCombat/VFX/Shaders/BladeWindRibbon.shader。Editor/SamuraiBladeVfxSetup.cs的菜单“OC Design/Samurai/Install Blade Wind”只定向挂载两个完整角色Prefab与材质，不运行SamuraiCombatSetup重建战斗；重新安装会恢复工具中的各招刀光默认配置。
+26/26项手动Play真实Animator采样检查通过，含30/60/144 Hz六招18组及连段、打断、复位、禁用、蓄力检查。外部资料位于斗笠剑士/动画资源/samurai-vfx/，预览位于图片资源/模型预览/samurai-vfx/；六招实时Play画面已捕获并查看，见analysis/live_capture.json，首版待用户试玩反馈。动画、模型、伤害、移动配置及旧薙刀效果保持。
+
+十、蓄力与完美释放（2026-10-20）
+
+SamuraiActionController以Charge状态经过时间判定一次性窗口；当前chargeSeconds=1.5、chargeCriticalWindowSeconds=0.25，范围[1.5,1.75)。仅在窗口内松开、确实选择charged且成功提交时锁定IsCriticalAttack与AttackDamageMultiplier；chargeCriticalDamageMultiplier默认2。早放、超时、耐力不足回退heavy或直接TryStartAttack均不暴击。Enter/中断/死亡/复位清除快照，SamuraiWeaponAttack.BeginSwing保存本招倍率，仅乘生命Damage，不修改共享ActionDefinition或耐力伤害；当前Charged为65→130。
+ISamuraiActionView与SamuraiCombatant公开ChargeElapsedSeconds、IsChargeCriticalWindowOpen、IsCriticalAttack、AttackDamageMultiplier。SamuraiCombatant.CriticalAttackStarted在ActiveAction、攻击序号和武器倍率快照就绪后每招触发一次；StateChanged发生较早，继续用于清理表现，不用于读取新攻击最终快照。
+独立SamuraiChargeBladeGlow在双Prefab实际刀身上显示渐亮、满蓄3.5 Hz柔和脉冲及窗口强化；SamuraiCriticalScreenFlash仅订阅玩家完美释放事件，显示0.5秒蓝紫屏幕裂纹（edgeDarkening=0.065，无黑底）。HUD提示“PERFECT RELEASE - 2X DAMAGE”和“CRITICAL x2”。独立材质为VFX/SamuraiChargeBlade.mat、VFX/SamuraiCriticalScreen.mat。Editor/SamuraiChargeVfxSetup.cs提供“OC Design/Samurai/Install Charge Effects”，只装配相关组件并保存新增参数，保留前轮刀光参数，不重建战斗。
+外部任务为斗笠剑士/动画资源/samurai-charge-vfx/，预览及用户参考在图片资源/模型预览/samurai-charge-vfx/。42核心与15表现检查通过；核心伤害使用合成端点的真实PhysX/ReceiveHit，不等同完整动画命中全流程。正常Update实时截图已查看，证据分别保存为analysis/charge_validation.json、visual_state_validation.json、live_charge_capture.json。
+
+十一、命中停顿与冲刺镜头（2026-10-20）
+
+SamuraiHitStop是独立纯服务，保存/恢复Animator.speed并用真实时间计时，不修改Time.timeScale。SamuraiCombatant持有服务，公开IsHitStopped、HitStopRemaining、ApplyHitStop/AdvanceHitStop/ClearHitStop；停顿时不推进动作Clock、移动重力或武器采样，缓存输入边沿并在恢复后交回原状态机。SamuraiTrainingEnemy在停顿期间冻结决策计时。复位、状态切换和禁用负责清理，真正暂停时不推进停顿计时。
+SamuraiImpactFeedback独立订阅DamageDealt，只接受heavy/charged的Hit、Killed、GuardBroken、Blocked结果；默认0.075/0.14秒，Blocked乘0.5。受击角色逐个停顿，攻击者和镜头按AttackSerial每招去重；空挥、闪避和弹反没有成功命中反馈。它不更改伤害、检测窗口或ActionDefinition。双完整Prefab均挂此组件；玩家攻击或玩家受击时调用对应玩家相机的PlayImpact(bool charged)。
+SamuraiCombatCameraFeedback独立于Orbit，在LateUpdate(500)使用Orbit.UnshakenRotation叠加旋转震屏；Orbit只补充无震屏姿态与ViewReset事件，保留原跟随、锁定、缩放和碰撞。组件接口为Configure(orbit,player)、PlayImpact(bool)、ClearFeedback及SampleNow(scaledDt,realDt)。重击默认0.17秒/0.8°，蓄力0.27秒/1.35°；冲刺读取当前charged的stepStart/stepEnd与真实水平速度，最多+14° FOV、-0.22 LensDistortion。静止、顿帧、冲刺结束及取消时恢复广角，复位/禁用清除震屏。
+镜头使用运行时独立Volume/Profile和必要的URP相机数据，在目标相机渲染回调内启用畸变，恢复原renderPostProcessing与volumeLayerMask；禁用时销毁自身创建的对象，不改共享Volume资产。主要诊断属性为IsShaking、RushStrength、ActualPlanarSpeed、FieldOfViewOffset、LensDistortionAmount、ShakeRemaining和HasRuntimeVolume。
+Editor/SamuraiImpactFeedbackSetup.cs的“OC Design/Samurai/Install Impact And Rush Feedback”定向安装双Prefab及已保存的SamuraiCombatDemo场景相机，不调用完整战斗重建。PlayerInput.Start在既有展示相机准备好后补齐反馈组件，支持运行时相机回退。外部维护工具verify_impact、verify_camera、capture_live与检查归斗笠剑士/动画资源/samurai-impact-vfx/，图片归同角色图片资源/模型预览/samurai-impact-vfx/；本轮66/66项分层检查通过（核心40项、镜头26项）：核心使用合成刀端执行真实PhysX→DamageDealt→反馈链，镜头使用临时克隆的真实CharacterController位移、墙阻挡及动作采样；不等同全部正式动画命中验证。另已确认正式动画正常Update实时命中：Heavy伤害40、双方停顿0.075秒，暴击Charged伤害130、双方停顿0.14秒；画面已检查，详见samurai-impact-vfx/analysis/live_capture.json。分项报告为同任务analysis/impact_validation.json与camera_feedback_validation.json。

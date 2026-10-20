@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd39590d26de9c4291373becd55be53, type: 3}
+  m_Name: DodgeBackward
+  m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiActionDefinition
+  clip: {fileID: 7400000, guid: 7598c7313024b684abc9c7bfbea41027, type: 2}
+  stateName: DodgeBackward
+  damage: 0
+  staminaDamage: 0
+  staminaCost: 22
+  unblockable: 0
+  damageStart: 1
+  damageEnd: 1
+  comboInputStart: 0.06
+  comboInputEnd: 1
+  comboLink: 1
+  cancelStart: 0.72
+  stepDistance: 2.3
+  stepStart: 0.03
+  stepEnd: 0.59
+  invulnerableStart: 0.08
+  invulnerableEnd: 0.55
