@@ -2052,6 +2052,11 @@ MonoBehaviour:
     lifetime: 0.15
     strength: 1.4
     bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: 325d10cb42b4499418d8d326d0fe1d34, type: 2}
+    emissionWindow: {x: 0.28, y: 0.59499997}
+    lifetime: 0.115
+    strength: 1.15
+    bladeCoverage: 1
 --- !u!114 &3601454403677555144
 MonoBehaviour:
   m_ObjectHideFlags: 0

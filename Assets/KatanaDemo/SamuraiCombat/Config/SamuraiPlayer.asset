@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiCombatProfile
   idle: {fileID: 7400000, guid: 251dd85d78a27f54ab45a0a7c166e39a, type: 2}
   walk: {fileID: 7400000, guid: 5ca7c3793ab11344fa98109bffc39bad, type: 2}
-  run: {fileID: 7400000, guid: e8947475ad1807d4696c6e31912230ad, type: 2}
+  run: {fileID: 7400000, guid: cb7be613d2ba5a248ace28bcbaa3c838, type: 2}
   guard: {fileID: 7400000, guid: 58476a545e367d14dba01c313cea1a7f, type: 2}
   guardHit: {fileID: 7400000, guid: 0734e1a7135b0414c91c6a178bc06840, type: 2}
   guardBreak: {fileID: 7400000, guid: a237a6f5e761583428d108f8276bf757, type: 2}
@@ -32,14 +32,14 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 25ebcd014e172314cbf966b5037e57ff, type: 2}
   - {fileID: 7400000, guid: eb60fb85cec7110488fd7c81a8ea1ad1, type: 2}
   directionalRun:
-  - {fileID: 7400000, guid: e8947475ad1807d4696c6e31912230ad, type: 2}
-  - {fileID: 7400000, guid: 519d723adc03e0844a188a4c554297b9, type: 2}
-  - {fileID: 7400000, guid: 677bf57c74d8ba64387dece4a4733252, type: 2}
-  - {fileID: 7400000, guid: d376f3c44eec9b943bd9c94e279d9e23, type: 2}
-  - {fileID: 7400000, guid: 1873190ee0d51b742992062989b697b7, type: 2}
-  - {fileID: 7400000, guid: 79bd6447fdad05b40a7be40b935b4938, type: 2}
-  - {fileID: 7400000, guid: 49969b670d0226f4ca0051cc95640730, type: 2}
-  - {fileID: 7400000, guid: b1e5991cb3998a04da29a451473b6f23, type: 2}
+  - {fileID: 7400000, guid: cb7be613d2ba5a248ace28bcbaa3c838, type: 2}
+  - {fileID: 7400000, guid: df7b948e54418ef4a95be1827ad30a0a, type: 2}
+  - {fileID: 7400000, guid: 4471da4cc9a08b74fab3c70859c787a9, type: 2}
+  - {fileID: 7400000, guid: fc6d99c711747264397bfaa37f2d65a1, type: 2}
+  - {fileID: 7400000, guid: dae3b616c8ba5e84e9743a3e0b53da5a, type: 2}
+  - {fileID: 7400000, guid: 390d7565e03fff44c96a8e51c806ff18, type: 2}
+  - {fileID: 7400000, guid: ee6de4ca8314d11468ad5f6c41a17a10, type: 2}
+  - {fileID: 7400000, guid: d3b547614f0230d4694ce405f29cd843, type: 2}
   combo:
   - {fileID: 11400000, guid: 58b29f1d81a38a14c8679e3ffb84c5fe, type: 2}
   - {fileID: 11400000, guid: 3adf3ee4d01cbc641bfdc803f7224a3c, type: 2}
@@ -47,6 +47,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8fcd6d44b6f9542449abb9df8f3bbbcf, type: 2}
   heavy: {fileID: 11400000, guid: cdc489df93282f546a65dd78f222fbe7, type: 2}
   charged: {fileID: 11400000, guid: 9485bf7a1b476564ebd924d16e51b206, type: 2}
+  sprintAttack: {fileID: 11400000, guid: 325d10cb42b4499418d8d326d0fe1d34, type: 2}
   dodges:
   - {fileID: 11400000, guid: 80ccb379bfa2c8446b39bbc67b3bc6fa, type: 2}
   - {fileID: 11400000, guid: 1a9241a303cb47846bc85c4aefe1d279, type: 2}
@@ -64,6 +65,7 @@ MonoBehaviour:
   guardRecoveryMultiplier: 0.35
   walkSpeed: 3
   runSpeed: 5
+  sprintAttackMinRunSeconds: 0.15
   guardWalkSpeed: 0
   turnSpeed: 720
   locomotionDirectionHysteresis: 7

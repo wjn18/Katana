@@ -40,6 +40,8 @@ namespace OCDesign.Samurai
         bool IsChargeCriticalWindowOpen { get; }
         bool IsCriticalAttack { get; }
         float AttackDamageMultiplier { get; }
+        bool IsSprinting { get; }
+        float SprintElapsedSeconds { get; }
         bool CanAct { get; }
         event Action<string> StateChanged;
         bool TryStartAttack(SamuraiActionDefinition action, int comboIndex, Vector3 direction);
@@ -58,6 +60,7 @@ namespace OCDesign.Samurai
     public struct SamuraiDamageHit
     {
         public float Damage, StaminaDamage;
+        public float KnockbackDistance, KnockbackSeconds;
         public bool Unblockable;
         public Vector3 SourcePosition, Point;
         public ISamuraiDamageReceiver Source;

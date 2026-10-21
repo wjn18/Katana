@@ -80,6 +80,14 @@ namespace OCDesign.Samurai
             Move(actionDirection * (Mathf.Max(0f, distance) / dt), dt);
         }
 
+        /// <summary>受击等外部水平位移；不额外推进重力，也不绕过CharacterController碰撞。</summary>
+        public void DisplacePlanar(Vector3 displacement)
+        {
+            if (controller == null || !controller.enabled || !controller.gameObject.activeInHierarchy) return;
+            displacement.y = 0f;
+            if (displacement.sqrMagnitude > 0f) controller.Move(displacement);
+        }
+
         public static Vector3 MoveDirection(SamuraiInputFrame input, Transform root)
         {
             Vector3 direction = input.moveWorld;

@@ -18,12 +18,18 @@ MonoBehaviour:
   staminaDamage: 29
   staminaCost: 12
   unblockable: 0
+  knockbackDistance: 0.18
+  knockbackSeconds: 0.14
   damageStart: 0.12
   damageEnd: 0.34
   comboInputStart: 0.06
   comboInputEnd: 0.447347
   comboLink: 0.367347
   cancelStart: 0.4
+  closeRangeReach: 0
+  closeRangeHalfAngle: 55
+  closeRangeStart: 0.1
+  closeRangeEnd: 0.42
   stepDistance: 0.3
   stepStart: 0.04
   stepEnd: 0.34

@@ -25,6 +25,7 @@ namespace OCDesign.Samurai
         SamuraiDamageResolver damageResolver;
         SamuraiWeaponAttack weapon;
         SamuraiHitStop hitStop;
+        SamuraiKnockback knockback;
         SamuraiInputFrame pausedEdges;
         WeaponTrailGizmos diagnostics;
         Func<bool> canContinueSweep;
@@ -41,6 +42,9 @@ namespace OCDesign.Samurai
         public SamuraiWeaponAttack Weapon => weapon;
         public bool IsHitStopped => hitStop != null && hitStop.IsActive;
         public float HitStopRemaining => hitStop != null ? hitStop.Remaining : 0f;
+        public bool IsBeingKnockedBack => knockback != null && knockback.IsActive;
+        public bool IsSprinting => actions != null && actions.IsSprinting;
+        public float SprintElapsedSeconds => actions != null ? actions.SprintElapsedSeconds : 0f;
         public Transform DamageRoot => transform;
         public int Team => team;
         public float Health => vitals != null ? vitals.Health : MaxHealth;
@@ -81,6 +85,7 @@ namespace OCDesign.Samurai
         void OnDisable()
         {
             ClearHitStop();
+            knockback?.Clear();
             weapon?.CancelSwing();
             if (diagnostics != null) diagnostics.ClearHistory();
         }
@@ -104,6 +109,7 @@ namespace OCDesign.Samurai
             vitals = new SamuraiVitals(profile);
             defense = new SamuraiDefense(profile);
             movement = new SamuraiCharacterMotor(transform, motor, profile);
+            knockback = new SamuraiKnockback(transform, movement);
             animationDriver = new SamuraiAnimationDriver(animator, transform, profile);
             actions = new SamuraiActionController(transform, profile, movement, animationDriver, vitals, defense);
             damageResolver = new SamuraiDamageResolver(profile, vitals, defense, actions);
@@ -124,7 +130,7 @@ namespace OCDesign.Samurai
         {
             ClearHitStop();
             if (!Compose()) return;
-            weapon.Reset(); movement.ResetPose(); vitals.Reset();
+            weapon.Reset(); knockback.Clear(); movement.ResetPose(); vitals.Reset();
             LastHitResult = SamuraiHitResult.Ignored;
             actions.Reset();
         }
@@ -148,6 +154,7 @@ namespace OCDesign.Samurai
             input.parryPressed |= input.guardHeld && pausedEdges.parryPressed;
             pausedEdges = default;
             actions.Tick(input, dt);
+            if (dt > 0f && !float.IsNaN(dt) && !float.IsInfinity(dt)) knockback.Tick(Mathf.Min(dt, .1f));
         }
         public void ApplyHitStop(float seconds)
         {
@@ -181,6 +188,8 @@ namespace OCDesign.Samurai
             if (!Compose()) return SamuraiHitResult.Ignored;
             SamuraiHitResult result = damageResolver.Resolve(hit, this, actions.Clock);
             if (result == SamuraiHitResult.Ignored) return result;
+            if (result == SamuraiHitResult.Hit || result == SamuraiHitResult.GuardBroken || result == SamuraiHitResult.Killed)
+                knockback.Apply(hit.SourcePosition, hit.KnockbackDistance, hit.KnockbackSeconds);
             LastHitResult = result;
             HitReceived?.Invoke(result);
             if (result == SamuraiHitResult.Killed) Died?.Invoke();

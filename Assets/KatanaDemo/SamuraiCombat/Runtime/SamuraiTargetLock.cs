@@ -13,10 +13,9 @@ namespace OCDesign.Samurai
         public Transform viewTransform;
         [Min(1f)] public float acquireDistance = 12f;
         [Min(1f)] public float releaseDistance = 14f;
-        [Min(0f)] public float occlusionGraceSeconds = 0.35f;
         [Tooltip("可被锁定角色的碰撞层；角色必须有启用的碰撞体。")]
         public LayerMask targetMask = ~0;
-        [Tooltip("环境遮挡层；角色自身和其他战斗角色不作为环境遮挡。")]
+        [Tooltip("首次获取目标时使用的环境遮挡层；已锁定目标不会因遮挡而解除。角色自身和其他战斗角色不作为环境遮挡。")]
         public LayerMask obstructionMask = ~0;
 
         private readonly Collider[] candidates = new Collider[64];
@@ -25,7 +24,6 @@ namespace OCDesign.Samurai
         private SamuraiCombatant currentTarget;
         private Renderer[] targetRenderers = Array.Empty<Renderer>();
         private Camera viewCamera;
-        private float occludedSeconds;
 
         public SamuraiCombatant CurrentTarget => currentTarget;
         public bool IsLocked => currentTarget != null;
@@ -88,7 +86,6 @@ namespace OCDesign.Samurai
             if (best == null) return;
             currentTarget = best;
             targetRenderers = best.GetComponentsInChildren<Renderer>(true);
-            occludedSeconds = 0f;
             TargetChanged?.Invoke(currentTarget);
         }
 
@@ -97,23 +94,16 @@ namespace OCDesign.Samurai
             bool hadTarget = currentTarget != null;
             currentTarget = null;
             targetRenderers = Array.Empty<Renderer>();
-            occludedSeconds = 0f;
             if (hadTarget) TargetChanged?.Invoke(null);
         }
 
-        /// <summary>公开的持续检查入口，便于确定性验证死亡、隐藏、距离和遮挡宽限。</summary>
+        /// <summary>持续检查死亡、主动隐藏与距离；环境遮挡或离开画面不会解除已经建立的锁定。</summary>
         public void TickLock(float deltaTime)
         {
             if (currentTarget == null) return;
             if (actor == null || actor.IsDead || !IsEligible(currentTarget, Mathf.Max(acquireDistance, releaseDistance)) ||
                 !IsShown(currentTarget, targetRenderers))
             { ClearLock(); return; }
-            if (HasLineOfSight(currentTarget)) occludedSeconds = 0f;
-            else
-            {
-                occludedSeconds += Mathf.Max(0f, deltaTime);
-                if (occludedSeconds >= occlusionGraceSeconds) ClearLock();
-            }
         }
 
         private bool IsEligible(SamuraiCombatant candidate, float range)
@@ -125,6 +115,7 @@ namespace OCDesign.Samurai
 
         private static bool IsShown(SamuraiCombatant candidate, Renderer[] renderers)
         {
+            // 只检查明确的隐藏/停用，不使用 Renderer.isVisible，避免遮挡剔除或离开画面影响锁定。
             // 无可视网格的测试/逻辑角色仍可作为目标；真正隐藏所有网格的角色会解除锁定。
             if (renderers.Length == 0) return candidate.gameObject.activeInHierarchy;
             for (int i = 0; i < renderers.Length; i++)
@@ -184,7 +175,6 @@ namespace OCDesign.Samurai
         {
             acquireDistance = Mathf.Max(1f, acquireDistance);
             releaseDistance = Mathf.Max(acquireDistance, releaseDistance);
-            occlusionGraceSeconds = Mathf.Max(0f, occlusionGraceSeconds);
         }
     }
 }

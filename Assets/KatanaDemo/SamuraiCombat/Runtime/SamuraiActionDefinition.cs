@@ -13,6 +13,11 @@ namespace OCDesign.Samurai
         [Min(0f)] public float staminaCost = 14f;
         public bool unblockable;
 
+        [Header("命中后退，仅实际受伤或破防生效")]
+        [Tooltip("目标沿远离攻击来源的水平方向后退；0关闭。位移经角色碰撞体，不穿墙。")]
+        [Min(0f)] public float knockbackDistance;
+        [Min(.01f)] public float knockbackSeconds = .18f;
+
         [Header("命中与连段")]
         [Range(0f, 1f)] public float damageStart = 0.22f;
         [Range(0f, 1f)] public float damageEnd = 0.48f;

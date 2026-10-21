@@ -53,12 +53,46 @@ namespace OCDesign.EditorTools
                     Profile(action, index == 3 ? .105f : .095f, index == 3 ? 1.1f : .92f, .95f)).ToList();
                 profiles.Add(Profile(actor.Profile.heavy, .12f, 1.2f, 1f));
                 profiles.Add(Profile(actor.Profile.charged, .15f, 1.4f, 1f));
+                var sprint = AssetDatabase.LoadAssetAtPath<SamuraiActionDefinition>(SamuraiSprintCombatSetup.SprintActionPath);
+                if (sprint) profiles.Add(Profile(sprint, .115f, 1.15f, 1f));
                 var effect = contents.GetComponent<SamuraiBladeRibbon>();
-                if (!effect) effect = contents.AddComponent<SamuraiBladeRibbon>();
-                effect.Configure(actor, bladeBase, bladeTip, material, profiles.ToArray());
-                PrefabUtility.SaveAsPrefabAsset(contents, path);
+                bool changed = false;
+                if (!effect)
+                {
+                    effect = contents.AddComponent<SamuraiBladeRibbon>();
+                    effect.Configure(actor, bladeBase, bladeTip, material, profiles.ToArray());
+                    changed = true;
+                }
+                else
+                    foreach (var profile in profiles)
+                        changed |= EnsureAttackProfile(effect, profile.attack, profile.lifetime, profile.strength, profile.bladeCoverage);
+                if (changed) PrefabUtility.SaveAsPrefabAsset(contents, path);
             }
             finally { PrefabUtility.UnloadPrefabContents(contents); }
+        }
+
+        /// <summary>只补缺失的动作条目；重复安装保留每招窗口、强度、覆盖范围和原材质引用。</summary>
+        public static bool EnsureAttackProfile(SamuraiBladeRibbon effect, SamuraiActionDefinition action,
+            float lifetime, float strength, float coverage)
+        {
+            if (!effect || !action || !action.clip) return false;
+            var serialized = new SerializedObject(effect);
+            var profiles = serialized.FindProperty("profiles");
+            for (int i = 0; i < profiles.arraySize; i++)
+                if (profiles.GetArrayElementAtIndex(i).FindPropertyRelative("attack").objectReferenceValue == action)
+                    return false;
+            var defaults = Profile(action, lifetime, strength, coverage);
+            int index = profiles.arraySize;
+            profiles.InsertArrayElementAtIndex(index);
+            var entry = profiles.GetArrayElementAtIndex(index);
+            entry.FindPropertyRelative("attack").objectReferenceValue = action;
+            entry.FindPropertyRelative("emissionWindow").vector2Value = defaults.emissionWindow;
+            entry.FindPropertyRelative("lifetime").floatValue = defaults.lifetime;
+            entry.FindPropertyRelative("strength").floatValue = defaults.strength;
+            entry.FindPropertyRelative("bladeCoverage").floatValue = defaults.bladeCoverage;
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(effect);
+            return true;
         }
 
         static SamuraiBladeRibbon.AttackProfile Profile(SamuraiActionDefinition action,

@@ -36,6 +36,8 @@ namespace OCDesign.Samurai
             && stateTime + ChargeTimeTolerance < Mathf.Max(.1f, profile.chargeSeconds) + profile.chargeCriticalWindowSeconds;
         public bool IsCriticalAttack { get; private set; }
         public float AttackDamageMultiplier { get; private set; } = 1f;
+        public bool IsSprinting { get; private set; }
+        public float SprintElapsedSeconds { get; private set; }
         public bool IsDead => Mode == SamuraiCombatMode.Dead;
         public bool IsAttacking => Mode == SamuraiCombatMode.Attack;
         public bool IsGuarding => defense.GuardHeld && (Mode == SamuraiCombatMode.Guard || Mode == SamuraiCombatMode.GuardHit);
@@ -62,6 +64,7 @@ namespace OCDesign.Samurai
         {
             Clock = 0f; dodgeBufferedUntil = float.NegativeInfinity;
             comboQueued = sprintExhausted = false;
+            ResetSprint();
             defense.Reset(); animation.Reset();
             // Serial不回退，避免外部持有旧招式标识后误认为仍有效。
             AttackSerial++;
@@ -70,6 +73,7 @@ namespace OCDesign.Samurai
         public void CancelInput()
         {
             comboQueued = false; dodgeBufferedUntil = float.NegativeInfinity;
+            ResetSprint();
             defense.CancelInput();
             if (Mode == SamuraiCombatMode.Charge || Mode == SamuraiCombatMode.Guard) EnterLocomotion();
         }
@@ -125,8 +129,14 @@ namespace OCDesign.Samurai
         void TickLocomotion(SamuraiInputFrame input, Vector3 move, Vector3 facing, float dt)
         {
             if (TryBufferedDodge(move)) { movement.Move(Vector3.zero, dt); return; }
-            if (input.lightPressed && profile.combo != null && profile.combo.Length > 0
-                && CommitAttack(profile.combo[0], 0, facing)) { movement.Move(Vector3.zero, dt); return; }
+            if (input.lightPressed)
+            {
+                bool sprintReady = IsSprinting && input.sprint && move.sqrMagnitude > .001f
+                    && SprintElapsedSeconds >= Mathf.Max(0f, profile.sprintAttackMinRunSeconds);
+                if ((sprintReady && CommitAttack(profile.sprintAttack, -1, facing))
+                    || (profile.combo != null && profile.combo.Length > 0 && CommitAttack(profile.combo[0], 0, facing)))
+                { movement.Move(Vector3.zero, dt); return; }
+            }
             if (input.heavyPressed && animation.CanPlay(profile.heavy) && vitals.CanAfford(profile.heavy.staminaCost))
             {
                 movement.TurnForAction(facing);
@@ -151,7 +161,12 @@ namespace OCDesign.Samurai
             bool running = moving && input.sprint && !sprintExhausted && vitals.CanAfford(cost) && vitals.Stamina > .1f;
             if (running) vitals.Spend(cost, Clock);
             movement.FaceDirection(facing, dt);
+            Vector3 beforeMove = root.position;
             movement.Move(move * (running ? profile.runSpeed : profile.walkSpeed), dt);
+            Vector3 traveled = root.position - beforeMove; traveled.y = 0f;
+            // 只有确实跑动才积累资格；贴墙空跑或停下不能蓄出冲刺攻击。
+            IsSprinting = running && traveled.sqrMagnitude > .000001f;
+            SprintElapsedSeconds = IsSprinting ? SprintElapsedSeconds + dt : 0f;
             var selection = animation.SelectLocomotion(move, running, moving, StateName, Mode == SamuraiCombatMode.Locomotion);
             if (StateName != selection.StateName)
                 Enter(SamuraiCombatMode.Locomotion, selection.StateName, SamuraiAnimationDriver.ClipDuration(selection.Clip), false, selection.Phase);
@@ -162,8 +177,9 @@ namespace OCDesign.Samurai
             var action = ActiveAction;
             if (action == null) { EnterLocomotion(); movement.Move(Vector3.zero, dt); return; }
             float normalized = StateNormalizedTime;
-            if (input.lightPressed && !comboQueued && ComboIndex >= 0 && profile.combo != null
-                && ComboIndex + 1 < profile.combo.Length && normalized >= action.comboInputStart && normalized <= action.comboInputEnd)
+            int nextComboIndex = ComboIndex >= 0 ? ComboIndex + 1 : action == profile.sprintAttack ? 0 : -1;
+            if (input.lightPressed && !comboQueued && nextComboIndex >= 0 && profile.combo != null
+                && nextComboIndex < profile.combo.Length && normalized >= action.comboInputStart && normalized <= action.comboInputEnd)
                 comboQueued = true;
             movement.MoveAction(action, actionDirection, previousNormalized, normalized, dt);
             if (normalized >= action.CancelStart)
@@ -174,7 +190,7 @@ namespace OCDesign.Samurai
             if (comboQueued && normalized >= Mathf.Max(action.damageEnd, action.comboLink))
             {
                 comboQueued = false;
-                if (CommitAttack(profile.combo[ComboIndex + 1], ComboIndex + 1, facing)) return;
+                if (CommitAttack(profile.combo[nextComboIndex], nextComboIndex, facing)) return;
             }
             if (normalized >= 1f) EnterLocomotion();
         }
@@ -216,6 +232,7 @@ namespace OCDesign.Samurai
         }
         void EnterLocomotion()
         {
+            ResetSprint();
             defense.CloseWindow();
             Enter(SamuraiCombatMode.Locomotion, "Idle", SamuraiAnimationDriver.ClipDuration(profile.idle));
         }
@@ -225,11 +242,12 @@ namespace OCDesign.Samurai
             IsCriticalAttack = false; AttackDamageMultiplier = 1f;
             stateTime = Mathf.Clamp01(normalizedStart) * Mathf.Max(.02f, duration);
             lastActionNormalized = 0f; stateDuration = Mathf.Max(.02f, duration); StateName = state;
-            if (next != SamuraiCombatMode.Locomotion) animation.ResetLocomotionDirection();
+            if (next != SamuraiCombatMode.Locomotion) { ResetSprint(); animation.ResetLocomotionDirection(); }
             if (next != SamuraiCombatMode.Guard && next != SamuraiCombatMode.GuardHit) defense.CloseWindow();
             animation.Play(state, stateDuration, immediate, normalizedStart);
             StateChanged?.Invoke(state);
         }
+        void ResetSprint() { IsSprinting = false; SprintElapsedSeconds = 0f; }
         public void ReactToHit(float seconds)
         {
             Enter(SamuraiCombatMode.Hit, "Hit", Mathf.Max(.05f, seconds));

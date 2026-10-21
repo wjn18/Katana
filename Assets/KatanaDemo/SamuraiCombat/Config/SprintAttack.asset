@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd39590d26de9c4291373becd55be53, type: 3}
+  m_Name: SprintAttack
+  m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiActionDefinition
+  clip: {fileID: 7400000, guid: 503ef4aa5517f7d4594171889b52bada, type: 2}
+  stateName: SprintAttack
+  damage: 32
+  staminaDamage: 44
+  staminaCost: 20
+  unblockable: 0
+  knockbackDistance: 0.8
+  knockbackSeconds: 0.22
+  damageStart: 0.3
+  damageEnd: 0.58
+  comboInputStart: 0.25
+  comboInputEnd: 0.85
+  comboLink: 0.72
+  cancelStart: 0.62
+  closeRangeReach: 0
+  closeRangeHalfAngle: 55
+  closeRangeStart: 0.1
+  closeRangeEnd: 0.42
+  stepDistance: 2.1
+  stepStart: 0.02
+  stepEnd: 0.48
+  invulnerableStart: 0.1
+  invulnerableEnd: 0.58

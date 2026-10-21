@@ -2037,7 +2037,6 @@ MonoBehaviour:
   viewTransform: {fileID: 0}
   acquireDistance: 12
   releaseDistance: 14
-  occlusionGraceSeconds: 0.35
   targetMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -2107,6 +2106,11 @@ MonoBehaviour:
     emissionWindow: {x: 0.08, y: 0.43499997}
     lifetime: 0.15
     strength: 1.4
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: 325d10cb42b4499418d8d326d0fe1d34, type: 2}
+    emissionWindow: {x: 0.28, y: 0.59499997}
+    lifetime: 0.115
+    strength: 1.15
     bladeCoverage: 1
 --- !u!114 &961422673704512821
 MonoBehaviour:

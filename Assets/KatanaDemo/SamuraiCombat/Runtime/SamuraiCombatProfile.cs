@@ -22,6 +22,8 @@ namespace OCDesign.Samurai
         public SamuraiActionDefinition[] combo = new SamuraiActionDefinition[4];
         public SamuraiActionDefinition heavy;
         public SamuraiActionDefinition charged;
+        [Tooltip("持续奔跑后按轻攻击使用；为空时继续使用普通连段。")]
+        public SamuraiActionDefinition sprintAttack;
         [Tooltip("顺序：前、右前、右、右后、后、左后、左、左前。")]
         public SamuraiActionDefinition[] dodges = new SamuraiActionDefinition[8];
 
@@ -35,6 +37,8 @@ namespace OCDesign.Samurai
         [Header("移动与输入")]
         [Min(0f)] public float walkSpeed = 1.7f;
         [Min(0f)] public float runSpeed = 3.6f;
+        [Tooltip("已持续奔跑的最短时间；原地同时按奔跑和攻击仍为普通第一段。")]
+        [Min(0f)] public float sprintAttackMinRunSeconds = .15f;
         [Min(0f)] public float guardWalkSpeed = 0.65f;
         [Min(0f)] public float turnSpeed = 720f;
         [Tooltip("在45度方向分界之外额外保留的角度，减少锁定绕行时的片段反复切换。")]

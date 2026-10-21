@@ -1,4 +1,4 @@
-斗笠 · ARPG Samurai 独立战斗系统（2026-10-20）
+斗笠 · ARPG Samurai 独立战斗系统（2026-10-21）
 
 入口
 打开 Scenes/SamuraiCombatDemo.unity，进入 Play。点击游戏画面捕获鼠标。
@@ -10,8 +10,9 @@
 操作
 WASD / 方向键：相机相对行走，3米/秒。
 Shift + 方向：奔跑，5米/秒，持续消耗耐力；耗尽后转步行，恢复15%耐力可再次跑。
+实际持续跑动至少0.15秒后，保持Shift与方向并按左键：冲刺攻击。原地同时按Shift与左键、松开Shift或停止方向输入后轻击，仍为普通Combo1；贴墙空跑不积累冲刺资格。冲刺攻击的连段窗口内再点左键可接Combo1，再接原四段连击；F和空格沿用后摇取消窗口。
 鼠标移动：未锁定时环绕；滚轮：缩放；相机有环境球形避障。
-Tab / 鼠标中键：锁定或解除屏幕中心附近的敌人。12米内获取，超过14米、死亡、隐藏或持续被墙遮挡0.35秒时解除。
+Tab / 鼠标中键：锁定或解除屏幕中心附近的敌人。12米内获取，首次获取要求没有环境遮挡；锁定建立后，被墙、柱遮住或离开画面不会自动解除。超过14米、死亡、停用或主动隐藏仍解除。
 锁定时镜头同时跟随双方；移动与闪避方向保持相机相对，角色面朝敌人，侧移/后退使用对应方向动画。攻击只在每段开始瞄准，出招后不持续追踪转向。
 左键：普通攻击。每段有效窗口再次点击接下一段，最多缓存一段，完整顺序Combo1→2→3→4。
 长按左键不自动连击；停止点击会完整收招。攻击前摇和命中段锁定普通移动。
@@ -30,13 +31,16 @@ Esc：释放鼠标并清空锁定及尚未发出的蓄力/格挡/缓存；再次
 
 参数与代码
 Config/SamuraiPlayer.asset 和 TrainingOpponent.asset：移动速度、生命、耐力、格挡及相机无关的战斗参数。
-Config/Combo1–4.asset、Heavy.asset、Charged.asset、Dodge*.asset：伤害、耐力、跨步、命中/连接/取消/无敌窗口。
+Config/Combo1–4.asset、Heavy.asset、Charged.asset、SprintAttack.asset、Dodge*.asset：伤害、耐力、跨步、受击后退、命中/连接/取消/无敌窗口。
 普通攻击伤害20/24/27/35，耐力12/14/16/19；重击40/26；满蓄65/38；闪避耐力22。
-玩家第一段Combo1跨步1.00米（原0.30米），时段仍为归一化0.04–0.34，命中窗0.12–0.34不变，继续使用刀刃轨迹判定。位移走CharacterController，近身和墙体会截停；不是必须走满1米。训练对手第一段使用独立Config/TrainingCombo1.asset，仍跨步0.30米，复用同一Combo1动画/状态，其他连段配置保持。
+玩家第一段Combo1跨步当前为1.20米（用户调参；首轮增距版本为1.00米），时段仍为归一化0.04–0.34，命中窗0.12–0.34不变，继续使用刀刃轨迹判定。位移走CharacterController，近身和墙体会截停。训练对手第一段使用独立Config/TrainingCombo1.asset，仍跨步0.30米，复用同一Combo1动画/状态；实际调参以对应Inspector为准。
+冲刺攻击使用独立SprintAttack配置：初始生命伤害32、耐力伤害44、自身耐力消耗20；跨步2.1米，归一化0.02–0.48完成，命中窗0.30–0.58，连接窗0.25–0.85、连接点0.72、取消点0.62。使用原武器轨迹判定，近身扇区补偿不启用。玩家Profile.sprintAttack绑定该动作，训练敌人不自动使用；sprintAttackMinRunSeconds控制所需持续跑动时间。
 普通连段连接归一化时间约0.3673/0.5000/0.4231；这些点接近原包下一段起姿，短混合衔接。
 Runtime/SamuraiCombatant.cs：角色组合入口，保存场景引用、组装服务并转发兼容接口/事件；不再集中实现全部战斗算法。
 SamuraiActionController：动作状态、连段、蓄力、取消与输入缓存；SamuraiAnimationDriver：Animator播放/进度及八方向步态；SamuraiCharacterMotor：胶囊移动、重力、转向与动作跨步。
 SamuraiVitals：生命/耐力与恢复；SamuraiDefense：F持防、完美格挡窗口与冷却；SamuraiDamageResolver：伤害、防御和受击反应结算。
+SamuraiKnockback：独立受击后退服务。每招knockbackDistance为后退米数、knockbackSeconds为完成秒数；沿远离攻击来源的水平方向减速后退，经CharacterController碰撞，墙体会截停。只在实际受伤、破防或击杀结算后触发，普通格挡、闪避和弹反不增加后退；命中停顿时冻结，复位/禁用清除，新命中替换上一段后退。
+本轮后退初值（距离米/时间秒）：Combo1 0.15/0.12，Combo2 0.20/0.14，Combo3 0.25/0.16，Combo4 0.60/0.22，Heavy 0.90/0.25，Charged 1.40/0.30，SprintAttack 0.80/0.22，TrainingCombo1 0.18/0.14。可分别在各Action资产调节；设距离0关闭。暴击不自动把后退乘2。
 WeaponTrailDetector：独立几何查询器，只返回Collider接触，不依赖角色或伤害规则；SamuraiWeaponAttack：有效窗口、阵营过滤、每招去重与受击接口适配。
 上述服务是普通C#对象，由SamuraiCombatant创建，不需要逐个挂到GameObject。配置仍为原ScriptableObject，已有Prefab与场景引用继续使用。
 SamuraiPlayerInput、SamuraiTrainingEnemy：键鼠与AI各自提交一帧意图，不能再加第二个Tick驱动。
@@ -52,10 +56,13 @@ Scene判定显示：打开Scene视图的Gizmos。青色胶囊为当前刀位和�
 新动作需同时配置ActionDefinition、对应Animator状态和经过Blender处理的Humanoid片段。
 职责、调用顺序和新增技能/特效/可破坏物示例见同目录《架构与扩展说明.txt》。
 Editor/SamuraiCombatSetup.cs 是本模块显式装配工具；重建会重设本模块默认参数/Prefab，调参后不要随意执行。
+本轮定向接入用Editor/SamuraiSprintCombatSetup.cs菜单“OC Design/Samurai/Install Held Run And Sprint Attack”：只接HeldRun八向、SprintAttack和缺失刀光条目；重复执行保留已有动作数值、Walk及其他表现参数。后退初值有单独“Initialize Attack Knockback Defaults”入口，会明确重设上述后退距离/时间，不是日常调参后的必需步骤。
 独立玩家Prefab放入其他场景时使用已有MainCamera的朝向；没有主相机则生成自有环绕相机及HUD。完整训练场仍以上述场景为入口。
 
 动画与来源
-Animations/ 中38个派生Humanoid .anim，由Blender MCP执行外部prepare_inplace_blender.py生成。本轮新增Parry与7向Walk、7向Run；前向沿用原Walk/Run。
+原38个派生Humanoid .anim来自首版及防御扩展，由Blender MCP执行外部prepare_inplace_blender.py生成。2026-10-21新增Samurai_HeldRun八方向及Samurai_SprintAttack；旧Samurai_Run*.anim保留为弃用资源，玩家与训练对手的Run八状态都改用HeldRun，Walk八方向保持。
+HeldRun通过Blender MCP拼接：Idle1上半身持刀姿势，前向使用原包Sprint_IPC下半身，其余方向使用对应Run_*_IPC下半身；保留步态RootQ和RootT.y，水平根为0。八向统一0.5秒循环、120Hz烘焙，Animator原速播放，上身保留细小呼吸，不沿用旧Run单臂摆刀。
+SprintAttack派生自ARPG_Samurai_Attack_Sprint，0.9833334秒、非循环，仅水平根原地化，其余原动作曲线保持。制作与来源在斗笠剑士/动画资源/samurai-held-run/，预览在同角色图片资源/模型预览/samurai-held-run/；output/Samurai_HeldRun_Composition.blend为Humanoid通道编辑工程，不是绑定完整斗笠骨骼的播放场景。
 原包为 Assets/ARPGPack/ARPGSamurai/Animations/Humanoid/；移动优先选IPC版本。
 Blender FCurve将Humanoid Body RootT.x/z统一设0，保留RootT.y、RootQ转体/翻滚和其余128条曲线。
 Idle、各方向Walk/Run、Guard循环；Parry、Charge、所有出招/受击/死亡均不循环。
@@ -77,7 +84,7 @@ output/Samurai_InPlace_Roots.blend保存首版23段，Samurai_Defense_Roots.blen
 
 刀光首版（2026-10-20）
 玩家与训练对手的四段普攻、重击、蓄力斩均已挂载青白刀光，沿实际BladeBase/BladeTip采样，正常Update/LateUpdate即可显示。独立表现组件为Runtime/SamuraiBladeRibbon.cs；角色Inspector中的各招配置可调整发射窗口、残留时间、强度与刀刃覆盖比例。
-VFX/SamuraiBladeWind.mat为独立材质，共用NaginataCombat/VFX/Shaders/BladeWindRibbon.shader。Editor/SamuraiBladeVfxSetup.cs提供菜单“OC Design/Samurai/Install Blade Wind”，只定向安装两个完整角色Prefab及材质，不重建战斗；重新安装会按工具默认值配置各招刀光。
+VFX/SamuraiBladeWind.mat为独立材质，共用NaginataCombat/VFX/Shaders/BladeWindRibbon.shader。Editor/SamuraiBladeVfxSetup.cs提供菜单“OC Design/Samurai/Install Blade Wind”，只定向安装两个完整角色Prefab及材质，不重建战斗；从2026-10-21起重复安装只补缺失条目，保留原窗口、强度、覆盖范围和材质。双Prefab追加SprintAttack刀光条目，仅玩家当前具有该动作入口；原六招表现参数保持。
 26/26项手动Play真实Animator采样检查通过，包含30/60/144 Hz下六招18组及连段、打断、复位、禁用、蓄力检查；另已捕获并查看六招正常实时Play画面，首版待用户试玩反馈。外部制作资料在斗笠剑士/动画资源/samurai-vfx/，预览在图片资源/模型预览/samurai-vfx/。动画、模型、伤害、移动配置及旧薙刀效果保持。
 
 蓄力与完美释放（2026-10-20）
@@ -97,3 +104,9 @@ SamuraiImpactFeedback挂在玩家与训练对手完整Prefab，SamuraiCombatCame
 
 蓄力近身命中修复（2026-10-20）
 Charged沿用原刀轨，增加前方0.8米表面距离、55°半角的近身补偿，覆盖既有0.10–0.42伤害窗内的身体路径；普通攻击/Heavy不启用，伤害65/130、4米跨步与0.14秒命中停顿保持。操作不变；完整参数、距离/偏移矩阵及实时验证统一见工作区斗笠剑士/动画资源/samurai-charged-hit/output/使用说明.txt，本轮摘要见同目录《验证摘要.txt》。
+
+Attack_Dodge用途建议（本轮未接入）
+原包ARPG_Samurai_Attack_Dodge可考虑用作闪避后的追击或侧闪反击：闪避后在短窗口按轻攻击，再进入这套独立攻击。无敌窗口应只覆盖实际闪避段，挥刀阶段继续使用武器轨迹与每招去重，避免整段无敌输出。这是后续机制建议，本轮没有增加按键、动作状态或自动替换现有八向闪避。
+
+本轮新增功能验证（2026-10-21）
+持刀Run通过53/53项独立曲线与32/32项真实Humanoid动画检查；奔跑轻击路由、续招、独立击退、墙阻挡、HitStop与锁定保持等28/28项机制检查通过。SprintAttack真实动画刀刃在30/60/144FPS×正前方1.5/2/2.5/3米的12组检查均单次命中32，实际后退约0.8000488米。基线546文件中534保持，12个预期配置/Controller/Prefab变化；原包、旧动画、Walk和场景保持。详细方法、边界与报告路径见本目录《验证摘要.txt》。这些检查不代表所有横向偏移、地形或衣物姿态均已验证。

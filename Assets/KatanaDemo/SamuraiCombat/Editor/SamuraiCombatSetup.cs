@@ -47,6 +47,7 @@ namespace OCDesign.EditorTools
             BuildWeapon();
             BuildActor(PlayerPath,"SamuraiCombatPlayer",profile,controller,0);
             BuildActor(EnemyPath,"SamuraiTrainingOpponent",enemyProfile,controller,1);
+            SamuraiSprintCombatSetup.InstallIfPrepared();
             if (!AssetDatabase.LoadAssetAtPath<SceneAsset>(ScenePath)) BuildScene();
             EditorSceneManager.OpenScene(ScenePath,OpenSceneMode.Single);
             Selection.activeObject=AssetDatabase.LoadAssetAtPath<GameObject>(PlayerPath);

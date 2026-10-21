@@ -133,6 +133,7 @@ namespace OCDesign.Samurai
                 SamuraiHitResult result = target.ReceiveHit(new SamuraiDamageHit
                 {
                     Damage = strike.damage * swingDamageMultiplier, StaminaDamage = strike.staminaDamage, Unblockable = strike.unblockable,
+                    KnockbackDistance = strike.knockbackDistance, KnockbackSeconds = strike.knockbackSeconds,
                     SourcePosition = owner.DamageRoot.position, Point = contact.Point, Source = owner
                 });
                 ContactResolved?.Invoke(target, result, contact.Point);

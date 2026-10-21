@@ -1,6 +1,15 @@
-斗笠 ARPG Samurai 战斗验证 · 2026-10-20
+斗笠 ARPG Samurai 战斗验证 · 2026-10-21
 
-最新蓄力近身命中修复：仅Charged增加0.8米表面距离、55°半角的前方补偿，在既有0.10–0.42伤害窗内采样身体路径。正面距离39组（30/60/144 Hz）：0.55–4米33组均伤害65，4.5/5米6组均0；横偏矩阵120组（15/30/60/144 Hz）：所测0.55–3.5米/五列横偏100组均65，5米20组均0。另有53/53补偿边界与40/40停顿回归；二者为合成刀端的真实物理检查，与距离矩阵的正式动画采样分开解释。
+本轮持刀奔跑/冲刺攻击/受击后退/锁定保持：53/53项独立曲线检查、32/32项真实Humanoid动画检查、28/28项机制检查通过。
+范围：八向HeldRun为Idle1上身与Sprint/方向Run腿部拼接，0.5秒循环，Walk不变、旧Run保留弃用；持续实际奔跑0.15秒后Shift+左键触发SprintAttack并可续Combo1；各招独立后退，经过CharacterController并兼容HitStop/复位；已锁定目标的环境遮挡不再自动解锁。Attack_Dodge只作后续玩法建议，未接入。
+本轮制作与验证资料归斗笠剑士/动画资源/samurai-held-run/，预览归同角色图片资源/模型预览/samurai-held-run/。下列旧轮次数字及当时的遮挡解锁行为均为历史记录，不代表本轮重新执行或当前锁定规则。
+本轮收尾：已回Edit，场景无待保存修改；两角色组件与Animator启用、speed=1、ApplyRootMotion=false，无缺失脚本及临时对象。Console错误0，有1条域重载期间MCP连接层“WebSocket is not initialised”警告，不是战斗组件运行错误。原包426文件、既有动画76文件和场景2文件的SHA均保持。
+独立曲线检查涵盖来源保持、130条有限通道、水平原地化及循环数值/切线闭合；动画检查覆盖八向0.5秒Humanoid循环、真实22骨姿态闭合、容器静止、Idle1持刀上身保持及双腿确实跑动，不等于全姿态网格无接触。
+机制检查覆盖持续奔跑/松Shift/不足时间的轻击选择、SprintAttack接Combo1、无自动续招、CancelInput清资格、每招独立后退值、墙体截停、HitStop冻结/恢复、复位、格挡/完美格挡及连续遮挡6秒仍保持锁定。该组武器伤害链部分使用合成刀端，与下一组真实动画命中分开解释。
+真实SprintAttack动画刀刃在30/60/144FPS、起始正前方1.5/2/2.5/3米组合的12组检查均单次命中32伤害，实际后退约0.8000488米；接触发生于动作约37%–41%，没有重复命中。这是所测平地正前方距离结果，不代表所有横偏、地形或极低帧率均命中。
+本轮基线546个文件中534个哈希保持，12个预期变化为相关动作/角色配置、Controller及双完整Prefab；原资源包、全部旧动画、Walk和场景文件保持。用户Combo1跨步1.2米、Heavy1.8米/结束0.496、Charged4米/结束0.519保留；Console错误0。原始报告为samurai-held-run/analysis/independent_curve_validation.json、AnimationVerification.json、GameplayVerification.json及SprintContactVerification.json；收尾清理与最终编辑器状态见本节记录。
+
+历史蓄力近身命中修复：仅Charged增加0.8米表面距离、55°半角的前方补偿，在既有0.10–0.42伤害窗内采样身体路径。正面距离39组（30/60/144 Hz）：0.55–4米33组均伤害65，4.5/5米6组均0；横偏矩阵120组（15/30/60/144 Hz）：所测0.55–3.5米/五列横偏100组均65，5米20组均0。另有53/53补偿边界与40/40停顿回归；二者为合成刀端的真实物理检查，与距离矩阵的正式动画采样分开解释。
 正常Update实时验证7/7：按144 Hz采集前向0.65米、横偏0.15米的普通/完美释放，各命中一次65/130，双方局部停顿0.14秒并恢复，画面已查看。完整参数、测试方法与限制统一见工作区斗笠剑士/动画资源/samurai-charged-hit/output/使用说明.txt；原始报告为该任务analysis/distance_after.json、offset_after.json、close_assist_validation.json、impact_regression.json及live_capture.json。以下为各轮历史验证。
 
 历史起手距离调整：玩家Combo1跨步0.30→1.00米，敌人独立TrainingCombo1仍为0.30米。原0.30米在1.9/2.1/2.3米正前方木桩上可复现打空，但有效窗正常查询；增距后30/60/144Hz均单次命中20伤害。30/30项增量检查通过，覆盖距离、近身截停、墙体、格挡/弹反、主动AI。118个既有运行资产/meta中116个哈希保持，仅Combo1.asset与TrainingOpponent.asset改变，新增TrainingCombo1.asset/meta；同步显式装配默认参数，未运行重建。动画、运行检测代码、Prefab与场景保持。临时对象和截图已清理，回Edit无待保存修改，Console错误0。简报：外部analysis/combo1_reach_validation.json。
@@ -18,7 +27,7 @@
 实际Play中手动驱动真实Animator/CharacterController，四段普攻、重击、蓄力斩各在30/60/144Hz验证，18/18单次命中且伤害正确。59个现有动画/控制器/配置/Prefab/场景资产哈希保持。仅改Runtime命中算法与说明，没有修改动画或武器装配，也没有给武器添加Collider/Rigidbody。一次性探针及外部临时目录已清理。简报见外部analysis/weapon_trail_validation.json。
 以下弹反/锁定/AI与首版结果为相应制作轮次的历史验证，不是本轮全部重跑。
 
-当前增量：弹反合并到F完美格挡（0.20秒窗口、0.7秒举防冷却、成功使敌人硬直1.1秒）；Tab/中键锁定；敌人改为优先行为树，间隙保持约1.9–2.3米，预警接近后出招，之后退回约2.1米。新增Parry及14段方向移动动画，运行片段合计38。
+历史弹反与锁定增量：弹反合并到F完美格挡（0.20秒窗口、0.7秒举防冷却、成功使敌人硬直1.1秒）；Tab/中键锁定；敌人改为优先行为树，间隙保持约1.9–2.3米，预警接近后出招，之后退回约2.1米。新增Parry及14段方向移动动画，运行片段合计38。
 本轮39/39项实际Play集成通过，覆盖F合并/冷却/方向、锁定获取及死亡/距离/遮挡解除、敌人命中/拉开距离、30/60/144Hz与到达容差；22/22项虚拟Input System状态映射通过。15/15新增动画独立检查通过。实际自由运行观察到敌人连续6次出招，玩家HP120→0；不再卡在2.09993768米的后撤边界。详细报告见外部analysis/defense_*及lock_input_validation.json。
 以下131项与48项为首版制作验证，按各自记录时的参数解释，不代表本轮重新执行了全部首版检查。
 
@@ -40,4 +49,4 @@
 斗笠/衣物在翻滚、下蹲和大幅挥刀仍可能接触或穿插；无逐指适配，左手不保证每帧严密贴柄。当前是单人训练场战斗实现，不包含完整关卡、联网、存档、装备背包、音效和技能特效系统。
 测试过程中MCP截图工具曾出现递归PlayerLoop错误，工具重载及最后文档刷新出现WebSocket连接警告；已改用Unity原生ScreenCapture取图，连接已自动恢复。这些日志来自MCP包，不是战斗运行组件。
 
-收尾：新场景停在Edit模式且无待保存修改；编译完成，Console错误0，最后2条警告均为MCP连接关闭/重连信息，无战斗脚本警告。双方输入/AI、CharacterController和Animator启用，Avatar有效、Animator.speed=1、ApplyRootMotion=false，无缺失脚本。Input System恢复ProcessEventsInDynamicUpdate。临时验证脚本及本轮临时目录已清理。
+首版历史收尾：新场景停在Edit模式且无待保存修改；编译完成，Console错误0，最后2条警告均为MCP连接关闭/重连信息，无战斗脚本警告。双方输入/AI、CharacterController和Animator启用，Avatar有效、Animator.speed=1、ApplyRootMotion=false，无缺失脚本。Input System恢复ProcessEventsInDynamicUpdate。临时验证脚本及本轮临时目录已清理。
