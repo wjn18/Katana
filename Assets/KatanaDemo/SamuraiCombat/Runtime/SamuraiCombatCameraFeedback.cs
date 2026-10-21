@@ -23,7 +23,10 @@ namespace OCDesign.Samurai
         [SerializeField, Range(0f, 24f)] float chargedFovBoost = 14f;
         [SerializeField, Range(-.45f, 0f)] float chargedLensDistortion = -.22f;
         [SerializeField, Range(.01f, .2f)] float rushRiseSeconds = .055f;
+        [SerializeField, Range(.03f, .25f)] float rushFallSeconds = .10f;
         [SerializeField, Min(0f)] float minimumRushSpeed = .5f;
+        [Header("突进起步热扭曲")]
+        [SerializeField, Range(.08f, .4f)] float heatPulseSeconds = .24f;
 
         const int RuntimeVolumeLayer = 31;
         const float FeedbackEpsilon = .0001f;
@@ -41,6 +44,9 @@ namespace OCDesign.Samurai
         float baseFov, lastWrittenFov, appliedFovOffset;
         float shakeElapsed, shakeDuration, shakeAmplitude;
         float rushStrength, realPlanarSpeed;
+        float rushFallElapsed, rushFallStart, heatElapsed, heatStrength;
+        bool rushFalling, heatPlaying;
+        int lastHeatAttackSerial = int.MinValue;
         Vector3 lastPlayerPosition, appliedShakeEuler;
         Quaternion appliedBaseRotation = Quaternion.identity;
         bool hasPlayerPosition, appliedShake;
@@ -54,6 +60,9 @@ namespace OCDesign.Samurai
         public Vector3 ShakeEuler => appliedShakeEuler;
         public float ShakeRemaining => Mathf.Max(0f, shakeDuration - shakeElapsed);
         public bool HasRuntimeVolume => runtimeVolume != null;
+        public float HeatDistortionStrength => heatStrength;
+        public float HeatDistortionTime => heatPlaying ? heatElapsed : 0f;
+        public Vector2 HeatDistortionCenter => new Vector2(.5f, .5f);
 
         public void Configure(SamuraiOrbitCamera targetOrbit, SamuraiCombatant targetPlayer)
         {
@@ -67,6 +76,7 @@ namespace OCDesign.Samurai
             ReleaseResources();
             orbit = targetOrbit;
             player = targetPlayer;
+            lastHeatAttackSerial = int.MinValue;
             view = orbit != null ? orbit.GetComponent<Camera>() : GetComponent<Camera>();
             CaptureBaseFov();
             CapturePlayerPosition();
@@ -168,8 +178,20 @@ namespace OCDesign.Samurai
             bool inRush = charged && progress >= action.stepStart && progress < action.stepEnd;
             float minSpeed = Finite(minimumRushSpeed) ? Mathf.Max(0f, minimumRushSpeed) : .5f;
             bool paused = scaledDeltaSeconds <= 0f || Time.timeScale <= 0f;
+            bool interrupted = paused || player.IsHitStopped || !charged;
+            bool startedHeat = false;
             if (inRush && !paused && !player.IsHitStopped && realPlanarSpeed > minSpeed)
             {
+                rushFalling = false;
+                // StateChanged 比 AttackSerial 递增更早；只在真正开始移动时锁定这一击。
+                int serial = player.Actions.AttackSerial;
+                if (serial != lastHeatAttackSerial)
+                {
+                    lastHeatAttackSerial = serial;
+                    heatElapsed = 0f;
+                    heatStrength = 1f;
+                    heatPlaying = startedHeat = true;
+                }
                 float expectedPeak = Mathf.Max(minSpeed + 1f,
                     1.5f * Mathf.Max(0f, action.stepDistance)
                     / Mathf.Max(.02f, action.Duration * (action.stepEnd - action.stepStart)));
@@ -178,10 +200,34 @@ namespace OCDesign.Samurai
                 rushStrength = Mathf.Lerp(rushStrength, desired, 1f - Mathf.Exp(-realDeltaSeconds / rise));
                 ApplyRush();
             }
+            else if (!interrupted && progress >= action.stepEnd && IsRushActive)
+            {
+                // 正常突进结束短暂收回视野，避免镜头一帧跳回；中断仍立即复原。
+                if (!rushFalling)
+                {
+                    rushFalling = true;
+                    rushFallStart = rushStrength;
+                    rushFallElapsed = 0f;
+                }
+                else rushFallElapsed += realDeltaSeconds;
+                float fall = Finite(rushFallSeconds) ? Mathf.Clamp(rushFallSeconds, .03f, .25f) : .10f;
+                rushStrength = rushFallStart * (1f - Mathf.SmoothStep(0f, 1f, rushFallElapsed / fall));
+                if (IsRushActive) ApplyRush();
+                else ResetRush();
+            }
             else
             {
-                // 墙前静止、局部顿帧、真正暂停、取消/冲刺结束均立即恢复普通视野。
+                // 墙前静止、局部顿帧、真正暂停与取消立即复原。
                 ResetRush();
+            }
+            if (interrupted || (inRush && realPlanarSpeed <= minSpeed)) ResetHeat();
+            else if (heatPlaying && !startedHeat)
+            {
+                heatElapsed += realDeltaSeconds;
+                float duration = Finite(heatPulseSeconds) ? Mathf.Clamp(heatPulseSeconds, .08f, .4f) : .24f;
+                float remaining = 1f - Mathf.Clamp01(heatElapsed / duration);
+                heatStrength = remaining * remaining;
+                if (heatElapsed >= duration) ResetHeat();
             }
 
             // 局部顿帧期间仍有真实时间震屏；真正暂停只保持当前姿态，不推进震动时间。
@@ -192,6 +238,7 @@ namespace OCDesign.Samurai
         public void ClearFeedback()
         {
             ResetRush();
+            ResetHeat();
             shakeElapsed = shakeDuration = shakeAmplitude = 0f;
             appliedShakeEuler = Vector3.zero;
             RestoreRotation();
@@ -240,6 +287,8 @@ namespace OCDesign.Samurai
         void ResetRush()
         {
             rushStrength = 0f;
+            rushFalling = false;
+            rushFallElapsed = rushFallStart = 0f;
             if (view != null && appliedFovOffset != 0f)
             {
                 if (Mathf.Abs(view.fieldOfView - lastWrittenFov) <= .01f)
@@ -251,6 +300,13 @@ namespace OCDesign.Samurai
             if (distortion != null) { distortion.intensity.value = 0f; distortion.scale.value = 1f; }
             if (runtimeVolume != null) runtimeVolume.weight = 0f;
             RestorePostSettings();
+        }
+
+        void ResetHeat()
+        {
+            heatPlaying = false;
+            heatElapsed = heatStrength = 0f;
+            // 清理不释放这一击的触发锁；撞墙或顿帧恢复不能再次爆出起步波。
         }
 
         void ApplyShake()

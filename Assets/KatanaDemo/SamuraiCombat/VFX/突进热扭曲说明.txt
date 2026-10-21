@@ -1,0 +1,19 @@
+蓄力突进：起步热扭曲与镜头缩放（2026-10-21）
+
+操作：在 SamuraiCombatDemo 中按住右键蓄力，松开发动蓄力斩。
+真正开始突进时触发一次约 0.24 秒的热浪折射，中心保持清晰；同时按实际移动速度展开视野和负向镜头畸变，正常突进结束后约 0.10 秒平滑恢复。
+墙前停住、局部顿帧、暂停、取消、角色或相机复位会立即清理。同一次攻击恢复移动不会再次触发起步波。
+
+调参：
+- 相机 SamuraiCombatCameraFeedback：Heat Pulse Seconds 控制热浪寿命，Rush Fall Seconds 控制正常结束的镜头收回时间。
+- 原有 Charged Fov Boost = 14、Charged Lens Distortion = -0.22、Rush Rise Seconds = 0.055 保持；实际强度随位移速度变化。
+- SamuraiRushHeat.mat：Maximum heat refraction = 0.0075，范围 0–0.012。置零可关闭折射，保留既有视野与镜头畸变。
+
+安装与渲染：
+OC Design/Samurai/Install Rush Heat 只向 Assets/Settings/PC_Renderer.asset 安装一个 Samurai Rush Heat Feature，并引用本目录材质；可重复运行，不重建角色和战斗资源。
+当前使用 Unity 6000.6 / URP 17.6 RenderGraph。仅携带启用的 SamuraiCombatCameraFeedback 且热浪强度大于零的游戏相机执行；在透明物体之后、URP 后处理和屏幕 HUD 之前采样真实场景颜色。不会对图像染黑。场景中的 World Space UI 属于场景颜色，会一起折射。
+只安装桌面 PC Renderer；若以后切换到移动 Renderer，需单独接入并在目标设备验证。当前未提供旧版 URP Compatibility Mode 路径。
+
+资源：Runtime/SamuraiRushHeatRendererFeature.cs、Runtime/SamuraiCombatCameraFeedback.cs、VFX/Shaders/SamuraiRushHeat.shader、VFX/SamuraiRushHeat.mat。
+独立验证与真实 Play 录制工具位于工作区 斗笠剑士/动画资源/samurai-rush-heat/。
+参考节奏：https://www.bilibili.com/video/BV1WCa1zYEJ9/ （用户提供的《突进连招拆解》，取起步瞬间拉伸与快速恢复的节奏。）
