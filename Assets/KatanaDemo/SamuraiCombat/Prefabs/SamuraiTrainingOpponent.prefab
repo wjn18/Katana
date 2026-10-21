@@ -1893,6 +1893,7 @@ GameObject:
   - component: {fileID: 3833003142073400364}
   - component: {fileID: 3601454403677555144}
   - component: {fileID: 3758366342734170741}
+  - component: {fileID: 2422130495902592703}
   m_Layer: 0
   m_Name: SamuraiTrainingOpponent
   m_TagString: Untagged
@@ -2093,6 +2094,31 @@ MonoBehaviour:
   heavyHitStop: 0.075
   chargedHitStop: 0.14
   blockedMultiplier: 0.5
+--- !u!114 &2422130495902592703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5400511802938785313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6f2f77a350ab984393b2360a28e62c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiChargeWind
+  actor: {fileID: 3278029933985948003}
+  bladeBase: {fileID: 8866037597026207843}
+  bladeTip: {fileID: 2803132783802625157}
+  windMaterial: {fileID: 2100000, guid: 7851020513b38c44289be2d74b2f45ad, type: 2}
+  flowIntensity: 1
+  initialRadius: 0.1
+  fullRadius: 0.24
+  heldFlowMultiplier: 0.44
+  completionBurstSeconds: 0.3
+  burstIntensity: 1
+  burstRadius: 0.46
+  flashRadius: 0.38
+  windColor: {r: 0.8, g: 0.94, b: 1, a: 1}
 --- !u!1 &5434372875919432972
 GameObject:
   m_ObjectHideFlags: 0

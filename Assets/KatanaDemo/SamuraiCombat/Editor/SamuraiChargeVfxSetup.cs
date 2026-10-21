@@ -12,6 +12,36 @@ namespace OCDesign.EditorTools
         const string Root = SamuraiCombatSetup.Root;
         public const string GlowMaterialPath = Root + "/VFX/SamuraiChargeBlade.mat";
         public const string ScreenMaterialPath = Root + "/VFX/SamuraiCriticalScreen.mat";
+        public const string WindMaterialPath = Root + "/VFX/SamuraiChargeWind.mat";
+
+        [MenuItem("OC Design/Samurai/Install Charge Wind")]
+        public static void InstallWind()
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode)
+                throw new InvalidOperationException("请先退出 Play。");
+            var wind = Material(WindMaterialPath, "KatanaDemo/VFX/SamuraiChargeWind");
+            InstallWindActor(SamuraiCombatSetup.PlayerPath, wind);
+            InstallWindActor(SamuraiCombatSetup.EnemyPath, wind);
+        }
+
+        static void InstallWindActor(string path, Material material)
+        {
+            var contents = PrefabUtility.LoadPrefabContents(path);
+            try
+            {
+                var actor = contents.GetComponent<SamuraiCombatant>();
+                if (!actor) throw new InvalidOperationException("缺少战斗角色：" + path);
+                var serialized = new SerializedObject(actor);
+                var bladeBase = serialized.FindProperty("weaponBase").objectReferenceValue as Transform;
+                var bladeTip = serialized.FindProperty("weaponTip").objectReferenceValue as Transform;
+                if (!bladeBase || !bladeTip) throw new InvalidOperationException("缺少实际刀刃端点。");
+                var wind = contents.GetComponent<SamuraiChargeWind>();
+                if (!wind) wind = contents.AddComponent<SamuraiChargeWind>();
+                wind.Configure(actor, bladeBase, bladeTip, material);
+                PrefabUtility.SaveAsPrefabAsset(contents, path);
+            }
+            finally { PrefabUtility.UnloadPrefabContents(contents); }
+        }
 
         [MenuItem("OC Design/Samurai/Install Charge Effects")]
         public static void Install()
@@ -22,6 +52,7 @@ namespace OCDesign.EditorTools
             var screen = Material(ScreenMaterialPath, "OC Design/Samurai/Critical Screen Cracks");
             InstallActor(SamuraiCombatSetup.PlayerPath, glow, screen, true);
             InstallActor(SamuraiCombatSetup.EnemyPath, glow, screen, false);
+            InstallWind();
         }
 
         static Material Material(string path, string shaderName)

@@ -50,3 +50,8 @@
 测试过程中MCP截图工具曾出现递归PlayerLoop错误，工具重载及最后文档刷新出现WebSocket连接警告；已改用Unity原生ScreenCapture取图，连接已自动恢复。这些日志来自MCP包，不是战斗运行组件。
 
 首版历史收尾：新场景停在Edit模式且无待保存修改；编译完成，Console错误0，最后2条警告均为MCP连接关闭/重连信息，无战斗脚本警告。双方输入/AI、CharacterController和Animator启用，Avatar有效、Animator.speed=1、ApplyRootMotion=false，无缺失脚本。Input System恢复ProcessEventsInDynamicUpdate。临时验证脚本及本轮临时目录已清理。
+
+
+蓄力聚风与满蓄爆闪验证（2026-10-21）
+状态/几何39/39通过，含30/60/144 Hz、每轮单次爆发、同Tick满蓄释放、世界位置锁定、各类中断/启停及18份战斗配置保持；该组使用运行副本与显式表现采样。另有正常Update/Animator/LateUpdate的60 Hz实时采集16/16通过：每3帧采集，共43张序列，首次可见爆闪1.51666594秒、累计1次，最大1020顶点；2.19999862秒释放普通Charged，随后效果清空并恢复输入、位置、相机及全局采集设置。当前游戏镜头中段/爆闪及四阶段图已查看；GIF只裁切实际截图，不重绘。
+文档更新前237个既有文件中234保持，仅安装器和双Prefab预期变化，随后另补本模块三份说明；原动画/配置/战斗核心/旧表现组件/场景保持。收尾为Edit、场景clean、无缺失脚本或运行风残留，双方Animator启用/speed=1，TimeScale=1、captureFramerate=0、Shader支持且无错误，Console错误/警告均0。原始报告为工作区斗笠剑士/动画资源/samurai-charge-wind/analysis/{wind_validation,live_capture,editor_final}.json；完整范围与限制见该任务output/使用说明.txt。
