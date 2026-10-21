@@ -8,6 +8,7 @@ SamuraiCombatant 是角色组合入口（门面），挂在角色根对象上，
 
 普通 C# 服务不是 MonoBehaviour，不需要也不能逐个拖到 GameObject：
 - SamuraiActionController：动作状态、连段、蓄力、取消窗口、闪避输入缓存和动作时钟。
+- SamuraiDodgeFollowUp：由ActionController持有的普通C#辅助服务，只管理闪避追击输入缓存与结束宽限，不播放动画、不做伤害查询，也不额外推进Tick。
 - SamuraiCharacterMotor：CharacterController移动、重力、转向、动作步进与复位。
 - SamuraiKnockback：按独立命中后退参数积分快速起步、逐渐减速的水平位移，通过Motor碰撞；由角色Tick推进，命中停顿时冻结。
 - SamuraiAnimationDriver：Animator状态播放/查询、八方向片段选择、方向迟滞和步态相位衔接。
@@ -85,7 +86,7 @@ bool TrySkill(SamuraiCombatant actor, SamuraiActionDefinition skill, Vector3 dir
         && actor.Actions.TryStartAttack(skill, -1, direction);
 }
 
--1表示独立攻击，不进入普通连击序号。SprintAttack是明确的特例：其连接窗口可缓冲接回Combo1，其他独立招保持原规则。请求只在角色可行动状态接受，还会检查动作配置、Animator状态和耐力；返回false时不要先行扣除技能资源或播放成功特效。
+-1表示独立攻击，不进入普通连击序号。SprintAttack和DodgeAttack是明确的特例：前者连接回普通Combo1，后者连接到独立DodgeAttackToCombo1并将ComboIndex设0，随后直接接Combo2。其他独立招保持原规则。请求只在角色可行动状态接受，还会检查动作配置、Animator状态和耐力；返回false时不要先行扣除技能资源或播放成功特效。
 已有四段普攻与蓄力释放由SamuraiActionController在合法窗口内部提交。需要新增跳跃、施法等全新状态时，在协调器中明确其时序/打断规则，再调用已有服务；不要从输入脚本直接改Animator状态来绕过战斗时序。
 技能入口不应额外调用第二次Tick，否则会重复推进移动、恢复和时间。
 
@@ -141,6 +142,7 @@ Query返回IReadOnlyList<WeaponTrailContact>，包含Collider、世界接触点�
 八、修改入口速查
 
 连段/蓄力/取消/新动作状态：SamuraiActionController
+闪避追击缓存/宽限：SamuraiDodgeFollowUp及Profile的dodgeAttack*字段
 走跑/重力/胶囊/冲刺位移：SamuraiCharacterMotor及Profile/ActionDefinition参数
 受击后退距离/时间：ActionDefinition参数、SamuraiKnockback；伤害包字段KnockbackDistance/KnockbackSeconds
 八方向动画和混合播放：SamuraiAnimationDriver
@@ -200,9 +202,18 @@ Knockback不持有动作状态机、伤害规则或输入，方向在命中时�
 
 SamuraiTargetLock只在首次选择候选时使用环境视线测试；TickLock保持目标时检查存活、阵营、启用/主动隐藏及释放距离，不再因环境遮挡或目标离开屏幕解除。镜头碰撞逻辑不改，武器命中和AI仍各自执行自己的环境遮挡查询，锁定保持不意味着攻击可穿墙。
 Editor/SamuraiSprintCombatSetup.Install定向更新Run八状态及Profile引用、SprintAttack动作/状态、双Prefab已有SamuraiBladeRibbon缺失的SprintAttack条目；不重配原六招刀光、其他组件、Walk或用户参数。SprintAttack默认值仅首次创建写入。InitializeKnockbackDefaults是单独明确重设后退字段的维护入口，Install不自动调用它。SamuraiCombatSetup完整Build结尾在整组新片段已准备好时调用InstallIfPrepared，避免重建接回旧Run；完整Build仍会重置其他默认参数/Prefab，正常调参使用定向入口。
-Attack_Dodge只建议用于闪避后短窗口轻击追击或侧闪反击；本轮没有新增对应状态、输入或自动闪避攻击。后续若采用，应分别定义闪避无敌段、攻击有效窗、位移和耐力，不把整段挥刀都作为无敌时间。
+Attack_Dodge及其to_Combo1片段现已定向接入为闪避后追击，具体职责和时序见第十六节。
 
 
 十五、蓄力聚风与完成爆闪（2026-10-21）
 SamuraiChargeWind在LateUpdate(320)只读Charge状态与实际刀端，以单个运行Mesh绘制12条细丝、5条宽带及一次性完成爆发，最多1020顶点。爆发寿命0.30秒，首约0.033秒保持亮峰；完成位置锁定世界坐标，正常Charged释放只保留未结束的爆发尾迹。StateChanged与逐帧校验处理取消/复位/禁用；重新启用时不补播已经过去的满蓄瞬间。运行网格为DontSave并随组件清理，编辑器Configure不生成网格。
 独立URP Shader/材质为VFX/Shaders/SamuraiChargeWind.shader与VFX/SamuraiChargeWind.mat。原SamuraiChargeBladeGlow、屏幕裂纹及战斗时序保持。SamuraiChargeVfxSetup.InstallWind仅定向装配两个完整Prefab，完整Install Charge Effects也包含此步骤。公开FlowStrength、IsBurstVisible、CompletionBurstCount、BurstAge和RuntimeVertexCount供检查，累计计数不随ClearVisual归零。完整维护说明与verify_wind/capture_live/package_preview工具在外部动画资源/samurai-charge-wind/。
+
+
+十六、闪避后追击与回接第一击（2026-10-21）
+SamuraiActionController.TickDodge把55%后的lightPressed交给SamuraiDodgeFollowUp.BufferPress，缓存沿用Profile.inputBufferSeconds；到Max(dodgeAttackStart, 当前闪避invulnerableEnd)且缓存仍有效时，才通过原CommitAttack提交DodgeAttack。正常播完Dodge后FinishDodge保留0.25秒资格，Locomotion中的新轻击优先消费该资格；过期回到原普通/冲刺轻击选择。BeginDodge、CancelInput、复位、其他动作或受击中断按既有Enter流程清理资格；输入取消后即使闪避继续播完也不能重新获得宽限。时间来自动作Clock，局部HitStop期间不会推进。
+追击为普通Attack模式，ComboIndex=-1；其连段窗口缓存下一次轻击，在Max(damageEnd, comboLink)后提交dodgeAttackToCombo1并把ComboIndex设0。该片段包含完整第一击与独立命中窗口，随后沿combo[1]接Combo2，避免再播放一次普通Combo1。每次提交都经过CanPlay/耐力检查与原AttackSerial/轨迹清理流程；没有自动全套连击。IsInvulnerable只接受Dodge模式，追击与回接不会继承闪避无敌。
+玩家Profile新增dodgeAttack、dodgeAttackToCombo1、dodgeAttackInputStart、dodgeAttackStart、dodgeAttackGraceSeconds；两动作使用独立SamuraiActionDefinition，保留原Motor、WeaponAttack、Vitals及Knockback服务。训练敌人没有新动作入口。Editor/SamuraiDodgeAttackSetup.Install定向接入动作资产、Animator状态、玩家Profile与缺失刀光条目；再次执行只修复引用，不重设已有参数。完整Build的InstallIfPrepared仅在两片段都存在时接入，完整Build本身仍会重设其他默认配置。
+当前精修只在DodgeAttack调整14条臂/腕肌肉通道，主突刺0.22–0.44刀身目标约3°，0.44–0.60平滑恢复原收刀；双手共同旋转、双臂IK保持局部握持，RootQ、躯干、腿、手指与水平根保持。DodgeAttack.comboLink改为0.57、damageEnd仍0.52；回接完整第一击变体重定时至0.70秒，首0.10秒匹配新接点姿态及速度，后段约1.167倍原动作。归一化命中/位移窗口与55毫秒全局混合保持；输入、耐力、无敌和连段服务不增加第二套逻辑。
+制作流程位于外部samurai-dodge-attack/：refine_dodge_blender.py通过Blender MCP计算双手目标及IK，Unity工具unity/EncodeDodgeArmTargets.cs.txt只编码目标为14条Humanoid通道并记录目标/sourceSamples的SHA256供导出校验，export_dodge_refinement_blender.py在Blender完成最终曲线导出与回接重定时。build_dodge_attack_blender.py检测analysis/dodge_refine_arm_channels.json后转新导出，避免恢复首版；仍复用samurai-held-run/build_held_run_blender.py的曲线IO。保留dodge_refine_source_samples.json、dodge_refine_arm_targets.json、dodge_refine_arm_channels.json与dodge_refinement_export.json。
+output/Samurai_Dodge_FollowUp.blend为保留其他已有Scene的完整副本，当前场景“Samurai Level Thrust And Fast Return.002”；仍是Humanoid通道工程，Unity重定向，没有新增骨骼FBX。原“只改2条RootT、其余128条保持”及52+36项测试是首版历史；当前精修另通过7项姿态、45项接续、36项接触检查，报告为analysis/dodge_refinement_validation.json、dodge_refinement_transition_validation.json与dodge_refinement_contact_validation.json；输入连段与对外接触分开验证，范围见验证摘要。

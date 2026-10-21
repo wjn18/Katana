@@ -2113,6 +2113,16 @@ MonoBehaviour:
     lifetime: 0.115
     strength: 1.15
     bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: 601e075a49277ff48ad85ae2bf1b9149, type: 2}
+    emissionWindow: {x: 0.18, y: 0.53499997}
+    lifetime: 0.11
+    strength: 1.05
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: cc30e7b97a3056d4fb2adc2ee04d0e67, type: 2}
+    emissionWindow: {x: 0.22, y: 0.39499998}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
 --- !u!114 &961422673704512821
 MonoBehaviour:
   m_ObjectHideFlags: 0

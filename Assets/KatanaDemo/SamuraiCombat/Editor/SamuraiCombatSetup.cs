@@ -48,6 +48,7 @@ namespace OCDesign.EditorTools
             BuildActor(PlayerPath,"SamuraiCombatPlayer",profile,controller,0);
             BuildActor(EnemyPath,"SamuraiTrainingOpponent",enemyProfile,controller,1);
             SamuraiSprintCombatSetup.InstallIfPrepared();
+            SamuraiDodgeAttackSetup.InstallIfPrepared();
             if (!AssetDatabase.LoadAssetAtPath<SceneAsset>(ScenePath)) BuildScene();
             EditorSceneManager.OpenScene(ScenePath,OpenSceneMode.Single);
             Selection.activeObject=AssetDatabase.LoadAssetAtPath<GameObject>(PlayerPath);
@@ -87,7 +88,7 @@ namespace OCDesign.EditorTools
             p.idle=Clip("Idle");p.walk=Clip("Walk");p.run=Clip("Run");p.guard=Clip("Guard");p.guardHit=Clip("GuardHit");
             p.guardBreak=Clip("GuardBreak");p.hit=Clip("Hit");p.death=Clip("Death");p.charge=Clip("Charge");
             p.chargeSeconds=1.5f;p.transitionSeconds=.055f;p.guardWalkSpeed=0f;
-            p.walkSpeed=3f;p.runSpeed=5f;
+            p.walkSpeed=3f;p.runSpeed=6f;
             ConfigureDefenseClips(p);
             p.combo=new[]{
                 Action("Combo1",20,12,.12f,.34f,.367347f,.40f,1f),

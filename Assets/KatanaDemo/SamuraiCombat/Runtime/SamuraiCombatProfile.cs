@@ -24,6 +24,10 @@ namespace OCDesign.Samurai
         public SamuraiActionDefinition charged;
         [Tooltip("持续奔跑后按轻攻击使用；为空时继续使用普通连段。")]
         public SamuraiActionDefinition sprintAttack;
+        [Tooltip("闪避末期或结束后的短窗口内按轻攻击使用；为空时不启用闪避追击。")]
+        public SamuraiActionDefinition dodgeAttack;
+        [Tooltip("闪避追击再次轻攻击时使用的第一段普攻变体；完成后接普通第二段。")]
+        public SamuraiActionDefinition dodgeAttackToCombo1;
         [Tooltip("顺序：前、右前、右、右后、后、左后、左、左前。")]
         public SamuraiActionDefinition[] dodges = new SamuraiActionDefinition[8];
 
@@ -47,6 +51,14 @@ namespace OCDesign.Samurai
         [Min(0f)] public float terminalFallSpeed = 35f;
         [Range(0f, 0.4f)] public float inputBufferSeconds = 0.18f;
         [Range(0f, 0.25f)] public float transitionSeconds = 0.08f;
+        [Header("闪避后追击")]
+        [Tooltip("闪避播放到此比例后才接收轻攻击边沿；缓存时长沿用 Input Buffer Seconds。")]
+        [Range(0f, 1f)] public float dodgeAttackInputStart = .55f;
+        [Tooltip("闪避播放到此比例后允许追击；实际不会早于该闪避的无敌结束点。")]
+        [Range(0f, 1f)] public float dodgeAttackStart = .72f;
+        [Tooltip("正常完成闪避后仍可按轻攻击追击的时间；其他动作或中断会取消资格。")]
+        [Min(0f)] public float dodgeAttackGraceSeconds = .25f;
+        [Header("蓄力攻击")]
         [Min(0.1f)] public float chargeSeconds = 1.5f;
         [Tooltip("满蓄后首次有效释放窗口；继续持有不会重新开启。")]
         [Min(0f)] public float chargeCriticalWindowSeconds = .25f;

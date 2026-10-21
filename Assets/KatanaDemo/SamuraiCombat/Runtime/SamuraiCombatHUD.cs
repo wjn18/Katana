@@ -136,7 +136,8 @@ namespace OCDesign.Samurai
 
             if (showControls)
             {
-                DrawPanel(new Rect(20, height - 160, 620, 140));
+                DrawPanel(new Rect(20, height - 184, 620, 164));
+                GUI.Label(new Rect(34, height - 177, 592, 21), "Dodge + LMB  Follow-up slash    Click again to return to light combo", text);
                 GUI.Label(new Rect(34, height - 153, 592, 21), "WASD  Move    Shift  Run    Run + LMB  Sprint attack    Space  Dodge", text);
                 GUI.Label(new Rect(34, height - 129, 592, 21), "F  Hold guard / timed press to parry     Tab / MMB  Toggle target lock", text);
                 GUI.Label(new Rect(34, height - 105, 592, 21), "LMB  Light / click to chain     RMB  Tap heavy / hold charged strike", text);

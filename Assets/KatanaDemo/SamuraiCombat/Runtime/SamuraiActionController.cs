@@ -15,6 +15,7 @@ namespace OCDesign.Samurai
         readonly SamuraiVitals vitals;
         readonly SamuraiDefense defense;
         readonly Transform root;
+        readonly SamuraiDodgeFollowUp dodgeFollowUp = new SamuraiDodgeFollowUp();
         const float ChargeTimeTolerance = .00001f;
         float stateTime, stateDuration = 1f, lastActionNormalized;
         float dodgeBufferedUntil = float.NegativeInfinity;
@@ -64,6 +65,7 @@ namespace OCDesign.Samurai
         {
             Clock = 0f; dodgeBufferedUntil = float.NegativeInfinity;
             comboQueued = sprintExhausted = false;
+            dodgeFollowUp.Cancel();
             ResetSprint();
             defense.Reset(); animation.Reset();
             // Serial不回退，避免外部持有旧招式标识后误认为仍有效。
@@ -73,6 +75,7 @@ namespace OCDesign.Samurai
         public void CancelInput()
         {
             comboQueued = false; dodgeBufferedUntil = float.NegativeInfinity;
+            dodgeFollowUp.Cancel();
             ResetSprint();
             defense.CancelInput();
             if (Mode == SamuraiCombatMode.Charge || Mode == SamuraiCombatMode.Guard) EnterLocomotion();
@@ -93,10 +96,7 @@ namespace OCDesign.Samurai
             {
                 case SamuraiCombatMode.Dead: movement.Move(Vector3.zero, dt); return;
                 case SamuraiCombatMode.Attack: TickAttack(input, move, facing, previousNormalized, dt); break;
-                case SamuraiCombatMode.Dodge:
-                    movement.MoveAction(ActiveAction, actionDirection, previousNormalized, StateNormalizedTime, dt);
-                    if (StateNormalizedTime >= 1f) EnterLocomotion();
-                    break;
+                case SamuraiCombatMode.Dodge: TickDodge(input, facing, previousNormalized, dt); break;
                 case SamuraiCombatMode.Charge:
                     movement.Move(Vector3.zero, dt);
                     if (TryBufferedDodge(move)) break;
@@ -131,6 +131,8 @@ namespace OCDesign.Samurai
             if (TryBufferedDodge(move)) { movement.Move(Vector3.zero, dt); return; }
             if (input.lightPressed)
             {
+                if (dodgeFollowUp.ConsumeGrace(Clock) && CommitAttack(profile.dodgeAttack, -1, facing))
+                { movement.Move(Vector3.zero, dt); return; }
                 bool sprintReady = IsSprinting && input.sprint && move.sqrMagnitude > .001f
                     && SprintElapsedSeconds >= Mathf.Max(0f, profile.sprintAttackMinRunSeconds);
                 if ((sprintReady && CommitAttack(profile.sprintAttack, -1, facing))
@@ -172,14 +174,35 @@ namespace OCDesign.Samurai
                 Enter(SamuraiCombatMode.Locomotion, selection.StateName, SamuraiAnimationDriver.ClipDuration(selection.Clip), false, selection.Phase);
         }
 
+        void TickDodge(SamuraiInputFrame input, Vector3 facing, float previousNormalized, float dt)
+        {
+            var dodge = ActiveAction;
+            if (dodge == null) { dodgeFollowUp.Cancel(); EnterLocomotion(); movement.Move(Vector3.zero, dt); return; }
+            float normalized = StateNormalizedTime;
+            movement.MoveAction(dodge, actionDirection, previousNormalized, normalized, dt);
+            if (input.lightPressed)
+                dodgeFollowUp.BufferPress(Clock, normalized, profile.dodgeAttackInputStart, profile.inputBufferSeconds);
+            float attackStart = Mathf.Max(profile.dodgeAttackStart, dodge.invulnerableEnd);
+            if (dodgeFollowUp.ConsumeBuffered(Clock, normalized, attackStart)
+                && CommitAttack(profile.dodgeAttack, -1, facing)) return;
+            if (normalized >= 1f)
+            {
+                dodgeFollowUp.FinishDodge(Clock, profile.dodgeAttackGraceSeconds);
+                EnterLocomotion();
+            }
+        }
+
         void TickAttack(SamuraiInputFrame input, Vector3 move, Vector3 facing, float previousNormalized, float dt)
         {
             var action = ActiveAction;
             if (action == null) { EnterLocomotion(); movement.Move(Vector3.zero, dt); return; }
             float normalized = StateNormalizedTime;
-            int nextComboIndex = ComboIndex >= 0 ? ComboIndex + 1 : action == profile.sprintAttack ? 0 : -1;
-            if (input.lightPressed && !comboQueued && nextComboIndex >= 0 && profile.combo != null
-                && nextComboIndex < profile.combo.Length && normalized >= action.comboInputStart && normalized <= action.comboInputEnd)
+            bool fromDodgeAttack = action == profile.dodgeAttack;
+            int nextComboIndex = ComboIndex >= 0 ? ComboIndex + 1 : action == profile.sprintAttack || fromDodgeAttack ? 0 : -1;
+            var nextCombo = fromDodgeAttack ? profile.dodgeAttackToCombo1 : profile.combo != null
+                && nextComboIndex >= 0 && nextComboIndex < profile.combo.Length ? profile.combo[nextComboIndex] : null;
+            if (input.lightPressed && !comboQueued && nextCombo != null
+                && normalized >= action.comboInputStart && normalized <= action.comboInputEnd)
                 comboQueued = true;
             movement.MoveAction(action, actionDirection, previousNormalized, normalized, dt);
             if (normalized >= action.CancelStart)
@@ -190,7 +213,7 @@ namespace OCDesign.Samurai
             if (comboQueued && normalized >= Mathf.Max(action.damageEnd, action.comboLink))
             {
                 comboQueued = false;
-                if (CommitAttack(profile.combo[nextComboIndex], nextComboIndex, facing)) return;
+                if (CommitAttack(nextCombo, nextComboIndex, facing)) return;
             }
             if (normalized >= 1f) EnterLocomotion();
         }
@@ -223,6 +246,7 @@ namespace OCDesign.Samurai
             vitals.Spend(dodge.staminaCost, Clock);
             Enter(SamuraiCombatMode.Dodge, dodge.stateName, dodge.Duration);
             ActiveAction = dodge; actionDirection = direction; dodgeBufferedUntil = float.NegativeInfinity;
+            dodgeFollowUp.BeginDodge();
             return true;
         }
         void BeginGuard(bool fresh)
@@ -238,6 +262,7 @@ namespace OCDesign.Samurai
         }
         void Enter(SamuraiCombatMode next, string state, float duration, bool immediate = false, float normalizedStart = 0f)
         {
+            if (next != SamuraiCombatMode.Locomotion) dodgeFollowUp.Cancel();
             Mode = next; ActiveAction = null; ComboIndex = -1; comboQueued = false;
             IsCriticalAttack = false; AttackDamageMultiplier = 1f;
             stateTime = Mathf.Clamp01(normalizedStart) * Mathf.Max(.02f, duration);

@@ -1,13 +1,25 @@
 斗笠 ARPG Samurai 战斗验证 · 2026-10-21
 
-本轮持刀奔跑/冲刺攻击/受击后退/锁定保持：53/53项独立曲线检查、32/32项真实Humanoid动画检查、28/28项机制检查通过。
-范围：八向HeldRun为Idle1上身与Sprint/方向Run腿部拼接，0.5秒循环，Walk不变、旧Run保留弃用；持续实际奔跑0.15秒后Shift+左键触发SprintAttack并可续Combo1；各招独立后退，经过CharacterController并兼容HitStop/复位；已锁定目标的环境遮挡不再自动解锁。Attack_Dodge只作后续玩法建议，未接入。
-本轮制作与验证资料归斗笠剑士/动画资源/samurai-held-run/，预览归同角色图片资源/模型预览/samurai-held-run/。下列旧轮次数字及当时的遮挡解锁行为均为历史记录，不代表本轮重新执行或当前锁定规则。
-本轮收尾：已回Edit，场景无待保存修改；两角色组件与Animator启用、speed=1、ApplyRootMotion=false，无缺失脚本及临时对象。Console错误0，有1条域重载期间MCP连接层“WebSocket is not initialised”警告，不是战斗组件运行错误。原包426文件、既有动画76文件和场景2文件的SHA均保持。
+当前闪避追击精修：通过Blender MCP调整DodgeAttack的14条臂/腕肌肉曲线，主突刺0.22–0.44刀身目标约3°，0.44–0.60平滑恢复原收刀，双手共同旋转、双臂IK保持局部握持；RootQ、躯干、腿、手指曲线与RootT.x/z原地化保持。DodgeAttack仍0.95秒，连接点0.65→0.57且伤害结束仍0.52；回接第一击变体由0.8166667秒缩至0.70秒，首0.10秒匹配新接点姿态及速度，后段原动作加快约1.167倍。原归一化命中/步进窗口和全局55毫秒混合保持；名义连接提前76毫秒，回接第一击伤害开始约提前104毫秒。
+当前正式Blend场景为“Samurai Level Thrust And Fast Return.002”，其他已有Scene保留；导出记录为外部samurai-dodge-attack/analysis/dodge_refinement_export.json。本轮共88项：姿态7/7、接续45/45、刀刃接触36/36，分别见dodge_refinement_validation.json、dodge_refinement_transition_validation.json、dodge_refinement_contact_validation.json。
+姿态检查按115相位采样，主突刺角度2.9999°–3.0001°，全程双手相对握持位置最大变化约1.451毫米，躯干/腿骨位置最大变化约0.851毫米，接点刀尖差约1.067毫米。45项接续检查覆盖30/60/144Hz、早/晚输入、连接时机、位移/耐力预算、Combo2和无敌限制。36项实际接触检查仍为平地静止目标：两招在前方1/1.5/2米及右偏0.35米样本单次命中28/20伤害，后退0.45/0.15米，无窗外伤害；左偏0.35米样本未命中。该结果不保证所有角度、目标运动、地形或逐指/衣物姿态。
+侧视关键姿态已查看，预览为图片资源/模型预览/samurai-dodge-attack/LeveledThrust_side.png；收尾Unity Edit、场景无待保存修改，两角色组件与Animator启用、speed=1、ApplyRootMotion=false，Console错误/警告0。制作工具与校验依赖见外部任务说明，目标编码附SHA256供Blender最终导出核对，DodgeAttack最终RootQ曲线保持。
+本轮保持性见samurai-dodge-attack/analysis/refinement_preservation.json：681个基线文件中674个哈希保持；7项变化为两段anim、DodgeAttack的comboLink、Installer默认值和3份Unity说明。原包、全部既有meta、其他动作配置、场景、Prefab与Controller保持。
+首轮接入历史：dodge_attack_runtime_validation.json的52项与dodge_attack_contact_validation.json的36项共88项仅属于精修前版本；blender_inplace.json、unity_integration.json与preservation_check.json也为该轮记录。其“128/130条原曲线保持”、前方/右偏命中与左偏未命中、669/659文件保持和Edit收尾不代表本轮重新验证。玩家55%输入/72%追击、0.25秒宽限、每段独立耐力、只在Dodge窗口无敌，以及走3/跑6的规则继续保持。
+
+当前八向HeldRun在Walk上身姿态基础上整体后抬8°，下身保持现有Run。Blender MCP重新计算三条Spine衔接与Body RootQ髋补偿，肩臂、胸、头和手的局部姿态不变；123条其他曲线逐字保持，包括全部肩臂、手指、腿及RootT。八向0.5秒循环、120Hz、水平根为0，玩家走3、跑6米/秒，Walk本身保持。
+真实斗笠Animator八向各121相位检查：相对后抬8°目标的上身朝向最大误差约0.00045°，腿相对髋向量最大变化约0.0043毫米，手相对胸位置最大变化约0.0025毫米；髋对Run朝向误差Unity读数0°。前向头髋连线前倾约17.68°降至11.34°，头部左右摆幅保持约4.35毫米，循环闭合、容器无漂移。详见外部samurai-held-run/analysis/torso_lift_validation.json、torso_lift_curve_validation.json和torso_lift_asset_preservation.json。
+当前重建依赖analysis/held_run_walk_upper.json及held_run_hip_compensation.json，保持Walk源/衔接数据SHA256校验。align_walk_upper_blender.py中的TORSO_LIFT_DEGREES=8控制后抬角度；角度、Walk、来源或Avatar改变后，需重新执行SampleWalkUpperAlignment、Blender衔接、EncodeWalkUpperAlignment及SampleHeldRunCompensation校准。正式Blend保留原有Scene，当前场景Samurai Upright Held Run.001；这是Humanoid通道工程。正侧各4相位实际角色截图已更新并查看，held_run_walk_upper.gif已输出16帧/0.5秒循环；收尾Unity Edit、场景无待保存修改、Console错误/警告0。采样检查不等于全部姿态无穿模或逐指每帧贴柄。
+历史记录：walk_upper_*为上一版Walk上身拼接检查；run_sway_*、run_refinement_*与refinement_asset_preservation.json为更早减摇、腿路径、1秒6米和冲刺接Combo1等结论，不表示本轮重跑。
+以下首轮53/53曲线与32/32动画检查没有覆盖最终脚部横扫，因此仅保留为历史记录；其他机制、命中、保持性与编辑器收尾也属于原轮次。
+首轮持刀奔跑/冲刺攻击/受击后退/锁定保持历史：53/53项独立曲线检查、32/32项真实Humanoid动画检查、28/28项机制检查通过。
+首轮范围：当时八向HeldRun为Idle1上身与Sprint/方向Run腿部拼接；该前向Sprint方案已被本节当前修正版替代。持续实际奔跑0.15秒后Shift+左键触发SprintAttack并可续Combo1；各招独立后退，经过CharacterController并兼容HitStop/复位；已锁定目标的环境遮挡不再自动解锁。这些功能仍保留。当时Attack_Dodge尚未接入；当前已接入，见本文件顶部闪避追击记录。
+制作与验证资料归斗笠剑士/动画资源/samurai-held-run/，预览归同角色图片资源/模型预览/samurai-held-run/。下列旧轮次数字及当时的遮挡解锁行为均为历史记录，不代表当前锁定规则。
+首轮收尾：已回Edit，场景无待保存修改；两角色组件与Animator启用、speed=1、ApplyRootMotion=false，无缺失脚本及临时对象。Console错误0，有1条域重载期间MCP连接层“WebSocket is not initialised”警告，不是战斗组件运行错误。原包426文件、既有动画76文件和场景2文件的SHA均保持。
 独立曲线检查涵盖来源保持、130条有限通道、水平原地化及循环数值/切线闭合；动画检查覆盖八向0.5秒Humanoid循环、真实22骨姿态闭合、容器静止、Idle1持刀上身保持及双腿确实跑动，不等于全姿态网格无接触。
 机制检查覆盖持续奔跑/松Shift/不足时间的轻击选择、SprintAttack接Combo1、无自动续招、CancelInput清资格、每招独立后退值、墙体截停、HitStop冻结/恢复、复位、格挡/完美格挡及连续遮挡6秒仍保持锁定。该组武器伤害链部分使用合成刀端，与下一组真实动画命中分开解释。
 真实SprintAttack动画刀刃在30/60/144FPS、起始正前方1.5/2/2.5/3米组合的12组检查均单次命中32伤害，实际后退约0.8000488米；接触发生于动作约37%–41%，没有重复命中。这是所测平地正前方距离结果，不代表所有横偏、地形或极低帧率均命中。
-本轮基线546个文件中534个哈希保持，12个预期变化为相关动作/角色配置、Controller及双完整Prefab；原资源包、全部旧动画、Walk和场景文件保持。用户Combo1跨步1.2米、Heavy1.8米/结束0.496、Charged4米/结束0.519保留；Console错误0。原始报告为samurai-held-run/analysis/independent_curve_validation.json、AnimationVerification.json、GameplayVerification.json及SprintContactVerification.json；收尾清理与最终编辑器状态见本节记录。
+首轮基线546个文件中534个哈希保持，12个预期变化为相关动作/角色配置、Controller及双完整Prefab；原资源包、全部旧动画、Walk和场景文件保持。用户Combo1跨步1.2米、Heavy1.8米/结束0.496、Charged4米/结束0.519保留；Console错误0。首轮原始报告为samurai-held-run/analysis/independent_curve_validation.json、AnimationVerification.json、GameplayVerification.json及SprintContactVerification.json。
 
 历史蓄力近身命中修复：仅Charged增加0.8米表面距离、55°半角的前方补偿，在既有0.10–0.42伤害窗内采样身体路径。正面距离39组（30/60/144 Hz）：0.55–4米33组均伤害65，4.5/5米6组均0；横偏矩阵120组（15/30/60/144 Hz）：所测0.55–3.5米/五列横偏100组均65，5米20组均0。另有53/53补偿边界与40/40停顿回归；二者为合成刀端的真实物理检查，与距离矩阵的正式动画采样分开解释。
 正常Update实时验证7/7：按144 Hz采集前向0.65米、横偏0.15米的普通/完美释放，各命中一次65/130，双方局部停顿0.14秒并恢复，画面已查看。完整参数、测试方法与限制统一见工作区斗笠剑士/动画资源/samurai-charged-hit/output/使用说明.txt；原始报告为该任务analysis/distance_after.json、offset_after.json、close_assist_validation.json、impact_regression.json及live_capture.json。以下为各轮历史验证。
