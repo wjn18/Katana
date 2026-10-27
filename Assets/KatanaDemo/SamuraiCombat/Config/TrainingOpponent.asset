@@ -17,11 +17,43 @@ MonoBehaviour:
   run: {fileID: 7400000, guid: cb7be613d2ba5a248ace28bcbaa3c838, type: 2}
   guard: {fileID: 7400000, guid: 58476a545e367d14dba01c313cea1a7f, type: 2}
   guardHit: {fileID: 7400000, guid: 0734e1a7135b0414c91c6a178bc06840, type: 2}
+  guardB: {fileID: 7400000, guid: dc4c249d06f1c184a9c9b6a91ab5df72, type: 2}
+  guardHitReactions:
+  - {fileID: 7400000, guid: 0734e1a7135b0414c91c6a178bc06840, type: 2}
+  - {fileID: 7400000, guid: 95ffabd8ea1c5d5448f7b80f40df8348, type: 2}
+  - {fileID: 7400000, guid: 17340af25055243479c4101762ba3971, type: 2}
+  guardBHitReactions:
+  - {fileID: 7400000, guid: 303863ba40f60af4dad8752308fcb3dd, type: 2}
+  - {fileID: 7400000, guid: 5b90eef5b5683734191f6d803f9df91a, type: 2}
+  - {fileID: 7400000, guid: 4067a53f20cc6cf438d552f66dfd9519, type: 2}
+  guardMediumStaminaDamage: 35
+  guardHeavyStaminaDamage: 55
   guardBreak: {fileID: 7400000, guid: a237a6f5e761583428d108f8276bf757, type: 2}
   hit: {fileID: 7400000, guid: 1b8609f97f7de1541a3f4471076544ef, type: 2}
+  directionalHitReactionsEnabled: 1
+  hitFrontReactions:
+  - {fileID: 7400000, guid: cf9a9161f4aa804418101a5396fd928d, type: 2}
+  - {fileID: 7400000, guid: 3cc57606a83dfd044a7e9d5ffef33e18, type: 2}
+  - {fileID: 7400000, guid: 50cb8c52220f88c40afe7b96f066f3c5, type: 2}
+  hitRightReactions:
+  - {fileID: 7400000, guid: 3b723dbced3c05841967bb088d4f6c3a, type: 2}
+  - {fileID: 7400000, guid: 71f01be8b2b86414497b8373aeedcc58, type: 2}
+  - {fileID: 7400000, guid: 1e147d9fc3820304c9cdedebf87ffcde, type: 2}
+  hitBackReactions:
+  - {fileID: 7400000, guid: 996c21c737155fd4598e041975895864, type: 2}
+  - {fileID: 7400000, guid: 9d983c07659184240adda3e1ba9ef653, type: 2}
+  - {fileID: 7400000, guid: 3c98927dda0b2a24f8448a6a2fd600fc, type: 2}
+  hitLeftReactions:
+  - {fileID: 7400000, guid: 9f28cbc3b3e5e7542b3299a8b5b580df, type: 2}
+  - {fileID: 7400000, guid: 664f86fe40f60794c809dee2925f066c, type: 2}
+  - {fileID: 7400000, guid: 0e8f2cbc4afe241468e41984c11a6e24, type: 2}
+  hitMediumStaminaDamage: 35
+  hitHeavyStaminaDamage: 55
   death: {fileID: 7400000, guid: 0807b302930951442afd88f76150e447, type: 2}
+  disableCollisionOnDeath: 1
   charge: {fileID: 7400000, guid: 0840dab900551d840b7ce4605ba0e4be, type: 2}
   parry: {fileID: 7400000, guid: a6b7a413800fdf948bee7ef75fb0489c, type: 2}
+  deflected: {fileID: 7400000, guid: c94cb1e5b9b39bf4689db4e6e789fd30, type: 2}
   directionalWalk:
   - {fileID: 7400000, guid: 5ca7c3793ab11344fa98109bffc39bad, type: 2}
   - {fileID: 7400000, guid: 650fe881b9d14034b8ade39e7b0d84b1, type: 2}
@@ -45,9 +77,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3adf3ee4d01cbc641bfdc803f7224a3c, type: 2}
   - {fileID: 11400000, guid: a05b1b4c8474bf44cb649de8094127c2, type: 2}
   - {fileID: 11400000, guid: 8fcd6d44b6f9542449abb9df8f3bbbcf, type: 2}
+  stances: []
+  defaultStanceIndex: 0
   heavy: {fileID: 11400000, guid: cdc489df93282f546a65dd78f222fbe7, type: 2}
   charged: {fileID: 11400000, guid: 9485bf7a1b476564ebd924d16e51b206, type: 2}
   sprintAttack: {fileID: 0}
+  dodgeAttack: {fileID: 0}
+  dodgeAttackToCombo1: {fileID: 0}
   dodges:
   - {fileID: 11400000, guid: 80ccb379bfa2c8446b39bbc67b3bc6fa, type: 2}
   - {fileID: 11400000, guid: 1a9241a303cb47846bc85c4aefe1d279, type: 2}
@@ -63,6 +99,20 @@ MonoBehaviour:
   staminaRecoveryDelay: 0.65
   sprintStaminaPerSecond: 9
   guardRecoveryMultiplier: 0.35
+  kiPulseEnabled: 0
+  kiPulseRecoveryFraction: 0.8
+  kiPulseGatherSeconds: 0.45
+  kiPulsePerfectSeconds: 0.15
+  artsEnabled: 0
+  artsGaugeMaximum: 100
+  artsAttackGain: 8
+  artsGuardGain: 4
+  artsDeflectGain: 20
+  artsDurationSeconds: 6
+  artsDamageMultiplier: 1.2
+  artsMartialArtDamageMultiplier: 1.2
+  artsStaminaCostMultiplier: 0.7
+  artsAdditionalAttacks: []
   walkSpeed: 1.85
   runSpeed: 2.72
   sprintAttackMinRunSeconds: 0.15
@@ -73,6 +123,9 @@ MonoBehaviour:
   terminalFallSpeed: 35
   inputBufferSeconds: 0.18
   transitionSeconds: 0.055
+  dodgeAttackInputStart: 0.55
+  dodgeAttackStart: 0.72
+  dodgeAttackGraceSeconds: 0.25
   chargeSeconds: 1.5
   chargeCriticalWindowSeconds: 0.25
   chargeCriticalDamageMultiplier: 2
@@ -80,10 +133,21 @@ MonoBehaviour:
   perfectGuardSeconds: 0.16
   perfectGuardStunSeconds: 0.65
   guardBreakDamageMultiplier: 0.35
+  guardKnockbackDistance: 0
+  guardLightKnockbackMultiplier: 1
+  guardHeavyKnockbackMultiplier: 1
+  guardKnockbackSeconds: 0.18
+  parryKnockbackMultiplier: 0.5
   parryActiveSeconds: 0.2
   parryCooldownSeconds: 0.7
   parryStunSeconds: 1.1
   parrySuccessRecoverySeconds: 0.28
+  deflectEnabled: 0
+  deflectActiveSeconds: 0.2
+  deflectMissCooldownSeconds: 0.35
+  deflectRecoveryFraction: 0.1
+  deflectSuccessRecoverySeconds: 0.12
+  deflectStunSeconds: 0.7
   bladeRadius: 0.13
   hitMask:
     serializedVersion: 2

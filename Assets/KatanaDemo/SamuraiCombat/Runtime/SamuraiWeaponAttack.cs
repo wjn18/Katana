@@ -12,6 +12,7 @@ namespace OCDesign.Samurai
     {
         readonly ISamuraiDamageReceiver owner;
         readonly Transform bladeBase, bladeTip;
+        readonly Transform leftFoot, leftToes, rightFoot, rightToes;
         readonly SamuraiCombatProfile profile;
         readonly WeaponTrailDetector detector = new WeaponTrailDetector();
         readonly HashSet<ISamuraiDamageReceiver> targets = new HashSet<ISamuraiDamageReceiver>();
@@ -20,22 +21,31 @@ namespace OCDesign.Samurai
         float swingDamageMultiplier = 1f;
         bool sampleValid, sampling;
         uint swingRevision;
+        int hitWindowIndex = -1;
         public event Action<WeaponTrailSweep> SweepQueried;
         public event Action<ISamuraiDamageReceiver, SamuraiHitResult, Vector3> ContactResolved;
         public event Action HistoryCleared;
 
-        public SamuraiWeaponAttack(ISamuraiDamageReceiver owner, Transform bladeBase, Transform bladeTip, SamuraiCombatProfile profile)
+        public SamuraiWeaponAttack(ISamuraiDamageReceiver owner, Transform bladeBase, Transform bladeTip, SamuraiCombatProfile profile, Animator animator = null)
         {
             this.owner = owner; this.bladeBase = bladeBase; this.bladeTip = bladeTip; this.profile = profile;
+            if (animator != null && animator.isHuman)
+            {
+                leftFoot = animator.GetBoneTransform(HumanBodyBones.LeftFoot);
+                leftToes = animator.GetBoneTransform(HumanBodyBones.LeftToes);
+                rightFoot = animator.GetBoneTransform(HumanBodyBones.RightFoot);
+                rightToes = animator.GetBoneTransform(HumanBodyBones.RightToes);
+            }
         }
-        public void BeginSwing(float damageMultiplier = 1f)
+        public void BeginSwing(float damageMultiplier = 1f, SamuraiActionDefinition strike = null)
         {
             swingRevision++;
             swingDamageMultiplier = Mathf.Max(1f, damageMultiplier);
             targets.Clear();
-            sampleValid = bladeBase != null && bladeTip != null;
+            hitWindowIndex = -1;
+            sampleValid = TryEndpoints(strike, out previousBase, out previousTip);
             if (!sampleValid) return;
-            previousBase = bladeBase.position; previousTip = bladeTip.position; previousNormalized = 0f;
+            previousNormalized = 0f;
             previousOwnerPosition = owner.DamageRoot.position;
         }
         public void CancelSwing()
@@ -51,7 +61,7 @@ namespace OCDesign.Samurai
 
         public void Sample(float normalized, SamuraiActionDefinition strike, Vector3 bodyPoint, Func<bool> canContinue)
         {
-            if (sampling || strike == null || bladeBase == null || bladeTip == null
+            if (sampling || strike == null
                 || canContinue == null || !canContinue()) return;
             uint revision = swingRevision;
             sampling = true;
@@ -65,34 +75,38 @@ namespace OCDesign.Samurai
         void SampleCurrentSwing(float normalized, SamuraiActionDefinition strike, Vector3 bodyPoint,
             Func<bool> canContinue, uint revision)
         {
-            Vector3 currentBase = bladeBase.position, currentTip = bladeTip.position;
+            if (!TryEndpoints(strike, out Vector3 currentBase, out Vector3 currentTip)) return;
             if (!sampleValid)
             {
                 previousBase = currentBase; previousTip = currentTip; previousNormalized = normalized;
                 previousOwnerPosition = owner.DamageRoot.position;
             }
-            if (normalized >= strike.damageStart && previousNormalized <= strike.damageEnd)
+            for (int windowIndex = 0; windowIndex < strike.DamageWindowCount; windowIndex++)
             {
+                if (windowIndex < hitWindowIndex) continue;
+                Vector2 window = strike.GetDamageWindow(windowIndex);
+                if (window.y <= window.x || normalized < window.x || previousNormalized > window.y) continue;
+                if (hitWindowIndex != windowIndex) { targets.Clear(); hitWindowIndex = windowIndex; }
                 float span = Mathf.Max(.00001f, normalized - previousNormalized);
-                float first = Mathf.Clamp01((strike.damageStart - previousNormalized) / span);
-                float last = Mathf.Clamp01((strike.damageEnd - previousNormalized) / span);
+                float first = Mathf.Clamp01((window.x - previousNormalized) / span);
+                float last = Mathf.Clamp01((window.y - previousNormalized) / span);
                 var sweep = new WeaponTrailSweep
                 {
                     FromBase = Vector3.Lerp(previousBase, currentBase, first),
                     FromTip = Vector3.Lerp(previousTip, currentTip, first),
                     ToBase = Vector3.Lerp(previousBase, currentBase, last),
                     ToTip = Vector3.Lerp(previousTip, currentTip, last),
-                    Radius = Mathf.Max(.01f, profile.bladeRadius)
+                    Radius = Mathf.Max(.01f, strike.hitRadius > 0f ? strike.hitRadius : profile.bladeRadius)
                 };
                 SweepQueried?.Invoke(sweep);
                 if (!CanContinue(revision, canContinue)) return;
                 var contacts = detector.Query(sweep, profile.hitMask, profile.obstructionMask, this);
-                ResolveContacts(contacts, strike, bodyPoint, canContinue, revision);
+                ResolveContacts(contacts, strike, windowIndex, bodyPoint, canContinue, revision, sweep, true);
                 if (!CanContinue(revision, canContinue)) return;
 
                 // 补刀弧内侧和冲刺贴身滑过的空隙；帧间路径裁到有效窗，不能在收刀位置补伤害。
-                float assistStart = Mathf.Max(strike.damageStart, strike.closeRangeStart);
-                float assistEnd = Mathf.Min(strike.damageEnd, strike.closeRangeEnd);
+                float assistStart = Mathf.Max(window.x, strike.closeRangeStart);
+                float assistEnd = Mathf.Min(window.y, strike.closeRangeEnd);
                 if (strike.closeRangeReach > 0f && assistEnd >= assistStart
                     && normalized >= assistStart && previousNormalized <= assistEnd)
                 {
@@ -108,7 +122,7 @@ namespace OCDesign.Samurai
                         Vector3 origin = Vector3.Lerp(from, to, (float)i / steps);
                         contacts = detector.QuerySector(origin, owner.DamageRoot.forward, strike.closeRangeReach,
                             strike.closeRangeHalfAngle, profile.hitMask, profile.obstructionMask, this);
-                        ResolveContacts(contacts, strike, origin, canContinue, revision);
+                        ResolveContacts(contacts, strike, windowIndex, origin, canContinue, revision, sweep, false);
                     }
                 }
             }
@@ -118,8 +132,26 @@ namespace OCDesign.Samurai
             previousOwnerPosition = owner.DamageRoot.position;
         }
 
-        void ResolveContacts(IReadOnlyList<WeaponTrailContact> contacts, SamuraiActionDefinition strike,
-            Vector3 bodyPoint, Func<bool> canContinue, uint revision)
+        bool TryEndpoints(SamuraiActionDefinition strike, out Vector3 from, out Vector3 to)
+        {
+            from = to = Vector3.zero;
+            SamuraiHitSource source = strike != null ? strike.hitSource : SamuraiHitSource.Weapon;
+            if (source == SamuraiHitSource.Weapon)
+            {
+                if (bladeBase == null || bladeTip == null) return false;
+                from = bladeBase.position; to = bladeTip.position;
+                return true;
+            }
+            Transform foot = source == SamuraiHitSource.LeftFoot ? leftFoot : rightFoot;
+            Transform toes = source == SamuraiHitSource.LeftFoot ? leftToes : rightToes;
+            if (foot == null) return false;
+            from = foot.position;
+            to = toes != null ? toes.position : from + owner.DamageRoot.forward * .16f;
+            return true;
+        }
+
+        void ResolveContacts(IReadOnlyList<WeaponTrailContact> contacts, SamuraiActionDefinition strike, int windowIndex,
+            Vector3 bodyPoint, Func<bool> canContinue, uint revision, WeaponTrailSweep sweep, bool swept)
         {
             for (int i = 0; i < contacts.Count && CanContinue(revision, canContinue); i++)
             {
@@ -133,7 +165,10 @@ namespace OCDesign.Samurai
                 SamuraiHitResult result = target.ReceiveHit(new SamuraiDamageHit
                 {
                     Damage = strike.damage * swingDamageMultiplier, StaminaDamage = strike.staminaDamage, Unblockable = strike.unblockable,
+                    ToughnessDamage = strike.ToughnessDamageAt(windowIndex), ImpactStrength = strike.ImpactStrengthAt(windowIndex),
                     KnockbackDistance = strike.knockbackDistance, KnockbackSeconds = strike.knockbackSeconds,
+                    BladeMotion = ContactMotion(sweep, contact.Point, swept ? contact.Time : 1f),
+                    GuardReactionSide = strike.guardReactionSide,
                     SourcePosition = owner.DamageRoot.position, Point = contact.Point, Source = owner
                 });
                 ContactResolved?.Invoke(target, result, contact.Point);
@@ -143,6 +178,14 @@ namespace OCDesign.Samurai
 
         bool CanContinue(uint revision, Func<bool> canContinue) =>
             revision == swingRevision && canContinue();
+
+        static Vector3 ContactMotion(WeaponTrailSweep sweep, Vector3 point, float time)
+        {
+            Vector3 from = Vector3.Lerp(sweep.FromBase, sweep.ToBase, time);
+            Vector3 blade = Vector3.Lerp(sweep.FromTip, sweep.ToTip, time) - from;
+            float along = blade.sqrMagnitude > .000001f ? Mathf.Clamp01(Vector3.Dot(point - from, blade) / blade.sqrMagnitude) : .5f;
+            return Vector3.Lerp(sweep.ToBase - sweep.FromBase, sweep.ToTip - sweep.FromTip, along);
+        }
 
         static ISamuraiDamageReceiver Receiver(Collider collider) =>
             collider != null ? collider.GetComponentInParent<ISamuraiDamageReceiver>() : null;

@@ -1894,6 +1894,8 @@ GameObject:
   - component: {fileID: 3601454403677555144}
   - component: {fileID: 3758366342734170741}
   - component: {fileID: 2422130495902592703}
+  - component: {fileID: 2887932842045391388}
+  - component: {fileID: 6028765162682722458}
   m_Layer: 0
   m_Name: SamuraiTrainingOpponent
   m_TagString: Untagged
@@ -1976,7 +1978,10 @@ MonoBehaviour:
   target: {fileID: 0}
   playerInput: {fileID: 0}
   activeTraining: 1
+  trainingMode: 0
+  delayedHeavySeconds: 0.55
   engageDistance: 1.35
+  practiceEngageDistance: 1.05
   minimumSafeDistance: 1.5
   spacingMinimum: 1.9
   spacingMaximum: 2.3
@@ -2119,6 +2124,54 @@ MonoBehaviour:
   burstRadius: 0.46
   flashRadius: 0.38
   windColor: {r: 0.8, g: 0.94, b: 1, a: 1}
+--- !u!114 &2887932842045391388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5400511802938785313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf9b1f896d63f3d4b9f5a225b5e56a0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiDamageVfx
+  actor: {fileID: 3278029933985948003}
+  burstShader: {fileID: 4800000, guid: d94ee9c5ac60b34438e3e14473c85c0a, type: 3}
+  enableVisuals: 1
+  mediumDamage: 15
+  highDamage: 35
+  darkBlood: {r: 0.3, g: 0.012, b: 0.025, a: 0.95}
+  brightBlood: {r: 0.86, g: 0.035, b: 0.045, a: 0.95}
+  impactColor: {r: 1.9, g: 0.74, b: 0.32, a: 0.95}
+  lifetime: 0.58
+  size: 1
+  gravity: 3.2
+  maxConcurrentBursts: 6
+--- !u!114 &6028765162682722458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5400511802938785313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b8d224be54622046b4b8a79813adbf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiDeflectFeedback
+  actor: {fileID: 3278029933985948003}
+  sparkShader: {fileID: 4800000, guid: f5b26f8d1bdfbf54e984af68478aed02, type: 3}
+  enableVisuals: 1
+  enableSound: 1
+  sparkSeconds: 0.18
+  recoverySeconds: 0.76
+  visualScale: 1.4
+  intensity: 1.9
+  heightOffset: 0.2
+  hitStopSeconds: 0.04
+  soundVolume: 0.24
+  sparkColor: {r: 1, g: 0.73, b: 0.22, a: 1}
 --- !u!1 &5434372875919432972
 GameObject:
   m_ObjectHideFlags: 0

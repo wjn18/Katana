@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 namespace OCDesign.Samurai
 {
@@ -23,8 +25,12 @@ namespace OCDesign.Samurai
         private bool suspended;
         private bool ownsCursor;
         private bool waitForMouseRelease;
+        private bool sheatheLatched;
         private int suppressedFrame = -1;
         private SamuraiInputFrame lastFrame;
+        private PointerEventData uiPointer;
+        private EventSystem uiEventSystem;
+        private readonly List<RaycastResult> uiPointerHits = new List<RaycastResult>(8);
         private readonly SamuraiPlayerPresentation presentation = new SamuraiPlayerPresentation();
 
         public bool HasCursorCapture => isActiveAndEnabled && !suspended && !paused &&
@@ -44,6 +50,7 @@ namespace OCDesign.Samurai
             if (targetLock != null) targetLock.Configure(actor, cameraTransform);
             if (orbitCamera != null) orbitCamera.targetLock = targetLock;
             lastFrame = default;
+            sheatheLatched = false;
         }
 
         private void OnEnable()
@@ -130,6 +137,7 @@ namespace OCDesign.Samurai
                 Cursor.visible = true;
             }
             ownsCursor = false;
+            sheatheLatched = false;
             waitForMouseRelease = true;
             suppressedFrame = Time.frameCount;
             lastFrame = default;
@@ -145,7 +153,7 @@ namespace OCDesign.Samurai
             {
                 if (targetLock != null) targetLock.ClearLock();
                 actor.ResetCombat();
-                if (trainingEnemy != null) trainingEnemy.ResetTraining();
+                ResetTrainingOpponents();
                 if (orbitCamera != null) orbitCamera.ResetView();
                 lastFrame = default;
                 return;
@@ -153,10 +161,28 @@ namespace OCDesign.Samurai
             actor.Tick(lastFrame, Time.deltaTime);
         }
 
+        public void ResetTrainingOpponents()
+        {
+            foreach (var enemy in FindObjectsByType<SamuraiTrainingEnemy>())
+                if (enemy.gameObject.scene == gameObject.scene) enemy.ResetTraining();
+        }
+        public void SetTrainingOpponentsActive(bool active)
+        {
+            foreach (var enemy in FindObjectsByType<SamuraiTrainingEnemy>())
+                if (enemy.gameObject.scene == gameObject.scene) enemy.SetActiveTraining(active);
+        }
+        public void SetTrainingOpponentsMode(SamuraiTrainingMode mode)
+        {
+            foreach (var enemy in FindObjectsByType<SamuraiTrainingEnemy>())
+                if (enemy.gameObject.scene == gameObject.scene) enemy.SetTrainingMode(mode);
+        }
+
         private SamuraiInputFrame ReadFrame()
         {
             var frame = new SamuraiInputFrame();
             if (!hasFocus || paused || suspended) return frame;
+            // 菜单关闭/鼠标捕获的同一帧不能再处理 Esc 或攻击边沿。
+            if (suppressedFrame == Time.frameCount) return frame;
             if (Time.timeScale <= 0f)
             {
                 if (ownsCursor) ReleaseCursor();
@@ -172,11 +198,11 @@ namespace OCDesign.Samurai
             if (!HasCursorCapture)
             {
                 if (ownsCursor) ReleaseCursor();
-                if (mouse != null && (mouse.leftButton.wasPressedThisFrame || mouse.rightButton.wasPressedThisFrame || mouse.middleButton.wasPressedThisFrame))
+                if (mouse != null && (mouse.leftButton.wasPressedThisFrame || mouse.rightButton.wasPressedThisFrame || mouse.middleButton.wasPressedThisFrame)
+                    && !PointerHitsUI(mouse))
                     CaptureCursor();
                 return frame;
             }
-            if (suppressedFrame == Time.frameCount) return frame;
             if (waitForMouseRelease)
             {
                 if (mouse == null || (!mouse.leftButton.isPressed && !mouse.rightButton.isPressed && !mouse.middleButton.isPressed))
@@ -194,8 +220,28 @@ namespace OCDesign.Samurai
                 frame.dodgePressed = keys.spaceKey.wasPressedThisFrame;
                 frame.guardHeld = keys.fKey.isPressed;
                 frame.parryPressed = keys.fKey.wasPressedThisFrame;
+                frame.kiPulsePressed = keys.qKey.wasPressedThisFrame;
+                frame.kiPulseHeld = keys.qKey.isPressed;
                 frame.resetPressed = keys.rKey.wasPressedThisFrame;
-                if (keys.tKey.wasPressedThisFrame && trainingEnemy != null) trainingEnemy.ToggleActive();
+                frame.highStancePressed = keys.digit1Key.wasPressedThisFrame;
+                frame.executionPressed = keys.eKey.wasPressedThisFrame;
+                frame.middleStancePressed = keys.digit2Key.wasPressedThisFrame;
+                bool sheatheChord = keys.qKey.isPressed && keys.spaceKey.isPressed;
+                if (!sheatheLatched && sheatheChord && (keys.qKey.wasPressedThisFrame || keys.spaceKey.wasPressedThisFrame))
+                {
+                    sheatheLatched = true;
+                    frame.sheathePressed = true;
+                }
+                if (sheatheLatched)
+                {
+                    frame.sheatheHeld = keys.spaceKey.isPressed;
+                    frame.sheatheReleased = keys.spaceKey.wasReleasedThisFrame || !keys.spaceKey.isPressed;
+                    frame.dodgePressed = frame.kiPulsePressed = frame.kiPulseHeld = false;
+                    if (frame.sheatheReleased) sheatheLatched = false;
+                }
+                if (keys.tKey.wasPressedThisFrame && trainingEnemy != null) SetTrainingOpponentsActive(!trainingEnemy.activeTraining);
+                if (keys.gKey.wasPressedThisFrame && trainingEnemy != null && !frame.resetPressed)
+                    SetTrainingOpponentsMode((SamuraiTrainingMode)(((int)trainingEnemy.trainingMode + 1) % 3));
             }
             bool toggleLock = (keys != null && keys.tabKey.wasPressedThisFrame) ||
                 (mouse != null && mouse.middleButton.wasPressedThisFrame);
@@ -206,8 +252,20 @@ namespace OCDesign.Samurai
                 frame.heavyPressed = mouse.rightButton.wasPressedThisFrame;
                 frame.heavyHeld = mouse.rightButton.isPressed;
                 frame.heavyReleased = mouse.rightButton.wasReleasedThisFrame;
+                Vector2 look = mouse.delta.ReadValue();
+                // 刚按锁定键和复位帧丢弃切换手势；捕获/菜单/失焦边界已由上方统一隔离。
+                if (targetLock != null && !toggleLock && !frame.resetPressed)
+                    targetLock.ReadMouseSwitch(look, Time.unscaledDeltaTime);
                 if (orbitCamera != null)
-                    orbitCamera.ApplyLook(mouse.delta.ReadValue(), mouse.scroll.ReadValue().y);
+                    orbitCamera.ApplyLook(look, mouse.scroll.ReadValue().y);
+            }
+            // 记录明确的组合语义，命中停顿恢复时不依赖修饰键是否仍然按住。
+            if (frame.sheathePressed || frame.sheatheHeld || frame.sheatheReleased)
+                frame.lightPressed = frame.heavyPressed = frame.heavyReleased = frame.parryPressed = false;
+            else
+            {
+                frame.guardLightPressed = frame.guardHeld && frame.lightPressed;
+                frame.guardHeavyPressed = frame.guardHeld && frame.heavyPressed;
             }
             Vector3 forward = cameraTransform != null ? cameraTransform.forward : Vector3.forward;
             forward.y = 0f;
@@ -222,6 +280,22 @@ namespace OCDesign.Samurai
                 if (facing.sqrMagnitude > 0.0001f) frame.facingWorld = facing.normalized;
             }
             return frame;
+        }
+
+        // 释放鼠标后仍能点击右上设置按钮；用当前指针位置检测，不读取上一帧 UI 悬停状态。
+        private bool PointerHitsUI(Mouse mouse)
+        {
+            var system = EventSystem.current;
+            if (system == null) return false;
+            if (uiPointer == null || uiEventSystem != system)
+            { uiEventSystem = system; uiPointer = new PointerEventData(system); }
+            uiPointer.Reset();
+            uiPointer.position = mouse.position.ReadValue();
+            uiPointerHits.Clear();
+            system.RaycastAll(uiPointer, uiPointerHits);
+            foreach (var hit in uiPointerHits)
+                if (hit.module is UnityEngine.UI.GraphicRaycaster) return true;
+            return false;
         }
     }
 }

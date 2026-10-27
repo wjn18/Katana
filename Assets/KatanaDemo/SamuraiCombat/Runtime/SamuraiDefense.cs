@@ -18,19 +18,28 @@ namespace OCDesign.Samurai
         }
         public void ReadInput(bool held, bool pressed)
         {
-            FreshPress = held && (pressed || !GuardHeld);
+            FreshPress = held && (profile.deflectEnabled ? pressed : pressed || !GuardHeld);
             GuardHeld = held;
+            // 松开即结束当前窗口；再次持防必须由新边沿争取下一次机会。
+            if (profile.deflectEnabled && !held) CloseWindow();
         }
         public void TryRaise(float now, bool fresh)
         {
             if (!fresh || !GuardHeld || now < readyAt) return;
             raisedAt = now; consumed = false;
-            readyAt = now + Mathf.Max(profile.parryActiveSeconds, profile.parryCooldownSeconds);
+            readyAt = now + (profile.deflectEnabled
+                ? Mathf.Max(profile.deflectActiveSeconds, profile.deflectMissCooldownSeconds)
+                : Mathf.Max(profile.parryActiveSeconds, profile.parryCooldownSeconds));
         }
         public bool WindowOpen(float now, bool guardState) => GuardHeld && guardState && !consumed
-            && now >= raisedAt && now - raisedAt < Mathf.Max(.01f, profile.parryActiveSeconds);
+            && now >= raisedAt && now - raisedAt < Mathf.Max(.01f,
+                profile.deflectEnabled ? profile.deflectActiveSeconds : profile.parryActiveSeconds);
         public float CooldownRemaining(float now) => Mathf.Max(0f, readyAt - now);
-        public void ConsumeWindow() => consumed = true;
+        public void ConsumeWindow()
+        {
+            consumed = true;
+            if (profile.deflectEnabled) readyAt = 0f;
+        }
         public void CloseWindow() => raisedAt = float.NegativeInfinity;
         public void CancelInput()
         {

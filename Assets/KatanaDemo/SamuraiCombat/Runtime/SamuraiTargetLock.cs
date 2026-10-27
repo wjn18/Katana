@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace OCDesign.Samurai
 {
-    /// <summary>主动锁定屏幕中心附近的敌人；只在切换时搜索候选，持续锁定只检查当前目标。</summary>
+    /// <summary>主动居中锁定、丢失后就近补锁与鼠标方向切换；仅在获取/切换时搜索候选。</summary>
     [DisallowMultipleComponent]
     [DefaultExecutionOrder(-30)]
     public sealed class SamuraiTargetLock : MonoBehaviour
@@ -15,8 +15,18 @@ namespace OCDesign.Samurai
         [Min(1f)] public float releaseDistance = 14f;
         [Tooltip("可被锁定角色的碰撞层；角色必须有启用的碰撞体。")]
         public LayerMask targetMask = ~0;
-        [Tooltip("首次获取目标时使用的环境遮挡层；已锁定目标不会因遮挡而解除。角色自身和其他战斗角色不作为环境遮挡。")]
+        [Tooltip("获取或切换目标时使用的环境遮挡层；已锁定目标不会因遮挡而解除。角色自身和其他战斗角色不作为环境遮挡。")]
         public LayerMask obstructionMask = ~0;
+
+        [Header("鼠标快速切换目标")]
+        [Tooltip("快速移动在短窗口内达到此净位移才切换，单位为鼠标输入像素。")]
+        [Min(1f)] public float switchMousePixels = 65f;
+        [Min(1f)] public float switchMouseSpeed = 700f;
+        [Min(.01f)] public float switchGestureSeconds = .12f;
+        [Min(0f)] public float switchCooldownSeconds = .25f;
+        [Tooltip("慢移或停止达到此时长后，允许下一次同方向甩动。冷却结束后反向甩动也可重新触发。")]
+        [Min(.01f)] public float switchRearmSeconds = .06f;
+        [Range(1f, 89f)] public float switchDirectionHalfAngle = 70f;
 
         private readonly Collider[] candidates = new Collider[64];
         private readonly RaycastHit[] obstructionHits = new RaycastHit[32];
@@ -24,6 +34,10 @@ namespace OCDesign.Samurai
         private SamuraiCombatant currentTarget;
         private Renderer[] targetRenderers = Array.Empty<Renderer>();
         private Camera viewCamera;
+        private Vector2 switchMotion, lastSwitchDirection;
+        private float switchMotionTime, switchCooldown, switchQuietTime;
+        private bool switchArmed = true;
+        private enum SearchMode { Centered, Nearest, Directional }
 
         public SamuraiCombatant CurrentTarget => currentTarget;
         public bool IsLocked => currentTarget != null;
@@ -60,8 +74,16 @@ namespace OCDesign.Samurai
         /// <summary>有锁时解除；没有锁时从可见敌方活目标中选择屏幕中心最接近的一位。</summary>
         public void ToggleLock()
         {
-            if (currentTarget != null) { ClearLock(); return; }
-            if (!isActiveAndEnabled || actor == null || actor.IsDead) return;
+            if (!ReferenceEquals(currentTarget, null)) { ClearLock(); return; }
+            if (!isActiveAndEnabled || actor == null || !actor.isActiveAndEnabled || actor.IsDead) return;
+            SetTarget(FindTarget(SearchMode.Centered, Vector2.zero));
+        }
+
+        private SamuraiCombatant FindTarget(SearchMode mode, Vector2 direction)
+        {
+            Vector2 origin = Vector2.zero;
+            if (mode == SearchMode.Directional && (currentTarget == null ||
+                !TryScreenPosition(currentTarget, false, out origin))) return null;
             visited.Clear();
             int count = Physics.OverlapSphereNonAlloc(actor.transform.position, acquireDistance, candidates,
                 targetMask, QueryTriggerInteraction.Ignore);
@@ -77,33 +99,140 @@ namespace OCDesign.Samurai
             {
                 SamuraiCombatant candidate = found[i].GetComponentInParent<SamuraiCombatant>();
                 if (candidate == null || !visited.Add(candidate) || !IsEligible(candidate, acquireDistance)) continue;
+                if (mode != SearchMode.Centered && candidate == currentTarget) continue;
                 Renderer[] renderers = candidate.GetComponentsInChildren<Renderer>(true);
-                if (!IsShown(candidate, renderers) || !HasLineOfSight(candidate) || !TryScreenScore(candidate, out float score)) continue;
+                if (!IsShown(candidate, renderers) || !HasLineOfSight(candidate)) continue;
+                float score;
+                if (mode == SearchMode.Nearest)
+                    score = Vector3.SqrMagnitude(candidate.transform.position - actor.transform.position);
+                else if (mode == SearchMode.Centered)
+                {
+                    if (!TryScreenScore(candidate, out score)) continue;
+                }
+                else
+                {
+                    if (!TryScreenPosition(candidate, true, out Vector2 screen)) continue;
+                    Vector2 offset = screen - origin;
+                    if (offset.sqrMagnitude < .000001f) continue;
+                    float alignment = Vector2.Dot(offset.normalized, direction);
+                    if (alignment < Mathf.Cos(switchDirectionHalfAngle * Mathf.Deg2Rad)) continue;
+                    // 优先屏幕上相邻的目标；偏离甩动方向越大，评分惩罚越高。
+                    score = offset.magnitude * (1f + 2f * (1f - alignment));
+                }
                 if (score >= bestScore) continue;
                 best = candidate;
                 bestScore = score;
             }
-            if (best == null) return;
-            currentTarget = best;
-            targetRenderers = best.GetComponentsInChildren<Renderer>(true);
-            TargetChanged?.Invoke(currentTarget);
+            return best;
         }
 
         public void ClearLock()
         {
-            bool hadTarget = currentTarget != null;
-            currentTarget = null;
-            targetRenderers = Array.Empty<Renderer>();
-            if (hadTarget) TargetChanged?.Invoke(null);
+            SetTarget(null);
+        }
+
+        private void SetTarget(SamuraiCombatant target)
+        {
+            // ReferenceEquals 能区分主动清空与已被 Destroy 的 Unity 假 null。
+            bool changed = !ReferenceEquals(currentTarget, target);
+            currentTarget = target;
+            targetRenderers = target != null ? target.GetComponentsInChildren<Renderer>(true) : Array.Empty<Renderer>();
+            ResetMouseSwitch();
+            if (changed) TargetChanged?.Invoke(currentTarget);
         }
 
         /// <summary>持续检查死亡、主动隐藏与距离；环境遮挡或离开画面不会解除已经建立的锁定。</summary>
         public void TickLock(float deltaTime)
         {
-            if (currentTarget == null) return;
-            if (actor == null || actor.IsDead || !IsEligible(currentTarget, Mathf.Max(acquireDistance, releaseDistance)) ||
-                !IsShown(currentTarget, targetRenderers))
+            if (ReferenceEquals(currentTarget, null)) return;
+            if (!isActiveAndEnabled || actor == null || !actor.isActiveAndEnabled || actor.IsDead)
             { ClearLock(); return; }
+            if (currentTarget == null || !IsEligible(currentTarget, Mathf.Max(acquireDistance, releaseDistance)) ||
+                !IsShown(currentTarget, targetRenderers))
+                SetTarget(FindTarget(SearchMode.Nearest, Vector2.zero));
+        }
+
+        /// <summary>相对当前目标的屏幕方向，选择同方向的可见邻近敌人；无候选时保留原锁定。</summary>
+        public bool TrySwitchTarget(Vector2 screenDirection)
+        {
+            if (!isActiveAndEnabled || actor == null || !actor.isActiveAndEnabled || actor.IsDead || currentTarget == null ||
+                !IsFinite(screenDirection) || screenDirection.sqrMagnitude < .0001f) return false;
+            var next = FindTarget(SearchMode.Directional, screenDirection.normalized);
+            if (next == null) return false;
+            SetTarget(next);
+            return true;
+        }
+
+        /// <summary>输入层仅在捕获鼠标时提交像素增量和真实帧时长；一次连续快速移动只触发一次。</summary>
+        public bool ReadMouseSwitch(Vector2 pixels, float deltaTime)
+        {
+            if (!isActiveAndEnabled || currentTarget == null || actor == null || !actor.isActiveAndEnabled || actor.IsDead)
+            { ResetMouseSwitch(); return false; }
+            if (!IsFinite(pixels) || float.IsNaN(deltaTime) || float.IsInfinity(deltaTime) || deltaTime <= 0f)
+            {
+                switchMotion = Vector2.zero; switchMotionTime = switchQuietTime = 0f;
+                return false;
+            }
+            switchCooldown = Mathf.Max(0f, switchCooldown - deltaTime);
+            // 卡顿帧丢弃累积位移，但不能清掉冷却/重新武装，避免同一次甩动连跳。
+            if (deltaTime > switchGestureSeconds)
+            {
+                switchMotion = Vector2.zero; switchMotionTime = switchQuietTime = 0f;
+                return false;
+            }
+            if (pixels.magnitude / deltaTime < switchMouseSpeed)
+            {
+                switchMotion = Vector2.zero; switchMotionTime = 0f;
+                switchQuietTime += deltaTime;
+                if (switchQuietTime >= switchRearmSeconds) switchArmed = true;
+                return false;
+            }
+            switchQuietTime = 0f;
+            if (!switchArmed)
+            {
+                if (switchCooldown > 0f || Vector2.Dot(pixels.normalized, lastSwitchDirection) >= -.25f) return false;
+                switchArmed = true;
+            }
+            if (switchCooldown > 0f) { switchMotion = Vector2.zero; switchMotionTime = 0f; return false; }
+            if (switchMotionTime + deltaTime > switchGestureSeconds ||
+                (switchMotion.sqrMagnitude > 0f && Vector2.Dot(switchMotion.normalized, pixels.normalized) < .5f))
+            { switchMotion = Vector2.zero; switchMotionTime = 0f; }
+            switchMotion += pixels;
+            switchMotionTime += deltaTime;
+            if (switchMotion.magnitude < switchMousePixels) return false;
+            Vector2 direction = switchMotion.normalized;
+            bool changed = TrySwitchTarget(direction);
+            switchMotion = Vector2.zero; switchMotionTime = 0f;
+            switchArmed = false; lastSwitchDirection = direction;
+            switchCooldown = switchCooldownSeconds;
+            return changed;
+        }
+
+        private void ResetMouseSwitch()
+        {
+            switchMotion = lastSwitchDirection = Vector2.zero;
+            switchMotionTime = switchCooldown = switchQuietTime = 0f;
+            switchArmed = true;
+        }
+
+        private static bool IsFinite(Vector2 value) => !float.IsNaN(value.x) && !float.IsNaN(value.y) &&
+            !float.IsInfinity(value.x) && !float.IsInfinity(value.y);
+
+        private bool TryScreenPosition(SamuraiCombatant candidate, bool requireOnScreen, out Vector2 screen)
+        {
+            Vector3 point = AimPoint(candidate);
+            if (viewCamera != null)
+            {
+                Vector3 viewport = viewCamera.WorldToViewportPoint(point);
+                // x乘宽高比，让横向和纵向使用同一屏幕尺度。
+                screen = new Vector2(viewport.x * viewCamera.aspect, viewport.y);
+                return viewport.z > 0f && (!requireOnScreen ||
+                    (viewport.x >= 0f && viewport.x <= 1f && viewport.y >= 0f && viewport.y <= 1f));
+            }
+            Transform view = viewTransform != null ? viewTransform : actor.transform;
+            Vector3 local = view.InverseTransformPoint(point);
+            screen = local.z > 0f ? new Vector2(local.x / local.z, local.y / local.z) : Vector2.zero;
+            return local.z > 0f && (!requireOnScreen || Vector3.Angle(Vector3.forward, local) <= 70f);
         }
 
         private bool IsEligible(SamuraiCombatant candidate, float range)
@@ -175,6 +304,12 @@ namespace OCDesign.Samurai
         {
             acquireDistance = Mathf.Max(1f, acquireDistance);
             releaseDistance = Mathf.Max(acquireDistance, releaseDistance);
+            switchMousePixels = Mathf.Max(1f, switchMousePixels);
+            switchMouseSpeed = Mathf.Max(1f, switchMouseSpeed);
+            switchGestureSeconds = Mathf.Max(.01f, switchGestureSeconds);
+            switchCooldownSeconds = Mathf.Max(0f, switchCooldownSeconds);
+            switchRearmSeconds = Mathf.Max(.01f, switchRearmSeconds);
+            switchDirectionHalfAngle = Mathf.Clamp(switchDirectionHalfAngle, 1f, 89f);
         }
     }
 }

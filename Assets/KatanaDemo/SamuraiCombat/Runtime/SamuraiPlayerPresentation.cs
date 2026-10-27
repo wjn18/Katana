@@ -34,7 +34,7 @@ namespace OCDesign.Samurai
             orbitCamera = ownedRuntimeCamera.AddComponent<SamuraiOrbitCamera>();
             cameraTransform = view.transform;
             orbitCamera.Configure(actor.transform, input);
-            ownedRuntimeCamera.AddComponent<SamuraiCombatHUD>().Configure(actor, enemy, input, view);
+            // HUD 由场景内可编辑的 Samurai HUD Canvas 提供，不再生成 IMGUI 叠层。
         }
 
         public void Dispose()

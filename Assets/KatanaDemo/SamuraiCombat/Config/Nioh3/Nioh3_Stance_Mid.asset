@@ -1,0 +1,146 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf2133db85f6df240bc8ae96a12bcc32, type: 3}
+  m_Name: Nioh3_Stance_Mid
+  m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiStanceDefinition
+  displayName: "\u4E2D\u67B6\u52BF"
+  idle: {fileID: 7400000, guid: 570cdc0c1fc7ad142b4445f6984e8177, type: 2}
+  idleStateName: Nioh3_Mid_Idle_02000
+  kiPulse: {fileID: 7400000, guid: 85d24d3766a764e44bb988b10dc3a883, type: 2}
+  kiPulseStateName: Nioh3_Mid_KiPulse_02008
+  frostMoon: {fileID: 11400000, guid: 44dc866b29a248b49ba351747c3930e3, type: 2}
+  entryTransitions:
+  - fromStance: {fileID: 11400000, guid: 4df01f9e7e52dcb458dffb86092eb28b, type: 2}
+    clip: {fileID: 7400000, guid: de92846d059c1c44a8e8798adae12de4, type: 2}
+    stateName: Nioh3_HighToMid_05701
+    blendSeconds: 0.08
+  locomotion:
+    walk:
+    - clip: {fileID: 7400000, guid: d70c30b5f4b7154408788afb80c57bc0, type: 2}
+      stateName: Nioh3_Mid_WalkForward_02030
+    - clip: {fileID: 7400000, guid: 577a201226f2aca42bf9aea278f05d70, type: 2}
+      stateName: Nioh3_Mid_WalkForwardRight_Blend
+    - clip: {fileID: 7400000, guid: a242ebc7f3b55b7409e656ed649eae45, type: 2}
+      stateName: Nioh3_Mid_WalkRight_02033
+    - clip: {fileID: 7400000, guid: 5db3a1e43c42d774fa5419f910b3c204, type: 2}
+      stateName: Nioh3_Mid_WalkBackwardRight_Blend
+    - clip: {fileID: 7400000, guid: a7186d347602b674da802970cc7b47da, type: 2}
+      stateName: Nioh3_Mid_WalkBackward_02031
+    - clip: {fileID: 7400000, guid: 25efafdb50794c544853ef2f28316f5a, type: 2}
+      stateName: Nioh3_Mid_WalkBackwardLeft_Blend
+    - clip: {fileID: 7400000, guid: 3e9d608f0a458c24fb6ca81305c42468, type: 2}
+      stateName: Nioh3_Mid_WalkLeft_02032
+    - clip: {fileID: 7400000, guid: 6af4e9148c4f75b449057285e6aae6ed, type: 2}
+      stateName: Nioh3_Mid_WalkForwardLeft_Blend
+    run:
+    - clip: {fileID: 7400000, guid: cd2ecce55387b5246adfecf072088e60, type: 2}
+      stateName: Nioh3_Mid_RunForward_02020
+    - clip: {fileID: 7400000, guid: 56e523a36e99f4042a9b4a6a6c4bf123, type: 2}
+      stateName: Nioh3_Mid_RunForwardRight_Blend
+    - clip: {fileID: 7400000, guid: bf44ee6ebd975134290228fa64e2fd75, type: 2}
+      stateName: Nioh3_Mid_RunRight_02028
+    - clip: {fileID: 7400000, guid: 8f9f4eb00ad910449acfc35f3d1ef1c7, type: 2}
+      stateName: Nioh3_Mid_RunBackwardRight_Blend
+    - clip: {fileID: 7400000, guid: 64735b54d8478814e8ad3a6b7e3cad06, type: 2}
+      stateName: Nioh3_Mid_RunBackward_02024
+    - clip: {fileID: 7400000, guid: 2cdd6fd7eda1e194e8909c8bd579bdd2, type: 2}
+      stateName: Nioh3_Mid_RunBackwardLeft_Blend
+    - clip: {fileID: 7400000, guid: b6cf341397456f4499840e5db329f49e, type: 2}
+      stateName: Nioh3_Mid_RunLeft_02026
+    - clip: {fileID: 7400000, guid: 0119e8c545f8fd44897acc548e1fbf74, type: 2}
+      stateName: Nioh3_Mid_RunForwardLeft_Blend
+  attackChains:
+  - displayName: "\u516D\u8FDE 1 \u2192 2 \u2192 3 \u2192 4 \u2192 5 \u2192 6"
+    attacks:
+    - {fileID: 11400000, guid: c26ada61900ed9a45a881eaa127df60a, type: 2}
+    - {fileID: 11400000, guid: c361cf93fff60bc4f9f192f920187f4c, type: 2}
+    - {fileID: 11400000, guid: afa724339bc750848b22f492e45cbbce, type: 2}
+    - {fileID: 11400000, guid: f4043f1ec39ad5641a488eb1569ac391, type: 2}
+    - {fileID: 11400000, guid: 33166499f6a79f247871833bbe639a10, type: 2}
+    - {fileID: 11400000, guid: e8c1c7d508bb90a4cbf61394aa4f51c8, type: 2}
+  strongAttack: {fileID: 11400000, guid: 778de5194bc7e1648bfda82a77d110de, type: 2}
+  strongAttackChain:
+    displayName: "\u5F3A\u51FB 1 \u2192 2 \u2192 3 \u2192 4"
+    attacks:
+    - {fileID: 11400000, guid: 778de5194bc7e1648bfda82a77d110de, type: 2}
+    - {fileID: 11400000, guid: aafb6d8e3d1f26b42a539fcd845fb6d5, type: 2}
+    - {fileID: 11400000, guid: 67f6d6f40cdf672448e7a1dd78c4ac59, type: 2}
+    - {fileID: 11400000, guid: bc9dcfe0476baae459f0fab6f533486e, type: 2}
+  normalToStrongRoutes:
+  - sourceAttack: {fileID: 11400000, guid: c26ada61900ed9a45a881eaa127df60a, type: 2}
+    strongIndex: 0
+    completeSource: 1
+    linkNormalizedTime: 1
+    blendSeconds: 0.12
+    lateRecoveryBlendSeconds: 0.12
+    startNormalizedTime: 0
+  - sourceAttack: {fileID: 11400000, guid: c361cf93fff60bc4f9f192f920187f4c, type: 2}
+    strongIndex: 0
+    completeSource: 1
+    linkNormalizedTime: 1
+    blendSeconds: 0.12
+    lateRecoveryBlendSeconds: 0.12
+    startNormalizedTime: 0
+  - sourceAttack: {fileID: 11400000, guid: afa724339bc750848b22f492e45cbbce, type: 2}
+    strongIndex: 0
+    completeSource: 1
+    linkNormalizedTime: 1
+    blendSeconds: 0.12
+    lateRecoveryBlendSeconds: 0.12
+    startNormalizedTime: 0
+  - sourceAttack: {fileID: 11400000, guid: f4043f1ec39ad5641a488eb1569ac391, type: 2}
+    strongIndex: 3
+    completeSource: 0
+    linkNormalizedTime: 0.38333333
+    blendSeconds: 0.16
+    lateRecoveryBlendSeconds: 0.12
+    startNormalizedTime: 0
+  - sourceAttack: {fileID: 11400000, guid: 33166499f6a79f247871833bbe639a10, type: 2}
+    strongIndex: 1
+    completeSource: 0
+    linkNormalizedTime: 0.43661967
+    blendSeconds: 0.18
+    lateRecoveryBlendSeconds: 0.12
+    startNormalizedTime: 0
+  - sourceAttack: {fileID: 11400000, guid: e8c1c7d508bb90a4cbf61394aa4f51c8, type: 2}
+    strongIndex: 0
+    completeSource: 1
+    linkNormalizedTime: 1
+    blendSeconds: 0.12
+    lateRecoveryBlendSeconds: 0.12
+    startNormalizedTime: 0
+  chargedStrongAttack: {fileID: 0}
+  martialArtSlots:
+  - slot: 0
+    defaultAction: {fileID: 11400000, guid: cf4812803e904ca47b9b05ed40f33125, type: 2}
+    candidates:
+    - {fileID: 11400000, guid: cf4812803e904ca47b9b05ed40f33125, type: 2}
+  - slot: 1
+    defaultAction: {fileID: 11400000, guid: d818aed4214ee24419c490c8891d4066, type: 2}
+    candidates:
+    - {fileID: 11400000, guid: d818aed4214ee24419c490c8891d4066, type: 2}
+  - slot: 2
+    defaultAction: {fileID: 0}
+    candidates: []
+  - slot: 4
+    defaultAction: {fileID: 0}
+    candidates: []
+  - slot: 5
+    defaultAction: {fileID: 11400000, guid: 9485bf7a1b476564ebd924d16e51b206, type: 2}
+    candidates:
+    - {fileID: 11400000, guid: 9485bf7a1b476564ebd924d16e51b206, type: 2}
+  - slot: 3
+    defaultAction: {fileID: 0}
+    candidates: []
+  martialArts:
+  - {fileID: 11400000, guid: cf4812803e904ca47b9b05ed40f33125, type: 2}
+  - {fileID: 11400000, guid: d818aed4214ee24419c490c8891d4066, type: 2}

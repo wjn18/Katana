@@ -1,0 +1,14 @@
+Enemy1（2026-10-21）
+
+2026-10-26当前正式状态：Prefabs/Enemy1.prefab沿原GUID升级为完整战斗单位，采用Animations/Generic/Combat/Enemy1Combat.controller与29个专用Generic片段，运行Avatar为空。原模型、Enemy1Idle.anim及原待机控制器作为源参考保持。SamuraiCombatDemo的三个敌人现均为Enemy1，具备单刀/两连/重击、追击与蓄力施压、真实刀轨、格挡/受击/破防/被弹反/死亡、锁定/HUD；R/T/G同步所有场景敌人。维护菜单Tools/OC Design/Samurai Combat/Install Enemy1 Combat In Current Scene，配置SamuraiCombat/Config/Enemy1/。说明/62项检查及接地报告在工作区锈甲杂兵/动画资源/enemy1-combat/；图像在图片资源/模型预览/enemy1-combat/。源手形、前裙/甲片与局部避障限制保留。下方“仅预览、无AI”均为正式接入前的历史状态。
+
+2026-10-26预览纠正：上一版Avatar参考骨架误用了Prefab保存的待机姿势，旧畸变预览结论撤回。外部同名GIF/JPG已恢复真实蒙皮绑定姿势并校正T Pose后重做；姿态校验误差0，9段确认单Clip播放，主动采样旧Idle前后重播的28骨旋转与网格结果相同。新参考对照图为外部enemy1-animation-review/Enemy1_ReferencePose_Check.jpg；检查和工具归锈甲杂兵/动画资源/enemy1-animation-review/。未改本目录模型/Idle/Prefab，也未把候选接入战斗。
+
+2026-10-26动作筛选更新：当前Prefab含RightHand下的独立RustCleaver，继续使用原Generic Idle。现有ARPG Warrior单手9动作已通过临时22骨Avatar完成身体/武器预览，源模型、Idle和Prefab未改；正式套用仍需修握刀方向、看向与脚底，并检查原前裙蒙皮，无逐指骨限制保留。筛选说明在工作区锈甲杂兵/动画资源/enemy1-animation-review/output/动画筛选说明.txt，GIF/JPG在该角色图片资源/模型预览/enemy1-animation-review/。本轮当前场景无Enemy1实例，尚未将其接入AI/伤害；下方首次接入状态为2026-10-21历史记录。
+
+Prefab：Prefabs/Enemy1.prefab。
+Models/Generic/Enemy1.fbx保留用户混元源模型/骨架；Animations/Generic/Enemy1Idle.anim及Enemy1Idle.controller为独立待机运行资源。
+拖入场景后进入Play自动循环1.833333秒Idle。Generic直接骨骼动画、无Humanoid Avatar，根缩放1；模型1网格/12009三角面/28骨，1材质/3张2K导入贴图。
+当前已加入SamuraiCombat/Scenes/SamuraiCombatDemo.unity，位置(-2.5,0,0)、旋转(0,180,0)。不替换既有训练对手，不含武器/AI/伤害。
+原始文件及完整接入说明：工作区锈甲杂兵/模型资源/enemy1-hunyuan/；真实Play截图在锈甲杂兵/图片资源/模型预览/enemy1-hunyuan/。
+

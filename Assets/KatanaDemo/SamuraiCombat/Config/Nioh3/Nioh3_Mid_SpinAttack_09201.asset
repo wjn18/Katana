@@ -1,0 +1,149 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd39590d26de9c4291373becd55be53, type: 3}
+  m_Name: Nioh3_Mid_SpinAttack_09201
+  m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiActionDefinition
+  clip: {fileID: 7400000, guid: 3bcec041e4bcc42439e237bba42fd902, type: 2}
+  stateName: Nioh3_Mid_SpinAttack_09201
+  displayName: "\u4E2D\u67B6\u52BF-\u65CB\u8F6C\u653B\u51FB"
+  isMartialArt: 0
+  frostMoonSuperArmorWindow: {x: 0, y: 0}
+  frostMoonGuardWindow: {x: 0, y: 0}
+  chargeStateName: 
+  damage: 11
+  staminaDamage: 12.5
+  staminaCost: 14
+  toughnessDamage: 10
+  impactStrength: 15
+  toughnessDamageByWindow:
+  - 10
+  - 10
+  impactStrengthByWindow:
+  - 15
+  - 15
+  staggerResistanceBonus:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 10
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.105
+      value: 20
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.1725
+      value: 0
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.17999999
+      value: 10
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.2925
+      value: 20
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.375
+      value: 0
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  toughnessConfigurationVersion: 1
+  unblockable: 0
+  guardReactionSide: 0
+  knockbackDistance: 0.18
+  knockbackSeconds: 0.14
+  damageStart: 0.105
+  damageEnd: 0.375
+  damageWindows:
+  - {x: 0.105, y: 0.1725}
+  - {x: 0.2925, y: 0.375}
+  hitSource: 0
+  hitRadius: 0
+  comboInputStart: 0.08
+  comboInputEnd: 0.5525
+  comboLink: 0.4625
+  comboBlendSeconds: 0.055
+  cancelStart: 0.55
+  overrideKiPulseTiming: 0
+  kiPulseStart: 0.58
+  kiPulseGatherSeconds: 0.45
+  kiPulsePerfectSeconds: 0.15
+  closeRangeReach: 0.42
+  closeRangeHalfAngle: 55
+  closeRangeStart: 0.105
+  closeRangeEnd: 0.375
+  useRootMotion: 0
+  rootMotionX:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rootMotionZ:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rootMotionDistanceMultiplier: 1
+  stepDistance: 0.7
+  stepStart: 0.01
+  stepEnd: 0.12
+  approachEnabled: 0
+  approachStopGap: 0.4
+  approachSlowSpeed: 0.25
+  pushEnemies: 0
+  invulnerableStart: 0
+  invulnerableEnd: 0

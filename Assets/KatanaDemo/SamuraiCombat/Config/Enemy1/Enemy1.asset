@@ -1,0 +1,183 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 327f8f3606c2bf14a8f3280b478dd45d, type: 3}
+  m_Name: Enemy1
+  m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiCombatProfile
+  idle: {fileID: 7400000, guid: cba345ba3c09f7d4fb653c5018fde15f, type: 2}
+  walk: {fileID: 7400000, guid: 7bfdd3afb9441fb4f8ba50dc49a73ba1, type: 2}
+  run: {fileID: 7400000, guid: 5d85f55363ecf4f45903b56245325813, type: 2}
+  guard: {fileID: 7400000, guid: 5632b3efe503a844a8f02426ebacc5a9, type: 2}
+  guardHit: {fileID: 7400000, guid: e9add72ac536ffc42b69e38966673660, type: 2}
+  guardB: {fileID: 7400000, guid: 5632b3efe503a844a8f02426ebacc5a9, type: 2}
+  guardHitReactions:
+  - {fileID: 7400000, guid: e9add72ac536ffc42b69e38966673660, type: 2}
+  - {fileID: 7400000, guid: 009053ef536bb9148aaeddc25d9d97cd, type: 2}
+  - {fileID: 7400000, guid: a0089f23ce53fc64585cac566ec61051, type: 2}
+  guardBHitReactions:
+  - {fileID: 7400000, guid: e9add72ac536ffc42b69e38966673660, type: 2}
+  - {fileID: 7400000, guid: 009053ef536bb9148aaeddc25d9d97cd, type: 2}
+  - {fileID: 7400000, guid: a0089f23ce53fc64585cac566ec61051, type: 2}
+  guardMediumStaminaDamage: 35
+  guardHeavyStaminaDamage: 55
+  guardBreak: {fileID: 7400000, guid: 4bee8ba4d93cbd241aff1bb48e5e4937, type: 2}
+  hit: {fileID: 7400000, guid: a452803b9c7d4d14db5cf29abb24d14b, type: 2}
+  directionalHitReactionsEnabled: 0
+  hitFrontReactions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  hitRightReactions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  hitBackReactions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  hitLeftReactions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  hitMediumStaminaDamage: 35
+  hitHeavyStaminaDamage: 55
+  death: {fileID: 7400000, guid: ff84dec45bdca95478080c2ed845ce85, type: 2}
+  disableCollisionOnDeath: 1
+  charge: {fileID: 7400000, guid: 452605c68fd6307418b969637929d021, type: 2}
+  parry: {fileID: 7400000, guid: e9add72ac536ffc42b69e38966673660, type: 2}
+  deflected: {fileID: 7400000, guid: f6fe2a0e0ed0ff346bda57d1ee397cca, type: 2}
+  directionalWalk:
+  - {fileID: 7400000, guid: 7bfdd3afb9441fb4f8ba50dc49a73ba1, type: 2}
+  - {fileID: 7400000, guid: 56b0fdeecd916074b9844bd31a47fe2c, type: 2}
+  - {fileID: 7400000, guid: 05880ab28469be646a604d853addf180, type: 2}
+  - {fileID: 7400000, guid: 6cd028beeefe3ea40ab0607c2064b9a7, type: 2}
+  - {fileID: 7400000, guid: fab9c85f0857b584bb0183ce39760d85, type: 2}
+  - {fileID: 7400000, guid: cf2453d5fe573dd4aae4530e0135849a, type: 2}
+  - {fileID: 7400000, guid: 4093fc0c617dabe4fa11710e5feb11a6, type: 2}
+  - {fileID: 7400000, guid: 1b2046a75f2c1534684fa2c56d92c9b1, type: 2}
+  directionalRun:
+  - {fileID: 7400000, guid: 5d85f55363ecf4f45903b56245325813, type: 2}
+  - {fileID: 7400000, guid: c3cf50c6d8b385542820973b773365ba, type: 2}
+  - {fileID: 7400000, guid: e76c44974c9d66a4b9f880bba2237835, type: 2}
+  - {fileID: 7400000, guid: d1950dd009a6fc841b438061a654b894, type: 2}
+  - {fileID: 7400000, guid: 1a95776a48963484a9f86ec6947933b8, type: 2}
+  - {fileID: 7400000, guid: dfa9ab51f44d81a4bb2a8fc99d17de5c, type: 2}
+  - {fileID: 7400000, guid: 676df72a22b6e05498a12c06f63d0e43, type: 2}
+  - {fileID: 7400000, guid: d28f4976e31729a4b9b207a060109c6a, type: 2}
+  combo:
+  - {fileID: 11400000, guid: 12fc9cb6703ce1c4698e8f535680ef17, type: 2}
+  - {fileID: 11400000, guid: 2f7cc96b0265ce64babeda8d52554284, type: 2}
+  - {fileID: 11400000, guid: 12fc9cb6703ce1c4698e8f535680ef17, type: 2}
+  stances: []
+  defaultStanceIndex: 0
+  heavy: {fileID: 11400000, guid: 71601a0f7b157bc47b6116e065c40d88, type: 2}
+  charged: {fileID: 11400000, guid: 71601a0f7b157bc47b6116e065c40d88, type: 2}
+  sprintAttack: {fileID: 0}
+  dodgeAttack: {fileID: 0}
+  dodgeAttackToCombo1: {fileID: 0}
+  dodges:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  maxHealth: 180
+  maxStamina: 85
+  staminaRecovery: 25
+  staminaRecoveryDelay: 0.65
+  sprintStaminaPerSecond: 7
+  guardRecoveryMultiplier: 0.35
+  toughnessEnabled: 1
+  maxToughness: 100
+  toughnessRecoveryDelay: 3
+  toughnessRecoveryPerSecond: 20
+  toughnessGuardRecoveryMultiplier: 0.25
+  toughnessGuardDamageMultiplier: 0.7
+  toughnessPerfectGuardDamageMultiplier: 0.25
+  deflectedToughnessFraction: 0.25
+  toughnessBreakSeconds: 3
+  toughnessBrokenPose: 0.55
+  executionHealthFraction: 1
+  baseStaggerResistance: 10
+  maximumAccumulatedResistance: 90
+  resistanceDecayDelay: 1.5
+  resistanceDecayPerSecond: 30
+  chargeStaggerResistanceBonus: 15
+  resistedKnockbackMultiplier: 0.25
+  executionAction: {fileID: 0}
+  executionSurfaceRange: 1
+  toughnessConfigurationVersion: 1
+  kiPulseEnabled: 0
+  kiPulseAnimation: {fileID: 0}
+  kiPulseStateName: 
+  kiPulseRecoveryFraction: 0.8
+  kiPulseGatherSeconds: 0.45
+  kiPulsePerfectSeconds: 0.15
+  kiPulseFluxEnabled: 0
+  kiPulseFluxWindowSeconds: 0.3
+  kiPulseFluxRecoveryFraction: 0.1
+  frostMoonEnabled: 0
+  frostMoonWindowSeconds: 0.3
+  artsEnabled: 0
+  artsGaugeMaximum: 100
+  artsAttackGain: 8
+  artsGuardGain: 4
+  artsDeflectGain: 20
+  artsDurationSeconds: 6
+  artsDamageMultiplier: 1.2
+  artsMartialArtDamageMultiplier: 1.2
+  artsStaminaCostMultiplier: 0.7
+  artsAdditionalAttacks: []
+  walkSpeed: 1.7
+  runSpeed: 2.9
+  sprintAttackMinRunSeconds: 0.15
+  guardWalkSpeed: 0
+  turnSpeed: 420
+  locomotionDirectionHysteresis: 7
+  gravity: 22
+  terminalFallSpeed: 35
+  inputBufferSeconds: 0.18
+  transitionSeconds: 0.07
+  dodgeAttackInputStart: 0.55
+  dodgeAttackStart: 0.72
+  dodgeAttackGraceSeconds: 0.25
+  chargeSeconds: 1.2
+  chargeCriticalWindowSeconds: 0.25
+  chargeCriticalDamageMultiplier: 2
+  guardHalfAngle: 65
+  perfectGuardSeconds: 0.16
+  perfectGuardStunSeconds: 0.65
+  guardBreakDamageMultiplier: 0.35
+  guardKnockbackDistance: 0.12
+  guardLightKnockbackMultiplier: 1
+  guardHeavyKnockbackMultiplier: 1
+  guardKnockbackSeconds: 0.18
+  parryKnockbackMultiplier: 0.5
+  parryActiveSeconds: 0
+  parryCooldownSeconds: 0.7
+  parryStunSeconds: 1.1
+  parrySuccessRecoverySeconds: 0.28
+  deflectEnabled: 0
+  deflectActiveSeconds: 0.2
+  deflectMissCooldownSeconds: 0.35
+  deflectRecoveryFraction: 0.1
+  deflectSuccessRecoverySeconds: 0.12
+  deflectStunSeconds: 0.7
+  bladeRadius: 0.115
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 4294967295

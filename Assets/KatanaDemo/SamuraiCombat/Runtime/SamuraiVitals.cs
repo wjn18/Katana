@@ -33,12 +33,24 @@ namespace OCDesign.Samurai
             Changed?.Invoke();
         }
         public void DelayRecovery(float now) => recoveryAfter = now + Mathf.Max(0f, profile.staminaRecoveryDelay);
-        public void Recover(float now, float dt, bool allowed, bool guarding)
+        /// <summary>立即返还耐力；返回实际恢复值，不重置原有自然恢复延迟。</summary>
+        public float RestoreStamina(float amount)
         {
-            if (!allowed || now < recoveryAfter || Stamina >= MaxStamina) return;
+            float before = Stamina;
+            Stamina = Mathf.Min(MaxStamina, Stamina + Mathf.Max(0f, amount));
+            float restored = Stamina - before;
+            if (restored > 0f) Changed?.Invoke();
+            return restored;
+        }
+        /// <summary>返回本次实际自然恢复量，供残心扣除已返还的白条。</summary>
+        public float Recover(float now, float dt, bool allowed, bool guarding)
+        {
+            if (!allowed || now < recoveryAfter || Stamina >= MaxStamina) return 0f;
             float rate = Mathf.Max(0f, profile.staminaRecovery) * (guarding ? profile.guardRecoveryMultiplier : 1f);
+            float before = Stamina;
             Stamina = Mathf.Min(MaxStamina, Stamina + rate * dt);
             Changed?.Invoke();
+            return Stamina - before;
         }
     }
 }

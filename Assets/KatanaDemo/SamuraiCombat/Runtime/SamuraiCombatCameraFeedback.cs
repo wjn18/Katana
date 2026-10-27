@@ -19,6 +19,13 @@ namespace OCDesign.Samurai
         [SerializeField, Range(.05f, .5f)] float chargedShakeSeconds = .27f;
         [SerializeField, Range(0f, 3f)] float heavyShakeDegrees = .8f;
         [SerializeField, Range(0f, 3f)] float chargedShakeDegrees = 1.35f;
+        [Header("玩家受伤震屏（按实际生命伤害）")]
+        [SerializeField, Min(0f)] float mediumDamageThreshold = 15f;
+        [SerializeField, Min(0f)] float highDamageThreshold = 35f;
+        [SerializeField, Range(0f, 3f)] float mediumDamageShakeDegrees = .65f;
+        [SerializeField, Range(0f, 3f)] float highDamageShakeDegrees = 2.1f;
+        [SerializeField, Range(0f, .6f)] float mediumDamageShakeSeconds = .16f;
+        [SerializeField, Range(0f, .6f)] float highDamageShakeSeconds = .30f;
         [Header("蓄力冲刺镜头")]
         [SerializeField, Range(0f, 24f)] float chargedFovBoost = 14f;
         [SerializeField, Range(-.45f, 0f)] float chargedLensDistortion = -.22f;
@@ -43,6 +50,7 @@ namespace OCDesign.Samurai
         LayerMask previousVolumeMask;
         float baseFov, lastWrittenFov, appliedFovOffset;
         float shakeElapsed, shakeDuration, shakeAmplitude;
+        float receivedShakeElapsed, receivedShakeDuration, receivedShakeAmplitude;
         float rushStrength, realPlanarSpeed;
         float rushFallElapsed, rushFallStart, heatElapsed, heatStrength;
         bool rushFalling, heatPlaying;
@@ -51,14 +59,26 @@ namespace OCDesign.Samurai
         Quaternion appliedBaseRotation = Quaternion.identity;
         bool hasPlayerPosition, appliedShake;
 
-        public bool IsShaking => shakeDuration > 0f && shakeElapsed < shakeDuration;
+        bool IsImpactShaking => shakeDuration > 0f && shakeElapsed < shakeDuration;
+        public bool IsReceivedDamageShaking => receivedShakeDuration > 0f && receivedShakeElapsed < receivedShakeDuration;
+        public bool IsShaking => IsImpactShaking || IsReceivedDamageShaking;
         public bool IsRushActive => rushStrength > FeedbackEpsilon;
         public float RushStrength => rushStrength;
         public float ActualPlanarSpeed => realPlanarSpeed;
         public float FieldOfViewOffset => appliedFovOffset;
         public float LensDistortionAmount => distortion != null ? distortion.intensity.value : 0f;
         public Vector3 ShakeEuler => appliedShakeEuler;
-        public float ShakeRemaining => Mathf.Max(0f, shakeDuration - shakeElapsed);
+        public float ShakeRemaining => Mathf.Max(Mathf.Max(0f, shakeDuration - shakeElapsed), ReceivedDamageShakeRemaining);
+        public float ReceivedDamageShakeRemaining => Mathf.Max(0f, receivedShakeDuration - receivedShakeElapsed);
+        public float MediumDamageThreshold => Finite(mediumDamageThreshold) ? Mathf.Max(0f, mediumDamageThreshold) : 15f;
+        public float HighDamageThreshold => Mathf.Max(MediumDamageThreshold,
+            Finite(highDamageThreshold) ? Mathf.Max(0f, highDamageThreshold) : 35f);
+        public int ReceivedDamageShakeCount { get; private set; }
+        public float LastReceivedHealthDamage { get; private set; }
+        /// <summary>最近一次伤害分级：0不震、1中伤、2高伤。</summary>
+        public int LastReceivedShakeTier { get; private set; }
+        public float LastReceivedShakeDegrees { get; private set; }
+        public float LastReceivedShakeSeconds { get; private set; }
         public bool HasRuntimeVolume => runtimeVolume != null;
         public float HeatDistortionStrength => heatStrength;
         public float HeatDistortionTime => heatPlaying ? heatElapsed : 0f;
@@ -106,7 +126,12 @@ namespace OCDesign.Samurai
                 subscribedOrbit = orbit;
                 subscribedPlayer = player;
                 if (subscribedOrbit != null) subscribedOrbit.ViewReset += ClearFeedback;
-                if (subscribedPlayer != null) subscribedPlayer.StateChanged += OnStateChanged;
+                if (subscribedPlayer != null)
+                {
+                    subscribedPlayer.StateChanged += OnStateChanged;
+                    subscribedPlayer.DamageReceived += OnDamageReceived;
+                    subscribedPlayer.CombatReset += ClearFeedback;
+                }
             }
             if (subscribedRendering || !Application.isPlaying) return;
             RenderPipelineManager.beginCameraRendering += OnBeginCameraRendering;
@@ -117,7 +142,12 @@ namespace OCDesign.Samurai
         void Unsubscribe()
         {
             if (subscribedOrbit != null) subscribedOrbit.ViewReset -= ClearFeedback;
-            if (subscribedPlayer != null) subscribedPlayer.StateChanged -= OnStateChanged;
+            if (subscribedPlayer != null)
+            {
+                subscribedPlayer.StateChanged -= OnStateChanged;
+                subscribedPlayer.DamageReceived -= OnDamageReceived;
+                subscribedPlayer.CombatReset -= ClearFeedback;
+            }
             subscribedOrbit = null;
             subscribedPlayer = null;
             if (!subscribedRendering) return;
@@ -126,17 +156,50 @@ namespace OCDesign.Samurai
             subscribedRendering = false;
         }
 
-        void OnStateChanged(string state) => ClearFeedback();
+        void OnStateChanged(string state)
+        {
+            ResetRush();
+            ResetHeat();
+            shakeElapsed = shakeDuration = shakeAmplitude = 0f;
+            // 受伤、死亡及恢复动作都不能截断受击余震；复位由CombatReset单独清理。
+            if (!IsReceivedDamageShaking) RestoreRotation();
+            realPlanarSpeed = 0f;
+            CapturePlayerPosition();
+        }
+
+        void OnDamageReceived(SamuraiDamageFeedback feedback)
+        {
+            if (!CanPlayShake() || !Finite(feedback.HealthDamage) || feedback.HealthDamage <= 0f) return;
+            LastReceivedHealthDamage = feedback.HealthDamage;
+            LastReceivedShakeTier = feedback.HealthDamage < MediumDamageThreshold ? 0
+                : feedback.HealthDamage < HighDamageThreshold ? 1 : 2;
+            LastReceivedShakeDegrees = LastReceivedShakeSeconds = 0f;
+            if (LastReceivedShakeTier == 0) return;
+            float degrees = LastReceivedShakeTier == 2 ? highDamageShakeDegrees : mediumDamageShakeDegrees;
+            float seconds = LastReceivedShakeTier == 2 ? highDamageShakeSeconds : mediumDamageShakeSeconds;
+            LastReceivedShakeDegrees = Finite(degrees) ? Mathf.Clamp(degrees, 0f, 3f) : 0f;
+            LastReceivedShakeSeconds = Finite(seconds) ? Mathf.Clamp(seconds, 0f, .6f) : 0f;
+            if (LastReceivedShakeDegrees <= 0f || LastReceivedShakeSeconds <= 0f) return;
+            // 连续受伤只保留正在衰减的强度，不把旧的大震幅重新放大，也不缩短余震。
+            float remainingEnvelope = 1f - Mathf.Clamp01(receivedShakeElapsed / Mathf.Max(.01f, receivedShakeDuration));
+            float remainingAmplitude = IsReceivedDamageShaking
+                ? receivedShakeAmplitude * remainingEnvelope * remainingEnvelope : 0f;
+            receivedShakeAmplitude = Mathf.Max(remainingAmplitude, LastReceivedShakeDegrees);
+            receivedShakeDuration = Mathf.Max(ReceivedDamageShakeRemaining, LastReceivedShakeSeconds);
+            receivedShakeElapsed = 0f;
+            ReceivedDamageShakeCount++;
+        }
+
+        bool CanPlayShake() => Application.isPlaying && isActiveAndEnabled && view != null
+            && orbit != null && orbit.isActiveAndEnabled && player != null && player.isActiveAndEnabled;
 
         /// <summary>由真实命中的反馈入口调用；蓄力比普通重击更重，不移动相机碰撞位置。</summary>
         public void PlayImpact(bool charged)
         {
-            if (!Application.isPlaying || !isActiveAndEnabled || view == null
-                || orbit == null || !orbit.isActiveAndEnabled || player == null || !player.isActiveAndEnabled)
-                return;
+            if (!CanPlayShake()) return;
             float nextAmplitude = charged ? chargedShakeDegrees : heavyShakeDegrees;
             float nextDuration = charged ? chargedShakeSeconds : heavyShakeSeconds;
-            shakeAmplitude = Mathf.Max(IsShaking ? shakeAmplitude : 0f,
+            shakeAmplitude = Mathf.Max(IsImpactShaking ? shakeAmplitude : 0f,
                 Finite(nextAmplitude) ? Mathf.Clamp(nextAmplitude, 0f, 3f) : 0f);
             shakeDuration = Finite(nextDuration) ? Mathf.Clamp(nextDuration, .05f, .5f) : .17f;
             shakeElapsed = 0f;
@@ -231,7 +294,12 @@ namespace OCDesign.Samurai
             }
 
             // 局部顿帧期间仍有真实时间震屏；真正暂停只保持当前姿态，不推进震动时间。
-            if (IsShaking && !paused) shakeElapsed = Mathf.Min(shakeDuration, shakeElapsed + realDeltaSeconds);
+            if (!paused)
+            {
+                if (IsImpactShaking) shakeElapsed = Mathf.Min(shakeDuration, shakeElapsed + realDeltaSeconds);
+                if (IsReceivedDamageShaking)
+                    receivedShakeElapsed = Mathf.Min(receivedShakeDuration, receivedShakeElapsed + realDeltaSeconds);
+            }
             ApplyShake();
         }
 
@@ -240,6 +308,7 @@ namespace OCDesign.Samurai
             ResetRush();
             ResetHeat();
             shakeElapsed = shakeDuration = shakeAmplitude = 0f;
+            receivedShakeElapsed = receivedShakeDuration = receivedShakeAmplitude = 0f;
             appliedShakeEuler = Vector3.zero;
             RestoreRotation();
             realPlanarSpeed = 0f;
@@ -311,17 +380,24 @@ namespace OCDesign.Samurai
 
         void ApplyShake()
         {
-            if (!IsShaking || shakeAmplitude <= 0f) { RestoreRotation(); return; }
-            float normalized = Mathf.Clamp01(shakeElapsed / Mathf.Max(.01f, shakeDuration));
-            float envelope = (1f - normalized) * (1f - normalized);
-            float time = shakeElapsed;
-            appliedShakeEuler = new Vector3(
-                -.8f * Mathf.Cos(time * 93f),
-                .5f * Mathf.Sin(time * 111f + .7f),
-                .38f * Mathf.Cos(time * 79f + .3f)) * (shakeAmplitude * envelope);
+            if (!IsShaking) { RestoreRotation(); return; }
+            appliedShakeEuler = Vector3.ClampMagnitude(
+                ShakeSample(shakeElapsed, shakeDuration, shakeAmplitude)
+                + ShakeSample(receivedShakeElapsed, receivedShakeDuration, receivedShakeAmplitude), 3f);
             appliedBaseRotation = orbit.UnshakenRotation;
             view.transform.rotation = appliedBaseRotation * Quaternion.Euler(appliedShakeEuler);
             appliedShake = true;
+        }
+
+        static Vector3 ShakeSample(float elapsed, float duration, float amplitude)
+        {
+            if (duration <= 0f || elapsed >= duration || amplitude <= 0f) return Vector3.zero;
+            float normalized = Mathf.Clamp01(elapsed / Mathf.Max(.01f, duration));
+            float envelope = (1f - normalized) * (1f - normalized);
+            return new Vector3(
+                -.8f * Mathf.Cos(elapsed * 93f),
+                .5f * Mathf.Sin(elapsed * 111f + .7f),
+                .38f * Mathf.Cos(elapsed * 79f + .3f)) * (amplitude * envelope);
         }
 
         void RestoreRotation()

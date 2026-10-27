@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf2133db85f6df240bc8ae96a12bcc32, type: 3}
+  m_Name: Nioh3_Stance_High
+  m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiStanceDefinition
+  displayName: "\u9AD8\u67B6\u52BF"
+  idle: {fileID: 7400000, guid: 4076b8695790fb4459d33837c2f698d3, type: 2}
+  idleStateName: Nioh3_High_Idle_03000
+  kiPulse: {fileID: 7400000, guid: 9147bd6815a40b743b5254c3941034e3, type: 2}
+  kiPulseStateName: Nioh3_High_KiPulse_03008
+  frostMoon: {fileID: 11400000, guid: e4dd91f7c00a88a45b4d05cb33c5c392, type: 2}
+  entryTransitions:
+  - fromStance: {fileID: 11400000, guid: b63d681d7c9201448b3310cd893ffbf3, type: 2}
+    clip: {fileID: 7400000, guid: aa8ce327a276d35459ffb5336eb2c780, type: 2}
+    stateName: Nioh3_MidToHigh_05701
+    blendSeconds: 0.08
+  locomotion:
+    walk:
+    - clip: {fileID: 7400000, guid: c899273d606a9b84db5d0ae546842d0a, type: 2}
+      stateName: Nioh3_High_WalkForward_03030
+    - clip: {fileID: 7400000, guid: d015677ef6bcf2647ada1d0b36480e42, type: 2}
+      stateName: Nioh3_High_WalkForwardRight_Blend
+    - clip: {fileID: 7400000, guid: 55470e6f604758842a2531a86b35b896, type: 2}
+      stateName: Nioh3_High_WalkRight_03033
+    - clip: {fileID: 7400000, guid: 283c763e1a9bd9243b64c51a61574a31, type: 2}
+      stateName: Nioh3_High_WalkBackwardRight_Blend
+    - clip: {fileID: 7400000, guid: da02eece2dca44d49bbba8e52a04dbfa, type: 2}
+      stateName: Nioh3_High_WalkBackward_03031
+    - clip: {fileID: 7400000, guid: e19488fc1c488e746858ff8b799ea92b, type: 2}
+      stateName: Nioh3_High_WalkBackwardLeft_Blend
+    - clip: {fileID: 7400000, guid: e0792f7702cd16843aed1bf0dc5135fc, type: 2}
+      stateName: Nioh3_High_WalkLeft_03032
+    - clip: {fileID: 7400000, guid: b633fa332e54686479985af75fd05f31, type: 2}
+      stateName: Nioh3_High_WalkForwardLeft_Blend
+    run:
+    - clip: {fileID: 7400000, guid: f163a6c1155a7564aa146b73403504d2, type: 2}
+      stateName: Nioh3_High_RunForward_03020
+    - clip: {fileID: 7400000, guid: 310dcab009750fb48ae90c7c8965cc8c, type: 2}
+      stateName: Nioh3_High_RunForwardRight_Blend
+    - clip: {fileID: 7400000, guid: e01f8b43c24a0d3489dc9f7e4f7cb150, type: 2}
+      stateName: Nioh3_High_RunRight_03028
+    - clip: {fileID: 7400000, guid: 6a6704fa1c370b64dbe7151f0fb7d390, type: 2}
+      stateName: Nioh3_High_RunBackwardRight_Blend
+    - clip: {fileID: 7400000, guid: a2cba0c1524af2743a071bac901ae901, type: 2}
+      stateName: Nioh3_High_RunBackward_03024
+    - clip: {fileID: 7400000, guid: f2bf130203e42d34c952a46a23945a88, type: 2}
+      stateName: Nioh3_High_RunBackwardLeft_Blend
+    - clip: {fileID: 7400000, guid: 9841ff96340c9d74badf21384737305d, type: 2}
+      stateName: Nioh3_High_RunLeft_03026
+    - clip: {fileID: 7400000, guid: 5323578349124004a99206ac843d96d2, type: 2}
+      stateName: Nioh3_High_RunForwardLeft_Blend
+  attackChains:
+  - displayName: "03100 \u2192 03110 \u2192 03120 \u2192 03210"
+    attacks:
+    - {fileID: 11400000, guid: a24f77f56c8516e4cb927ae15b2f8709, type: 2}
+    - {fileID: 11400000, guid: 325db59653f25214fb67f46092bd08fc, type: 2}
+    - {fileID: 11400000, guid: 0bc07c918bd0e694fa8c1dacad9e8120, type: 2}
+    - {fileID: 11400000, guid: 245efa46017d3e14a964a2be62cb396a, type: 2}
+  strongAttack: {fileID: 11400000, guid: 7a7f61c180f13ef49a81ee75a9782a22, type: 2}
+  strongAttackChain:
+    displayName: 
+    attacks: []
+  normalToStrongRoutes: []
+  chargedStrongAttack: {fileID: 0}
+  martialArtSlots:
+  - slot: 0
+    defaultAction: {fileID: 11400000, guid: dd9b18a799891864483c25391207de18, type: 2}
+    candidates:
+    - {fileID: 11400000, guid: dd9b18a799891864483c25391207de18, type: 2}
+  - slot: 1
+    defaultAction: {fileID: 11400000, guid: a62f3415af1ea084ca1bb82d99f9b508, type: 2}
+    candidates:
+    - {fileID: 11400000, guid: a62f3415af1ea084ca1bb82d99f9b508, type: 2}
+  - slot: 2
+    defaultAction: {fileID: 11400000, guid: b2be5c5ab5dbdac4ba54a1d456d742dd, type: 2}
+    candidates:
+    - {fileID: 11400000, guid: b2be5c5ab5dbdac4ba54a1d456d742dd, type: 2}
+  - slot: 3
+    defaultAction: {fileID: 11400000, guid: fc9a508f39fdbe7418aa9bc802df5d0a, type: 2}
+    candidates:
+    - {fileID: 11400000, guid: fc9a508f39fdbe7418aa9bc802df5d0a, type: 2}
+  - slot: 4
+    defaultAction: {fileID: 0}
+    candidates: []
+  - slot: 5
+    defaultAction: {fileID: 11400000, guid: 9485bf7a1b476564ebd924d16e51b206, type: 2}
+    candidates:
+    - {fileID: 11400000, guid: 9485bf7a1b476564ebd924d16e51b206, type: 2}
+  martialArts:
+  - {fileID: 11400000, guid: fc9a508f39fdbe7418aa9bc802df5d0a, type: 2}
+  - {fileID: 11400000, guid: b2be5c5ab5dbdac4ba54a1d456d742dd, type: 2}
+  - {fileID: 11400000, guid: dd9b18a799891864483c25391207de18, type: 2}
+  - {fileID: 11400000, guid: a62f3415af1ea084ca1bb82d99f9b508, type: 2}

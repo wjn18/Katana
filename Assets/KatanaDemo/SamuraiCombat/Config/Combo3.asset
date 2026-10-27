@@ -14,24 +14,103 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiActionDefinition
   clip: {fileID: 7400000, guid: 0130218ba3315ec409c4b1a8ddb90d08, type: 2}
   stateName: Combo3
+  displayName: 
+  isMartialArt: 0
+  frostMoonSuperArmorWindow: {x: 0, y: 0}
+  frostMoonGuardWindow: {x: 0, y: 0}
+  chargeStateName: 
   damage: 27
   staminaDamage: 39.15
   staminaCost: 16
+  toughnessDamage: 31.32
+  impactStrength: 40
+  toughnessDamageByWindow: []
+  impactStrengthByWindow: []
+  staggerResistanceBonus:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 10
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.11
+      value: 20
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.39
+      value: 0
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  toughnessConfigurationVersion: 1
   unblockable: 0
+  guardReactionSide: 0
   knockbackDistance: 0.25
   knockbackSeconds: 0.16
   damageStart: 0.11
   damageEnd: 0.39
-  comboInputStart: 0.06
-  comboInputEnd: 0.503077
+  damageWindows: []
+  hitSource: 0
+  hitRadius: 0
+  comboInputStart: 0.03
+  comboInputEnd: 0.85
   comboLink: 0.423077
+  comboBlendSeconds: -1
   cancelStart: 0.46
+  overrideKiPulseTiming: 0
+  kiPulseStart: 0.58
+  kiPulseGatherSeconds: 0.45
+  kiPulsePerfectSeconds: 0.15
   closeRangeReach: 0
   closeRangeHalfAngle: 55
   closeRangeStart: 0.1
   closeRangeEnd: 0.42
+  useRootMotion: 0
+  rootMotionX:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rootMotionZ:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rootMotionDistanceMultiplier: 1
   stepDistance: 0.42
   stepStart: 0.04
   stepEnd: 0.39
+  approachEnabled: 0
+  approachStopGap: 0.4
+  approachSlowSpeed: 0.25
+  pushEnemies: 0
   invulnerableStart: 0.1
   invulnerableEnd: 0.58

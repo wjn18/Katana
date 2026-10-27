@@ -29,10 +29,12 @@ namespace OCDesign.EditorTools
 
             var attack = LoadOrCreate(AttackPath, "DodgeAttack", attackClip, false, player);
             var combo = LoadOrCreate(ReturnPath, "DodgeAttackToCombo1", returnClip, true, player);
-            if (player.dodgeAttack != attack || player.dodgeAttackToCombo1 != combo)
+            var nativeFirst = SamuraiNativeHighSetup.PreparedFirstAttack();
+            var returnTarget = nativeFirst && nativeFirst.IsUsable ? nativeFirst : combo;
+            if (player.dodgeAttack != attack || player.dodgeAttackToCombo1 != returnTarget)
             {
                 player.dodgeAttack = attack;
-                player.dodgeAttackToCombo1 = combo;
+                player.dodgeAttackToCombo1 = returnTarget;
                 EditorUtility.SetDirty(player);
                 AssetDatabase.SaveAssetIfDirty(player);
             }
@@ -77,6 +79,7 @@ namespace OCDesign.EditorTools
                 if (returningToCombo && player.combo != null && player.combo.Length > 0 && player.combo[0])
                     EditorUtility.CopySerialized(player.combo[0], action);
                 action.name = state;
+                action.toughnessConfigurationVersion = 0;
                 action.clip = clip; action.stateName = state;
                 action.invulnerableStart = action.invulnerableEnd = 0f;
                 action.closeRangeReach = 0f;
@@ -98,6 +101,7 @@ namespace OCDesign.EditorTools
                     action.stepDistance = 1.35f; action.stepStart = .02f; action.stepEnd = .46f;
                     action.knockbackDistance = .45f; action.knockbackSeconds = .18f;
                 }
+                SamuraiToughnessSetup.InitializeAction(action);
                 AssetDatabase.CreateAsset(action, path);
             }
             else if (action.clip != clip || action.stateName != state)

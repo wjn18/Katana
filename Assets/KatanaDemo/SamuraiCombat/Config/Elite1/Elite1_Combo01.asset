@@ -1,0 +1,239 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd39590d26de9c4291373becd55be53, type: 3}
+  m_Name: Elite1_Combo01
+  m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiActionDefinition
+  clip: {fileID: 7400000, guid: 49aa2534b933a5040a1af4f56a9ecc1a, type: 2}
+  stateName: Combo01
+  displayName: "\u56DE\u65CB\u8FDE\u65A9"
+  isMartialArt: 0
+  frostMoonSuperArmorWindow: {x: 0, y: 0}
+  frostMoonGuardWindow: {x: 0, y: 0}
+  chargeStateName: 
+  damage: 24
+  staminaDamage: 28
+  staminaCost: 30
+  toughnessDamage: 22.4
+  impactStrength: 30
+  toughnessDamageByWindow:
+  - 18.67
+  - 18.67
+  - 22.4
+  - 22.4
+  - 29.87
+  impactStrengthByWindow:
+  - 25
+  - 25
+  - 30
+  - 30
+  - 40
+  staggerResistanceBonus:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 25
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.12
+      value: 40
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.22
+      value: 0
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.221
+      value: 25
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.25
+      value: 40
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.34
+      value: 0
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.341
+      value: 25
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.36
+      value: 40
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.45
+      value: 0
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.45099998
+      value: 25
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.47
+      value: 40
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.56
+      value: 0
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.561
+      value: 25
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.58
+      value: 40
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.68
+      value: 0
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  toughnessConfigurationVersion: 1
+  unblockable: 0
+  guardReactionSide: 0
+  knockbackDistance: 0.25
+  knockbackSeconds: 0.22
+  damageStart: 0.1
+  damageEnd: 0.9
+  damageWindows:
+  - {x: 0.12, y: 0.22}
+  - {x: 0.25, y: 0.34}
+  - {x: 0.36, y: 0.45}
+  - {x: 0.47, y: 0.56}
+  - {x: 0.58, y: 0.68}
+  hitSource: 0
+  hitRadius: 0
+  comboInputStart: 0.12
+  comboInputEnd: 0.9
+  comboLink: 0.92
+  comboBlendSeconds: -1
+  cancelStart: 0.95
+  overrideKiPulseTiming: 0
+  kiPulseStart: 0.58
+  kiPulseGatherSeconds: 0.45
+  kiPulsePerfectSeconds: 0.15
+  closeRangeReach: 1.5
+  closeRangeHalfAngle: 55
+  closeRangeStart: 0.12
+  closeRangeEnd: 0.68
+  useRootMotion: 0
+  rootMotionX:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rootMotionZ:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rootMotionDistanceMultiplier: 1
+  stepDistance: 0.25
+  stepStart: 0.18
+  stepEnd: 0.48
+  approachEnabled: 0
+  approachStopGap: 0.4
+  approachSlowSpeed: 0.25
+  pushEnemies: 0
+  invulnerableStart: 0.1
+  invulnerableEnd: 0.58

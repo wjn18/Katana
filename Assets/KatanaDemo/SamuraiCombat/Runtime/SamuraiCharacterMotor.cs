@@ -14,6 +14,7 @@ namespace OCDesign.Samurai
         Vector3 spawnPosition;
         Quaternion spawnRotation;
         float verticalSpeed;
+        readonly RaycastHit[] corpseHits = new RaycastHit[32];
 
         public CharacterController Controller => controller;
         public Vector3 Forward => root != null ? root.forward : Vector3.forward;
@@ -68,6 +69,34 @@ namespace OCDesign.Samurai
             CollisionFlags flags = controller.Move((planarVelocity + Vector3.up * verticalSpeed) * dt);
             if ((flags & CollisionFlags.Above) != 0 && verticalSpeed > 0f) verticalSpeed = 0f;
             if ((flags & CollisionFlags.Below) != 0 && verticalSpeed < 0f) verticalSpeed = -2f;
+        }
+
+        /// <summary>敌人死亡后保持胶囊关闭，仅沿竖直方向落到环境；不重新阻挡玩家。</summary>
+        public void MoveCorpse(float dt)
+        {
+            if (controller == null || controller.enabled || profile == null || !profile.disableCollisionOnDeath)
+            { Move(Vector3.zero, dt); return; }
+            if (root == null || dt <= 0f || float.IsNaN(dt) || float.IsInfinity(dt)) return;
+            dt = Mathf.Min(dt, .1f);
+            verticalSpeed = Mathf.Max(-Mathf.Max(1f, profile.terminalFallSpeed),
+                Mathf.Min(0f, verticalSpeed) - Mathf.Max(0f, profile.gravity) * dt);
+            float fall = -verticalSpeed * dt;
+            Vector3 origin = root.position + Vector3.up * .2f;
+            int count = Physics.RaycastNonAlloc(origin, Vector3.down, corpseHits, .22f + fall,
+                profile.obstructionMask, QueryTriggerInteraction.Ignore);
+            RaycastHit[] hits = corpseHits;
+            if (count == corpseHits.Length)
+            { hits = Physics.RaycastAll(origin, Vector3.down, .22f + fall, profile.obstructionMask, QueryTriggerInteraction.Ignore); count = hits.Length; }
+            float ground = float.NegativeInfinity;
+            for (int i = 0; i < count; i++)
+            {
+                if (hits[i].collider.GetComponentInParent<SamuraiCombatant>() != null || hits[i].normal.y < .45f) continue;
+                ground = Mathf.Max(ground, hits[i].point.y);
+            }
+            float y = root.position.y - fall;
+            if (!float.IsNegativeInfinity(ground) && y <= ground + .001f)
+            { y = ground + .001f; verticalSpeed = 0f; }
+            var position = root.position; position.y = y; root.position = position;
         }
 
         /// <summary>按动作进度差计算本次步进，避免帧率改变攻击或闪避的总位移。</summary>

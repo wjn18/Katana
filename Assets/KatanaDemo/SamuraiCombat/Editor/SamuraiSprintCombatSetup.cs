@@ -98,6 +98,7 @@ namespace OCDesign.EditorTools
                 action.comboLink = .72f; action.cancelStart = .62f;
                 action.closeRangeReach = 0f;
                 action.knockbackDistance = .8f; action.knockbackSeconds = .22f;
+                SamuraiToughnessSetup.InitializeAction(action);
                 AssetDatabase.CreateAsset(action, SprintActionPath);
             }
             else if (action.clip != clip || action.stateName != "SprintAttack")

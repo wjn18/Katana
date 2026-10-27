@@ -95,7 +95,8 @@ namespace OCDesign.Samurai
             if (!Application.isPlaying || !isActiveAndEnabled)
             { Extinguish(); return; }
             if (subscribedActor != actor) { Extinguish(); Subscribe(); }
-            if (actor == null || !actor.isActiveAndEnabled || !actor.IsCharging
+            // 短按判定及其他武技可以处于Charge模式，但不能借用原版居合的刀身蓄力光。
+            if (actor == null || !actor.isActiveAndEnabled || !actor.IsCharging || actor.StateName != "Charge"
                 || actor.Animator == null || !actor.Animator.isActiveAndEnabled
                 || bladeBase == null || bladeTip == null || glowMaterial == null
                 || !bladeBase.gameObject.activeInHierarchy || !bladeTip.gameObject.activeInHierarchy)

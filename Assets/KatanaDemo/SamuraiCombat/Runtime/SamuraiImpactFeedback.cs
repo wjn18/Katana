@@ -50,14 +50,14 @@ namespace OCDesign.Samurai
             if (result == SamuraiHitResult.Blocked) seconds *= blockedMultiplier;
             var victim = receiver as SamuraiCombatant;
             // 同一帧扫中多个目标时，每个目标均停顿；攻击者和相机每招只触发一次。
-            if (victim != null) victim.ApplyHitStop(seconds);
+            if (victim != null) victim.ApplyReceivedHitStop(seconds);
             if (actor.Actions.AttackSerial == lastImpactSerial) return;
             lastImpactSerial = actor.Actions.AttackSerial;
             LastHitStopSeconds = seconds;
             ImpactCount++;
             actor.ApplyHitStop(seconds);
+            // 出手命中反馈只属于攻击者；玩家受伤由DamageReceived按实际伤害独立分级。
             var view = PlayerCamera(actor);
-            if (view == null && victim != null) view = PlayerCamera(victim);
             if (view != null) view.PlayImpact(charged);
         }
         static SamuraiCombatCameraFeedback PlayerCamera(SamuraiCombatant combatant)

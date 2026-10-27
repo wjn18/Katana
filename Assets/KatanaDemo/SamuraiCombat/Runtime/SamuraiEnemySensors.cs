@@ -10,6 +10,25 @@ namespace OCDesign.Samurai
     {
         private readonly RaycastHit[] hits = new RaycastHit[24];
 
+        public bool IsInsideView(SamuraiCombatant actor, SamuraiCombatant target, float range,
+            float horizontalAngle, float verticalAngle)
+        {
+            if (actor == null || target == null || !target.isActiveAndEnabled) return false;
+            Vector3 delta = BodyCentre(target) - BodyCentre(actor);
+            Vector3 planar = delta; planar.y = 0f;
+            if (planar.sqrMagnitude > Mathf.Max(0f, range) * Mathf.Max(0f, range)) return false;
+            Vector3 forward = actor.transform.forward; forward.y = 0f;
+            if (planar.sqrMagnitude > .000001f && Vector3.Angle(forward, planar)
+                > Mathf.Clamp(horizontalAngle, 0f, 360f) * .5f + .0001f) return false;
+            float elevation = Mathf.Abs(Mathf.Atan2(delta.y, planar.magnitude) * Mathf.Rad2Deg);
+            return elevation <= Mathf.Clamp(verticalAngle, 0f, 180f) * .5f + .0001f;
+        }
+
+        public bool CanSee(SamuraiCombatant actor, SamuraiCombatant target, float range,
+            float horizontalAngle, float verticalAngle, LayerMask obstructionMask) =>
+            IsInsideView(actor, target, range, horizontalAngle, verticalAngle)
+            && HasLineOfSight(actor, target, obstructionMask);
+
         public bool HasLineOfSight(SamuraiCombatant actor, SamuraiCombatant target, LayerMask obstructionMask)
         {
             if (actor == null || target == null) return false;

@@ -14,18 +14,85 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiActionDefinition
   clip: {fileID: 7400000, guid: 23d19894a02d872458e2424333253b55, type: 2}
   stateName: DodgeBackwardLeft
+  displayName: 
+  isMartialArt: 0
+  frostMoonSuperArmorWindow: {x: 0, y: 0}
+  frostMoonGuardWindow: {x: 0, y: 0}
+  chargeStateName: 
   damage: 0
   staminaDamage: 0
   staminaCost: 22
+  toughnessDamage: 0
+  impactStrength: 0
+  toughnessDamageByWindow: []
+  impactStrengthByWindow: []
+  staggerResistanceBonus:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  toughnessConfigurationVersion: 1
   unblockable: 0
+  guardReactionSide: 0
+  knockbackDistance: 0
+  knockbackSeconds: 0.18
   damageStart: 1
   damageEnd: 1
+  damageWindows: []
+  hitSource: 0
+  hitRadius: 0
   comboInputStart: 0.06
   comboInputEnd: 1
   comboLink: 1
+  comboBlendSeconds: -1
   cancelStart: 0.72
+  overrideKiPulseTiming: 0
+  kiPulseStart: 0.58
+  kiPulseGatherSeconds: 0.45
+  kiPulsePerfectSeconds: 0.15
+  closeRangeReach: 0
+  closeRangeHalfAngle: 55
+  closeRangeStart: 0.1
+  closeRangeEnd: 0.42
+  useRootMotion: 0
+  rootMotionX:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rootMotionZ:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rootMotionDistanceMultiplier: 1
   stepDistance: 2.3
   stepStart: 0.03
   stepEnd: 0.59
+  approachEnabled: 0
+  approachStopGap: 0.4
+  approachSlowSpeed: 0.25
+  pushEnemies: 0
   invulnerableStart: 0.08
   invulnerableEnd: 0.55

@@ -1,6 +1,29 @@
+2026-10-26 冬月特效、镜头与中招倍率（当前规则）：高16000/中16100均增加独立SamuraiFrostMoonVfx，按用户参考表现胸腰青白聚光、短促气流及世界空间白青碎光，保留原刀轨；仅合法冬月出招显示，暂停/HitStop冻结，取消/复位/禁用清理。中招按用户追加要求将rootMotionDistanceMultiplier设为3.2，原方向/横移/回撤比例和85/60秒时长保持，位移与速度同比3.2倍，当前水平总路程约6.5994米、前向净位移约3.75165米；高招仍1倍。仅中招在实际快移时增加相机滞后，上限1.35米，结束/取消平滑追上；高招正常镜头不新增滞后。环境避障与所有角色不挡镜头规则保持，镜头不改角色位移或命中。248项运行检查通过（轨迹124、战斗62、镜头26、特效27、镜头环境9），重复安装7项哈希保持，最大轨迹误差约0.819毫米；原动画/根曲线/源Avatar/Enemy1与场景保持。新菜单Install Frost Moon Effects只装身体表现，Install Frost Moon Animations同时维护当前倍率和特效。说明/报告见斗笠剑士/动画资源/samurai-frost-moon/output/动画接入说明.txt与analysis/effects-20261026/；游戏接入/下GIF/JPG已更新，*_Fixed.gif供固定镜头检查，三张原参考归图片预览同任务特效参考/。本条替代此前中冬月1倍距离和无身体特效/特殊镜头的当前状态；旧报告保留。
+
+2026-10-26 冬月根运动更新（当前规则）：高16000、中16100改为原G1A根骨bone_1的水平米制轨迹，保留横移、前进与回撤，按出招朝向旋转，不随Humanoid身高缩放。OnAnimatorMove经SamuraiRootMotionDriver移动CharacterController；useRootMotion开启，固定跨步/接近减速关闭，墙体碰撞仍截断且不补走。高/中路径总长约2.6493/2.0623米，最终前向净位移约1.84358/1.17239米。高冬月新增专用带根运动片段，旧手动16000原地片段与GUID保持；两招各130条源曲线逐键保持、原速和时长保持。124项轨迹/碰撞/中断检查与62项战斗回归通过，最大水平误差约0.302毫米；重复安装9项哈希保持。正式GIF/JPG已改为固定镜头根运动版。当前说明及报告见斗笠剑士/动画资源/samurai-frost-moon/output/动画接入说明.txt与analysis/root-motion-20261026/。本条替代此前冬月固定跨步、水平Root Motion关闭及高冬月共用原地片段的说明；其余带日期记录保留为历史。
+
 SamuraiCombat 架构与扩展说明
-更新：2026-10-21
+
+冬月触发框架（2026-10-26）：SamuraiFrostMoon独立管理一次性资格/架势/战斗时钟，成功残心开窗、合法流转更新目标及后续窗口；与白条、完美判定独立。PlayerInput增加kiPulseHeld；同架势Q+键为残心+冬月，跨架势首次为流转，第二边沿为冬月。Q已按住时的新架势边沿同样能在窗口内成立残心；攻击中Q+架势可预切，清除旧接段缓存但不打断当前动画。Combatant在HitStop保留首个架势边沿与后续冬月边沿的顺序。ActionController按合法窗口消费请求，空槽只发FrostMoonRequested(stance,false)，不调用CommitAttack；有效专用武技才零耗精提交并设置IsFrostMoonAttack，沿用现有琢技/命中框架且不会产生新的残心白条。高/中Stance.frostMoon现已绑定实机确认的16000/16100。SamuraiActionDefinition提供默认关闭的冬月防御窗口，ActionController仅在合法冬月提交时通过ISamuraiActionDefense暴露能力，DamageResolver独立结算普通防御/抗打断，Combatant只抑制对应攻击的受击后退；死亡、破防和不可防御攻击优先。维护入口为SamuraiFrostMoonSetup.Install，说明及62项检查见外部samurai-frost-moon任务。
+更新：2026-10-26（原有分节日期保留为历史）
+
+流转与时机分离：SamuraiKiPulse在普通/完美Q后均保存一次独立流转奖励；TryConsumeFlux不修改原Q的perfect标记，不保留白条差额。ActionController/Vitals分别结算并发出KiPulsePerformed与FluxPerformed，Combatant转发，HUD分别显示。自然恢复只抵扣未消费白条。原字段经FormerlySerializedAs迁移为kiPulseFluxEnabled/kiPulseFluxWindowSeconds，新奖励由kiPulseFluxRecoveryFraction配置。旧切架势补成完美逻辑与菜单已替代，当前维护为Enable Ki Pulse Flux。
 本文相对路径以 Assets/KatanaDemo/SamuraiCombat 为基准。
+
+2026-10-24 当前高架势接入边界
+高普通链与Profile.combo均为03100→03110→03120→03210；高strongAttack及Profile.heavy均为03300。前四击沿用旧四击的伤害、耗精、跨步距离和后退数值，时窗按源动作重配；03300沿用旧高05180的22生命伤害/25精力伤害/14耗精。SamuraiImpactFeedback按Profile.heavy识别，因此03300现继承0.075秒重击HitStop；此前05180未继承这项反馈。原Charged居合、武技槽、中普通六连及强四连保持。
+SamuraiStanceDefinition.entryTransitions按fromStance匹配进入片段；高/中idle分别03000/02000。05701原F0–16尾补8帧成为0.4秒高→中，原F16–121头补8帧成为1.883333秒中→高。8帧桥接以中位Idle首姿对齐；源FBX仅裁段，桥接在派生运行clip中。切架即时更新选择，播放属于可中断的Locomotion短表现，移动/攻防闪与受击可接管；不建立新的行动锁定。残心切架优先显示切架过渡，回耐、残心窗口与反馈仍按现有服务结算。
+Editor/SamuraiNativeHighSetup定向导入、配置片段/状态/刀光/架势；ApplyPreparedAttacks供其他定向维护入口保留新高四连与重击引用。冲刺/闪避回接要求当前链长度和每个Action引用都与Profile.combo一致，不能因备用链首项相同就误接高位四连。由专用Idle、残心或切架起步时不沿用该静止表现的相位，正常移动之间仍保留步态相位。SourceFBX、Runtime、Action配置分开，源骨架与共享Avatar不重建。本文后续以日期标识的旧四连、Heavy和toCombo1制作记录属于历史，当前路径以上述绑定为准。
+
+2026-10-24 高／中架势移动配置与派生片段
+SamuraiStanceDefinition.locomotion是可选架势配置；walk/run各有8个SamuraiLocomotionEntry，每项保存clip和stateName。当前高030xx、中020xx各自配置16项，共32条专用移动片段。数组顺序为前、右前、右、右后、后、左后、左、左前。SamuraiAnimationDriver按角色局部移动方向与既有方向迟滞选择；只有该项clip存在且Animator有对应状态才使用专用片段。缺项、缺片段或缺状态仅使当前方向回退Profile.directionalWalk/directionalRun及其原状态；该方向的共享配置也不可用时，再回退Profile.walk/run与Walk/Run基础状态。没有locomotion的架势完全沿用此共享回退路径；原Profile引用和共享片段保留，并非随中架势专用移动接入而删除。
+步态相位由驱动器记录的lastMovementState识别：只有当前状态确为上一次实际选中的移动状态、仍处于普通移动且本次发生移动状态切换，才继承Animator归一化相位的小数部分。它可用于方向、步速及架势间的连续移动，不以状态名称前缀或逻辑架势猜测正在播放的步态；Idle、残心和切架短表现不能把自身进度传给起步。停止移动或进入待机时清除方向迟滞与lastMovementState，新起步从相位0开始。
+高架势入口为Editor/SamuraiHighLocomotionSetup.cs::Install()，菜单OC Design/Samurai/Install Native High Walk And Run；中架势入口为Editor/SamuraiMidLocomotionSetup.cs::Install()，菜单OC Design/Samurai/Install Native Middle Walk And Run。两者只在Edit模式定向创建并绑定相应架势的16条片段/状态与locomotion，不修改移动速度、耗精、冲刺资格或原攻击配置。源文件位于Animations/Nioh3/SourceFBX/，派生片段位于Animations/Nioh3/Runtime/，仍复用既有Canonical Avatar与显式人体骨映射，不重建源骨架或共享Avatar。已有片段通过Humanoid、循环及时长检查后复用；定向入口不等同覆盖重烘焙工具，正常维护不要运行完整场景重建。
+中架势本轮沿用现有Runtime选择、相位及打断逻辑，没有修改SamuraiStanceDefinition、SamuraiAnimationDriver或SamuraiActionController。中位Walk前/后/左/右为02030/02031/02032/02033，Run为02020/02024/02026/02028；每种步态另派生4条相邻方向各50%的斜向。走3米/秒、跑6米/秒、跑步9精力/秒及0.15秒实际跑动资格保持。确定性工具为外部unity/VerifyMidLocomotion.cs.txt，读取两架势独立配置，缺项测试仅改隔离克隆，并以安装前Action GUID独立检查高中普通/强击引用。本轮源导出96/96、运行资产数值75/75、确定性逻辑1312/1312通过；逻辑报告failed为空、fatal为空、isolationViolation=false，869次资产保持性核对通过。自然PlayerLoop采集113/113通过，24阶段、5450自然帧、cleanupErrors为空；独立视觉检查与GIF/JPG交付完成，范围和限制见外部output/中架势移动接入说明.txt及analysis/native-mid-locomotion-20261024/visual-inspection.json。本段不套用下段上一轮高架势的结果。
+本轮模块637个基线文件中631个哈希保持，6个预期变化为共享Editor移动烘焙helper、中架势配置、控制器及3份Unity说明；新增50个文件，无删除，既有Runtime、动画片段和meta保持。两套移动安装器再次运行后687个受查文件0变化、0新增。首次核对恰逢使用说明与架构说明的并行文本写入，记录为false但仅这两份文本变化；原始reinstall-concurrent-doc-write.json保留，后续无并行写入的独立重复检查通过，记录reinstall-and-final-editor.json。收尾为Edit、SamuraiCombatDemo无脏修改、未暂停/编译，4个正式Actor及Motor/Animator均启用，Animator speed=1、rootMotion=false，临时对象0；Console错误/警告均为0。
+中位相位采用与高位相同的全局03030基准：sourcePhase=Repeat(outputPhase+offset,1)。按前/右/后/左顺序，Walk偏移为0.0850/0.9925/0.2600/0.1900，Run为0.9400/0.9500/0.9300/0.0550。该对齐减少跨方向、走跑及切架的左右支撑脚错相，不代表不同源动作在相同归一化进度下脚部姿态或高度完全一致。源FBX保持原始起点；闭合与相移只用于派生运行片段。
+Walk原生四向03030/03031/03032/03033各71/60秒；Run映射原生高位快步03020/03024/03026/03028，各37/60秒，不能据名称认定原作Sprint。源FBX不改动作或播放速度。派生运行片段先在原时域移除末首微差，再按分析相位循环偏移；标量曲线扣除线性末首差，RootQ以最短四元数插值修正闭合，RootT.x/z置0，保留根Y与旋转姿态。四个斜向由已经对齐的相邻基准各50%混合，肌肉和根Y平均、根旋转Slerp，120Hz烘焙；这8条斜向为项目生成片段。
+高架势接入当轮源导出96/96、运行资产数值75/75、确定性运行逻辑1239/1239通过。资产检查覆盖根四元数范数、根XZ为0、运行首尾闭合、相位/源动作差及斜向50%混合匹配；自然Play原始110/111，唯一失败是采集器未允许攻击完成当帧进入Idle的既有流程。下一自然帧约3.065毫秒后进入Walk并发生实际位移，随后163帧均匹配；独立trace复核10/10通过，不改原始通过数。重复Install后637个受查文件哈希全部保持、无新增文件；收尾Edit、未暂停/编译、场景干净，四个正式Actor与Animator均启用、speed=1，临时测试stage为0。源分析及当轮runtime-locomotion-validation.json、natural-locomotion-capture.json、natural-locomotion-recovery-assertion-review.json、reinstall-and-final-editor.json均在外部nioh3-katana-import/analysis/native-high-locomotion-20261024/，接入说明见同任务output/高架势移动接入说明.txt。
 
 一、使用方式与组成
 
@@ -64,6 +87,8 @@ actor.Weapon：武器攻击适配服务，可观察SweepQueried、ContactResolve
 角色事件：
 - StateChanged(string)：动作状态变化，可驱动准备、挥砍、受击等表现；事件发生时按状态名判断，不假设动作配置已完成后续赋值。
 - HitReceived(SamuraiHitResult)：自身受击结算结果。
+- GuardContacted(SamuraiGuardContact)：普通或完美格挡结算后、HitReceived之前触发；保留物理Point、可选ClashPoint、结果、来源和实际回耐，供金属碰撞表现使用。
+- DeflectPerformed(float, Vector3, ISamuraiDamageReceiver)：新弹反成功后的实际回耐、世界物理接触点及攻击来源；在HitReceived之前触发，保留既有订阅兼容。金属碰撞组件只订阅GuardContacted，避免双播。
 - HitDealt(SamuraiCombatant, SamuraiHitResult)：兼容原角色对角色通知。
 - DamageDealt(ISamuraiDamageReceiver, SamuraiHitResult, Vector3)：通用目标及世界命中点，适合新命中特效、音效或战斗日志。
 - Died()：死亡通知。
@@ -86,8 +111,8 @@ bool TrySkill(SamuraiCombatant actor, SamuraiActionDefinition skill, Vector3 dir
         && actor.Actions.TryStartAttack(skill, -1, direction);
 }
 
--1表示独立攻击，不进入普通连击序号。SprintAttack和DodgeAttack是明确的特例：前者连接回普通Combo1，后者连接到独立DodgeAttackToCombo1并将ComboIndex设0，随后直接接Combo2。其他独立招保持原规则。请求只在角色可行动状态接受，还会检查动作配置、Animator状态和耐力；返回false时不要先行扣除技能资源或播放成功特效。
-已有四段普攻与蓄力释放由SamuraiActionController在合法窗口内部提交。需要新增跳跃、施法等全新状态时，在协调器中明确其时序/打断规则，再调用已有服务；不要从输入脚本直接改Animator状态来绕过战斗时序。
+-1表示独立攻击，不进入普通连击序号。当前高架势的SprintAttack和DodgeAttack是明确特例：有效下一次轻击均进入03100并将ComboIndex设0，随后沿当前链续03110→03120→03210。Profile.combo已为新四连，dodgeAttackToCombo1字段引用03100；旧同名ARPG回接资产留存但未用于当前高架势。中架势不混入该高架势回接链，其他独立招保持原规则。请求只在角色可行动状态接受，还会检查动作配置、Animator状态和耐力；返回false时不要先行扣除技能资源或播放成功特效。
+当前高四段普攻、中六段普攻、强击链与蓄力释放由SamuraiActionController在合法窗口内部提交。需要新增跳跃、施法等全新状态时，在协调器中明确其时序/打断规则，再调用已有服务；不要从输入脚本直接改Animator状态来绕过战斗时序。
 技能入口不应额外调用第二次Tick，否则会重复推进移动、恢复和时间。
 
 五、接命中特效、音效或飘字
@@ -145,7 +170,7 @@ Query返回IReadOnlyList<WeaponTrailContact>，包含Collider、世界接触点�
 闪避追击缓存/宽限：SamuraiDodgeFollowUp及Profile的dodgeAttack*字段
 走跑/重力/胶囊/冲刺位移：SamuraiCharacterMotor及Profile/ActionDefinition参数
 受击后退距离/时间：ActionDefinition参数、SamuraiKnockback；伤害包字段KnockbackDistance/KnockbackSeconds
-八方向动画和混合播放：SamuraiAnimationDriver
+八方向动画和混合播放：SamuraiAnimationDriver；高/中各自SamuraiStanceDefinition.locomotion.walk/run，缺项回退Profile
 生命、耐力、恢复：SamuraiVitals
 F窗口和冷却：SamuraiDefense
 格挡伤害、破防、受击规则：SamuraiDamageResolver
@@ -182,8 +207,8 @@ Editor/SamuraiImpactFeedbackSetup.cs的“OC Design/Samurai/Install Impact And R
 十二、持刀奔跑与冲刺攻击（2026-10-21）
 
 Profile.run/directionalRun和Animator的Run八状态指向Samurai_HeldRun*，Walk保持。新跑步由Blender MCP拼接Idle1持刀上身与Sprint/方向Run腿部，0.5秒循环，Animator.speed保持1；旧Samurai_Run*.anim保留弃用。原包及已有动作不覆盖，制作工程位于斗笠剑士/动画资源/samurai-held-run/。
-SamuraiActionController在Locomotion中依据CharacterController本帧实际水平位移积累SprintElapsedSeconds。持续达到Profile.sprintAttackMinRunSeconds（默认0.15秒），且轻击帧仍有sprint和移动输入，优先提交Profile.sprintAttack；未配置、动作不可播放或耐力不足时尝试普通Combo1。贴墙空跑、停下、转为非Locomotion状态或CancelInput均清除资格。原地同时按Shift与轻击不会立即取得资格。
-SprintAttack沿用Attack状态和武器扫掠，ComboIndex为-1；状态机按“当前动作是否等于Profile.sprintAttack”识别其连接例外，在自己的输入窗口缓存轻击，并在max(damageEnd,comboLink)接Combo1。普通heavy/charged等独立动作不会因此获得连段。取消仍遵守CancelStart，不绕过命中阶段。新动作伤害/耐力/位移/命中与取消参数都在Config/SprintAttack.asset。
+SamuraiActionController在Locomotion中依据CharacterController本帧实际水平位移积累SprintElapsedSeconds。持续达到Profile.sprintAttackMinRunSeconds（默认0.15秒），且轻击帧仍有sprint和移动输入，优先提交Profile.sprintAttack；未配置、动作不可播放或耐力不足时尝试当前普通链第一击（当前高位为03100）。贴墙空跑、停下、转为非Locomotion状态或CancelInput均清除资格。原地同时按Shift与轻击不会立即取得资格。
+SprintAttack沿用Attack状态和武器扫掠，ComboIndex为-1；当前高链与Profile.combo一致时允许其连接例外，在自己的输入窗口缓存轻击，并在max(damageEnd,comboLink)接当前普通第一击03100，再沿当前高四连接续。普通heavy/charged等独立动作不会因此获得连段。取消仍遵守CancelStart，不绕过命中阶段。新动作伤害/耐力/位移/命中与取消参数都在Config/SprintAttack.asset。
 
 十三、独立受击后退（2026-10-21）
 
@@ -200,7 +225,8 @@ Knockback不持有动作状态机、伤害规则或输入，方向在命中时�
 
 十四、锁定保持与定向接入（2026-10-21）
 
-SamuraiTargetLock只在首次选择候选时使用环境视线测试；TickLock保持目标时检查存活、阵营、启用/主动隐藏及释放距离，不再因环境遮挡或目标离开屏幕解除。镜头碰撞逻辑不改，武器命中和AI仍各自执行自己的环境遮挡查询，锁定保持不意味着攻击可穿墙。
+SamuraiTargetLock在主动获取、自动补锁和方向切换选择新候选时使用环境视线测试；TickLock保持目标时检查存活、阵营、启用/主动隐藏及释放距离，不因环境遮挡或目标离开屏幕解除。2026-10-23增加丢失后最近敌方补锁，用ReferenceEquals区分Destroy后的Unity假null与主动清空；无候选即结束锁定，不后台持续搜索。FindTarget复用原OverlapSphereNonAlloc/满缓冲回退与角色去重，三种策略分别为屏幕居中、玩家距离、当前目标相对屏幕方向。镜头碰撞逻辑不改，武器命中和AI仍各自执行自己的环境遮挡查询，锁定保持不意味着攻击可穿墙。
+SamuraiPlayerInput只在捕获鼠标、非锁定键/复位帧调用ReadMouseSwitch(pixels,unscaledDeltaTime)；TargetLock管理速度/净位移阈值、短窗口、一次性手势与冷却，TrySwitchTarget只选择给定屏幕方向70度半角内可见的新目标。屏幕x使用相机宽高比统一尺度；长帧/无效样本仅清累计，不重新武装。SetTarget集中更新Renderer缓存并发TargetChanged；直接替换只发一次新目标事件，原OrbitCamera/HUD无需改动。完整参数与操作见使用说明，本轮报告见外部samurai-combat/analysis/锁定自动接续与鼠标切换检查-20261023.json。
 Editor/SamuraiSprintCombatSetup.Install定向更新Run八状态及Profile引用、SprintAttack动作/状态、双Prefab已有SamuraiBladeRibbon缺失的SprintAttack条目；不重配原六招刀光、其他组件、Walk或用户参数。SprintAttack默认值仅首次创建写入。InitializeKnockbackDefaults是单独明确重设后退字段的维护入口，Install不自动调用它。SamuraiCombatSetup完整Build结尾在整组新片段已准备好时调用InstallIfPrepared，避免重建接回旧Run；完整Build仍会重置其他默认参数/Prefab，正常调参使用定向入口。
 Attack_Dodge及其to_Combo1片段现已定向接入为闪避后追击，具体职责和时序见第十六节。
 
@@ -212,8 +238,39 @@ SamuraiChargeWind在LateUpdate(320)只读Charge状态与实际刀端，以单个
 
 十六、闪避后追击与回接第一击（2026-10-21）
 SamuraiActionController.TickDodge把55%后的lightPressed交给SamuraiDodgeFollowUp.BufferPress，缓存沿用Profile.inputBufferSeconds；到Max(dodgeAttackStart, 当前闪避invulnerableEnd)且缓存仍有效时，才通过原CommitAttack提交DodgeAttack。正常播完Dodge后FinishDodge保留0.25秒资格，Locomotion中的新轻击优先消费该资格；过期回到原普通/冲刺轻击选择。BeginDodge、CancelInput、复位、其他动作或受击中断按既有Enter流程清理资格；输入取消后即使闪避继续播完也不能重新获得宽限。时间来自动作Clock，局部HitStop期间不会推进。
-追击为普通Attack模式，ComboIndex=-1；其连段窗口缓存下一次轻击，在Max(damageEnd, comboLink)后提交dodgeAttackToCombo1并把ComboIndex设0。该片段包含完整第一击与独立命中窗口，随后沿combo[1]接Combo2，避免再播放一次普通Combo1。每次提交都经过CanPlay/耐力检查与原AttackSerial/轨迹清理流程；没有自动全套连击。IsInvulnerable只接受Dodge模式，追击与回接不会继承闪避无敌。
+追击为普通Attack模式，ComboIndex=-1；当前高链允许在连段窗口缓存下一次轻击，在Max(damageEnd, comboLink)后提交Profile.dodgeAttackToCombo1并把ComboIndex设0。该字段现指向03100，随后沿combo[1]续03110→03120→03210。旧DodgeAttackToCombo1的ARPG完整第一击变体留存，但退出当前高架势回接，避免混回旧动画组。每次提交都经过CanPlay/耐力检查与原AttackSerial/轨迹清理流程；没有自动全套连击。IsInvulnerable只接受Dodge模式，追击与回接不会继承闪避无敌。
 玩家Profile新增dodgeAttack、dodgeAttackToCombo1、dodgeAttackInputStart、dodgeAttackStart、dodgeAttackGraceSeconds；两动作使用独立SamuraiActionDefinition，保留原Motor、WeaponAttack、Vitals及Knockback服务。训练敌人没有新动作入口。Editor/SamuraiDodgeAttackSetup.Install定向接入动作资产、Animator状态、玩家Profile与缺失刀光条目；再次执行只修复引用，不重设已有参数。完整Build的InstallIfPrepared仅在两片段都存在时接入，完整Build本身仍会重设其他默认配置。
-当前精修只在DodgeAttack调整14条臂/腕肌肉通道，主突刺0.22–0.44刀身目标约3°，0.44–0.60平滑恢复原收刀；双手共同旋转、双臂IK保持局部握持，RootQ、躯干、腿、手指与水平根保持。DodgeAttack.comboLink改为0.57、damageEnd仍0.52；回接完整第一击变体重定时至0.70秒，首0.10秒匹配新接点姿态及速度，后段约1.167倍原动作。归一化命中/位移窗口与55毫秒全局混合保持；输入、耐力、无敌和连段服务不增加第二套逻辑。
+历史闪避追击精修（DodgeAttack本身继续沿用；本段旧toCombo1变体已退出当前高架势回接）：只在DodgeAttack调整14条臂/腕肌肉通道，主突刺0.22–0.44刀身目标约3°，0.44–0.60平滑恢复原收刀；双手共同旋转、双臂IK保持局部握持，RootQ、躯干、腿、手指与水平根保持。DodgeAttack.comboLink改为0.57、damageEnd仍0.52；回接完整第一击变体重定时至0.70秒，首0.10秒匹配新接点姿态及速度，后段约1.167倍原动作。归一化命中/位移窗口与55毫秒全局混合保持；输入、耐力、无敌和连段服务不增加第二套逻辑。
 制作流程位于外部samurai-dodge-attack/：refine_dodge_blender.py通过Blender MCP计算双手目标及IK，Unity工具unity/EncodeDodgeArmTargets.cs.txt只编码目标为14条Humanoid通道并记录目标/sourceSamples的SHA256供导出校验，export_dodge_refinement_blender.py在Blender完成最终曲线导出与回接重定时。build_dodge_attack_blender.py检测analysis/dodge_refine_arm_channels.json后转新导出，避免恢复首版；仍复用samurai-held-run/build_held_run_blender.py的曲线IO。保留dodge_refine_source_samples.json、dodge_refine_arm_targets.json、dodge_refine_arm_channels.json与dodge_refinement_export.json。
 output/Samurai_Dodge_FollowUp.blend为保留其他已有Scene的完整副本，当前场景“Samurai Level Thrust And Fast Return.002”；仍是Humanoid通道工程，Unity重定向，没有新增骨骼FBX。原“只改2条RootT、其余128条保持”及52+36项测试是首版历史；当前精修另通过7项姿态、45项接续、36项接触检查，报告为analysis/dodge_refinement_validation.json、dodge_refinement_transition_validation.json与dodge_refinement_contact_validation.json；输入连段与对外接触分开验证，范围见验证摘要。
+
+十七、残心V1（2026-10-21）
+SamuraiKiPulse为ActionController持有的普通C#服务，按成功提交时的实际攻击耗耐记账，仅合法接段继承。独立窗口从实际动画CancelStart开启并保留跨Idle；Q带读取时Clock，HitStop缓存首次有效按下时刻。Vitals.Recover返回实际自然恢复量供扣账，RestoreStamina立即返还且不改原延迟。Combatant公开IsKiPulseWindowOpen/IsPerfectKiPulseWindow/KiPulsePending/KiPulseRecoverable/KiPulseProgress及KiPulsePerformed(float,bool)事件。表现由HUD和可独立关闭的KiPulseFeedback负责。默认Profile关闭，仅玩家配置启用；每招可选overrideKiPulseTiming，未覆盖用玩家.45/.15秒参数。安装不重建场景、动作或防御。外部规则与验证见斗笠剑士/动画资源/samurai-ki-pulse/output/使用说明.txt。
+
+十八、弹反打断与练习模式（2026-10-22）
+Profile.deflectEnabled默认false，仅当前玩家启用；未启用者仍按原parry*字段结算。SamuraiDefense在新分支只接受真实F按下边沿，松开关闭窗口；有效举防设置从原按下时刻起的失误冷却，ConsumeWindow在成功后解除冷却，但不自动重新开窗。SamuraiDamageResolver恢复deflectRecoveryFraction×最大耐力，并对攻击者调用ISamuraiDeflectReaction.ReceiveDeflect(deflectStunSeconds)，默认.70秒；不支持该接口的来源回退Stagger。旧分支保留原parryStunSeconds反应。
+SamuraiCombatant.ReceiveDeflect清理后退并进入ActionController独立Deflected状态；状态切换取消正在执行的刀轨与连段。期间禁止移动、转向、攻防和闪避，不缓存操作或在硬直末帧自动补发；HitStop中的输入同样丢弃，硬直计时使用被冻结的动作Clock。SamuraiTrainingEnemy同步清空待接连招、待释放重击和举防意图。IsDeflected和DeflectedRemainingSeconds用于只读观测；缺少专用动作时回退Hit画面，但逻辑状态仍独立。
+ActionController在推进Clock前快照CanStartDeflect与输入时间；攻击须已达到CancelStart，过早按键不能晚开窗。GuardHit期间允许重新举防，成功反应在deflectSuccessRecoverySeconds后恢复攻击/闪避入口。Combatant通过SamuraiInputFrame.parryHasTimestamp/parryTimestamp保存HitStop内首次合法F按下的原Clock，松开清理待处理输入，避免停顿后赠送新窗口。Q的原时刻、白条清理与F优先规则沿用残心机制。
+Combatant.ReceiveHit在反应动画启动前快照防御刀段，将近距离物理命中点投影为可选ClashPoint（最大偏移.85米），结算后仅对Blocked/PerfectGuard发出GuardContacted；原Point和DeflectPerformed保留。独立SamuraiDeflectFeedback订阅统一事件：普通短火星，完美暖金爆发与.76秒快—慢—快归体火流，最多8组；世界起点固定，回收目标跟随胸部。当前双Prefab visualScale=1.4、intensity=1.9、heightOffset=.20米，抬高只作用于表现起点。新式弹反沿用双方.04秒HitStop，普通/旧式完美格挡不新增顿帧；传统Profile无回耐火流。表现不写伤害或动作状态，专用SamuraiGuardClash.shader使用正常深度测试；运行Mesh、Material、AudioClip与对象成对清理。
+收臂强化在派生Unity片段离线重定时：GuardHit前.12秒、Parry前.04秒使用sourceTime=t+1.8*t*(1-t/T)^2，区间后保持原时间，片段长度/GUID/源动画不变。SamuraiAnimationDriver只将这两种反应的混合限制为最多.018秒，不修改Animator.speed、动作Clock或.12秒弹反恢复许可。
+SamuraiTrainingEnemy包含Normal/TripleCombo/MixedDeflect，通过正式输入和连段窗口提交单刀/最多前三连/二连/延迟普通Heavy；任意一刀被成功弹反便取消本轮后续招式，没有成功弹反时才按正常条件继续。practiceEngageDistance默认1.05米，仅练习模式使用；Normal仍使用engageDistance默认1.35米。G只切模式，T独立启停，R保留模式；切换取消尚未提交的蓄力或接段，已发出的动作正常收招。混合延迟由delayedHeavySeconds控制并限制在满蓄阈值之前，避免练习意外变成不可挡Charged。
+Editor/SamuraiDeflectSetup.Install定向补齐玩家开关、双Prefab反馈和专用Shader引用，并为双方Profile.deflected及共享控制器Deflected状态接入Animations/Samurai_Deflected.anim。该片段从只读ARPG_Samurai_Collide.anim（约1.066667秒）派生为.70秒、RootT.x/z为0的碰撞反应，不是原包专用Parried动作。重复安装保留已有片段和调参，不重建场景。完整规则与维护见工作区斗笠剑士/动画资源/samurai-deflect/output/使用说明.txt；当前检查为该任务analysis/弹反打断与特效调整检查.json，2026-10-21的连续三刀不断招及格挡反馈验证属于上一版。
+
+
+琢技V1（2026-10-22）
+SamuraiArtsProficiency是ActionController持有的角色独立C#服务。三处费用门槛（进入Charge、选择Charged、CommitAttack）均调用Arts.StaminaCost；只有成功提交才调用CommitAttack消耗满槽。强化/暴击资格与生命伤害倍率锁定本次攻击，武器沿用BeginSwing快照。Combatant的正式OnContactResolved每AttackSerial最多加一次攻击槽，ReceiveHit只按Blocked/PerfectGuard各自单次加槽；表现不参与资源结算。计时随Tick，与HitStop冻结一致。武技在ActionDefinition标记isMartialArt后自动取得琢技资格；旧artsAdditionalAttacks名单兼容。独立武技倍率artsMartialArtDamageMultiplier与强攻击倍率择一使用，完美释放仍叠乘；新增连携时序另在ActionController扩展。基础规则见外部动画资源/samurai-arts/output/使用说明.txt，当前居合武技补充见samurai-iai-arts/output/使用说明.txt。
+
+格挡受击方向与强度（2026-10-22）
+SamuraiWeaponAttack在有效窗裁出的扫掠段中，按命中时刻与刀身投影位置计算接触刀段BladeMotion；SamuraiDamageHit携带它和动作guardReactionSide回退，不改变几何检测、遮挡与单招去重。Resolver经可选ISamuraiGuardReactions传递原命中，旧bool接口兼容；伤害/扣耐与防御角度仍由Resolver决定。SamuraiGuardReactionSelector按守方局部横向来势和StaminaDamage的35/55阈值选择GuardHit[1–3]或GuardBHit[1–3]；无横向运动优先动作侧回退，否则保持最近架势。它不参与扣费或扩大防御范围。
+ActionController记录所选防御侧，普通受击结束回Guard/GuardB；Parry保持独立，Reset清架势。所有格挡受击在SamuraiCombatMode.GuardHit下共用原输入/恢复逻辑，IsGuardHit供AI使用，快速混合覆盖六状态。Profile两组数组按轻中重排列，空项回退旧GuardHit；新配置只给玩家安装。Editor/SamuraiGuardReactionsSetup增量补新片段/状态/玩家引用，重复Install保留调参。原包、GuardHit/Parry旧派生和Prefab/场景保持。外部说明与新验证为samurai-deflect/output/使用说明.txt和analysis/格挡方向与强度检查.json。
+
+防御后退强度分档（2026-10-22）
+动画与后退统一调用SamuraiGuardReactionSelector.StrengthTier(profile, hit.StaminaDamage)，阈值只取Profile的guardMediumStaminaDamage/guardHeavyStaminaDamage。Combatant不读取动画选择回退后的Tier，保证缺片段或弹反仍按原来袭强度计算距离。guardKnockbackDistance作为中档基准，轻/重分别乘guardLightKnockbackMultiplier/guardHeavyKnockbackMultiplier，PerfectGuard再乘parryKnockbackMultiplier。玩家当前.8×(.5/1/1.5)，弹反再×.5；旧Profile新倍率默认1保持同距。Knockback服务、.18秒三次缓出、碰撞和原受伤/破防分支不变。检查见外部samurai-deflect/analysis/防御后退强度分档检查.json。
+
+2026-10-22 仁王动作架势扩展
+SamuraiStanceDefinition定义普通攻击组和武技；SamuraiStanceSelection保存每个角色独立选择，不修改共享资产。Profile.stances为空时使用旧combo。Controller通过CanAct限制选择，只将明确配置的chain续接。Input仍是唯一键鼠入口，HUD通过ISamuraiActionView读取选择。
+SamuraiActionDefinition.damageWindows为空保持旧单窗；否则按窗口分别去重，窗口索引单调，回调切招/中断由swingRevision保护。hitSource可选择Weapon/LeftFoot/RightFoot；07600用LeftFoot，脚判定不发刀光。新增武技沿现有精力、残心、琢技和受击打断路径运行。
+
+2026-10-23 敌人方向受击：SamuraiDamageResolver普通掉血分支优先调用可选ISamuraiHitReactions，将完整SamuraiDamageHit交给ActionController；SamuraiHitReactionSelector按受击者局部BladeMotion主轴（不足时用来源位置）和独立hitMedium/HeavyStaminaDamage阈值选4×3片段。状态名使用固定表，未引入每帧查询；空clip/缺状态回原Hit，未启用角色行为保持。TrainingOpponent启用，玩家不开启。12个HitFront/Right/Back/Left状态共用原Hit模式的行动限制/恢复，重复同状态普通或格挡受击立即重播；死亡/破防/Deflected分支优先级保持。6格挡反应复用已有Selector与片段，新增敌人引用和GuardB回守。定向维护工具SamuraiEnemyReactionsSetup仅保存目标Profile/controller/派生clip；安装重复调用不改用户数值，来源5个ARPGSamurai Hit片段只读。
+
+2026-10-23 玩家方向受击接入：SamuraiPlayer.asset 也已启用 directionalHitReactionsEnabled，四组轻中重数组直接引用现有12个 EnemyReactions 片段，沿用共享 HitFront/Right/Back/Left 状态与 SamuraiHitReactionSelector，不新增运行分支或动画副本。SamuraiEnemyReactionsSetup.InstallPlayerHitReactions 先验证片段及共享状态一致，仅补玩家缺失引用并定向保存玩家Profile；普通Install仍用于敌人。原Hit回退与玩家格挡等原参数保持。外部记录继续归samurai-enemy-reactions/，玩家接入报告为analysis/玩家接入检查.json；前述“TrainingOpponent启用，玩家不开启”和旧验证属于敌人首轮接入历史。

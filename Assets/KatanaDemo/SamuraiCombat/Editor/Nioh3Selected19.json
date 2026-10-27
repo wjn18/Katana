@@ -1,0 +1,314 @@
+{
+  "entries": [
+    {
+      "code": "05080",
+      "name": "Nioh3_High_WhirlwindSlash_05080",
+      "label": "高架势-旋风斩",
+      "martialArt": true,
+      "windows": [
+        {
+          "x": 0.2519084,
+          "y": 0.34351146
+        },
+        {
+          "x": 0.45801526,
+          "y": 0.5496183
+        }
+      ],
+      "link": 0.7
+    },
+    {
+      "code": "05160",
+      "name": "Nioh3_Mid_SpinningIai_05160",
+      "label": "中架势-旋转居合",
+      "martialArt": true,
+      "windows": [
+        {
+          "x": 0.217391,
+          "y": 0.295652
+        }
+      ],
+      "link": 0.7
+    },
+    {
+      "code": "05180",
+      "name": "Nioh3_High_RisingSlash_05180",
+      "label": "高架势-上撩",
+      "martialArt": false,
+      "windows": [
+        {
+          "x": 0.181818,
+          "y": 0.309091
+        }
+      ],
+      "link": 0.7
+    },
+    {
+      "code": "07600",
+      "name": "Nioh3_High_Kick_07600",
+      "label": "高架势-踢击",
+      "martialArt": true,
+      "windows": [
+        {
+          "x": 0.211765,
+          "y": 0.411765
+        }
+      ],
+      "link": 0.7
+    },
+    {
+      "code": "09200",
+      "name": "Nioh3_Mid_Attack1_09200",
+      "label": "中架势-攻击1",
+      "martialArt": false,
+      "windows": [
+        {
+          "x": 0.230769,
+          "y": 0.341538
+        }
+      ],
+      "link": 0.7
+    },
+    {
+      "code": "09201",
+      "name": "Nioh3_Mid_SpinAttack_09201",
+      "label": "中架势-旋转攻击",
+      "martialArt": false,
+      "windows": [
+        {
+          "x": 0.105,
+          "y": 0.1725
+        },
+        {
+          "x": 0.2925,
+          "y": 0.375
+        }
+      ],
+      "link": 0.7
+    },
+    {
+      "code": "09203",
+      "name": "Nioh3_Mid_Attack2_09203",
+      "label": "中架势-攻击2",
+      "martialArt": false,
+      "windows": [
+        {
+          "x": 0.14,
+          "y": 0.24
+        }
+      ],
+      "link": 0.7
+    },
+    {
+      "code": "09204",
+      "name": "Nioh3_Mid_SpinAttack2_09204",
+      "label": "中架势-旋转攻击2",
+      "martialArt": false,
+      "windows": [
+        {
+          "x": 0.253521,
+          "y": 0.346479
+        }
+      ],
+      "link": 0.7
+    },
+    {
+      "code": "09205",
+      "name": "Nioh3_Mid_SpinAttack3_09205",
+      "label": "中架势-旋转攻击3",
+      "martialArt": false,
+      "windows": [
+        {
+          "x": 0.190654,
+          "y": 0.257944
+        }
+      ],
+      "link": 0.7
+    },
+    {
+      "code": "09210",
+      "name": "Nioh3_Mid_Sweep_09210",
+      "label": "中架势-横扫",
+      "martialArt": true,
+      "windows": [
+        {
+          "x": 0.295652,
+          "y": 0.347826
+        },
+        {
+          "x": 0.386957,
+          "y": 0.452174
+        }
+      ],
+      "link": 0.7
+    },
+    {
+      "code": "09300",
+      "name": "Nioh3_High_Combo_09300",
+      "label": "高架势-连击",
+      "martialArt": true,
+      "windows": [
+        {
+          "x": 0.167568,
+          "y": 0.227027
+        },
+        {
+          "x": 0.324324,
+          "y": 0.389189
+        }
+      ],
+      "link": 0.7
+    },
+    {
+      "code": "09400",
+      "name": "Nioh3_Mid_UpDownCombo_09400",
+      "label": "低架势-上下连击",
+      "martialArt": true,
+      "windows": [
+        {
+          "x": 0.245714,
+          "y": 0.297143
+        },
+        {
+          "x": 0.325714,
+          "y": 0.388571
+        }
+      ],
+      "link": 0.7
+    },
+    {
+      "code": "09600",
+      "name": "Nioh3_Mid_Slash_09600",
+      "label": "中架势-斩击",
+      "martialArt": false,
+      "windows": [
+        {
+          "x": 0.183471,
+          "y": 0.252893
+        }
+      ],
+      "link": 0.7
+    },
+    {
+      "code": "09602",
+      "name": "Nioh3_Mid_HorizontalSlash_09602",
+      "label": "中架势-横斩",
+      "martialArt": false,
+      "windows": [
+        {
+          "x": 0.21,
+          "y": 0.27
+        }
+      ],
+      "link": 0.7
+    },
+    {
+      "code": "09700",
+      "name": "Nioh3_Mid_ComboX1_Attack_09700",
+      "label": "中架势-攻击x",
+      "martialArt": false,
+      "windows": [
+        {
+          "x": 0.228571,
+          "y": 0.304762
+        }
+      ],
+      "link": 0.357142857
+    },
+    {
+      "code": "09701",
+      "name": "Nioh3_Mid_ComboX2_Thrust_09701",
+      "label": "中架势-突刺x",
+      "martialArt": false,
+      "windows": [
+        {
+          "x": 0.135,
+          "y": 0.205
+        }
+      ],
+      "link": 0.3
+    },
+    {
+      "code": "09702",
+      "name": "Nioh3_Mid_ComboX3_DownwardSlash_09702",
+      "label": "中架势-下劈x",
+      "martialArt": false,
+      "windows": [
+        {
+          "x": 0.261069,
+          "y": 0.334351
+        }
+      ],
+      "link": 0.7
+    },
+    {
+      "code": "16000",
+      "name": "Nioh3_High_RisingDragon_16000",
+      "label": "高架势-升龙",
+      "martialArt": true,
+      "windows": [
+        {
+          "x": 0.386139,
+          "y": 0.487129
+        }
+      ],
+      "link": 0.7
+    },
+    {
+      "code": "16200",
+      "name": "Nioh3_Mid_TurningSlash_16200",
+      "label": "低架势-回身斩",
+      "martialArt": true,
+      "windows": [
+        {
+          "x": 0.209091,
+          "y": 0.427273
+        }
+      ],
+      "link": 0.7
+    },
+    {
+      "code": "09202",
+      "name": "Nioh3_Mid_Attack3_09202",
+      "label": "中架势-前跨步斜斩",
+      "martialArt": false,
+      "windows": [
+        {
+          "x": 0.18305084745762712,
+          "y": 0.3050847457627119
+        }
+      ],
+      "link": 0.4067796610169492
+    },
+    {
+      "code": "09601",
+      "name": "Nioh3_Mid_StrongAttack2_09601",
+      "label": "中架势-强击2·连续斩",
+      "martialArt": false,
+      "windows": [
+        {
+          "x": 0.20571428571428568,
+          "y": 0.2657142857142857
+        },
+        {
+          "x": 0.35142857142857137,
+          "y": 0.4157142857142857
+        }
+      ],
+      "link": 0.45714285714285713
+    },
+    {
+      "code": "09603",
+      "name": "Nioh3_Mid_StrongAttack4_09603",
+      "label": "中架势-强击4·跨步横斩",
+      "martialArt": false,
+      "windows": [
+        {
+          "x": 0.31127819548872177,
+          "y": 0.40601503759398494
+        }
+      ],
+      "link": 0.75
+    }
+  ]
+}

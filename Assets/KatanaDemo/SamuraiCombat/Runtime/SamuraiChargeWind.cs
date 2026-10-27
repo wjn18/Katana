@@ -61,6 +61,9 @@ namespace OCDesign.Samurai
         public int CompletionBurstCount { get; private set; }
         public int RuntimeVertexCount => mesh != null ? mesh.vertexCount : 0;
         public float BurstAge => burstActive ? burstAge : 0f;
+        // Charge模式也用于右键短按判定和其他武技等待；风效仅属于原版居合蓄力状态。
+        bool IsIaiCharging => actor != null && actor.isActiveAndEnabled
+            && actor.IsCharging && actor.StateName == "Charge";
 
         public void Configure(SamuraiCombatant targetActor, Transform targetBase, Transform targetTip,
             Material material)
@@ -108,7 +111,7 @@ namespace OCDesign.Samurai
 
         void ObserveExistingCharge()
         {
-            if (actor == null || !actor.isActiveAndEnabled || !actor.IsCharging) return;
+            if (!IsIaiCharging) return;
             chargeArmed = true;
             // 启用/重新接线时只恢复流动，绝不补播早已达到的满蓄瞬间。
             completionObserved = actor.ChargeNormalizedTime >= 1f;
@@ -119,17 +122,18 @@ namespace OCDesign.Samurai
         void OnStateChanged(string state)
         {
             if (actor == null || !actor.isActiveAndEnabled) { ClearVisual(); return; }
-            if (actor.IsCharging)
+            if (IsIaiCharging)
             {
                 ClearVisual();
                 chargeArmed = true;
                 return;
             }
             bool releasedCharged = actor.Profile != null && actor.Profile.charged != null
-                && state == actor.Profile.charged.stateName && actor.IsAttacking;
+                && state == actor.Profile.charged.stateName && actor.IsAttacking
+                && actor.Actions != null && actor.Actions.IsFullyChargedAttack;
             if (chargeArmed && releasedCharged)
             {
-                // Enter在新动作完整快照之前发事件。已进入过Charge且成功转Charged即是有效满蓄释放；
+                // 释放快照在StateChanged之前锁定；提前松键也可出居合，但只有满蓄才补爆发。
                 // 可覆盖同一Tick刚到阈值就松开的情况，直接TryStartAttack(Charged)不会走这里。
                 if (!completionObserved) StartCompletionBurst();
                 chargeArmed = false;
@@ -155,9 +159,10 @@ namespace OCDesign.Samurai
                 ObserveExistingCharge();
             }
             if (!ValidReferences()) { ClearVisual(); return; }
-            bool charging = actor.IsCharging;
+            bool charging = IsIaiCharging;
             bool releasedCharged = actor.IsAttacking && actor.Profile != null
-                && actor.Actions != null && actor.Actions.ActiveAction == actor.Profile.charged;
+                && actor.Actions != null && actor.Actions.ActiveAction == actor.Profile.charged
+                && actor.Actions.IsFullyChargedAttack;
             if (!charging && !(releasedCharged && burstActive)) { ClearVisual(); return; }
 
             float elapsed = charging ? actor.ChargeElapsedSeconds : burstFlowTime;
@@ -237,7 +242,7 @@ namespace OCDesign.Samurai
             burstAxis = direction.normalized;
             BladeBasis(burstAxis, out burstRight, out burstUp);
             burstOrigin = bladeBase.position + direction * .72f;
-            burstFlowTime = actor.IsCharging ? actor.ChargeElapsedSeconds
+            burstFlowTime = IsIaiCharging ? actor.ChargeElapsedSeconds
                 : actor.Profile != null ? Mathf.Max(.1f, actor.Profile.chargeSeconds) : 1.5f;
             burstAge = 0f;
             burstActive = burstJustStarted = true;
@@ -483,7 +488,7 @@ namespace OCDesign.Samurai
         void HideMesh()
         {
             if (meshRenderer != null) meshRenderer.enabled = false;
-            if (mesh != null) mesh.Clear(false);
+            if (mesh != null && mesh.vertexCount > 0) mesh.Clear(false);
         }
 
         /// <summary>清显示和本轮锁存；累计爆发计数保持，供跨轮/禁用诊断使用。</summary>

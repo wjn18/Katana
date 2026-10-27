@@ -253,7 +253,7 @@ namespace OCDesign.Samurai
                 }
             }
             mesh.SetVertices(vertices); mesh.SetUVs(0, uv); mesh.SetColors(colors);
-            mesh.SetTriangles(indices, 0); mesh.RecalculateBounds();
+            mesh.SetTriangles(indices, 0, false); mesh.RecalculateBounds();
             meshRenderer.enabled = true;
         }
 
@@ -268,7 +268,7 @@ namespace OCDesign.Samurai
             hasPrevious = false;
             sampledAttack = null;
             clock = previousClock = previousProgress = previousAnimatorProgress = 0f;
-            if (mesh != null) mesh.Clear();
+            if (mesh != null && mesh.vertexCount > 0) mesh.Clear();
             if (meshRenderer != null) meshRenderer.enabled = false;
         }
 

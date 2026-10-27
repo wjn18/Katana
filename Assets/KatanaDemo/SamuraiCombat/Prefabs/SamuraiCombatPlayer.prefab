@@ -1146,6 +1146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8057078594607575630}
   - component: {fileID: 4902521118628481434}
+  - component: {fileID: 4682927779340513248}
   m_Layer: 0
   m_Name: SamuraiVisual
   m_TagString: Untagged
@@ -1192,11 +1193,11 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3303946452078419164}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: ccd6dcbe04273e04cbe99e1c3b4e41ac, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 36b1262a7ece7dc42b4a5ef70fef5d2a, type: 2}
   m_Controller: {fileID: 9100000, guid: 66578191168ad2e458e413e36158a360, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -1205,6 +1206,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4682927779340513248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3303946452078419164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ace818f77732a940803764ecab0c452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiRootMotionDriver
+  actor: {fileID: 5030828750322075258}
 --- !u!1 &3322784055095201397
 GameObject:
   m_ObjectHideFlags: 0
@@ -1938,6 +1952,11 @@ GameObject:
   - component: {fileID: 9213735478796246365}
   - component: {fileID: 8759038579963704287}
   - component: {fileID: 3416031484017469497}
+  - component: {fileID: 4507050534907340719}
+  - component: {fileID: 7580056261625605369}
+  - component: {fileID: 5741820535586383529}
+  - component: {fileID: 4400587795247910638}
+  - component: {fileID: 4445680937812345826}
   m_Layer: 0
   m_Name: SamuraiCombatPlayer
   m_TagString: Untagged
@@ -2044,6 +2063,12 @@ MonoBehaviour:
   obstructionMask:
     serializedVersion: 2
     m_Bits: 4294967295
+  switchMousePixels: 65
+  switchMouseSpeed: 700
+  switchGestureSeconds: 0.12
+  switchCooldownSeconds: 0.25
+  switchRearmSeconds: 0.06
+  switchDirectionHalfAngle: 70
 --- !u!114 &610973059801611255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2120,6 +2145,146 @@ MonoBehaviour:
     bladeCoverage: 1
   - attack: {fileID: 11400000, guid: cc30e7b97a3056d4fb2adc2ee04d0e67, type: 2}
     emissionWindow: {x: 0.22, y: 0.39499998}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: fc9a508f39fdbe7418aa9bc802df5d0a, type: 2}
+    emissionWindow: {x: 0.28687, y: 0.54629797}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: cf4812803e904ca47b9b05ed40f33125, type: 2}
+    emissionWindow: {x: 0.197391, y: 0.310652}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: 2fe9ce620ed666f4d85c703432ac5e62, type: 2}
+    emissionWindow: {x: 0.161818, y: 0.324091}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: c26ada61900ed9a45a881eaa127df60a, type: 2}
+    emissionWindow: {x: 0.210769, y: 0.356538}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: c361cf93fff60bc4f9f192f920187f4c, type: 2}
+    emissionWindow: {x: 0.08499999, y: 0.39}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: f4043f1ec39ad5641a488eb1569ac391, type: 2}
+    emissionWindow: {x: 0.120000005, y: 0.255}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: 33166499f6a79f247871833bbe639a10, type: 2}
+    emissionWindow: {x: 0.233521, y: 0.36147898}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: e8c1c7d508bb90a4cbf61394aa4f51c8, type: 2}
+    emissionWindow: {x: 0.170654, y: 0.27294397}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: d818aed4214ee24419c490c8891d4066, type: 2}
+    emissionWindow: {x: 0.275652, y: 0.467174}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: dd9b18a799891864483c25391207de18, type: 2}
+    emissionWindow: {x: 0.147568, y: 0.404189}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: 1dfbb8c512467cd43b3eb76209ee8958, type: 2}
+    emissionWindow: {x: 0.225714, y: 0.40357098}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: 778de5194bc7e1648bfda82a77d110de, type: 2}
+    emissionWindow: {x: 0.163471, y: 0.267893}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: 67f6d6f40cdf672448e7a1dd78c4ac59, type: 2}
+    emissionWindow: {x: 0.19, y: 0.285}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: 1037234396ef3e94f82f0c0dfea38605, type: 2}
+    emissionWindow: {x: 0.208571, y: 0.319762}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: e8e2bdc9738ec3e44b58706c7c27c4f7, type: 2}
+    emissionWindow: {x: 0.11500001, y: 0.22}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: 59e0ef360053fcf438030f2e252db53c, type: 2}
+    emissionWindow: {x: 0.241069, y: 0.349351}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: a62f3415af1ea084ca1bb82d99f9b508, type: 2}
+    emissionWindow: {x: 0.366139, y: 0.502129}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: 4e2ccdfc89a760b4aaee18441c0e7de4, type: 2}
+    emissionWindow: {x: 0.189091, y: 0.442273}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: afa724339bc750848b22f492e45cbbce, type: 2}
+    emissionWindow: {x: 0.16305085, y: 0.32008472}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: aafb6d8e3d1f26b42a539fcd845fb6d5, type: 2}
+    emissionWindow: {x: 0.18571429, y: 0.43071428}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: bc9dcfe0476baae459f0fab6f533486e, type: 2}
+    emissionWindow: {x: 0.29127818, y: 0.42101502}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: a24f77f56c8516e4cb927ae15b2f8709, type: 2}
+    emissionWindow: {x: 0.26571426, y: 0.37763733}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: 325db59653f25214fb67f46092bd08fc, type: 2}
+    emissionWindow: {x: 0.2770297, y: 0.4110396}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: 0bc07c918bd0e694fa8c1dacad9e8120, type: 2}
+    emissionWindow: {x: 0.34752133, y: 0.43380338}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: 245efa46017d3e14a964a2be62cb396a, type: 2}
+    emissionWindow: {x: 0.26440364, y: 0.38197246}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: 7a7f61c180f13ef49a81ee75a9782a22, type: 2}
+    emissionWindow: {x: 0.3133333, y: 0.41139635}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: e4dd91f7c00a88a45b4d05cb33c5c392, type: 2}
+    emissionWindow: {x: 0.3661386, y: 0.50014853}
+    lifetime: 0.1
+    strength: 1
+    bladeCoverage: 1
+  - attack: {fileID: 11400000, guid: 44dc866b29a248b49ba351747c3930e3, type: 2}
+    emissionWindow: {x: 0.25058824, y: 0.4502941}
     lifetime: 0.1
     strength: 1
     bladeCoverage: 1
@@ -2202,6 +2367,114 @@ MonoBehaviour:
   burstRadius: 0.46
   flashRadius: 0.38
   windColor: {r: 0.8, g: 0.94, b: 1, a: 1}
+--- !u!114 &4507050534907340719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5373052838065675670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ededb12db61b8240953c50b995d2a4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiKiPulseFeedback
+  actor: {fileID: 5030828750322075258}
+  pulseShader: {fileID: 4800000, guid: 0541c27411a2d6e41add0f57207ab697, type: 3}
+  enableVisuals: 1
+  enableSound: 1
+  moteCount: 8
+  gatheringRadius: 0.48
+  moteSize: 0.044
+  visualScale: 1.6
+  cameraClearance: 0.36
+  intensity: 1.6
+  readyFlashSeconds: 0.12
+  successSeconds: 0.26
+  soundVolume: 0.18
+  pulseColor: {r: 0.61, g: 0.91, b: 1, a: 1}
+--- !u!114 &7580056261625605369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5373052838065675670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b8d224be54622046b4b8a79813adbf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiDeflectFeedback
+  actor: {fileID: 5030828750322075258}
+  sparkShader: {fileID: 4800000, guid: f5b26f8d1bdfbf54e984af68478aed02, type: 3}
+  enableVisuals: 1
+  enableSound: 1
+  sparkSeconds: 0.18
+  recoverySeconds: 0.76
+  visualScale: 1.4
+  intensity: 1.9
+  heightOffset: 0.2
+  hitStopSeconds: 0.04
+  soundVolume: 0.24
+  sparkColor: {r: 1, g: 0.88, b: 0.6, a: 1}
+--- !u!114 &5741820535586383529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5373052838065675670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf9b1f896d63f3d4b9f5a225b5e56a0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiDamageVfx
+  actor: {fileID: 5030828750322075258}
+  burstShader: {fileID: 4800000, guid: d94ee9c5ac60b34438e3e14473c85c0a, type: 3}
+  enableVisuals: 1
+  mediumDamage: 15
+  highDamage: 35
+  darkBlood: {r: 0.3, g: 0.012, b: 0.025, a: 0.95}
+  brightBlood: {r: 0.86, g: 0.035, b: 0.045, a: 0.95}
+  impactColor: {r: 1.9, g: 0.74, b: 0.32, a: 0.95}
+  lifetime: 0.58
+  size: 1
+  gravity: 3.2
+  maxConcurrentBursts: 6
+--- !u!114 &4400587795247910638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5373052838065675670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba41f6a6f8133f34f9f5c24742a851d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiMartialArtMenu
+  actor: {fileID: 5030828750322075258}
+  input: {fileID: 2614443660955434011}
+  uiScale: 1
+--- !u!114 &4445680937812345826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5373052838065675670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a32fae3cd2df14db40e41eec57bc25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiFrostMoonVfx
+  actor: {fileID: 5030828750322075258}
+  effectMaterial: {fileID: 2100000, guid: 6991da535367bcd4dbff1fca898ca958, type: 2}
+  highAction: {fileID: 11400000, guid: e4dd91f7c00a88a45b4d05cb33c5c392, type: 2}
+  midAction: {fileID: 11400000, guid: 44dc866b29a248b49ba351747c3930e3, type: 2}
+  intensity: 1
+  fragmentLifetime: 0.28
+  spread: 0.78
 --- !u!1 &5434713923178293913
 GameObject:
   m_ObjectHideFlags: 0
@@ -2578,7 +2851,7 @@ Transform:
   m_GameObject: {fileID: 6160639913215064264}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.06, y: 0.89, z: -0.0297}
+  m_LocalPosition: {x: 0.06, y: 0.994, z: -0.038}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

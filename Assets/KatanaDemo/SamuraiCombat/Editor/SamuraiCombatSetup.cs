@@ -34,6 +34,7 @@ namespace OCDesign.EditorTools
             var enemyProfile=LoadOrCreate<SamuraiCombatProfile>(Root+"/Config/TrainingOpponent.asset");
             EditorUtility.CopySerialized(profile,enemyProfile);
             enemyProfile.name="TrainingOpponent";enemyProfile.maxHealth=220;enemyProfile.maxStamina=85;
+            enemyProfile.disableCollisionOnDeath=true;
             enemyProfile.walkSpeed=1.85f;enemyProfile.runSpeed=2.72f;
             // 玩家起手跨步更远；训练敌人继续使用独立的短步配置与同一动画状态。
             var enemyOpening=LoadOrCreate<SamuraiActionDefinition>(Root+"/Config/TrainingCombo1.asset");
@@ -75,12 +76,14 @@ namespace OCDesign.EditorTools
         {
             var a=LoadOrCreate<SamuraiActionDefinition>(Root+"/Config/"+name+".asset");
             a.clip=Clip(name);a.stateName=name;a.damage=damage;a.staminaDamage=damage*1.45f;a.staminaCost=cost;
-            a.damageStart=start;a.damageEnd=end;a.comboInputStart=.06f;a.comboInputEnd=link+.08f;
+            a.damageStart=start;a.damageEnd=end;
+            bool normalCombo=name=="Combo1"||name=="Combo2"||name=="Combo3";
+            a.comboInputStart=normalCombo?.03f:.06f;a.comboInputEnd=normalCombo?.85f:link+.08f;
             a.comboLink=link;a.cancelStart=cancel;a.stepDistance=distance;a.stepStart=.04f;a.stepEnd=Mathf.Max(.15f,end);
             a.unblockable=name=="Charged";
             a.closeRangeReach=name=="Charged"?.8f:0f;
             a.closeRangeHalfAngle=55f;a.closeRangeStart=start;a.closeRangeEnd=end;
-            EditorUtility.SetDirty(a);AssetDatabase.SaveAssetIfDirty(a);return a;
+            SamuraiToughnessSetup.InitializeAction(a);EditorUtility.SetDirty(a);AssetDatabase.SaveAssetIfDirty(a);return a;
         }
         static SamuraiCombatProfile BuildProfile()
         {
@@ -97,6 +100,8 @@ namespace OCDesign.EditorTools
                 Action("Combo4",35,19,.12f,.48f,.76f,.56f,.50f)};
             p.heavy=Action("Heavy",40,26,.16f,.43f,.75f,.56f,.55f);
             p.charged=Action("Charged",65,38,.10f,.42f,.75f,.53f,.90f);
+            p.charged.isMartialArt=true;p.charged.displayName="Iai";
+            EditorUtility.SetDirty(p.charged);AssetDatabase.SaveAssetIfDirty(p.charged);
             p.dodges=new SamuraiActionDefinition[8];
             for(int i=0;i<8;i++)
             {
@@ -104,11 +109,12 @@ namespace OCDesign.EditorTools
                 d.stepStart=.03f;d.stepEnd=.59f;d.invulnerableStart=.08f;d.invulnerableEnd=.55f;
                 EditorUtility.SetDirty(d);AssetDatabase.SaveAssetIfDirty(d);p.dodges[i]=d;
             }
-            EditorUtility.SetDirty(p);AssetDatabase.SaveAssetIfDirty(p);return p;
+            SamuraiToughnessSetup.InitializeProfile(p);EditorUtility.SetDirty(p);AssetDatabase.SaveAssetIfDirty(p);return p;
         }
         public static void ConfigureDefenseClips(SamuraiCombatProfile p)
         {
             p.parry=Clip("Parry");
+            p.deflected=Clip("Deflected");
             p.directionalWalk=DodgeNames.Select((d,i)=>i==0?p.walk:Clip("Walk"+d)).ToArray();
             p.directionalRun=DodgeNames.Select((d,i)=>i==0?p.run:Clip("Run"+d)).ToArray();
             p.parryActiveSeconds=.20f;p.parryCooldownSeconds=.7f;
@@ -120,8 +126,8 @@ namespace OCDesign.EditorTools
             var c=AssetDatabase.LoadAssetAtPath<AnimatorController>(path);
             if(!c)c=AnimatorController.CreateAnimatorControllerAtPath(path);
             var sm=c.layers[0].stateMachine;
-            string[] names={"Idle","Walk","Run","Guard","GuardHit","GuardBreak","Hit","Death","Charge","Parry"};
-            AnimationClip[] clips={p.idle,p.walk,p.run,p.guard,p.guardHit,p.guardBreak,p.hit,p.death,p.charge,p.parry};
+            string[] names={"Idle","Walk","Run","Guard","GuardHit","GuardBreak","Hit","Death","Charge","Parry","Deflected"};
+            AnimationClip[] clips={p.idle,p.walk,p.run,p.guard,p.guardHit,p.guardBreak,p.hit,p.death,p.charge,p.parry,p.deflected != null ? p.deflected : p.hit};
             for(int i=0;i<names.Length;i++)SetState(sm,names[i],clips[i],i);
             for(int i=1;i<DodgeNames.Length;i++)
             {
@@ -212,7 +218,7 @@ namespace OCDesign.EditorTools
             input.Configure(p.GetComponent<SamuraiCombatant>(),camera.transform,orbit,enemy);
             enemy.Configure(e.GetComponent<SamuraiCombatant>(),p.GetComponent<SamuraiCombatant>(),input);
             orbit.Configure(p.transform,input);
-            var ui=new GameObject("Combat HUD").AddComponent<SamuraiCombatHUD>();ui.Configure(p.GetComponent<SamuraiCombatant>(),enemy,input,camera);
+            SamuraiHUDSceneBuilder.Build(p.GetComponent<SamuraiCombatant>(),enemy,input,camera);
             var light=new GameObject("Sun").AddComponent<Light>();light.type=LightType.Directional;light.intensity=1.5f;light.shadows=LightShadows.Soft;light.transform.rotation=Quaternion.Euler(48,-35,0);
             RenderSettings.ambientMode=AmbientMode.Flat;RenderSettings.ambientLight=new Color(.55f,.61f,.67f);
             // ResetView initializes gameplay pivot. Set an edit-mode framing as well.

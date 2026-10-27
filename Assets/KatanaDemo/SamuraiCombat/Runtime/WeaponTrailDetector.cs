@@ -31,6 +31,7 @@ namespace OCDesign.Samurai
     /// </summary>
     public sealed class WeaponTrailDetector
     {
+        static readonly System.Comparison<WeaponTrailContact> ContactComparison = CompareContacts;
         readonly Collider[] overlapBuffer = new Collider[64];
         readonly RaycastHit[] trailBuffer = new RaycastHit[64];
         readonly RaycastHit[] obstructionBuffer = new RaycastHit[32];
@@ -75,7 +76,7 @@ namespace OCDesign.Samurai
                     Vector3.Lerp(sweep.ToBase, sweep.ToTip, alongBlade), sweep.FromBase, sweep.ToBase,
                     radius, hitMask, obstructionMask, filter);
             }
-            contacts.Sort(CompareContacts);
+            contacts.Sort(ContactComparison);
             return contacts;
         }
 
@@ -118,7 +119,7 @@ namespace OCDesign.Samurai
                 if (delta.sqrMagnitude < .000001f || Vector3.Dot(forward, delta.normalized) < minimumDot) continue;
                 AddContact(collider, point, origin, Vector3.Distance(origin, point) / reach, hitMask, filter);
             }
-            contacts.Sort(CompareContacts);
+            contacts.Sort(ContactComparison);
             return contacts;
         }
 
