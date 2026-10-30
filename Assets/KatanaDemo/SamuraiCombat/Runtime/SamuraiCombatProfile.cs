@@ -89,6 +89,8 @@ namespace OCDesign.Samurai
         [Min(0f)] public float chargeStaggerResistanceBonus = 15f;
         [Range(0f, 1f)] public float resistedKnockbackMultiplier = .25f;
         [Header("玩家主动处决；不启用敌人处决玩家")]
+        [Tooltip("仅在适配专用处决动画后开启；当前版本默认停用。")]
+        public bool executionEnabled;
         public SamuraiActionDefinition executionAction;
         [Min(0f)] public float executionSurfaceRange = 1f;
         [HideInInspector] public int toughnessConfigurationVersion;

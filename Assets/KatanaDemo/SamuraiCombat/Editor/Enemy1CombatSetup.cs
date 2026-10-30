@@ -65,6 +65,8 @@ namespace OCDesign.Samurai.EditorTools
             var controller = BuildController(clips);
             var profile = BuildProfile(clips);
             ConfigurePrefab(profile, controller, report.visualOffset);
+            EnemyAttackRootMotionSetup.InstallEnemy1();
+            Enemy1CloseRangeSetup.InstallAll();
             SamuraiEnemyReadabilitySetup.GroundDeath("Enemy1", true);
             report.sceneEnemies = InstallSceneInstances();
             var folder = Path.GetFullPath(Path.Combine(Application.dataPath, "../../锈甲杂兵/动画资源/enemy1-combat/analysis"));
@@ -287,8 +289,10 @@ namespace OCDesign.Samurai.EditorTools
             a.clip = clip; a.stateName = state; a.displayName = state == "Heavy" ? "重劈" : "砍击";
             a.damage = damage; a.staminaDamage = stamina; a.staminaCost = cost; a.damageStart = start; a.damageEnd = end;
             a.comboInputStart = .18f; a.comboInputEnd = .82f; a.comboLink = .82f; a.cancelStart = .78f;
-            a.stepDistance = step; a.stepStart = .12f; a.stepEnd = .52f; a.useRootMotion = false;
-            a.closeRangeReach = 0; a.knockbackDistance = state == "Heavy" ? .22f : .10f; a.knockbackSeconds = .18f;
+            a.stepDistance = step; a.stepStart = .12f; a.stepEnd = .52f;
+            if (a.enemyRootMotionConfigurationVersion < 1) a.useRootMotion = false;
+            if (a.enemyCloseRangeConfigurationVersion < 1) a.closeRangeReach = 0;
+            a.knockbackDistance = state == "Heavy" ? .22f : .10f; a.knockbackSeconds = .18f;
             OCDesign.EditorTools.SamuraiToughnessSetup.InitializeAction(a); SamuraiEnemyReadabilitySetup.InitializeWindup(a); EditorUtility.SetDirty(a); AssetDatabase.SaveAssetIfDirty(a); return a;
         }
         static void ConfigurePrefab(SamuraiCombatProfile profile, AnimatorController controller, float visualOffset)
@@ -315,6 +319,7 @@ namespace OCDesign.Samurai.EditorTools
                 damage.Configure(actor, AssetDatabase.LoadAssetAtPath<Shader>("Assets/KatanaDemo/SamuraiCombat/VFX/Shaders/SamuraiDamageBurst.shader"));
                 var guardFeedback = root.GetComponent<SamuraiDeflectFeedback>(); if (guardFeedback == null) guardFeedback = root.AddComponent<SamuraiDeflectFeedback>();
                 guardFeedback.Configure(actor, AssetDatabase.LoadAssetAtPath<Shader>("Assets/KatanaDemo/SamuraiCombat/VFX/Shaders/SamuraiGuardClash.shader"));
+                EnemyAttackRootMotionSetup.ConfigureInstalledDriver(root, "Enemy1");
                 PrefabUtility.SaveAsPrefabAsset(root, PrefabPath);
             }
             finally { PrefabUtility.UnloadPrefabContents(root); }

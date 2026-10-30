@@ -25,7 +25,12 @@ namespace OCDesign.Samurai.EditorTools
             public List<ClipReport> clips=new List<ClipReport>();
         }
         [MenuItem("Tools/OC Design/Samurai Combat/Install Elite1 Combat In Current Scene")]
-        public static void InstallInCurrentScene()=>Elite1HumanoidSetup.Install();
+        public static void InstallInCurrentScene()
+        {
+            Elite1HumanoidSetup.Install();
+            Elite1AttackVolumeSetup.InstallAll();
+            EnemyAttackRootMotionSetup.InstallElite1();
+        }
         public static void RebakeClip(string state)=>Elite1HumanoidSetup.Install();
     }
 }

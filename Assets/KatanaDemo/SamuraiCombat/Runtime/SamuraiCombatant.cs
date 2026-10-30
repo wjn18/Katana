@@ -31,6 +31,7 @@ namespace OCDesign.Samurai
         Func<bool> canContinueSweep;
         bool initialized, evaluatingWeapon;
         int rootMotionAttackSerial = -1;
+        int suppressedRootMotionAttackSerial = -1;
         float rootMotionNormalized;
         Quaternion rootMotionFacing;
         int evaluatingAttackSerial;
@@ -133,8 +134,12 @@ namespace OCDesign.Samurai
         public event Action<SamuraiGuardContact> GuardContacted;
 
         void Awake() { if (profile != null) ResetCombat(); }
+        void OnEnable() { SamuraiBodyCollision.Register(this); }
+        void OnDestroy() { SamuraiBodyCollision.Unregister(this); }
         void OnDisable()
         {
+            // 停用后旧动作的未消费根位移不能在重新启用时追补；新出招或复位恢复。
+            if (actions != null) suppressedRootMotionAttackSerial = actions.AttackSerial;
             AbortExecution();
             ClearHitStop();
             actions?.CancelInput();
@@ -151,10 +156,11 @@ namespace OCDesign.Samurai
         /// <summary>只消费当前根运动动作的Animator增量；保持世界方向、横移与负向回收，不做距离夹紧。</summary>
         public void ApplyAnimationRootMotion(Animator source)
         {
-            if (!isActiveAndEnabled || !initialized || source != animator || actions == null || movement == null
+            if (Time.timeScale <= 0f || !isActiveAndEnabled || !initialized || source != animator || actions == null || movement == null
                 || IsHitStopped || !actions.IsAttacking || actions.ActiveAction == null
+                || actions.AttackSerial == suppressedRootMotionAttackSerial
                 || !actions.ActiveAction.useRootMotion) return;
-            // 原G1A根骨的米制轨迹作为权威来源：避开Humanoid质心投影/身高缩放及跨状态参考朝向漂移。
+            // 动作独立保存的米制根轨迹作为来源：避开Humanoid质心投影及跨状态参考朝向漂移。
             // 仍随真实Animator求值触发，不依赖Update顺序或自建计时器。
             if (rootMotionAttackSerial != actions.AttackSerial)
             {
@@ -168,7 +174,7 @@ namespace OCDesign.Samurai
                 - action.RootMotionPosition(rootMotionNormalized));
             rootMotionNormalized = normalized;
             if (!Finite(delta)) return;
-            movement.DisplacePlanar(delta);
+            movement.DisplaceRootMotion(delta);
         }
 
         public void Configure(Animator targetAnimator, CharacterController targetMotor,
@@ -207,6 +213,7 @@ namespace OCDesign.Samurai
             actions.FluxPerformed += OnFluxPerformed;
             actions.FrostMoonRequested += OnFrostMoonRequested;
             weapon.SweepQueried += OnSweepQueried;
+            weapon.VolumeQueried += OnVolumeQueried;
             weapon.ContactResolved += OnContactResolved;
             weapon.HistoryCleared += OnHistoryCleared;
             canContinueSweep = CanContinueSweep;
@@ -219,6 +226,7 @@ namespace OCDesign.Samurai
             AbortExecution();
             ClearHitStop();
             rootMotionAttackSerial = -1;
+            suppressedRootMotionAttackSerial = -1;
             rootMotionNormalized = 0f;
             if (!Compose()) return;
             weapon.Reset(); knockback.Clear(); movement.ResetPose(); vitals.Reset();
@@ -366,6 +374,27 @@ namespace OCDesign.Samurai
         public void CancelInput() { pausedEdges = default; if (Compose()) actions.CancelInput(); }
         public void FaceDirection(Vector3 direction, float dt) { if (!IsHitStopped && Compose() && !IsDeflected) movement.FaceDirection(direction, dt); }
 
+        /// <summary>AI在每击准备期显式请求有限转向；只旋转后续根增量，不追补或重算已走路径。</summary>
+        public float ReorientCommittedAttack(Vector3 direction, float maximumDegrees)
+        {
+            if (Time.timeScale <= 0f || !isActiveAndEnabled || !initialized || actions == null || !actions.IsAttacking
+                || IsHitStopped || IsDeflected || IsToughnessBroken || IsDead
+                || actions.AttackSerial == suppressedRootMotionAttackSerial || !Finite(direction)
+                || float.IsNaN(maximumDegrees) || float.IsInfinity(maximumDegrees) || maximumDegrees <= 0f) return 0f;
+            direction.y = 0f;
+            if (direction.sqrMagnitude < .000001f) return 0f;
+            Quaternion before = transform.rotation;
+            Quaternion after = Quaternion.RotateTowards(before, Quaternion.LookRotation(direction), maximumDegrees);
+            Vector3 beforeForward = before * Vector3.forward, afterForward = after * Vector3.forward;
+            float turned = Mathf.Abs(Mathf.DeltaAngle(Mathf.Atan2(beforeForward.x, beforeForward.z) * Mathf.Rad2Deg,
+                Mathf.Atan2(afterForward.x, afterForward.z) * Mathf.Rad2Deg));
+            if (turned <= 0f) return 0f;
+            transform.rotation = after;
+            if (rootMotionAttackSerial == actions.AttackSerial)
+                rootMotionFacing = after * Quaternion.Inverse(before) * rootMotionFacing;
+            return turned;
+        }
+
         /// <summary>通常由LateUpdate调用；手动模拟时须在Animator.Update和Physics同步之后调用。</summary>
         public void EvaluateWeaponContacts()
         {
@@ -493,6 +522,8 @@ namespace OCDesign.Samurai
         void OnFluxPerformed(float restored, bool pulseWasPerfect) => FluxPerformed?.Invoke(restored, pulseWasPerfect);
         void OnFrostMoonRequested(int stance, bool started) => FrostMoonRequested?.Invoke(stance, started);
         void OnSweepQueried(WeaponTrailSweep sweep) { if (diagnostics != null) diagnostics.RecordSweep(sweep); }
+        void OnVolumeQueried(SamuraiAttackVolume region, Vector3 position, Quaternion rotation, float phase)
+        { if (diagnostics != null) diagnostics.RecordVolume(region, position, rotation, phase); }
         void OnHistoryCleared() { if (diagnostics != null) diagnostics.ClearHistory(); }
         void OnContactResolved(ISamuraiDamageReceiver target, SamuraiHitResult result, Vector3 point)
         {

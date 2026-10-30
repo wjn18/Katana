@@ -137,6 +137,7 @@ namespace OCDesign.Samurai.EditorTools
                 var bones=skin.bones;var positions=bones.Select(b=>b.localPosition).ToArray();var rotations=bones.Select(b=>b.localRotation).ToArray();var scales=bones.Select(b=>b.localScale).ToArray();
                 graph.Destroy();a.runtimeAnimatorController=controller;
                 for(int i=0;i<bones.Length;i++){bones[i].localPosition=positions[i];bones[i].localRotation=rotations[i];bones[i].localScale=scales[i];}
+                EnemyAttackRootMotionSetup.ConfigureInstalledDriver(root,"Elite1");
                 PrefabUtility.SaveAsPrefabAsset(root,Elite1CombatSetup.PrefabPath);
             }finally{if(graph.IsValid())graph.Destroy();PrefabUtility.UnloadPrefabContents(root);}
         }

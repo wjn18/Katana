@@ -279,6 +279,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a73779db6aa8af645bbaf7ea38f35d28, type: 2}
   - {fileID: 11400000, guid: b2ed5e535fe12854587697779959571e, type: 2}
   - {fileID: 11400000, guid: c2401d0ade8b15c4f9a85039ae7fdecb, type: 2}
+  attackDistanceMargin: 0.35
   turnSpeed: 240
   cautiousStaminaRatio: 0.28
   recoveredStaminaRatio: 0.58
@@ -973,15 +974,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5651751901618623305, guid: 489a2f86347e106488eebf5547679072, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.00012404383
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -5651751901618623305, guid: 489a2f86347e106488eebf5547679072, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.00030726733
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -5651751901618623305, guid: 489a2f86347e106488eebf5547679072, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0063729445
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -5651751901618623305, guid: 489a2f86347e106488eebf5547679072, type: 3}
       propertyPath: m_LocalRotation.y
@@ -1327,6 +1328,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 19.491098
       objectReference: {fileID: 0}
+    - target: {fileID: 3951791517513482663, guid: 489a2f86347e106488eebf5547679072, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4187641533398648036, guid: 489a2f86347e106488eebf5547679072, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
@@ -1549,6 +1554,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 489a2f86347e106488eebf5547679072, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5269633601094139191}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 489a2f86347e106488eebf5547679072, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2980363985115229850}
   m_SourcePrefab: {fileID: 100100000, guid: 489a2f86347e106488eebf5547679072, type: 3}
 --- !u!1 &3772101651659352332 stripped
 GameObject:
@@ -1568,7 +1576,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 70c7ca60b0ca64f4b862c9dee56ee354, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -1577,6 +1585,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2980363985115229850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3772101651659352332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ace818f77732a940803764ecab0c452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiRootMotionDriver
+  actor: {fileID: 7680140067542967229}
 --- !u!4 &4239588041091000875 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 166159824728751734, guid: 489a2f86347e106488eebf5547679072, type: 3}

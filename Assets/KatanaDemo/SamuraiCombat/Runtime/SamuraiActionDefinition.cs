@@ -49,7 +49,7 @@ namespace OCDesign.Samurai
         [Header("命中与连段")]
         [Range(0f, 1f)] public float damageStart = 0.22f;
         [Range(0f, 1f)] public float damageEnd = 0.48f;
-        [Tooltip("留空沿用单个Damage Start/End；填写后每个窗口分别命中同一目标一次。窗口按时间排序且不重叠。")]
+        [Tooltip("整段动画的归一化时间：X起始、Y结束，秒数=相位×Clip时长。留空沿用Damage Start/End。区域与真实武器轨迹共用此门控；收招误伤应调整本窗。按时间排序且不重叠，每窗对同一目标只命中一次。")]
         public Vector2[] damageWindows = new Vector2[0];
         public SamuraiHitSource hitSource;
         [Tooltip("0沿用角色刀刃半径；脚部攻击使用独立半径。")]
@@ -75,16 +75,29 @@ namespace OCDesign.Samurai
         [Range(0f, 90f)] public float closeRangeHalfAngle = 55f;
         [Range(0f, 1f)] public float closeRangeStart = .10f;
         [Range(0f, 1f)] public float closeRangeEnd = .42f;
+        [HideInInspector] public int enemyCloseRangeConfigurationVersion;
+
+        [Header("逐命中窗攻击区域")]
+        [Tooltip("启用后以独立区域配合真实武器轨迹；替代旧统一近身补偿。关闭区域项或清空数组只保留真实轨迹。")]
+        public bool useAttackVolumes;
+        [Tooltip("按Damage Windows下标一一对应。区域生效时间为该窗与Frames首尾Phase的交集。真实武器轨迹仍可在该窗内独立命中；要关闭收招伤害请改Damage Windows。")]
+        public SamuraiAttackVolume[] attackVolumes = new SamuraiAttackVolume[0];
+        [HideInInspector] public int attackVolumeConfigurationVersion;
 
         [Header("胶囊位移")]
         [Tooltip("由原始动画根运动驱动水平位移，经CharacterController碰撞；忽略固定跨步与接近减速。")]
         public bool useRootMotion;
-        [Tooltip("原始根骨相对起点的X位移，单位米；横轴为归一化动作时间。不按Avatar身高缩放。")]
+        [Tooltip("原始根骨相对起点的X位移，单位米。玩家横轴为归一化时间；已接入敌人使用动画秒，避免密集键求值失真。")]
         public AnimationCurve rootMotionX = new AnimationCurve();
         [Tooltip("原始根骨相对起点的Z位移，单位米；保留负向回收及完整时间曲线。")]
         public AnimationCurve rootMotionZ = new AnimationCurve();
         [Tooltip("对原根骨水平轨迹统一倍乘，时长不变，位移速度同比变化；不修改源曲线。")]
         [Min(0f)] public float rootMotionDistanceMultiplier = 1f;
+        [HideInInspector] public int enemyRootMotionConfigurationVersion;
+        [Header("敌人原刀轨采样")]
+        [Tooltip("正式身体动画首窗的局部米制武器端点；供AI规划及根运动帧间补采样。实际半径、窗口和伤害仍取原配置。")]
+        public SamuraiWeaponRangeFrame[] weaponRangeFrames = new SamuraiWeaponRangeFrame[0];
+        [Min(0f)] public float weaponRangeRadius;
         [Min(0f)] public float stepDistance = 0.28f;
         [Range(0f, 1f)] public float stepStart = 0.08f;
         [Range(0f, 1f)] public float stepEnd = 0.40f;
@@ -128,9 +141,10 @@ namespace OCDesign.Samurai
         public float KiPulseStart => overrideKiPulseTiming ? Mathf.Max(CancelStart, Mathf.Clamp01(kiPulseStart)) : CancelStart;
         public bool IsUsable => clip != null && !string.IsNullOrWhiteSpace(stateName);
         public string DisplayName => string.IsNullOrWhiteSpace(displayName) ? stateName : displayName;
+        public float RootMotionCurveTimeScale => enemyRootMotionConfigurationVersion >= 1 ? Duration : 1f;
         public Vector3 RootMotionPosition(float normalizedTime) => new Vector3(
-            rootMotionX != null ? rootMotionX.Evaluate(Mathf.Clamp01(normalizedTime)) : 0f, 0f,
-            rootMotionZ != null ? rootMotionZ.Evaluate(Mathf.Clamp01(normalizedTime)) : 0f) *
+            rootMotionX != null ? rootMotionX.Evaluate(Mathf.Clamp01(normalizedTime) * RootMotionCurveTimeScale) : 0f, 0f,
+            rootMotionZ != null ? rootMotionZ.Evaluate(Mathf.Clamp01(normalizedTime) * RootMotionCurveTimeScale) : 0f) *
             (float.IsNaN(rootMotionDistanceMultiplier) || float.IsInfinity(rootMotionDistanceMultiplier)
                 ? 1f : Mathf.Max(0f, rootMotionDistanceMultiplier));
         public float StepFraction(float normalizedTime)

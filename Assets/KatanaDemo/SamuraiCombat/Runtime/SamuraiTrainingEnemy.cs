@@ -6,7 +6,7 @@ namespace OCDesign.Samurai
 {
     public enum SamuraiTrainingMode { Normal, TripleCombo, MixedDeflect }
 
-    /// <summary>反应式优先行为树；仅产生输入，移动、朝向和战斗由正式组件执行。</summary>
+    /// <summary>反应式优先行为树；产生输入并请求合法准备期对准，移动和战斗由正式组件执行。</summary>
     [DisallowMultipleComponent]
     [DefaultExecutionOrder(-10)]
     public sealed class SamuraiTrainingEnemy : MonoBehaviour
@@ -21,7 +21,7 @@ namespace OCDesign.Samurai
         [Tooltip("混合练习中的重击在原地保持蓄势后释放；仍使用正式蓄力和重击逻辑。")]
         [Min(0f)] public float delayedHeavySeconds = 0.55f;
         [Header("交战间距（角色中心到中心，米）")]
-        [Tooltip("仅在预警时接近此距离；平时保持观察间距。")]
+        [Tooltip("常规招式没有可用攻击区域时的出手距离；有区域时按首击覆盖自动计算。")]
         [Min(0.5f)] public float engageDistance = 1.35f;
         [Tooltip("弹反练习使用较近的起手距离，使三连第一刀也能覆盖站定的目标；常规对练仍用原距离。")]
         [Min(0.5f)] public float practiceEngageDistance = 1.05f;
@@ -38,6 +38,12 @@ namespace OCDesign.Samurai
         [Min(0.25f)] public float telegraphSeconds = 0.8f;
         [Min(0.2f)] public float attackInterval = 1.25f;
         [Min(0f)] public float guardSeconds = 1.25f;
+        [Tooltip("仅常规AI：看到新攻击后持续观察多久再决定防守；不改变格挡或弹反窗口。")]
+        [Min(0f)] public float defenseReactionSeconds = .25f;
+        [Tooltip("仅常规AI：一轮持防结束后，多久内不重新举防；连段不能刷新已开始的持防。")]
+        [Min(0f)] public float defenseRearmSeconds = .75f;
+        [Tooltip("仅常规AI：被弹反恢复后暂不举防，仍可观察、预警和反击；不延长动作硬直。")]
+        [Min(0f)] public float postDeflectDefenseDelay = .85f;
         [Tooltip("常规对练中看到持续蓄力后，短暂观察再接近抢攻；固定弹反练习保持原节奏。")]
         [Min(0.1f)] public float chargeReactionSeconds = 0.35f;
         [Tooltip("常规模式每轮单刀、连击、重击中的连击上限；1保留旧训练对手行为。")]
@@ -45,6 +51,9 @@ namespace OCDesign.Samurai
         [Tooltip("可选常规攻击轮换；完整多段动作按各自伤害窗命中。空数组沿用单刀/连击/重击，G练习模式仍沿用原规则。")]
         public SamuraiActionDefinition[] normalAttackActions = new SamuraiActionDefinition[0];
         private SamuraiActionDefinition telegraphedAction;
+        private SamuraiActionDefinition telegraphedRangeAction;
+        [Tooltip("有逐窗攻击区域的常规招式，按首击对当前目标的实际覆盖距离向内预留此余量。无区域和固定练习保持原距离。")]
+        [Min(0f)] public float attackDistanceMargin = .35f;
         [Tooltip("保留旧配置；实际转向速度由战斗 Profile 控制。")]
         [Min(30f)] public float turnSpeed = 240f;
         [Range(0.1f, 0.5f)] public float cautiousStaminaRatio = 0.28f;
@@ -58,12 +67,17 @@ namespace OCDesign.Samurai
         private Node decisionTree;
         private SamuraiInputFrame frame;
         private readonly SamuraiEnemySensors sensors = new SamuraiEnemySensors();
+        private readonly SamuraiEnemyAttackAim attackAim = new SamuraiEnemyAttackAim();
         private float dt, targetDistance, cooldown, guardRemaining, telegraphElapsed;
         private float telegraphStartDistance, sideSwitchRemaining, orbitRemaining, orbitRest;
         private int attackSequence, threatSequence, orbitSide = 1;
         private bool canTrain, lineOfSight, telegraphing, heavyPending, heavyReleaseNextFrame;
         private bool wasAttacking, wasInReaction, safetyRetreat, postAttackRetreat, cautious;
         private bool defensiveRetreat, wasThreatening, approachLatched;
+        private bool wasDeflected, observedThreatCharging, defenseThreatConsumed;
+        private int observedThreatSerial = -1;
+        private float defenseObservationElapsed, defenseRearmRemaining, postDeflectDefenseRemaining;
+        private SamuraiCombatant defenseObservedTarget;
         private string previousThreatState, intent = "Keeping distance";
         private Vector3 towardTarget, sideDirection;
         private bool practiceSequenceActive, practiceHeavyHolding;
@@ -75,8 +89,22 @@ namespace OCDesign.Samurai
         private bool visibleTarget;
         private SamuraiCombatant trackedTarget;
         private SamuraiCombatant subscribedActor;
+        private SamuraiActionDefinition distanceAction;
+        private SamuraiCombatant distanceTarget;
+        private float plannedStrikeDistance, maximumStrikeDistance, distanceRefreshRemaining, distanceTargetHeight;
+        private bool actionDistanceAvailable;
         public bool HasVisibleTarget => visibleTarget;
         public bool HasTrackedTarget => trackedTarget != null;
+        public SamuraiActionDefinition PlannedAttack => telegraphing ? telegraphedAction ?? telegraphedRangeAction : NextPlanningAction;
+        private SamuraiActionDefinition NextPlanningAction => NextCustomAction != null ? NextCustomAction : actor == null || actor.Profile == null ? null :
+            NextStrikeIsHeavy ? actor.Profile.heavy : actor.Profile.combo != null && actor.Profile.combo.Length > 0 ? actor.Profile.combo[0] : null;
+        public bool UsingActionAttackDistance => !IsPracticeMode && actionDistanceAvailable;
+        public float PreferredAttackDistance => StrikeDistance;
+        public float MaximumAttackDistance => UsingActionAttackDistance ? maximumStrikeDistance : StrikeDistance;
+        public int AttackAimWindowIndex => attackAim.WindowIndex;
+        public float AttackAimTurnedDegrees => attackAim.TurnedDegrees;
+        public float AttackAimSolutionPhase => attackAim.LastSolutionPhase;
+        public Vector3 AttackAimDesiredDirection => attackAim.LastDesiredDirection;
 
         public bool IsTelegraphing => telegraphing && activeTraining && actor != null && !actor.IsDead;
         public float TelegraphProgress => IsTelegraphing
@@ -103,7 +131,11 @@ namespace OCDesign.Samurai
         private float NearSpacing => Mathf.Max(minimumSafeDistance + 0.2f, spacingMinimum);
         private float FarSpacing => Mathf.Max(NearSpacing + 0.2f, spacingMaximum);
         private float RestSpacing => (NearSpacing + FarSpacing) * 0.5f;
-        private float StrikeDistance => Mathf.Max(0.6f, IsPracticeMode ? practiceEngageDistance : engageDistance);
+        private float StrikeDistance => Mathf.Max(0.6f, IsPracticeMode ? practiceEngageDistance :
+            actionDistanceAvailable ? plannedStrikeDistance : engageDistance);
+        // 先进入与本招配套的预警圈，再按原预警时间接近出手点；短招不会从旧观察圈反复超时。
+        private float ThreatenDistance => UsingActionAttackDistance ? StrikeDistance + .5f : FarSpacing;
+        private float ObservationDistance => UsingActionAttackDistance ? StrikeDistance + .25f : RestSpacing;
         private bool IsPracticeMode => trainingMode != SamuraiTrainingMode.Normal;
         private bool NextStrikeIsHeavy => NextCustomAction == null && trainingMode != SamuraiTrainingMode.TripleCombo && attackSequence % 3 == 2;
         private int NextStrikeCount => NextCustomAction != null ? NextCustomAction.DamageWindowCount : trainingMode == SamuraiTrainingMode.Normal ?
@@ -115,6 +147,7 @@ namespace OCDesign.Samurai
         public void Configure(SamuraiCombatant combatant, SamuraiCombatant opponent, SamuraiPlayerInput input = null)
         {
             actor = combatant; target = opponent; playerInput = input;
+            attackAim.Reset();
             ResetDecision();
             SubscribeToAttacks();
         }
@@ -160,11 +193,21 @@ namespace OCDesign.Samurai
             if (subscribedActor == actor) return;
             UnsubscribeFromAttacks();
             subscribedActor = actor;
-            if (subscribedActor != null) subscribedActor.AttackReceived += OnAttackReceived;
+            if (subscribedActor != null)
+            {
+                subscribedActor.AttackReceived += OnAttackReceived;
+                subscribedActor.CombatReset += attackAim.Reset;
+                subscribedActor.CombatReset += ResetNormalDefenseTiming;
+            }
         }
         private void UnsubscribeFromAttacks()
         {
-            if (subscribedActor != null) subscribedActor.AttackReceived -= OnAttackReceived;
+            if (subscribedActor != null)
+            {
+                subscribedActor.AttackReceived -= OnAttackReceived;
+                subscribedActor.CombatReset -= attackAim.Reset;
+                subscribedActor.CombatReset -= ResetNormalDefenseTiming;
+            }
             subscribedActor = null;
         }
         private void OnAttackReceived(SamuraiDamageHit hit, SamuraiHitResult result)
@@ -203,6 +246,7 @@ namespace OCDesign.Samurai
         public void ResetTraining()
         {
             if (actor != null) actor.ResetCombat();
+            attackAim.Reset();
             ResetDecision();
         }
         private void ResetDecision(bool clearTracking = true)
@@ -219,6 +263,10 @@ namespace OCDesign.Samurai
             perceptionScanRemaining = 0f; visibleTarget = false;
             if (clearTracking) trackedTarget = null;
             telegraphedAction = null;
+            telegraphedRangeAction = null;
+            distanceAction = null; distanceTarget = null; actionDistanceAvailable = false;
+            distanceRefreshRemaining = 0f;
+            ResetNormalDefenseTiming();
             ClearPracticeIntent();
             if (decisionTree == null) BuildTree();
         }
@@ -230,15 +278,31 @@ namespace OCDesign.Samurai
         /// <summary>测试入口：只生成输入，不调用 Tick。手动驱动时应禁用本组件的 Update。</summary>
         public SamuraiInputFrame BuildFrame(float deltaTime)
         {
-            if (actor != null && actor.IsDeflected)
+            bool deflected = actor != null && actor.IsDeflected;
+            if (deflected)
             {
                 // 连段被当场截断；即使正处于刀刃交击顿帧，也不保存下一刀或重击释放。
-                ClearPracticeIntent();
-                heavyReleaseNextFrame = false;
-                guardRemaining = 0f;
-                CancelTelegraph(attackInterval);
+                if (IsPracticeMode || !wasDeflected)
+                {
+                    ClearPracticeIntent();
+                    heavyReleaseNextFrame = false;
+                    guardRemaining = 0f;
+                    CancelTelegraph(attackInterval);
+                    if (!IsPracticeMode)
+                    {
+                        wasAttacking = false;
+                        defenseRearmRemaining = postDeflectDefenseRemaining = 0f;
+                        ClearObservedDefenseThreat();
+                    }
+                }
                 frame = new SamuraiInputFrame();
             }
+            else if (!IsPracticeMode && wasDeflected)
+            {
+                postDeflectDefenseRemaining = Mathf.Max(0f, postDeflectDefenseDelay);
+                ClearObservedDefenseThreat();
+            }
+            wasDeflected = deflected;
             // 顿帧只暂停本角色的动作和决策计时，不禁用组件或重置行为树。
             if (actor != null && actor.IsHitStopped)
             {
@@ -316,11 +380,18 @@ namespace OCDesign.Samurai
             sideDirection = Vector3.Cross(Vector3.up, towardTarget);
             lineOfSight = sensors.HasLineOfSight(actor, target, actor.Profile.obstructionMask);
             visibleTarget = lineOfSight;
+            RefreshAttackDistance();
             // 已发现目标可在身后或短暂遮挡时持续转向/寻路；攻击仍要求无遮挡。
             frame.facingWorld = towardTarget;
             observedChargeSeconds = lineOfSight && target.IsCharging ? observedChargeSeconds + dt : 0f;
             cooldown = Mathf.Max(0f, cooldown - dt);
+            bool hadGuard = guardRemaining > 0f;
             guardRemaining = Mathf.Max(0f, guardRemaining - dt);
+            if (!IsPracticeMode)
+            {
+                defenseRearmRemaining = Mathf.Max(0f, defenseRearmRemaining - dt);
+                postDeflectDefenseRemaining = Mathf.Max(0f, postDeflectDefenseRemaining - dt);
+            }
             sideSwitchRemaining = Mathf.Max(0f, sideSwitchRemaining - dt);
             orbitRest = Mathf.Max(0f, orbitRest - dt);
             retreatRest = Mathf.Max(0f, retreatRest - dt);
@@ -345,7 +416,8 @@ namespace OCDesign.Samurai
                 }
                 else
                 {
-                    CancelTelegraph(attackInterval);
+                    // 常规被弹反的取消已在进入时执行，不能逐帧延后反击时机。
+                    if (IsPracticeMode || !actor.IsDeflected) CancelTelegraph(attackInterval);
                     guardRemaining = 0f; postAttackRetreat = true;
                 }
             }
@@ -355,11 +427,17 @@ namespace OCDesign.Samurai
                 Mathf.Max(minimumSafeDistance, NearSpacing - 0.12f);
             if (targetDistance < unsafeDistance) safetyRetreat = true;
             else if (targetDistance >= NearSpacing - ArrivalTolerance) safetyRetreat = false;
-            if (targetDistance >= RestSpacing - ArrivalTolerance) postAttackRetreat = false;
-            if (targetDistance > FarSpacing + 0.12f) approachLatched = true;
-            else if (targetDistance <= RestSpacing + ArrivalTolerance) approachLatched = false;
+            if (targetDistance >= ObservationDistance - ArrivalTolerance) postAttackRetreat = false;
+            if (targetDistance > ThreatenDistance + 0.12f) approachLatched = true;
+            else if (targetDistance <= ObservationDistance + ArrivalTolerance) approachLatched = false;
             bool threatening = lineOfSight && targetDistance < FarSpacing + 0.6f && (target.IsAttacking || target.IsCharging);
-            if (threatening && (!wasThreatening || previousThreatState != target.StateName))
+            if (!IsPracticeMode)
+            {
+                if (hadGuard && guardRemaining <= 0f)
+                    defenseRearmRemaining = Mathf.Max(defenseRearmRemaining, Mathf.Max(0f, defenseRearmSeconds));
+                ObserveNormalDefenseThreat(threatening);
+            }
+            else if (threatening && (!wasThreatening || previousThreatState != target.StateName))
             {
                 threatSequence++;
                 defensiveRetreat = cautious || target.IsCharging || threatSequence % 3 == 0;
@@ -371,6 +449,60 @@ namespace OCDesign.Samurai
             wasThreatening = threatening;
             previousThreatState = threatening ? target.StateName : null;
         }
+
+        private bool NormalGuardApproved => guardRemaining > 0f && postDeflectDefenseRemaining <= 0f
+            && actor != null && !actor.IsDeflected;
+
+        private void ClearObservedDefenseThreat()
+        {
+            defenseObservedTarget = null;
+            observedThreatSerial = -1;
+            observedThreatCharging = defenseThreatConsumed = false;
+            defenseObservationElapsed = 0f;
+        }
+
+        private void ResetNormalDefenseTiming()
+        {
+            wasDeflected = false;
+            defenseRearmRemaining = postDeflectDefenseRemaining = 0f;
+            ClearObservedDefenseThreat();
+            if (!IsPracticeMode) guardRemaining = 0f;
+        }
+
+        private void ObserveNormalDefenseThreat(bool threatening)
+        {
+            // 已承诺的攻闪和全部硬直不提前存下一次举防，恢复后重新观察当前威胁。
+            if (!threatening || target.Actions == null)
+            { ClearObservedDefenseThreat(); return; }
+            // 硬直不采集新威胁，但保留已消费身份，避免同一长攻击在恢复后重启守势。
+            if (!actor.CanAct) { defenseObservationElapsed = 0f; return; }
+            int serial = target.Actions.AttackSerial;
+            bool charging = target.IsCharging;
+            bool fresh = defenseObservedTarget != target || observedThreatSerial != serial
+                || observedThreatCharging != charging;
+            if (fresh)
+            {
+                defenseObservedTarget = target;
+                observedThreatSerial = serial;
+                observedThreatCharging = charging;
+                defenseObservationElapsed = 0f;
+                defenseThreatConsumed = false;
+            }
+            // 持防和重整期间看到的攻击不排队，不能在计时结束时立即补举旧防。
+            if (guardRemaining > 0f || defenseRearmRemaining > 0f)
+            { defenseThreatConsumed = true; defenseObservationElapsed = 0f; return; }
+            if (defenseThreatConsumed) return;
+            if (!fresh) defenseObservationElapsed += dt;
+            if (postDeflectDefenseRemaining > 0f
+                || defenseObservationElapsed < Mathf.Max(0f, defenseReactionSeconds)) return;
+            defenseThreatConsumed = true;
+            threatSequence++;
+            defensiveRetreat = cautious || charging || threatSequence % 3 == 0;
+            guardRemaining = Mathf.Max(0.5f, guardSeconds);
+            // 远距改为防守时只取消预警一次，不能暂停旧预警后在守势结束直接续出。
+            if (targetDistance > NearSpacing)
+                CancelTelegraph(Mathf.Max(0.6f, attackInterval));
+        }
         private NodeStatus StopTraining()
         {
             visibleTarget = false;
@@ -379,6 +511,7 @@ namespace OCDesign.Samurai
             telegraphing = heavyReleaseNextFrame = wasAttacking = wasThreatening = false;
             safetyRetreat = postAttackRetreat = approachLatched = false;
             guardRemaining = 0f; cooldown = Mathf.Max(0.2f, attackInterval);
+            ResetNormalDefenseTiming();
             observedChargeSeconds = 0f;
             frame = new SamuraiInputFrame();
             intent = !activeTraining ? "Training dummy" : target == null || target.IsDead ? "Waiting for opponent" :
@@ -388,6 +521,8 @@ namespace OCDesign.Samurai
         private NodeStatus KeepCommitment()
         {
             intent = actor.IsDodging ? "Evading" : practiceSequenceActive ? PatternLabel + " - committed" : "Committed strike";
+            if (actor.IsAttacking && lineOfSight && UsesDirectedEliteAttack(actor.Actions.ActiveAction))
+                attackAim.Tick(actor, target, dt);
             if (practiceHeavyHolding)
             {
                 if (!actor.IsCharging || !lineOfSight || targetDistance > StrikeDistance + 0.5f)
@@ -427,9 +562,11 @@ namespace OCDesign.Samurai
         private NodeStatus RespondAtCloseRange()
         {
             safetyRetreat = postAttackRetreat = false;
-            if (telegraphing || cooldown <= 0f && CanAffordNextStrike()) return TelegraphAttack();
+            if (telegraphing) return TelegraphAttack();
+            if (cooldown <= 0f && CanAffordNextStrike())
+                return targetDistance <= ThreatenDistance ? TelegraphAttack() : ApproachTarget();
             // 低精力时靠持防争取恢复，而不是在玩家持续跟进时永远倒退。
-            frame.guardHeld = target.IsAttacking || target.IsCharging || guardRemaining > 0f;
+            frame.guardHeld = NormalGuardApproved && (cautious || !defensiveRetreat);
             intent = frame.guardHeld ? "Close pressure - defending before counter" : "Close pressure - preparing counter";
             return NodeStatus.Running;
         }
@@ -453,7 +590,8 @@ namespace OCDesign.Samurai
         {
             intent = actor.IsDeflected ? "Deflected - recovering" :
                 actor.IsGuardHit ? "Absorbing blocked hit" : "Recovering from hit";
-            frame.guardHeld = actor.IsGuardHit && !defensiveRetreat && guardRemaining > 0f && !cautious;
+            frame.guardHeld = actor.IsGuardHit && !defensiveRetreat && guardRemaining > 0f && !cautious
+                && (IsPracticeMode || NormalGuardApproved);
             return NodeStatus.Running;
         }
         private NodeStatus RestoreSpacing()
@@ -468,31 +606,34 @@ namespace OCDesign.Samurai
             }
             CancelTelegraph(Mathf.Max(0.45f, cooldown));
             intent = postAttackRetreat ? "Recovering distance after strike" : "Too close - stepping back";
-            float destination = postAttackRetreat ? RestSpacing : NearSpacing;
+            float destination = postAttackRetreat ? ObservationDistance : NearSpacing;
             float amount = MovementAmount(targetDistance < minimumSafeDistance ? 0.85f : 0.55f, destination - targetDistance);
             if (!MoveSafely(-towardTarget, -1f, amount))
             {
-                frame.guardHeld = !cautious && lineOfSight && (target.IsAttacking || target.IsCharging);
+                frame.guardHeld = !cautious && lineOfSight && (target.IsAttacking || target.IsCharging)
+                    && (IsPracticeMode || NormalGuardApproved);
                 intent = "Retreat blocked - holding safe position";
             }
             return NodeStatus.Running;
         }
         private NodeStatus RespondToThreat()
         {
-            CancelTelegraph(Mathf.Max(0.55f, cooldown));
+            if (IsPracticeMode) CancelTelegraph(Mathf.Max(0.55f, cooldown));
             if (cautious || defensiveRetreat)
             {
                 intent = cautious ? "Low stamina - recovering at distance" : "Reading attack - withdrawing";
                 if (targetDistance < FarSpacing + 0.1f && !MoveSafely(-towardTarget, -1f,
                     MovementAmount(cautious ? 0.6f : 0.8f, FarSpacing + 0.1f - targetDistance)))
                 {
-                    frame.guardHeld = !cautious && target.IsAttacking && lineOfSight;
+                    frame.guardHeld = !cautious && target.IsAttacking && lineOfSight
+                        && (IsPracticeMode || NormalGuardApproved);
                     intent = "Withdrawal blocked - watching opponent";
                 }
             }
             else
             {
-                frame.guardHeld = lineOfSight && targetDistance <= FarSpacing + 0.5f;
+                frame.guardHeld = lineOfSight && targetDistance <= FarSpacing + 0.5f
+                    && (IsPracticeMode || NormalGuardApproved);
                 intent = frame.guardHeld ? "Guarding incoming attack" : "Watching opponent recover";
             }
             return NodeStatus.Running;
@@ -500,13 +641,13 @@ namespace OCDesign.Samurai
         private NodeStatus PressureCharge()
         {
             // 不在安全圈外原地等蓄力结束；接近和出刀仍经原移动检查与预警。
-            if (telegraphing || targetDistance <= FarSpacing && CanAffordNextStrike())
+            if (telegraphing || targetDistance <= ThreatenDistance && CanAffordNextStrike())
                 return TelegraphAttack();
             return ApproachTarget();
         }
         private bool ReadyToThreaten()
         {
-            return cooldown <= 0f && lineOfSight && targetDistance <= FarSpacing &&
+            return cooldown <= 0f && lineOfSight && targetDistance <= ThreatenDistance &&
                 CanAffordNextStrike();
         }
         private bool CanAffordNextStrike()
@@ -531,16 +672,22 @@ namespace OCDesign.Samurai
             if (!telegraphing)
             {
                 telegraphedAction = NextCustomAction;
+                telegraphedRangeAction = NextPlanningAction;
                 telegraphing = true; heavyPending = NextStrikeIsHeavy;
                 practiceStrikeLimit = NextStrikeCount;
                 telegraphElapsed = 0f; telegraphStartDistance = targetDistance; orbitRemaining = 0f;
             }
-            if (!lineOfSight || targetDistance > Mathf.Max(FarSpacing + 0.4f, telegraphStartDistance + 0.65f) || !CanAffordNextStrike())
+            if (!lineOfSight || targetDistance > Mathf.Max(ThreatenDistance + 0.4f, telegraphStartDistance + 0.65f) || !CanAffordNextStrike())
             {
                 CancelTelegraph(attackInterval);
                 intent = "Attack cancelled - target escaped or obstructed";
                 return NodeStatus.Success;
             }
+            Vector3 attackDirection = towardTarget;
+            bool directed = UsesDirectedEliteAttack(telegraphedAction)
+                && SamuraiEnemyAttackAim.TryGetDirection(actor, target, telegraphedAction, 0, 0f, out attackDirection, out _);
+            if (!directed) attackDirection = towardTarget;
+            else frame.facingWorld = attackDirection;
             telegraphElapsed += dt;
             intent = IsPracticeMode ? PatternLabel + " INCOMING" : heavyPending ? "HEAVY ATTACK INCOMING" : "ATTACK INCOMING";
             float rangeError = targetDistance - StrikeDistance;
@@ -549,13 +696,13 @@ namespace OCDesign.Samurai
                 CancelTelegraph(attackInterval); intent = "Attack cancelled - approach blocked";
                 return NodeStatus.Success;
             }
-            bool facing = Vector3.Angle(actor.transform.forward, towardTarget) < 25f;
+            bool facing = Vector3.Angle(actor.transform.forward, attackDirection) < (directed ? 3f : 25f);
             if (telegraphElapsed >= Mathf.Max(0.25f, telegraphSeconds) && rangeError <= 0.12f && facing)
             {
                 frame.moveWorld = Vector3.zero; telegraphing = false;
                 if (!IsPracticeMode && telegraphedAction != null)
                 {
-                    if (actor.Actions.TryStartAttack(telegraphedAction, -1, towardTarget)) attackSequence++;
+                    if (actor.Actions.TryStartAttack(telegraphedAction, -1, attackDirection)) attackSequence++;
                     telegraphedAction = null;
                     practiceSequenceActive = false;
                     cooldown = Mathf.Max(.2f, attackInterval);
@@ -588,10 +735,10 @@ namespace OCDesign.Samurai
         {
             intent = lineOfSight ? "Approaching observation distance" : "Obstacle ahead - seeking a clear side";
             if (!lineOfSight) return Orbit(false);
-            float rangeError = targetDistance - RestSpacing;
+            float rangeError = targetDistance - ObservationDistance;
             if (rangeError > ArrivalTolerance)
             {
-                frame.sprint = targetDistance > FarSpacing + 2f && !cautious;
+                frame.sprint = targetDistance > ThreatenDistance + 2f && !cautious;
                 if (!MoveSafely(towardTarget, 1f, MovementAmount(0.8f, rangeError, frame.sprint)))
                 {
                     frame.sprint = false; intent = "Approach blocked - waiting for an opening";
@@ -611,7 +758,7 @@ namespace OCDesign.Samurai
                 if (orbitRest > 0f) return NodeStatus.Success;
                 orbitRemaining = 0.5f;
             }
-            float radial = keepRing ? Mathf.Clamp((targetDistance - RestSpacing) / 0.25f, -0.6f, 0.6f) : 0f;
+            float radial = keepRing ? Mathf.Clamp((targetDistance - ObservationDistance) / 0.25f, -0.6f, 0.6f) : 0f;
             Vector3 direction = (sideDirection * orbitSide + towardTarget * radial).normalized;
             if (!MoveSafely(direction, radial, 0.3f, true)) orbitRemaining = 0f;
             else orbitRemaining -= dt;
@@ -658,13 +805,43 @@ namespace OCDesign.Samurai
             sensors.HasClearPath(actor, direction, amount, obstacleLookAhead, actor.Profile.obstructionMask);
         private void CancelTelegraph(float delay)
         {
-            telegraphing = false; telegraphElapsed = 0f; telegraphedAction = null;
+            telegraphing = false; telegraphElapsed = 0f; telegraphedAction = null; telegraphedRangeAction = null;
             cooldown = Mathf.Max(cooldown, Mathf.Max(0.2f, delay));
         }
         private void ClearPracticeIntent()
         {
             practiceSequenceActive = practiceHeavyHolding = false;
             practiceStrikeLimit = 0; queuedPracticeSerial = -1; practiceHeavyRemaining = 0f;
+        }
+
+        private void RefreshAttackDistance()
+        {
+            var action = PlannedAttack;
+            if (IsPracticeMode || action == null || !(action.useAttackVolumes || action.useRootMotion
+                && action.enemyRootMotionConfigurationVersion >= 1 && action.weaponRangeFrames != null && action.weaponRangeFrames.Length > 1)
+                || actor.Motor == null || target.Motor == null)
+            { actionDistanceAvailable = false; distanceAction = null; return; }
+            float height = target.Motor.transform.TransformPoint(target.Motor.center).y - actor.transform.position.y;
+            distanceRefreshRemaining -= dt;
+            if (distanceAction == action && distanceTarget == target && distanceRefreshRemaining > 0f
+                && Mathf.Abs(height - distanceTargetHeight) < .04f) return;
+            distanceAction = action; distanceTarget = target; distanceTargetHeight = height;
+            distanceRefreshRemaining = .25f;
+            Vector3 scale = target.Motor.transform.lossyScale;
+            float radius = target.Motor.radius * Mathf.Max(Mathf.Abs(scale.x), Mathf.Abs(scale.z));
+            float halfSegment = Mathf.Max(0f, target.Motor.height * Mathf.Abs(scale.y) * .5f - radius);
+            Vector3 actorScale = actor.Motor.transform.lossyScale;
+            float minimum = actor.Motor.radius * Mathf.Max(Mathf.Abs(actorScale.x), Mathf.Abs(actorScale.z)) + radius + .06f;
+            actionDistanceAvailable = SamuraiAttackSpacing.TryGetDistance(action, radius, halfSegment, height,
+                Mathf.Max(.6f, minimum), attackDistanceMargin, out plannedStrikeDistance, out maximumStrikeDistance);
+        }
+
+        private bool UsesDirectedEliteAttack(SamuraiActionDefinition action)
+        {
+            if (IsPracticeMode || action == null || !action.useRootMotion || !action.useAttackVolumes
+                || normalAttackActions == null || Array.IndexOf(normalAttackActions, action) < 0 || action.attackVolumes == null) return false;
+            foreach (var region in action.attackVolumes) if (region != null && region.IsUsable) return true;
+            return false;
         }
 
     }

@@ -6,7 +6,7 @@ namespace OCDesign.Samurai
 {
     /// <summary>
     /// 场景内 uGUI 的数据绑定。所有图像、文本和布局由场景保存；
-    /// 只有头顶目标与预警根节点随世界目标投影移动，不在运行时构造或排列 UI。
+    /// 只有头顶目标与预警根节点随世界目标投影移动；精英条读取固定屏幕布局，不在运行时构造或排列 UI。
     /// </summary>
     [DisallowMultipleComponent]
     [DefaultExecutionOrder(200)]
@@ -74,6 +74,16 @@ namespace OCDesign.Samurai
         public Vector2 warningScreenOffset;
         [Min(0f)] public float targetDisplayDistance = 20f;
 
+        [Header("固定精英HUD，不随世界坐标投影")]
+        public RectTransform eliteRoot;
+        public Image eliteHealthFill;
+        public Image eliteHealthDamageFill;
+        public Image eliteToughnessFill;
+        public Text eliteName;
+        public Text eliteHealthText;
+        public Text eliteToughnessText;
+        public string eliteDisplayName = "镇门鬼将";
+
         [Header("短时反馈")]
         public Text briefFeedback;
         [Min(.05f)] public float feedbackSeconds = .7f;
@@ -101,6 +111,7 @@ namespace OCDesign.Samurai
         private SamuraiCombatant observedHealthTarget;
         private readonly SamuraiHUDHealthTrail playerHealthTrail = new SamuraiHUDHealthTrail();
         private readonly SamuraiHUDHealthTrail targetHealthTrail = new SamuraiHUDHealthTrail();
+        private readonly SamuraiEliteHUDPresenter elitePresenter = new SamuraiEliteHUDPresenter();
         private Image observedStaminaBorder;
         private Color staminaBorderColor;
         private float staminaWarningStartedAt = float.NegativeInfinity;
@@ -123,6 +134,8 @@ namespace OCDesign.Samurai
             UnbindPlayer();
             BindHealthTarget(null);
             ResetVitalFeedback();
+            elitePresenter.Reset();
+            SetActive(eliteRoot, false);
         }
 
         // 相机完成本帧的跟随后再投影，避免头顶血条比角色画面慢一帧。
@@ -143,6 +156,8 @@ namespace OCDesign.Samurai
                 SetActive(deathPanel, false);
                 SetActive(captureHint, false);
                 SetActive(artsRoot, false);
+                elitePresenter.Reset();
+                SetActive(eliteRoot, false);
                 SetText(briefFeedback, string.Empty);
                 return;
             }
@@ -153,6 +168,7 @@ namespace OCDesign.Samurai
             RefreshCharge();
             RefreshFeedback();
             RefreshTarget();
+            RefreshEliteTarget();
             SetActive(deathPanel, player.IsDead);
             SetText(deathText, deathMessage);
             SetActive(captureHint, !player.IsDead && input != null && !input.HasCursorCapture);
@@ -244,6 +260,7 @@ namespace OCDesign.Samurai
             SamuraiTargetLock targetLock = input != null ? input.targetLock : null;
             SamuraiCombatant target = targetLock != null && targetLock.CurrentTarget != null
                 ? targetLock.CurrentTarget : enemy != null ? enemy.actor : null;
+            bool fixedElite = eliteRoot != null && SamuraiEliteHUDPresenter.IsElite(target);
             BindHealthTarget(target);
             float trail = target != null ? targetHealthTrail.Step(target.Health, target.MaxHealth, Time.time,
                 healthDamageHoldSeconds, healthDamageShrinkSeconds) : 0f;
@@ -254,19 +271,21 @@ namespace OCDesign.Samurai
                 showTarget = Project(targetRoot, targetParent,
                     target.transform.position + Vector3.up * TargetHeight(target, targetHeight), targetScreenOffset);
             SetActive(targetRoot, showTarget);
-            if (showTarget)
+            bool showWorldMeters = showTarget && !fixedElite;
+            if (targetHealthFill != null) SetActive(targetHealthFill.transform.parent.gameObject, showWorldMeters);
+            if (showWorldMeters)
             {
                 SetFill(targetHealthDamageFill, trail, healthDamageColor);
                 SetFill(targetHealthFill, target.Health / Mathf.Max(1f, target.MaxHealth), healthColor);
             }
-            bool showToughness = showTarget && !target.IsDead && target.Profile != null && target.Profile.toughnessEnabled;
+            bool showToughness = showWorldMeters && !target.IsDead && target.Profile != null && target.Profile.toughnessEnabled;
             if (targetToughnessFill != null) SetActive(targetToughnessFill.transform.parent.gameObject, showToughness);
             if (showToughness)
             {
                 float ratio = target.Toughness != null ? target.Toughness.Value / target.Toughness.Maximum : 1f;
                 SetFill(targetToughnessFill, ratio, ratio <= .25f ? new Color(1f, .34f, .12f, 1f) : goldColor);
             }
-            bool broken = showToughness && target.IsExecutionVulnerable;
+            bool broken = showToughness && target.IsExecutionVulnerable && player.Profile != null && player.Profile.executionEnabled;
             if (targetExecutionPrompt != null)
             {
                 SetActive(targetExecutionPrompt.gameObject, broken);
@@ -282,6 +301,30 @@ namespace OCDesign.Samurai
                     enemy.actor.transform.position + Vector3.up * TargetHeight(enemy.actor, warningHeight), warningScreenOffset);
             SetActive(warningRoot, showWarning);
             if (showWarning) SetFill(warningFill, enemy.TelegraphProgress, goldColor);
+        }
+
+        private void RefreshEliteTarget()
+        {
+            var target = elitePresenter.Resolve(player, input != null ? input.targetLock : null, enemy, targetDisplayDistance);
+            bool visible = target != null;
+            SetActive(eliteRoot, visible);
+            if (!visible) return;
+            SetText(eliteName, eliteDisplayName);
+            SetFill(eliteHealthDamageFill, elitePresenter.HealthTrail(Time.time, healthDamageHoldSeconds, healthDamageShrinkSeconds), healthDamageColor);
+            SetFill(eliteHealthFill, target.Health / Mathf.Max(1f, target.MaxHealth), healthColor);
+            SetText(eliteHealthText, Mathf.CeilToInt(Mathf.Max(0f, target.Health)).ToString(CultureInfo.InvariantCulture)
+                + " / " + Mathf.CeilToInt(target.MaxHealth).ToString(CultureInfo.InvariantCulture));
+            bool toughness = target.Profile != null && target.Profile.toughnessEnabled;
+            if (eliteToughnessFill != null) SetActive(eliteToughnessFill.transform.parent.gameObject, toughness);
+            if (eliteToughnessText != null) SetActive(eliteToughnessText.gameObject, toughness);
+            if (!toughness) return;
+            float value = target.Toughness != null ? target.Toughness.Value : target.Profile.maxToughness;
+            float maximum = target.Toughness != null ? target.Toughness.Maximum : target.Profile.maxToughness;
+            float ratio = value / Mathf.Max(1f, maximum);
+            SetFill(eliteToughnessFill, ratio, target.IsToughnessBroken ? new Color(1f, .34f, .12f, 1f) : goldColor);
+            SetText(eliteToughnessText, target.IsToughnessBroken ? "韧性 · 失衡" : "韧性  "
+                + Mathf.CeilToInt(Mathf.Max(0f, value)).ToString(CultureInfo.InvariantCulture) + " / "
+                + Mathf.CeilToInt(maximum).ToString(CultureInfo.InvariantCulture));
         }
 
         private bool Project(RectTransform root, RectTransform parent, Vector3 worldPoint, Vector2 offset)
@@ -365,6 +408,7 @@ namespace OCDesign.Samurai
         {
             playerHealthTrail.Clear();
             targetHealthTrail.Clear();
+            elitePresenter.ResetHealthTrail();
             staminaWarningStartedAt = float.NegativeInfinity;
             SetColor(staminaFill, staminaColor);
             SetColor(observedStaminaBorder, staminaBorderColor);

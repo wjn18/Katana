@@ -11,6 +11,7 @@ namespace OCDesign.Samurai
         readonly Transform root;
         readonly CharacterController controller;
         readonly SamuraiCombatProfile profile;
+        readonly SamuraiBodyCollision bodyCollision;
         Vector3 spawnPosition;
         Quaternion spawnRotation;
         float verticalSpeed;
@@ -24,6 +25,7 @@ namespace OCDesign.Samurai
             this.root = root;
             this.controller = controller;
             this.profile = profile;
+            bodyCollision = new SamuraiBodyCollision(controller);
             CaptureSpawn();
         }
 
@@ -66,7 +68,7 @@ namespace OCDesign.Samurai
             if (controller.isGrounded && verticalSpeed < 0f) verticalSpeed = -2f;
             verticalSpeed = Mathf.Max(-Mathf.Max(1f, profile.terminalFallSpeed),
                 verticalSpeed - profile.gravity * dt);
-            CollisionFlags flags = controller.Move((planarVelocity + Vector3.up * verticalSpeed) * dt);
+            CollisionFlags flags = bodyCollision.Move((planarVelocity + Vector3.up * verticalSpeed) * dt);
             if ((flags & CollisionFlags.Above) != 0 && verticalSpeed > 0f) verticalSpeed = 0f;
             if ((flags & CollisionFlags.Below) != 0 && verticalSpeed < 0f) verticalSpeed = -2f;
         }
@@ -114,7 +116,20 @@ namespace OCDesign.Samurai
         {
             if (controller == null || !controller.enabled || !controller.gameObject.activeInHierarchy) return;
             displacement.y = 0f;
-            if (displacement.sqrMagnitude > 0f) controller.Move(displacement);
+            if (displacement.sqrMagnitude > 0f) bodyCollision.Move(displacement);
+        }
+
+        /// <summary>源根轨迹中的毫米以下步进也参与碰撞；不累计丢步，不修改胶囊持久配置。</summary>
+        public void DisplaceRootMotion(Vector3 displacement)
+        {
+            if (controller == null || !controller.enabled || !controller.gameObject.activeInHierarchy) return;
+            float previousMinimum = controller.minMoveDistance;
+            try
+            {
+                if (previousMinimum > 0f) controller.minMoveDistance = 0f;
+                DisplacePlanar(displacement);
+            }
+            finally { if (previousMinimum > 0f && controller != null) controller.minMoveDistance = previousMinimum; }
         }
 
         public static Vector3 MoveDirection(SamuraiInputFrame input, Transform root)

@@ -16,6 +16,9 @@ namespace OCDesign.Samurai
         public Collider Collider;
         public Vector3 Point, BladeBase;
         public float Time;
+        // 区域接触使用区域自身运动；真实武器轨迹继续由调用方计算接触刀段。
+        public Vector3 Motion;
+        public bool HasMotion;
     }
 
     /// <summary>由使用方决定哪些Collider能接触、哪些能遮挡，不要求特定角色组件。</summary>

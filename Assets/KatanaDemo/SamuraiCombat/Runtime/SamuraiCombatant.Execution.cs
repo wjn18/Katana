@@ -12,7 +12,7 @@ namespace OCDesign.Samurai
         public bool CanExecuteTarget(SamuraiCombatant target)
         {
             // 只允许明确的玩家入口；不接入敌人处决玩家或玩家空精状态。
-            if (!isActiveAndEnabled || profile == null || GetComponent<SamuraiPlayerInput>() == null
+            if (!isActiveAndEnabled || profile == null || !profile.executionEnabled || GetComponent<SamuraiPlayerInput>() == null
                 || !CanAct || IsDead || IsHitStopped || profile.executionAction == null
                 || animationDriver == null || !animationDriver.CanPlay(profile.executionAction)
                 || target == null || target == this || target.Team == Team || !target.isActiveAndEnabled
@@ -29,7 +29,7 @@ namespace OCDesign.Samurai
         public SamuraiCombatant FindExecutionTarget()
         {
             var input = GetComponent<SamuraiPlayerInput>();
-            if (input == null) return null;
+            if (input == null || profile == null || !profile.executionEnabled) return null;
             var locked = input.targetLock != null ? input.targetLock.CurrentTarget : null;
             if (CanExecuteTarget(locked)) return locked;
             SamuraiCombatant nearest = null; float distance = float.PositiveInfinity;
@@ -60,6 +60,7 @@ namespace OCDesign.Samurai
         }
         void AdvanceExecution(float dt)
         {
+            if (IsExecuting && (profile == null || !profile.executionEnabled)) { AbortExecution(); return; }
             if (!IsExecuting || dt <= 0f || float.IsNaN(dt) || float.IsInfinity(dt)) return;
             executionElapsed += Mathf.Min(dt, .1f);
             if (executionTarget == null && !executionDamageApplied) { AbortExecution(); return; }

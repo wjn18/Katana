@@ -41,7 +41,7 @@ namespace OCDesign.EditorTools
                 EditorSceneManager.MarkSceneDirty(scene); EditorSceneManager.SaveScene(scene);
             }
             WriteActionReport();
-            Debug.Log("Enemy toughness, stagger resistance and E execution installed. Existing tuning preserved.");
+            Debug.Log("Enemy toughness and stagger resistance installed. Execution remains disabled until dedicated animations are available. Existing tuning preserved.");
         }
         public static bool InitializeProfile(SamuraiCombatProfile profile)
         {
@@ -71,7 +71,7 @@ namespace OCDesign.EditorTools
             }
             if (profile.name == "SamuraiPlayer")
             {
-                profile.executionAction = profile.charged;
+                profile.executionEnabled = false;
                 profile.executionSurfaceRange = 1f;
             }
             profile.toughnessConfigurationVersion = 1;

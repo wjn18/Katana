@@ -31,9 +31,18 @@ namespace OCDesign.Samurai
             public float time;
             public SamuraiHitResult result;
         }
+        struct VolumeGizmo
+        {
+            public SamuraiAttackVolume region;
+            public Vector3 position;
+            public Quaternion rotation;
+            public float phase, time;
+        }
         readonly TrailGizmo[] trailGizmos = new TrailGizmo[256];
         readonly ContactGizmo[] contactGizmos = new ContactGizmo[32];
+        readonly VolumeGizmo[] volumeGizmos = new VolumeGizmo[128];
         int trailGizmoCount, trailGizmoNext, contactGizmoCount, contactGizmoNext;
+        int volumeGizmoCount, volumeGizmoNext;
 #endif
 
         public void Configure(Transform bladeBase, Transform bladeTip, float radius)
@@ -58,6 +67,18 @@ namespace OCDesign.Samurai
         }
 
         [Conditional("UNITY_EDITOR")]
+        public void RecordVolume(SamuraiAttackVolume region, Vector3 position, Quaternion rotation, float phase)
+        {
+#if UNITY_EDITOR
+            if (!showWeaponTrailGizmos || !isActiveAndEnabled) return;
+            volumeGizmos[volumeGizmoNext] = new VolumeGizmo
+            { region = region, position = position, rotation = rotation, phase = phase, time = Time.time };
+            volumeGizmoNext = (volumeGizmoNext + 1) % volumeGizmos.Length;
+            volumeGizmoCount = Mathf.Min(volumeGizmoCount + 1, volumeGizmos.Length);
+#endif
+        }
+
+        [Conditional("UNITY_EDITOR")]
         public void RecordContact(Vector3 point, SamuraiHitResult result)
         {
 #if UNITY_EDITOR
@@ -73,6 +94,7 @@ namespace OCDesign.Samurai
         {
 #if UNITY_EDITOR
             trailGizmoCount = trailGizmoNext = contactGizmoCount = contactGizmoNext = 0;
+            volumeGizmoCount = volumeGizmoNext = 0;
 #endif
         }
 
@@ -104,6 +126,14 @@ namespace OCDesign.Samurai
                 Handles.Label(currentTip + Vector3.up * .06f, "Tip");
 
                 float lifetime = Mathf.Max(.1f, weaponTrailGizmoSeconds);
+                for (int i = 0; i < volumeGizmoCount; i++)
+                {
+                    int index = (volumeGizmoNext - 1 - i + volumeGizmos.Length) % volumeGizmos.Length;
+                    VolumeGizmo sample = volumeGizmos[index];
+                    if (!Application.isPlaying || Time.time - sample.time > lifetime) continue;
+                    Gizmos.color = new Color(.2f, 1f, .65f, i == 0 ? .95f : .10f);
+                    DrawVolume(sample);
+                }
                 for (int i = 0; i < trailGizmoCount; i++)
                 {
                     int index = (trailGizmoNext - 1 - i + trailGizmos.Length) % trailGizmos.Length;
@@ -163,6 +193,51 @@ namespace OCDesign.Samurai
             Gizmos.DrawLine(start - right, end - right);
             Gizmos.DrawLine(start + up, end + up);
             Gizmos.DrawLine(start - up, end - up);
+        }
+
+        static void DrawVolume(VolumeGizmo sample)
+        {
+            var region = sample.region;
+            if (region == null || !region.IsUsable) return;
+            var frame = region.Evaluate(sample.phase);
+            Quaternion rotation = sample.rotation * Quaternion.Euler(0f, frame.yaw, 0f);
+            Vector3 low = sample.position + Vector3.up * (region.minHeight + frame.lift);
+            Vector3 high = sample.position + Vector3.up * (region.maxHeight + frame.lift);
+            if (region.shape == SamuraiAttackVolumeShape.Capsule)
+            {
+                Vector3 direction = rotation * Vector3.forward;
+                Vector3 side = rotation * Vector3.right * region.radius;
+                foreach (Vector3 origin in new[] { low, high })
+                {
+                    Vector3 start = origin + direction * region.innerReach;
+                    Vector3 end = origin + direction * frame.reach;
+                    Handles.color = Gizmos.color;
+                    Handles.DrawWireDisc(start, Vector3.up, region.radius);
+                    Handles.DrawWireDisc(end, Vector3.up, region.radius);
+                    Gizmos.DrawLine(start + side, end + side);
+                    Gizmos.DrawLine(start - side, end - side);
+                }
+                Gizmos.DrawLine(low + direction * frame.reach, high + direction * frame.reach);
+                return;
+            }
+            const int pieces = 12;
+            for (int i = 0; i <= pieces; i++)
+            {
+                float angle = Mathf.Lerp(-region.halfAngle, region.halfAngle, (float)i / pieces);
+                Vector3 direction = rotation * Quaternion.Euler(0, angle, 0) * Vector3.forward;
+                if (i == 0 || i == pieces)
+                {
+                    Gizmos.DrawLine(low + direction * region.innerReach, low + direction * frame.reach);
+                    Gizmos.DrawLine(high + direction * region.innerReach, high + direction * frame.reach);
+                    Gizmos.DrawLine(low + direction * frame.reach, high + direction * frame.reach);
+                }
+                if (i == 0) continue;
+                float previous = Mathf.Lerp(-region.halfAngle, region.halfAngle, (float)(i - 1) / pieces);
+                Vector3 previousDirection = rotation * Quaternion.Euler(0, previous, 0) * Vector3.forward;
+                Gizmos.DrawLine(low + previousDirection * frame.reach, low + direction * frame.reach);
+                Gizmos.DrawLine(high + previousDirection * frame.reach, high + direction * frame.reach);
+                Gizmos.DrawLine(low + previousDirection * region.innerReach, low + direction * region.innerReach);
+            }
         }
 #endif
     }

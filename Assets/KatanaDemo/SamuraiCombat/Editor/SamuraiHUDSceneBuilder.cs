@@ -41,7 +41,7 @@ namespace OCDesign.EditorTools
         public static SamuraiHUDView Build(SamuraiCombatant actor,SamuraiTrainingEnemy enemy,SamuraiPlayerInput input,Camera camera)
         {
             var current=UnityEngine.Object.FindAnyObjectByType<SamuraiHUDView>(FindObjectsInactive.Include);
-            if(current) { current.player=actor;current.enemy=enemy;current.input=input;current.worldCamera=camera;EnsureVitalFeedback(current);SamuraiToughnessSetup.EnsureHud(current);return current; }
+            if(current) { current.player=actor;current.enemy=enemy;current.input=input;current.worldCamera=camera;EnsureVitalFeedback(current);SamuraiToughnessSetup.EnsureHud(current);SamuraiEliteHUDSetup.EnsureHud(current);return current; }
             PrepareArt();
             // 仅删除被替换的旧 HUD 对象，既有角色、相机和环境不重建。
             var old=GameObject.Find("Combat HUD");
@@ -105,6 +105,7 @@ namespace OCDesign.EditorTools
             }
             EnsureVitalFeedback(view);
             SamuraiToughnessSetup.EnsureHud(view);
+            SamuraiEliteHUDSetup.EnsureHud(view);
             Selection.activeGameObject=root;
             return view;
         }
