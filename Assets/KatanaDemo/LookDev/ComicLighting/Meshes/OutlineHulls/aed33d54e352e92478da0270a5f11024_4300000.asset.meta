@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 90e9a4b6bd0098d4c8e71797c731aac1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"9BD1D12B384EFDADF3EBFA9A464AADDF05ABCAD7722FF5726E6611F4D98E7B5D","diagnostics":{"sourceName":"DistantPeak","sourceGuid":"aed33d54e352e92478da0270a5f11024","sourceLocalFileId":4300000,"sourceFingerprint":"9BD1D12B384EFDADF3EBFA9A464AADDF05ABCAD7722FF5726E6611F4D98E7B5D","outlineAssetPath":"Assets/KatanaDemo/LookDev/ComicLighting/Meshes/OutlineHulls/aed33d54e352e92478da0270a5f11024_4300000.asset","reusedCache":false,"vertexCount":24,"triangleCount":8,"positionGroups":6,"coincidentPositionGroups":6,"compatibleGroups":6,"joinedGroups":6,"joinedVertices":24,"sourceNormalSplitGroups":5,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":20,"blendShapeCount":0,"positionTolerance":0.000003000000106112566}}'
+  assetBundleName: 
+  assetBundleVariant: 

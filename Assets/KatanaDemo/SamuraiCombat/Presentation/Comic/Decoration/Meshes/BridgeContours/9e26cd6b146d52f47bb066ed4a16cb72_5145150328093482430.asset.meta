@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 596055570541f144aa9d6c064de5c917
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"38117B880964B7918DFA7019DCA32AB15971F6F68D597F364290DC88950E348C","diagnostics":{"sourceName":"Cap_Left_01_Ochre","sourceGuid":"9e26cd6b146d52f47bb066ed4a16cb72","sourceLocalFileId":5145150328093482430,"sourceFingerprint":"38117B880964B7918DFA7019DCA32AB15971F6F68D597F364290DC88950E348C","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Decoration/Meshes/BridgeContours/9e26cd6b146d52f47bb066ed4a16cb72_5145150328093482430.asset","reusedCache":false,"vertexCount":216,"triangleCount":108,"positionGroups":56,"coincidentPositionGroups":56,"compatibleGroups":56,"joinedGroups":56,"joinedVertices":216,"sourceNormalSplitGroups":56,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":216,"blendShapeCount":0,"positionTolerance":3.468428246833355e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

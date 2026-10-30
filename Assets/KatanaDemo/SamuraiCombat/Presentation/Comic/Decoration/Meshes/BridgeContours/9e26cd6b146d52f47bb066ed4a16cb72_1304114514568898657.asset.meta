@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 3daf05bc378eb374087ece5e6e70377b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"5D4936E3681D4872628FCC60CB239B0F69F1FDEAEA1EE3FA78CDC6A7BF0C29C9","diagnostics":{"sourceName":"Deck_WarmTimber","sourceGuid":"9e26cd6b146d52f47bb066ed4a16cb72","sourceLocalFileId":1304114514568898657,"sourceFingerprint":"5D4936E3681D4872628FCC60CB239B0F69F1FDEAEA1EE3FA78CDC6A7BF0C29C9","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Decoration/Meshes/BridgeContours/9e26cd6b146d52f47bb066ed4a16cb72_1304114514568898657.asset","reusedCache":false,"vertexCount":1728,"triangleCount":1620,"positionGroups":812,"coincidentPositionGroups":812,"compatibleGroups":812,"joinedGroups":812,"joinedVertices":1728,"sourceNormalSplitGroups":812,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":1728,"blendShapeCount":0,"positionTolerance":0.000014851277228444815}}'
+  assetBundleName: 
+  assetBundleVariant: 

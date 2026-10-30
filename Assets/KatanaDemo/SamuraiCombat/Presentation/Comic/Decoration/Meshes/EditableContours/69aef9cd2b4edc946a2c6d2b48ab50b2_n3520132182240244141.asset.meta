@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: fe52625bc6a9c5d41a61bff93fa3ecd6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"A22AB0A15E11D9968865C5C1653998D1B6F7717ECDFEEB5DC2705DE246E6325C","diagnostics":{"sourceName":"Window_Lattice_Continuous","sourceGuid":"69aef9cd2b4edc946a2c6d2b48ab50b2","sourceLocalFileId":-3520132182240244141,"sourceFingerprint":"A22AB0A15E11D9968865C5C1653998D1B6F7717ECDFEEB5DC2705DE246E6325C","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Decoration/Meshes/EditableContours/69aef9cd2b4edc946a2c6d2b48ab50b2_n3520132182240244141.asset","reusedCache":false,"vertexCount":9050,"triangleCount":4574,"positionGroups":2273,"coincidentPositionGroups":2241,"compatibleGroups":2273,"joinedGroups":2241,"joinedVertices":9018,"sourceNormalSplitGroups":2208,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":8952,"blendShapeCount":0,"positionTolerance":0.000003000416654685978}}'
+  assetBundleName: 
+  assetBundleVariant: 

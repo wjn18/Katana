@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 2a2bb17e516e5b3479157ab9efc01883
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"6DD2C3673BD7BB1DEC1B2C2D7FCC0F8BBF227D6653DD1B418D087F551EF0A6A0","diagnostics":{"sourceName":"Geometry_579CF7AD25D177305A93AA","sourceGuid":"b7525c502126f7b4e9921c12782af299","sourceLocalFileId":4300000,"sourceFingerprint":"6DD2C3673BD7BB1DEC1B2C2D7FCC0F8BBF227D6653DD1B418D087F551EF0A6A0","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Decoration/Meshes/EditableContours/b7525c502126f7b4e9921c12782af299_4300000.asset","reusedCache":false,"vertexCount":144,"triangleCount":48,"positionGroups":26,"coincidentPositionGroups":26,"compatibleGroups":26,"joinedGroups":26,"joinedVertices":144,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":120,"blendShapeCount":0,"positionTolerance":0.000006549793852173025}}'
+  assetBundleName: 
+  assetBundleVariant: 

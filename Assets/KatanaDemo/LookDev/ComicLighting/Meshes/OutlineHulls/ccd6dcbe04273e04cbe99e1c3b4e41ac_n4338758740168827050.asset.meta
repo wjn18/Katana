@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 16660dba7ac0e6946ac710193d9722bd
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"90BFCB3B38362C2631F46322A1A243664228FBBBD984297489B2639318D0E620","diagnostics":{"sourceName":"part_9.001","sourceGuid":"ccd6dcbe04273e04cbe99e1c3b4e41ac","sourceLocalFileId":-4338758740168827050,"sourceFingerprint":"90BFCB3B38362C2631F46322A1A243664228FBBBD984297489B2639318D0E620","outlineAssetPath":"Assets/KatanaDemo/LookDev/ComicLighting/Meshes/OutlineHulls/ccd6dcbe04273e04cbe99e1c3b4e41ac_n4338758740168827050.asset","reusedCache":false,"vertexCount":358,"triangleCount":616,"positionGroups":310,"coincidentPositionGroups":46,"compatibleGroups":310,"joinedGroups":46,"joinedVertices":94,"sourceNormalSplitGroups":0,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":325,"blendShapeCount":0,"positionTolerance":3.1508560027759813e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

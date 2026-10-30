@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Elite1_Elite1_Body_Comic
+  m_Shader: {fileID: 4800000, guid: e700348053081554194fa0eed4fa9ceb, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: 3e805baee270c54489c0da3b4f636417, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaClip: 0
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _Feather: 0.028
+    - _LightColorInfluence: 0
+    - _PaperScale: 1
+    - _PaperStrength: 0
+    - _ShadowStrength: 1
+    - _TextureStrength: 1
+    - _Threshold: 0.12
+    m_Colors:
+    - _BaseColor: {r: 1, g: 0.9529412, b: 0.8627451, a: 1}
+    - _ShadowColor: {r: 0.44313726, g: 0.5568628, b: 0.65882355, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

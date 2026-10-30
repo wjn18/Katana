@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: bb0f7097e25cf134b82e5c2a477d2d0e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"EA81F9FD864C6D6BEDFD025AE2ED5D117FC31277A9D716B9D07AB99F8492A4A7","diagnostics":{"sourceName":"Abutment_Lower_Stone","sourceGuid":"9e26cd6b146d52f47bb066ed4a16cb72","sourceLocalFileId":-7068960109990064421,"sourceFingerprint":"EA81F9FD864C6D6BEDFD025AE2ED5D117FC31277A9D716B9D07AB99F8492A4A7","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Decoration/Meshes/BridgeContours/9e26cd6b146d52f47bb066ed4a16cb72_n7068960109990064421.asset","reusedCache":false,"vertexCount":216,"triangleCount":108,"positionGroups":56,"coincidentPositionGroups":56,"compatibleGroups":56,"joinedGroups":56,"joinedVertices":216,"sourceNormalSplitGroups":56,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":216,"blendShapeCount":0,"positionTolerance":0.0000034846093512896914}}'
+  assetBundleName: 
+  assetBundleVariant: 

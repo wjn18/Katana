@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 6a31ac11479f73644a6d8863173f8cde
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"01BA2D40C0A9D6288D4FC46D259677DC7761E8EA799EDECEB6D4C8A1E15170E2","diagnostics":{"sourceName":"Rail_Right_Vermilion","sourceGuid":"9e26cd6b146d52f47bb066ed4a16cb72","sourceLocalFileId":-4274772050383571052,"sourceFingerprint":"01BA2D40C0A9D6288D4FC46D259677DC7761E8EA799EDECEB6D4C8A1E15170E2","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Decoration/Meshes/BridgeContours/9e26cd6b146d52f47bb066ed4a16cb72_n4274772050383571052.asset","reusedCache":false,"vertexCount":6945,"triangleCount":5193,"positionGroups":2588,"coincidentPositionGroups":2588,"compatibleGroups":2588,"joinedGroups":2588,"joinedVertices":6945,"sourceNormalSplitGroups":2588,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":6945,"blendShapeCount":0,"positionTolerance":0.000014476544492936227}}'
+  assetBundleName: 
+  assetBundleVariant: 

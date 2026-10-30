@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CloudSculpture
+  m_Shader: {fileID: 4800000, guid: 05ddce549b8f66a48b6b940021764bd4, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Ints: []
+    m_Floats:
+    - _AOIntensity: 0.65
+    - _BandSoftness: 0.065
+    - _BrushScale: 1.1
+    - _BrushStrength: 0.12
+    - _EdgeBreakup: 0.35
+    - _Exposure: 1
+    - _HighlightStep: 0.84
+    - _LightContrast: 1.15
+    - _LightYawOffset: -100
+    - _LitStep: 0.68
+    - _NormalVariation: 0.2
+    - _ShadeBrushStrength: 0.25
+    - _ShadeStep: 0.24
+    - _UpInfluence: 0.04
+    - _VariationScale: 0.018
+    - _VolumeVariation: 0.25
+    - _WarmLightThreshold: 0.07
+    - _WarmRimPower: 2.4
+    - _WarmRimStrength: 0.82
+    - _WarmRimWidth: 0.74
+    m_Colors:
+    - _CloudEnvelope: {r: 16, g: 27, b: 14, a: 2}
+    - _CrestHeightRange: {r: 2, g: 7, b: 0, a: 0}
+    - _HighlightColor: {r: 1, g: 0.42869055, b: 0.1682694, a: 1}
+    - _LitColor: {r: 0.54901963, g: 0.60784316, b: 0.65882355, a: 1}
+    - _MidColor: {r: 0.36862746, g: 0.44705883, b: 0.5372549, a: 1}
+    - _ShadeColor: {r: 0.22745098, g: 0.32156864, b: 0.42745098, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

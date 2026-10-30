@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 59904d20a57335a46a4cae487ce99b53
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"D3D5CB91FB08518ECD3CEBC0C734870BF4EB7DEBE809C0F6A1FA2662A6EC025A","diagnostics":{"sourceName":"Uchigatana_Smoothed_Blade","sourceGuid":"2c8a41b1782ff7c40a9477990767be72","sourceLocalFileId":-3594120835035211723,"sourceFingerprint":"D3D5CB91FB08518ECD3CEBC0C734870BF4EB7DEBE809C0F6A1FA2662A6EC025A","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Meshes/OutlineHulls/2c8a41b1782ff7c40a9477990767be72_n3594120835035211723.asset","reusedCache":false,"vertexCount":566,"triangleCount":638,"positionGroups":321,"coincidentPositionGroups":223,"compatibleGroups":321,"joinedGroups":223,"joinedVertices":468,"sourceNormalSplitGroups":203,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":558,"blendShapeCount":0,"positionTolerance":6.540843742186553e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

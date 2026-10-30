@@ -1,0 +1,32 @@
+庭院连桥 · 2026-10-29
+
+场景：SamuraiCombat/Scenes/SamuraiCombatDemo.unity。
+桥沿用庭院漫画明暗与描边、暖木桥面、朱红栏杆、蓝灰承重梁和浅色石座，材质大部分复用现有装饰，仅板缝增加独立材质。
+
+位置与通行
+桥跨度14.42米，净宽3米，外宽3.45米。
+上端世界位置(-13.72, 1.367, -1.8)，下端(0.7, 0.02, -1.8)。
+桥面为缓坡，使用连续MeshCollider；左右栏杆各有一个MeshCollider，共3个碰撞体。
+
+层级与细调
+Courtyard dressing / 04 Connecting bridge - 庭院连桥：
+01 Deck - 连续木桥面
+02 Left balustrade - 左侧栏杆
+03 Right balustrade - 右侧栏杆
+04 Supporting beams - 承重梁
+05 Stone abutments - 两端石座
+共20个独立网格，包含12个柱帽与细板缝，可按功能部件分别调整。描边随对应表面；移动整桥请选择连桥根节点。
+
+安装与保留
+菜单OC Design > Samurai Combat > Install Courtyard Bridge。
+仅在SamuraiCombatDemo的Edit模式使用；只补缺失整桥，已有桥保留Transform、材质、启停等全部手调，不自动保存场景。
+原两段短坡道保留在Floor / 03 Connecting passage - 连接通道 / Legacy short ramps - 旧连接坡道（保留关闭），关闭而不删除；不复原用户已调整的坡面。
+
+模型源
+可编辑Blender源：工作区斗笠剑士/模型资源/courtyard-bridge/output/Courtyard_Bridge.blend。
+可复用后台制作脚本：同模块blender/build_courtyard_bridge.py。
+Unity模型：SamuraiCombat/Presentation/Comic/Decoration/Models/Courtyard_Bridge.fbx。
+
+检查记录
+963条地面射线、玩家三路双向过桥、六处侧栏阻挡及普通/精英原尺寸胶囊双向通行通过；原场景对象世界位置保持，最终编译/Shader/Console错误0。已保存场景并恢复Edit；摆拍只临时移动Play中的玩家，Edit站位保持。
+静态桥，无风动、破坏或交互；本次未修改AI寻路、未做正式性能计时。

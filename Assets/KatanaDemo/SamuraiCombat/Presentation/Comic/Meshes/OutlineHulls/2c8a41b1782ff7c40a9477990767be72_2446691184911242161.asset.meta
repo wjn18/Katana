@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 1f1c229ffffeae04caaffea259f9f26b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"DA08348E0BB146163B28A677A0E8B72BCDC4BD06A96F33AF0DC118473AD09460","diagnostics":{"sourceName":"Uchigatana_Handle_Guard_Habaki","sourceGuid":"2c8a41b1782ff7c40a9477990767be72","sourceLocalFileId":2446691184911242161,"sourceFingerprint":"DA08348E0BB146163B28A677A0E8B72BCDC4BD06A96F33AF0DC118473AD09460","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Meshes/OutlineHulls/2c8a41b1782ff7c40a9477990767be72_2446691184911242161.asset","reusedCache":false,"vertexCount":1315,"triangleCount":2084,"positionGroups":1048,"coincidentPositionGroups":230,"compatibleGroups":1048,"joinedGroups":230,"joinedVertices":497,"sourceNormalSplitGroups":204,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":778,"blendShapeCount":0,"positionTolerance":3.854815417980717e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

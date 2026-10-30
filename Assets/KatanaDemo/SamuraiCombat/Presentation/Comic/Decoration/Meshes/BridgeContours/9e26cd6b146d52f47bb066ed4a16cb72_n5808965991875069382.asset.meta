@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: e79cdc44241dd71489b1fb6282f203f8
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"C0A9EFF8ABB94A6D99915796D6C4F82AA1BA3B3FC55BAE1961999502A757D45A","diagnostics":{"sourceName":"Beam_Left_Slate","sourceGuid":"9e26cd6b146d52f47bb066ed4a16cb72","sourceLocalFileId":-5808965991875069382,"sourceFingerprint":"C0A9EFF8ABB94A6D99915796D6C4F82AA1BA3B3FC55BAE1961999502A757D45A","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Decoration/Meshes/BridgeContours/9e26cd6b146d52f47bb066ed4a16cb72_n5808965991875069382.asset","reusedCache":false,"vertexCount":1728,"triangleCount":1620,"positionGroups":812,"coincidentPositionGroups":812,"compatibleGroups":812,"joinedGroups":812,"joinedVertices":1728,"sourceNormalSplitGroups":812,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":1728,"blendShapeCount":0,"positionTolerance":0.000014353098777064588}}'
+  assetBundleName: 
+  assetBundleVariant: 

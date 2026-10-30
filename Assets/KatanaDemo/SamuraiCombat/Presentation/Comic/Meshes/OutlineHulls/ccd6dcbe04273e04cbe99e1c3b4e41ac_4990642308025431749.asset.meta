@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 9c5427224a0c23f408ff3218ad45e692
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"BDE351C7F150F08263096AC3B0BE377CDA972A6A17BB0B9ED2ED11FCE2B785D5","diagnostics":{"sourceName":"part_7.001","sourceGuid":"ccd6dcbe04273e04cbe99e1c3b4e41ac","sourceLocalFileId":4990642308025431749,"sourceFingerprint":"BDE351C7F150F08263096AC3B0BE377CDA972A6A17BB0B9ED2ED11FCE2B785D5","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Meshes/OutlineHulls/ccd6dcbe04273e04cbe99e1c3b4e41ac_4990642308025431749.asset","reusedCache":false,"vertexCount":535,"triangleCount":930,"positionGroups":467,"coincidentPositionGroups":66,"compatibleGroups":467,"joinedGroups":66,"joinedVertices":134,"sourceNormalSplitGroups":0,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":507,"blendShapeCount":0,"positionTolerance":5.034376613366476e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

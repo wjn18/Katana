@@ -1,0 +1,38 @@
+正式战斗场景漫画风格 · 2026-10-29
+
+入口：SamuraiCombat/Scenes/SamuraiCombatDemo.unity，打开后Play。
+原双平台、坡道、围墙、柱体及角色保留，场地使用暖白石面、过滤石板缝、蓝灰墙柱和冷蓝投影；角色继续使用原贴图与动画。
+旧细网格对象保留，场景专用Practice_grid材质通过AlphaClip隐藏其亚像素几何；地面Shader改画经过滤的错缝石板纹，减少远景断点。
+角色、武器和环境使用独立描边壳；主相机为角色与武器提供3渲染像素的尖端补线，建筑保留逐边宽度补偿。
+主相机沿用原环绕功能和参数，增加天空、场景色彩配置与描边，远裁面为500米。角色源Prefab、身体动画、战斗脚本/配置与HUD布局不改。
+
+按功能编辑场景
+Floor保留根节点，原场地组件按上层、下层、连接通道整理；场地内再分地面、围墙与坡面、练习柱和原细网格，原碰撞设置保持。
+Courtyard dressing按上层庭院、下层庭院、远景分区；庭院内按场地装饰、建筑门架、石灯、旗幡、庭园、纹章分类。
+建筑内的每根柱、每扇窗、每只吊灯和牌匾/纹章，以及庭园树石均有功能父节点。选择这些父节点细调，表面与其描边会一起移动；描边子节点已禁Scene点击拾取。
+Decoration/持有装饰模型、材质、分件网格及详细使用说明。三叉纹章和窗棂由Blender制作成连续整体，外环/牌匾独立；其余部件不再跨整院按材质绑成大网格。
+本次墙帽特例按当前各段墙体分别对齐，修复跨两院联动造成的错位；下层及其他装饰已有手动位置保留。
+
+层级Comic presentation下
+Comic neutral grading提供本场景中性色彩覆盖，不改共享URP/Graphics/Quality；原战斗专用高优先级反馈继续有效。
+Painted density clouds为6组远处云盒，围绕双平台布置，共用3份三维密度纹理。本目录云材质使用128视线/8光线采样；样板原材质仍为160/10。
+云使用蓝灰色块、橙色透光和固定三维笔触，静态，无额外空间雾层。只计算云自身透光，没有地面云影、天气/风动画、跨云盒投影或精确穿云深度合成。
+
+调参
+Materials/Warm_paving.mat：地面亮暗配色与大块表面变化。
+Materials/Indigo_stone.mat：墙柱亮暗配色；Practice_grid.mat：旧细网格隐藏材质。
+Actor_*.mat：原角色和武器材质的场景专用派生，不改原贴图。
+Ink.mat / Ink_Architecture.mat：角色与建筑描边。
+CloudVolume_41/78/115.mat：云颜色、密度和采样；层级中的云盒Transform控制构图。
+Decoration/Materials：装饰配色。相同装饰几何共享网格，实例Transform可独立调整。
+分件增加Renderer数量，装饰标记了构建静态合批；标记不等于编辑器已合批。云取样、描边与分件均有绘制开销，未作正式帧时、移动端或所有图形API性能验收。
+
+维护
+漫画表现菜单：OC Design > Samurai Combat > Install Comic Presentation In Current Scene。
+仅在正式场景Edit模式补缺失对象/引用，不重建战斗、不自动保存，不覆盖已有材质、云Transform、相机设置或关闭状态；装饰子树和描边Renderer由各自工具维护，不递归加描边。
+装饰层级菜单：OC Design > Samurai Combat > Organize And Refine Courtyard；原Decorate Existing Courtyard菜单仍可用。首次迁移旧装饰，已有可调结构仅补缺失整组，保留组内细调；详见Decoration/使用说明.txt。
+全新首次安装的调色模板由Editor工具读取LookDev；共享Shader、运行组件和密度纹理归Rendering/ComicLighting。
+
+既有记录
+首次漫画接入的预览归工作区斗笠剑士/图片资源/模型预览/comic-lighting/combat-integration-20261029/，记录归整理记录/战斗场景漫画风格接入-20261029.json。
+早期整组装饰预览与记录归comic-lighting/courtyard-decoration-20261029/和整理记录/练武场庭院装饰-20261029.json；旧版数量、依赖与通过数不作为本次分件版本的统计。

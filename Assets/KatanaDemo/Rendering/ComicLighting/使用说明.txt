@@ -1,0 +1,12 @@
+漫画渲染共享资源 · 2026-10-29
+
+本目录由漫画光影样板与正式 SamuraiCombatDemo 共用。
+Shaders：Surface、Outline、屏幕尖端补线、CloudVolume、CloudBackdrop。
+Runtime：ComicScreenOutline 仅作用于显式指定相机；ComicContourFollower 仅同步描边显隐、蒙皮包围盒与 BlendShape，不改变角色动作。
+Textures/CloudDensity：三份128×192×112 RGBA32单mip Texture3D，原始GPU数据合计31.5 MiB；当前保留CPU可读副本，另约31.5 MiB。
+Editor/ComicOutlineHullFactory：生成只改法线的描边网格；调用方可指定缓存目录，源网格不改。
+
+共享资源从 LookDev 以保留 .meta/GUID 的方式迁入，样板已有引用继续有效。
+样板的材质、历史云、预览控制与场景仍在 LookDev/ComicLighting。
+正式场景自己的材质、描边网格与调参说明在 SamuraiCombat/Presentation/Comic；运行依赖不进入 LookDev、Tests 或临时目录。
+共享着色器名称保持原值，命名空间保留兼容性；不要按旧路径重新生成第二份密度纹理。

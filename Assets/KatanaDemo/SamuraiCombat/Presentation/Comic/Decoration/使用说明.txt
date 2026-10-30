@@ -1,0 +1,32 @@
+练武庭院装饰与分件编辑 · 2026-10-29
+
+入口：SamuraiCombat/Scenes/SamuraiCombatDemo.unity。
+场景保留原平台、坡道、围墙、柱体和角色碰撞；本模块负责静态装饰，不增加灯光、碰撞或玩法。
+
+层级与选择
+Floor保留为根，其下按上层场地、下层场地、连接通道分组，场地内再分地面、围墙与坡面、练习柱、原细网格。
+Courtyard dressing按上层庭院、下层庭院、远景分区；庭院内再分场地装饰、建筑与门架、石灯、旗幡、庭园、地面纹章。
+每座殿阁和门架都有独立父节点，其Editable components - 可调部件内可分别选择屋顶、梁柱、每扇纸窗、每只吊灯、牌匾和纹章。石灯按座、柱、灯室、屋檐细分；庭园按地基、散石、树干、分枝、叶簇细分。
+优先选择带功能名称的部件父节点移动、旋转、缩放或关闭；调整整座建筑时选择建筑父节点。
+Surface是对应材质的表面，Comic ink contour是其直接子节点，随父部件一起调整。描边已关闭Scene视图点击拾取；不要单独搬走描边或把它集中到公共文件夹。
+
+网格与材质
+Materials保存装饰配色；Meshes/Shapes为基础形体，Editable为可调部件网格，EditableContours为对应描边网格。
+相同几何部件共享网格。Transform调整只影响当前实例；若需修改某个实例的网格形状，应先复制该网格资产。
+Models/Courtyard_Refined.fbx持有Blender制作的一体三叉纹章Crest_Continuous和一体窗棂Window_Lattice_Continuous，使用真实连续拓扑消除交叠处内轮廓。三叉外环与门额牌匾仍为独立可调部件；这类连续模型不能用简单CombineMeshes代替。
+可编辑Blender源：工作区斗笠剑士/模型资源/courtyard-refinement/output/Courtyard_Refined.blend。
+Unity模型：Katana/Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Decoration/Models/Courtyard_Refined.fbx。
+灯笼使用暖色纸面材质，不另加实时灯；沿用正式漫画Surface/Outline Shader和原光照。
+细窗棂使用Ink_Detail.mat的窄几何描边，避免粗壳在凹角挤出黑刺；实际游戏相机继续提供屏幕像素轮廓补线。
+
+维护
+菜单OC Design > Samurai Combat > Organize And Refine Courtyard。
+原Decorate Existing Courtyard菜单仍调用同一方法。仅正式场景Edit模式使用，不自动保存、不重建战斗。
+旧装饰首次执行时迁移为分件层级；已有可调结构仅补缺失整组，不重建组内子部件，保留既有Transform、材质和启停细调。原战斗安装器不负责本装饰。
+本次墙帽按各自当前墙体/柱体分别对齐，修复原合并墙帽跨两院一起移动造成的错位；下层手动横移约12.4米的位置保留，其余装饰手调位置随迁移保留。
+当前保留用户删除下层West Wall及原描边、调整连接坡面South Wall (4)的结果；West Wall - 独立压顶保留于新层级但关闭，重装不会恢复已删除的原墙体或开启该关闭墙帽。
+
+范围与性能
+角色模型、动画、源Prefab、战斗配置及原碰撞设置不改。石灯、旗幡、树叶均静态，无风动、落叶、破坏或交互。
+分件便于细调，也增加Renderer数量。相同部件共享网格，并标记构建静态合批；这不等于编辑器已完成合批，仍未做正式构建的帧时/GPU性能验收。
+早期整组按材质合并版本的统计、预览和验证记录位于comic-lighting/courtyard-decoration-20261029及整理记录/练武场庭院装饰-20261029.json，仅作旧版记录，不代表本次分件版本的统计。

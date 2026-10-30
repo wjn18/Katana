@@ -1,0 +1,88 @@
+漫画光影庭院与真实3D密度云样板 · 2026-10-29
+
+用途
+用户明确要求新建的独立光影场景，用于查看暖白亮面、冷蓝投影、简化明暗和墨线轮廓。
+这里保留独立美术方向预览；正式SamuraiCombatDemo已于2026-10-29接入同套漫画渲染及密度云，其场景专用资源位于SamuraiCombat/Presentation/Comic。这里的环境仍是简化庭院。
+当前天空沿用户选定的 Cloud Paint V2 方向及最新蓝灰厚云、桃橙透光参考制作，是本项目原创的 Unity 试样；没有购买该插件或移植其原作实现。
+云自身采用真实三维密度与 raymarch 积分，可从不同视角查看体积和透光，受光随主方向光变化。没有增加参考2那种独立远近雾层，也不是AI图片贴在云片上。
+这是静态美术预览资源，不代表与参考图完全相同，尚未制作天气或风动画。
+
+入口
+场景：Assets/KatanaDemo/LookDev/ComicLighting/Scenes/ComicLightingCourtyard.unity
+菜单：OC Design > LookDev > Open Comic Lighting Courtyard
+打开场景后点 Play，再点 Game 画面获得键鼠焦点。
+如另一个聊天正在操作同一个 Unity，请先协调使用时段，避免同时开关 Play 或切换场景。
+
+操作
+右键拖动：环绕；滚轮：远近；WASD：平移；Q/E：升降；Shift：加速。
+1：庭院全景；2：角色近景；3：光影俯览；L：旋转/停止太阳；R：复位；H：隐藏提示。
+
+调参
+选 03 Sun 修改旋转可改变阴影方向。低档软阴影用于减轻硬边锯齿。
+Materials 中的 Surface 材质：Sunlit palette 为亮面色，Shadow palette 为暗面色。
+Light boundary 与 Light boundary softness 控制自身明暗分界与过渡。
+建筑使用 Ink_Architecture.mat，World-space width 为 0.022 米，Minimum projected width 为 3 个渲染像素。
+建筑盒体按每条可见轮廓边的屏幕垂直方向分别补偿，再求交点外扩，修正宽扁构件横粗竖细的问题。
+混合规则保持：每条边取原世界外扩投影厚度与3像素的较大值；近处保留透视变化，远处保底。
+远景盒体使用 Distant_ink_Architecture.mat，保留 0.12 米世界宽和3像素下限。
+Ink.mat（角色）及 Distant_ink.mat（非盒远山）保留世界尺寸反壳，尖端补线见下方修复说明；恢复纯世界尺寸时，需同时将材质像素下限设为0并停用预览相机上的 ComicScreenOutline。
+Centered box edge-aware width 仅用于中心位于原点的盒体轮廓网格，不可直接用于角色或任意模型。
+极端掠视角和近裁面处会限制尖角外扩；模型内部折线与同平面接缝仍需独立表达。
+Courtyard_paving.mat 单独启用世界坐标石板缝；缝只作轻微变暗，不影响主光投影。
+当前3D密度云：Assets/KatanaDemo/Rendering/ComicLighting/Shaders/ComicCloudVolume.shader，场景根组为 08  Painted density cloud wall，包含3个使用单位立方体承载的体积云。
+Assets/KatanaDemo/Rendering/ComicLighting/Textures/CloudDensity/CloudDensity_41.asset、CloudDensity_78.asset、CloudDensity_115.asset 为3份128×192×112 RGBA32 Texture3D；R存密度、G存固定物体空间绘画笔触、B存高度，A为1。
+三份纹理不含mipmap，GPU原始纹理数据合计约31.5 MiB；当前IsReadable开启，CPU副本另约31.5 MiB，均不含运行开销和其他场景资源。
+对应材质为 Materials/CloudVolume_41.mat、CloudVolume_78.mat、CloudVolume_115.mat。当前暗面 #334D68、中面 #657B92、亮面 #A5AFB9；HDR暖色显示目标为 #FFAF72，以线性颜色存储。
+普通Color属性由Unity处理颜色空间；脚本设置HDR暖色时使用目标色的 .linear 值，避免将sRGB数值直接当作线性亮度导致发白。
+当前材质 View ray samples=160、Light ray samples=10、DensityScale=1.2、Extinction=.42、LightExtinction=.095、WarmStrength=1.15、LightYawOffset=-100、BandStrength=.22。
+DensityEdgeSharpness=2 收紧密度边缘，ErosionStrength=.16 / ErosionScale=24 在皮层加入两尺度物体空间侵蚀；内部不侵蚀，主视线和向光采样使用同一密度场。
+SurfaceBrushStrength=.08 在累计不透明度约.25处定位可见云层，积分结束后再叠三档明暗笔触，避免笔触被深度平均；原BrushStrength=.10仅作弱体积调制。
+当前主云盒Density cloud 2的局部Scale为(185,195,130)、局部Y为54；两侧Density cloud 1为(132,112,108)、Y=-2，Density cloud 3为(136,115,110)、Y=0。
+体积步长按世界米计算，非均匀缩放后仍保持尺度关系；外部视角、相机进入云盒和正交相机均有射线分支。实际完整云中游览体验仍需专项验证。
+背景使用 Assets/KatanaDemo/Rendering/ComicLighting/Shaders/ComicCloudBackdrop.shader 与 Materials/CloudBackdrop.mat，提供 #173F59 到 #5D8299 的清朗深蓝渐变，Exposure=1，不绘制云图案。
+云材质读取现有主光方向，以 LightYawOffset=-100° 偏移云的受光方位；设为0可跟随原太阳方位，LightDirection非零时可指定朝向光源的世界方向。
+太阳、环境光与庭院照明保持；云体仅计算自身向光透射，不向庭院投影。地面亮面 #E7DDDA、石材 #EBE3DD 与原蓝色投影保持。
+当前预览相机 far clip 为350，避免体积盒远面被截断；其余已有相机变换和查看操作保持。
+
+尖端描边修复 · 2026-10-29
+保留原世界尺寸反壳，使用 Assets/KatanaDemo/Rendering/ComicLighting/Editor/ComicOutlineHullFactory.cs 为通用描边生成独立网格副本：只对位置重合且蒙皮权重相容的顶点组计算角度加权法线，修复尖端与硬法线接缝。源网格及表面受光法线不改，派生副本保留位置、索引、UV、绑定姿势、完整骨骼权重和 BlendShape 等非 normal 通道；副本位于 Meshes/OutlineHulls/。
+Assets/KatanaDemo/Rendering/ComicLighting/Runtime/ComicScreenOutline.cs 仅在当前 ComicLightingCourtyard 样板的指定 Game 类型 Base 相机上工作。原模型通过 DrawRenderer 直接参与遮罩，支持当前蒙皮，不做逐帧 CPU BakeMesh；遮罩复用相机深度附件进行硬件可见性测试，以 RG32F（R32G32_SFloat）保存线性深度与覆盖率，再由 Assets/KatanaDemo/Rendering/ComicLighting/Shaders/ComicScreenOutline.shader 作圆盘半径3个渲染像素的外扩及前景深度拒绝合成。
+屏幕补线从原模型可见边界计算，与世界反壳覆盖同一外缘范围，不从已有黑边再向外叠加3像素，因此不会把3像素变成6像素。近景原世界厚度投影大于3像素时仍可保留；这里的3px指 render pixel，显示缩放或渲染分辨率变化后不等于固定屏幕物理像素。建筑 _BoxOutline 分支及其原边法线补偿保持。
+维护菜单：OC Design > LookDev > Repair Sharp Contours，由 Editor/ComicOutlineRepairSetup.cs 提供，仅在样板 Edit 模式下运行。重复安装复用派生网格和已有组件；已有组件的颜色、像素下限、相机引用及启停手调保留。停用 ComicScreenOutline 可关闭屏幕补线，停用对象或其原描边壳时不会额外补线；组件停用、销毁及有效相机切换时反注册或释放临时资源，原反壳继续按自身设置绘制。Assets/KatanaDemo/Rendering/ComicLighting/Shaders/ComicOutline.shader 仍负责世界反壳。
+本轮实拍及纯尖三角像素探针检查覆盖720p/1080p、距离3米/9米，四组尖端外扩均为3像素；前景遮挡测试的10374个像素未出现黑线穿透。26个描边壳使用21个独立派生网格，已核对全部非 normal 通道保持。
+诊断图片与检查报告归工作区 斗笠剑士/图片资源/模型预览/comic-lighting/outline-tip-20261029/，报告文件为 checks.json。上述结论仅覆盖本轮样板与测试；复杂透明表面、XR、MSAA尚未正式专项实测，不代表全部图形API或生产场景已验收。
+
+历史网格云（可选）
+07  Sculpted 3D clouds - flat paint 云组保留为此前的不透明雕塑网格方案，当前关闭。
+Shaders/ComicCloudSurface.shader、Materials/CloudSculpture.mat 与 Meshes/Clouds/ 下的网格资产仍保留供对照，不是当前密度云的渲染依赖。
+历史安装入口为 OC Design > LookDev > Legacy > Install Sculpted Mesh Clouds；已有网格、材质和云组启停保持手调。
+如需对照网格版本，可手动关闭08密度云组并开启07网格云组。
+
+历史全景背景（可选）
+ComicStormSky.mat、Shaders/ComicStormSky.shader 与 Textures/ComicStormSky.png 保留为此前的静态全景方案，已不是新建场景默认天空。
+历史贴图由内置 imagegen 制作，源图1774×887；完整提示词见工作区 斗笠剑士/图片资源/设定图/comic-sumi-lookdev-v1/sky-texture-prompt.txt。
+菜单 OC Design > LookDev > Legacy > Apply Panorama Storm Sky 可主动切换到历史全景背景；材质 Rotation 调整云隙方位，Exposure 只影响该背景。
+该菜单仅切换背景材质；如需查看纯全景版本，应同时停用08密度云组与07网格云组。
+
+06 Pale distant horizon 用浅色低矮远景和低饱和细描边建立地平线；没有添加蓝雾。
+ComicVolume.asset 仅本场景覆盖色调映射、泛光、暗角、景深和运动模糊。
+
+隔离与维护
+三个现有完整角色 Prefab 仅在此场景实例上覆盖材质、待机控制器并停用战斗脚本。
+源 Prefab、模型、贴图、动画、战斗数值、正式场景和共享渲染管线均不由此工具改写。
+Editor/ComicLightingSceneBuilder.cs 用于首次构建；场景存在时拒绝重建，菜单只打开已有场景，保护手调。
+新建样板默认调用 Editor/ComicCloudVolumeSetup.cs 的 Install，采用真实3D密度云；Editor/ComicCloudDensityFactory.cs 生成Texture3D，Assets/KatanaDemo/Rendering/ComicLighting/Shaders/ComicCloudVolume.shader负责密度积分和透射。
+菜单 OC Design > LookDev > Use Painted Density Cloud Wall 仅能在当前样板的 Edit 模式下执行。该菜单明确切换天空方案：开启08密度云组、关闭07历史网格组，并使用CloudBackdrop背景。
+已有根组、材质、纹理和Transform保留手调；已关闭根组也按场景根对象名称识别，不重复创建。此显式切换菜单会改变上述两组启停状态，普通重开场景不会自动调用或重置它们。
+当前密度菜单确保预览相机远裁面至少350；已经手调到更远的值保留。
+历史网格安装器 Editor/ComicCloudSceneSetup.cs 仍保留，已有网格云组、材质与网格不自动覆盖。
+Legacy/Apply Panorama Storm Sky 亦仅在当前样板的 Edit 模式下可用，已有历史天空材质的手调值保留。
+此场景继续属于LookDev独立美术预览。共用Shader、屏幕描边、描边工厂和3密度纹理已保GUID迁至Rendering/ComicLighting；正式战斗不引用本样板场景、材质、预览控制或缓存网格。
+
+预览边界与验证
+本轮交付实机图为 Temp/ComicLightingPreview/cloudwall-20261029/volume-delivery.png，已呈现冷蓝灰云壁与橙色透光；中小翻卷与细碎笔触仍比参考图概括，不代表完成精绘一致复现。
+48个保护文件的哈希已核查全部保持；其余最终检查结果另以独立检查JSON记录。
+尚未进行正式性能计时或移动端测试，当前为预览资源，不作为生产级方案；没有天气或风动画。三份密度云之间没有互相进行体积投影。
+本版未读取场景深度做精确体积合成；相机在云中掠过建筑时的遮挡未实现精确处理，透明盒排序亦有限制。
+当前云盒放在庭院后方，面向天空的普通预览视角可用；不能据此推断复杂穿云、建筑交错和全部极端角度均已验证。
+角色仍保留原贴图的细节密度和原武器白模；本样板不代表完成全项目手绘材质重绘。

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: ff700d574a19c80409e6d6368a7a4528
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"13282E0E822E73A330E99808DD0F5EB6F2D289C002A3B8697BE10ECBF4BD8529","diagnostics":{"sourceName":"Cap_Right_05_Ochre","sourceGuid":"9e26cd6b146d52f47bb066ed4a16cb72","sourceLocalFileId":1854825768246061024,"sourceFingerprint":"13282E0E822E73A330E99808DD0F5EB6F2D289C002A3B8697BE10ECBF4BD8529","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Decoration/Meshes/BridgeContours/9e26cd6b146d52f47bb066ed4a16cb72_1854825768246061024.asset","reusedCache":false,"vertexCount":216,"triangleCount":108,"positionGroups":56,"coincidentPositionGroups":56,"compatibleGroups":56,"joinedGroups":56,"joinedVertices":216,"sourceNormalSplitGroups":56,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":216,"blendShapeCount":0,"positionTolerance":3.468432794306864e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

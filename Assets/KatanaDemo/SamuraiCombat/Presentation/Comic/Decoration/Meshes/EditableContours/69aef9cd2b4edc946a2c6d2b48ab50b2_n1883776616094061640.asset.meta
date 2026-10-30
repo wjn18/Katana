@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: e92877ed71125ad4aad6b9db36e8c621
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"226BB58E33F870D465B9F66A4095172A85DBF783A0CB5B3863EE7BF8E17DECF5","diagnostics":{"sourceName":"Crest_Continuous","sourceGuid":"69aef9cd2b4edc946a2c6d2b48ab50b2","sourceLocalFileId":-1883776616094061640,"sourceFingerprint":"226BB58E33F870D465B9F66A4095172A85DBF783A0CB5B3863EE7BF8E17DECF5","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Decoration/Meshes/EditableContours/69aef9cd2b4edc946a2c6d2b48ab50b2_n1883776616094061640.asset","reusedCache":false,"vertexCount":930,"triangleCount":496,"positionGroups":250,"coincidentPositionGroups":236,"compatibleGroups":250,"joinedGroups":236,"joinedVertices":916,"sourceNormalSplitGroups":216,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":870,"blendShapeCount":0,"positionTolerance":0.0000014600947224607808}}'
+  assetBundleName: 
+  assetBundleVariant: 
