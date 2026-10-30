@@ -37,6 +37,8 @@ namespace OCDesign.Samurai
         bool comboQueued, sprintExhausted;
         bool canRaiseDeflectAtInput;
         bool guardBackhand;
+        string guardContactVisualState;
+        float guardContactVisualUntil = float.NegativeInfinity;
         bool playingKiPulseAnimation;
         SamuraiStanceDefinition kiPulseAnimationStance;
         bool playingStanceTransition;
@@ -143,6 +145,7 @@ namespace OCDesign.Samurai
 
         public void Reset()
         {
+            ClearGuardContactVisual();
             Clock = 0f; dodgeBufferedUntil = float.NegativeInfinity;
             comboQueued = sprintExhausted = false;
             guardBackhand = false;
@@ -159,6 +162,7 @@ namespace OCDesign.Samurai
         }
         public void CancelInput()
         {
+            ClearGuardContactVisual();
             approach.Reset();
             ClearKiPulse();
             comboQueued = false; dodgeBufferedUntil = float.NegativeInfinity;
@@ -277,6 +281,7 @@ namespace OCDesign.Samurai
                     break;
                 default: TickLocomotion(input, move, facing, dt, kiPulseInputTime); break;
             }
+            UpdateGuardContactVisual();
             // 原有攻防闪优先；只在本帧仍可自由行动时消费流转资格。
             if (stanceChangedThisTick && Mode == SamuraiCombatMode.Locomotion) TryPerformFlux();
             if (input.frostMoonFollowUpPressed && Mode == SamuraiCombatMode.Locomotion)
@@ -726,6 +731,32 @@ namespace OCDesign.Samurai
             StaminaInsufficient?.Invoke();
             return false;
         }
+        void PlayGuardContactVisual(string state, AnimationClip clip)
+        {
+            bool restart = guardContactVisualState == state;
+            guardContactVisualState = state;
+            float duration = SamuraiAnimationDriver.ClipDuration(clip);
+            guardContactVisualUntil = Clock + duration;
+            // 只重播原接刀表现；不Enter、不重置状态时间，也不改变行动资格。
+            animation.Play(state, duration, restart);
+        }
+        void ClearGuardContactVisual()
+        {
+            guardContactVisualState = null;
+            guardContactVisualUntil = float.NegativeInfinity;
+        }
+        void UpdateGuardContactVisual()
+        {
+            if (guardContactVisualState == null) return;
+            if (Mode != SamuraiCombatMode.Guard || !defense.GuardHeld)
+            { ClearGuardContactVisual(); return; }
+            if (Clock < guardContactVisualUntil) return;
+            ClearGuardContactVisual();
+            bool useB = guardBackhand && profile.guardB != null && animation.HasState("GuardB");
+            // 保持持防逻辑及其计时，只让接刀片段到期后回到已有持防动画。
+            animation.Play(useB ? "GuardB" : "Guard",
+                SamuraiAnimationDriver.ClipDuration(useB ? profile.guardB : profile.guard));
+        }
         void BeginGuard(bool fresh)
         {
             bool useB = guardBackhand && profile.guardB != null && animation.HasState("GuardB");
@@ -793,6 +824,7 @@ namespace OCDesign.Samurai
         void Enter(SamuraiCombatMode next, string state, float duration, bool immediate = false, float normalizedStart = 0f,
             float transitionSeconds = -1f, bool fullyChargedRelease = false)
         {
+            ClearGuardContactVisual();
             if (next != SamuraiCombatMode.Attack) animation.SetActionPlayback(null, 0f);
             approach.Reset();
             playingKiPulseAnimation = false;
@@ -935,11 +967,22 @@ namespace OCDesign.Samurai
             {
                 var selection = SamuraiGuardReactionSelector.Select(profile, hit, root, guardBackhand);
                 bool available = animation.HasState(selection.StateName);
-                guardBackhand = available && selection.Backhand;
                 string guardState = available ? selection.StateName : "GuardHit";
+                var clip = available ? selection.Clip : profile.guardHit;
+                if (Toughness.Enabled && Toughness.LastHitResisted)
+                {
+                    // 已有反应状态保持原截止；普通持防抗住时仅补接触表现。
+                    if (Mode == SamuraiCombatMode.Guard)
+                    {
+                        guardBackhand = available && selection.Backhand;
+                        PlayGuardContactVisual(guardState, clip);
+                    }
+                    return;
+                }
+                guardBackhand = available && selection.Backhand;
                 bool restart = profile.directionalHitReactionsEnabled && Mode == SamuraiCombatMode.GuardHit && StateName == guardState;
                 Enter(SamuraiCombatMode.GuardHit, guardState,
-                    SamuraiAnimationDriver.ClipDuration(available ? selection.Clip : profile.guardHit), restart);
+                    SamuraiAnimationDriver.ClipDuration(clip), restart);
                 return;
             }
             guardBackhand = false;

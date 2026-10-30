@@ -63,7 +63,7 @@ namespace OCDesign.Samurai
                 {
                     bool broken = toughness.Contact(hit, now, toughnessReaction.ActionStaggerResistance, true);
                     if (broken) { toughnessReaction.ReactToToughnessBreak(); return SamuraiHitResult.GuardBroken; }
-                    if (!attackGuard && !toughness.LastHitResisted) ReactToGuard(false, hit);
+                    if (!attackGuard) ReactToGuard(false, hit);
                     return SamuraiHitResult.Blocked;
                 }
                 vitals.Spend(hit.StaminaDamage, now);

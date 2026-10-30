@@ -31,9 +31,13 @@ namespace OCDesign.Samurai
                 ? Mathf.Max(profile.deflectActiveSeconds, profile.deflectMissCooldownSeconds)
                 : Mathf.Max(profile.parryActiveSeconds, profile.parryCooldownSeconds));
         }
-        public bool WindowOpen(float now, bool guardState) => GuardHeld && guardState && !consumed
-            && now >= raisedAt && now - raisedAt < Mathf.Max(.01f,
-                profile.deflectEnabled ? profile.deflectActiveSeconds : profile.parryActiveSeconds);
+        public bool WindowOpen(float now, bool guardState)
+        {
+            float activeSeconds = profile.deflectEnabled ? profile.deflectActiveSeconds : profile.parryActiveSeconds;
+            if (!(activeSeconds > 0f)) return false;
+            return GuardHeld && guardState && !consumed && now >= raisedAt
+                && now - raisedAt < Mathf.Max(.01f, activeSeconds);
+        }
         public float CooldownRemaining(float now) => Mathf.Max(0f, readyAt - now);
         public void ConsumeWindow()
         {
