@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: fffe03f2e1b8b8546b229819c1eea11b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"85E050AA841742AB8FFDE20862145DDADB65F5AFDBCF6ABE216889DDE529AD67","diagnostics":{"sourceName":"GrandHall_13_ColumnBases_Stone","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":6362330062589759609,"sourceFingerprint":"85E050AA841742AB8FFDE20862145DDADB65F5AFDBCF6ABE216889DDE529AD67","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_6362330062589759609.asset","reusedCache":false,"vertexCount":672,"triangleCount":308,"positionGroups":168,"coincidentPositionGroups":168,"compatibleGroups":168,"joinedGroups":168,"joinedVertices":672,"sourceNormalSplitGroups":168,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":672,"blendShapeCount":0,"positionTolerance":0.000015370049368357286}}'
+  assetBundleName: 
+  assetBundleVariant: 

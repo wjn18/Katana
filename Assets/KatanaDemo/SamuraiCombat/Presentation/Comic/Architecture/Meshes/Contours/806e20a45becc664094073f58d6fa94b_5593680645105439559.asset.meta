@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 0d2d94143ce47c64c84ca8b8e1150cb5
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"911D3E23A20DD8DCCBBD5EECCC7B504972836F2166D99543DCF6BA3AE07AB3EB","diagnostics":{"sourceName":"Storehouse_19_EaveBlock2.05_-1.75_Timber","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":5593680645105439559,"sourceFingerprint":"911D3E23A20DD8DCCBBD5EECCC7B504972836F2166D99543DCF6BA3AE07AB3EB","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_5593680645105439559.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":6.406247621271177e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

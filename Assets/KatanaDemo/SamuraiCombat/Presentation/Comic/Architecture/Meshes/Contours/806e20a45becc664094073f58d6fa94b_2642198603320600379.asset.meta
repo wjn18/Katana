@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 11f41ac19d03a9a46b6289f05e4bde43
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"3599B5177C072A1FDD0E91F4113F2A7E01278E09DD12A0B7A37CF8A64B9F7872","diagnostics":{"sourceName":"Storehouse_01_Foundation_Slate","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":2642198603320600379,"sourceFingerprint":"3599B5177C072A1FDD0E91F4113F2A7E01278E09DD12A0B7A37CF8A64B9F7872","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_2642198603320600379.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.000006470054358942434}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 22a5f69375ad2aa4e8295cc885ec8f07
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"46004D6F27AE3CA9348662893A2067CEC7B65615686EB7D9C845DBB15E846E76","diagnostics":{"sourceName":"GrandHall_01_Foundation_Slate","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":-7529286558905848538,"sourceFingerprint":"46004D6F27AE3CA9348662893A2067CEC7B65615686EB7D9C845DBB15E846E76","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_n7529286558905848538.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.000018947361240861937}}'
+  assetBundleName: 
+  assetBundleVariant: 

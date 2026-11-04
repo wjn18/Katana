@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: dcdd50c42d5af5d4db560249b9f47e8b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"7039F542272ED3577614A8644053A07AA866F5D3C0D3B26981FE1E6B446CEE60","diagnostics":{"sourceName":"Pavilion_17_RidgeFin-1_Red","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-8321408575848122380,"sourceFingerprint":"7039F542272ED3577614A8644053A07AA866F5D3C0D3B26981FE1E6B446CEE60","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n8321408575848122380.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":3.5284568866700283e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 1a6d238da2961b648a846a67a019d233
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"8FBF673B57851BB572D4E8CC347041660F1D53E61259414BD5C5CFAA662CBCCA","diagnostics":{"sourceName":"Pavilion_08_BackBeam_Red","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":5929098391240834777,"sourceFingerprint":"8FBF673B57851BB572D4E8CC347041660F1D53E61259414BD5C5CFAA662CBCCA","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_5929098391240834777.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.0000049648865569906775}}'
+  assetBundleName: 
+  assetBundleVariant: 

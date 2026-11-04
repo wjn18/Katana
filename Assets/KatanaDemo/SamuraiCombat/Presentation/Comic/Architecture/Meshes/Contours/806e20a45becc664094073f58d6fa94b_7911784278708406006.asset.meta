@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 72e875631879baf4583d38f1007eb99a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"C5EE811BFBCC4C279A64219E9B92F2E06489FCC2F2A8B8DAD76E08159CC064A6","diagnostics":{"sourceName":"Residence_04_BackWall_Plaster","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":7911784278708406006,"sourceFingerprint":"C5EE811BFBCC4C279A64219E9B92F2E06489FCC2F2A8B8DAD76E08159CC064A6","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_7911784278708406006.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.000008649092706036754}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 221b6f6e5b59e454188c13c623463495
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"7D44AD0DACECD3D5AA9730F76FA06834ABE7434FF0513F4C8ECCE0B36AF1FC6F","diagnostics":{"sourceName":"GrandHall_28_LeftGable_Plaster","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":1102249970525862898,"sourceFingerprint":"7D44AD0DACECD3D5AA9730F76FA06834ABE7434FF0513F4C8ECCE0B36AF1FC6F","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_1102249970525862898.asset","reusedCache":false,"vertexCount":184,"triangleCount":104,"positionGroups":54,"coincidentPositionGroups":54,"compatibleGroups":54,"joinedGroups":54,"joinedVertices":184,"sourceNormalSplitGroups":54,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":184,"blendShapeCount":0,"positionTolerance":0.000004458154307940276}}'
+  assetBundleName: 
+  assetBundleVariant: 

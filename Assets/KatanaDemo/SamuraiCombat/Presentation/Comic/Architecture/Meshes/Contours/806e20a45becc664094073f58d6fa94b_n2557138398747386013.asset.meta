@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 41ec81ad44047a44db0beae3b6ac9582
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"FB06EF46119495531788ABC02DF585474115EC251D332E1BD85AD983BF5C2354","diagnostics":{"sourceName":"Residence_13_FrontPanel1_Plaster","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-2557138398747386013,"sourceFingerprint":"FB06EF46119495531788ABC02DF585474115EC251D332E1BD85AD983BF5C2354","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n2557138398747386013.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.000003644722028184333}}'
+  assetBundleName: 
+  assetBundleVariant: 

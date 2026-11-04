@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: a694afa1382ee3c4d90847600516667d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"7E26F1D6EB41E0D6B9CBAE948DFB4C02D868DBA2B6FC8EE741809B8DD06727AC","diagnostics":{"sourceName":"GrandHall_27_UpperClerestory_Timber","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":4911900704208656217,"sourceFingerprint":"7E26F1D6EB41E0D6B9CBAE948DFB4C02D868DBA2B6FC8EE741809B8DD06727AC","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_4911900704208656217.asset","reusedCache":false,"vertexCount":192,"triangleCount":88,"positionGroups":48,"coincidentPositionGroups":48,"compatibleGroups":48,"joinedGroups":48,"joinedVertices":192,"sourceNormalSplitGroups":48,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":192,"blendShapeCount":0,"positionTolerance":0.000015412657376145944}}'
+  assetBundleName: 
+  assetBundleVariant: 

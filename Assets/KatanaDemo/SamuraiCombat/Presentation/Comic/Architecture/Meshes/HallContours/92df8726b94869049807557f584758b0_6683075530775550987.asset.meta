@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: caed30e1e96644c4d80555f64eb13dfb
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"9F12CD238E5243C80B19BC744985489F8D77F9F72F6CE211DD4FBC0E0432EC9F","diagnostics":{"sourceName":"GrandHall_29_LeftGableBarge_Timber","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":6683075530775550987,"sourceFingerprint":"9F12CD238E5243C80B19BC744985489F8D77F9F72F6CE211DD4FBC0E0432EC9F","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_6683075530775550987.asset","reusedCache":false,"vertexCount":272,"triangleCount":164,"positionGroups":84,"coincidentPositionGroups":84,"compatibleGroups":84,"joinedGroups":84,"joinedVertices":272,"sourceNormalSplitGroups":84,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":272,"blendShapeCount":0,"positionTolerance":0.0000044516209527500905}}'
+  assetBundleName: 
+  assetBundleVariant: 

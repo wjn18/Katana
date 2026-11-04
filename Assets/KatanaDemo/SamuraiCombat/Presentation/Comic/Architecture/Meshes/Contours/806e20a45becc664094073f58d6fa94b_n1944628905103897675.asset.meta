@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 6fc73431ad9d3a6439bdb77e71d31c41
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"51F74CC5B3E35878F0D3688783D9F7079F19EF6D833C8D9BFCA41D6960BB45D1","diagnostics":{"sourceName":"Pavilion_09_SideBeam-1_Timber","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-1944628905103897675,"sourceFingerprint":"51F74CC5B3E35878F0D3688783D9F7079F19EF6D833C8D9BFCA41D6960BB45D1","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n1944628905103897675.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.000003819371613644762}}'
+  assetBundleName: 
+  assetBundleVariant: 

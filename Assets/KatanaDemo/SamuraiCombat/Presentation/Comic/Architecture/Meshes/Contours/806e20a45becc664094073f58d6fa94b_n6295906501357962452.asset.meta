@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 4c827e06b880f69498295c8fdfec799a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"8A6400C938FB03E96FFAEFFF8BFAE3F5BF4F98D974D43EFD9A79A9EAA9B96E69","diagnostics":{"sourceName":"Residence_18_MainRoof_Roof","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-6295906501357962452,"sourceFingerprint":"8A6400C938FB03E96FFAEFFF8BFAE3F5BF4F98D974D43EFD9A79A9EAA9B96E69","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n6295906501357962452.asset","reusedCache":false,"vertexCount":496,"triangleCount":392,"positionGroups":198,"coincidentPositionGroups":174,"compatibleGroups":198,"joinedGroups":174,"joinedVertices":472,"sourceNormalSplitGroups":174,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":496,"blendShapeCount":0,"positionTolerance":0.00001281777167605469}}'
+  assetBundleName: 
+  assetBundleVariant: 

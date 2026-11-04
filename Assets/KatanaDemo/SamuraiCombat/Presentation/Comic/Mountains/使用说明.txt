@@ -1,0 +1,26 @@
+当前山体表面已改为连续岩层和顺坡植被，取代旧面块分色；实际3份Rock_Strata材质、定向菜单及调参见RockStyle使用说明.txt。下文地形/层级/碰撞规则保持。
+
+山岳庭院 · 2026-11-03
+
+已保存场景：SamuraiCombat/Scenes/SamuraiCombatDemo.unity。
+两庭院落在有层理的岩峰上，桥下深涧，外围三层山脊、山腰松林、落石和谷底溪流构成完整山地。继续用原漫画Shader、窄明暗过渡与墨线，松树/木干直接复用庭院材质；远山逐层降低对比并偏蓝灰。
+
+层级：Courtyard dressing / 05 Mountain environment - 山岳环境。
+01 Summit crags：两庭承托岩峰，含碰撞；按庭院选上峰/下峰可独立调整。
+02 Inner ridges、03 Encircling ranges、04 Distant ranges：近山、环绕山岭、远山。
+05 Ravine stream：谷底静态水面。
+06 Pine groves：上庭/下庭山松及山腰林。
+07 Talus stones：山脚落石；08 Summit outcrops：山顶风化石。
+表面下的Comic ink contour跟随该部件，Scene拾取关闭。远山分区共享接边，整体调整一层可保持地形连续；单独移动一块后应检查接边。移动庭院时需一并调整其承托岩峰和外圈树园。
+
+菜单：OC Design > Samurai Combat > Install Mountain Courtyard Surroundings。
+只在正式场景Edit使用；已有整组不覆盖Transform/材质/启停等手调，不自动保存。原Quiet northern peaks保留关闭作为历史；首次安装将Main Camera farClip500扩展为1050，以完整呈现远山，后续重装不改用户相机。
+
+来源：工作区斗笠剑士/模型资源/courtyard-mountains/output/Mountain_Courtyard.blend。
+后台重建：同模块blender/build_mountain_courtyard.py。只允许运行独立后台Blender，不修改交互现场；布局和几何以当前庭院位置制作，重建前请保留你后续手调。
+Unity模型：Models/Mountain_Courtyard.fbx；Mountain_layout.json保存材质槽和植被/落石初值，运行场景无生成脚本依赖。
+
+检查：原1982个对象世界矩阵保持；882地面射线高度零变化；独立PreviewScene复制18个静态碰撞并用玩家原胶囊进行三路双向过桥，主场景和角色不参与模拟。133表面/18描边，新增2个岩峰碰撞、0运行脚本；重复安装不产生变化。
+仅近峰是碰撞实地，远山/植被/溪流用于场景表现；无新增寻路、流水或天气系统，未做正式GPU/构建性能计时。原共享云保留既有跨盒/深度合成限制。
+
+树木/落石的初始Y会在安装时对实际地形网格作射线贴合并轻微埋入地表；临时用于贴合的远山碰撞在安装结束移除，运行仍只有2个近峰碰撞。已有整组重装不再次贴合，以保留后续手调。

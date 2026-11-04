@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 7baade2b43844694cb5037887f1ae3b6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"547740AF477B7AB70AF1E58B3B81FFB42CFFA2179E7FBE013A482A5BF7D4BA35","diagnostics":{"sourceName":"Pavilion_18a_ApproachStepUpper_Stone","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":4692904188135258779,"sourceFingerprint":"547740AF477B7AB70AF1E58B3B81FFB42CFFA2179E7FBE013A482A5BF7D4BA35","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_4692904188135258779.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.0000026878428798227105}}'
+  assetBundleName: 
+  assetBundleVariant: 

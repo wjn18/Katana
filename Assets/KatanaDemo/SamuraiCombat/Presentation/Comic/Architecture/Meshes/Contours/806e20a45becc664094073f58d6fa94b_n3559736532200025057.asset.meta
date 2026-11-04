@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: a83c5e160449996499f0185f53180082
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"499BE71AD18DF95F288A1B7BC6EE45EB3A64C9D7F24616C07501195DCC336AED","diagnostics":{"sourceName":"Residence_02_Platform_Stone","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-3559736532200025057,"sourceFingerprint":"499BE71AD18DF95F288A1B7BC6EE45EB3A64C9D7F24616C07501195DCC336AED","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n3559736532200025057.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.000011332227586535737}}'
+  assetBundleName: 
+  assetBundleVariant: 

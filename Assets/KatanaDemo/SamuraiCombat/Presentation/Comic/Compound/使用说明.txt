@@ -1,0 +1,34 @@
+山顶合围院落 · 2026-11-04
+
+当前设计
+两座山顶庭院现在组成一处完整山寺院落：上、下峰外围沿地形围合，以现有连桥及其两侧栏杆相连；深涧不新增悬空长墙。原山门—主台阶—下庭—连桥—上庭主路线和两块战斗地面位置保持。外墙包入大殿、中殿、侧屋、仓房和茶亭，采用浅灰墙、蓝灰厚瓦帽、少量朱红柱圈，与现建筑共享色板。
+70段外墙与73墙柱分段接地、补挡石基；透景窗墙间隔点景。新设两座桥口门和茶庭侧门。桥口保持原桥通行宽度，桥门Y缩放1.5、净高约5.1米，适配4米高/半径1.5米精英胶囊；侧门Y缩放1.3、净高约4.42米。
+原上、下庭北墙各开4.2米殿前通口，上庭南墙开3.8米茶庭侧口。仅原3整墙与3整压顶保留关闭，以分段墙替换；原07 Upper timber frame桥边门架保留关闭。原来手动删除的下层West Wall不重建，新的外围结构单独分组。
+原山门位置与18级台阶、连桥几何完整保留。新殿前石径、茶庭下行阶、仓房外廊缓阶、东园下行阶及窄园径连到各处，避让原景观石床。闭合房屋的门仍为静态关闭，殿前路径止于踏步，不新增室内交互。
+补净手石盆、一对抱鼓石、4盏庭园小石灯及原8盏石灯下的接地石柱。7棵挡外墙的山松作小范围避让，其他原物件位置保持。
+
+Hierarchy细调
+Courtyard dressing/07 Mountain compound - 合围山院：
+01 Upper enclosure：上峰外墙、转角柱、挡脚。
+02 Lower enclosure：下峰外墙、桥口两侧及挡脚。
+03 Inner court access：原风格分段内墙、殿前连接、茶庭阶。
+04 Bridge and garden portals：桥口门、茶庭门。
+05 Garden walks：仓廊平台与缓阶、东园阶及花园石径。
+06 Arrival details：石盆、抱鼓石、庭园灯与接地支座。
+每墙段/墙柱与支座独立可调；描边跟随各自表面并禁止Scene误点。既有房屋Prefab不修改。
+原始整墙、压顶和旧门架仍在原层级关闭，避免双层模型/碰撞。只关闭新合围根不会自动打开旧件；需要回退旧布局时应同时恢复这7个旧组，或恢复场景版本。
+
+可复用资源
+Unity：Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Compound/
+Prefabs内含实墙、透景墙、墙柱、小院门、石盆和左右抱鼓石7种Prefab，根归零/单位缩放，可跨场景拖放。墙沿局部X长4米，建议X缩放约.65..1.8；门通行沿局部Z，源净宽3.6米/净高3.4米，大角色需要对应增高。
+模型唯一为Models/Courtyard_Compound.fbx，26功能网格/2168三角。沿用现有共享材质和屋顶墨材质；若要单独配色，复制材质后赋值。
+可编辑Blender源、builder与网格检查归工作区 斗笠剑士/模型资源/courtyard-compound/。楼梯/小径的连续闭合轮廓与接地石基由Editor builder按当前地形生成，固定资产位于Meshes/Placed。
+菜单 OC Design/Samurai Combat/Enclose Mountain Courtyards，仅正式SamuraiCombatDemo的Edit模式。补缺失的合围整组，已有组全部保留手调，不自动保存场景。参数/默认折线见SamuraiMountainCompoundSetup.cs。无需运行安装器即可复用7类Prefab。
+
+验证与范围
+原2765个Transform路径全部保留：2744世界矩阵保持，21变化仅上述7棵松树及子件；原5演员布局和启停保持，7个已知旧组关闭。2247项既有战斗/角色/建筑Prefab/渲染/设置资产逐字节保持；无新增运行脚本。
+隔离PreviewScene按原玩家胶囊验证主路左中右三线双向、四米精英过桥双向，以及殿前/茶亭/仓房/东园往返，共18条路线通过。外围70墙段/73墙柱胶囊阻挡检查通过。7类Prefab隔离实例化无缺失/项目Editor/Tests/LookDev依赖；26个Blender网格及17个派生轮廓闭合、正体积、无退化或非流形边。Shader/Console错误0，重复安装不变，正式场景已保存回Edit/dirtyfalse。
+园径供玩家通行；精英仅验证两庭桥段，外山门原台阶未扩大。没有重做AI寻路、流水或正式GPU性能计时。
+图：斗笠剑士/图片资源/模型预览/comic-lighting/mountain-compound-20261104/
+简报：斗笠剑士/整理记录/山顶合围院落-20261104.json
+2026-11-04碰撞更新：台阶外观保持，行走采用独立连续斜坡，原阶面碰撞关闭。每处阶/房屋根下Smooth ramp collision - 平滑斜坡碰撞可单独细调；房屋Prefab同步。维护Use Smooth Stair Ramp Collisions只补缺失，已有坡面保手调。完整说明见Unity Presentation/Comic/Collision/StairRamps/使用说明.txt，本条替代旧阶面行走碰撞描述。

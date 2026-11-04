@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: f4d6313b993c5504e8afdccd0dd19c45
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"C12E46EA615550709C41A0C509D6C2DA47069223BE79E7876B40F27284EDBC5F","diagnostics":{"sourceName":"Residence_25_PorchFoot1.63_Stone","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-2795092650784939357,"sourceFingerprint":"C12E46EA615550709C41A0C509D6C2DA47069223BE79E7876B40F27284EDBC5F","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n2795092650784939357.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":5.338537789612019e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

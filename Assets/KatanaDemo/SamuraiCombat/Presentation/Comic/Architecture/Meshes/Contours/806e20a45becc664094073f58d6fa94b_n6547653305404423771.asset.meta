@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: d6653e39210933a42b940722e75daaaf
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"36AADAA77464ED8A629B2C8F7F5371C400AF27415A130929A0D2AC9C2FD453A8","diagnostics":{"sourceName":"Residence_27_PorchStepUpper_Stone","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-6547653305404423771,"sourceFingerprint":"36AADAA77464ED8A629B2C8F7F5371C400AF27415A130929A0D2AC9C2FD453A8","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n6547653305404423771.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.000003550492920112447}}'
+  assetBundleName: 
+  assetBundleVariant: 

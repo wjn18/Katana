@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 340ec1f9bd5daa6468b905c68069ffe7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"104A2FEB81AA0A198F26B92D950754DBCEB97561F96382CCDF9106CBFFB1E1DE","diagnostics":{"sourceName":"Pavilion_20_TeaTableLegs_Timber","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-2608384353663397075,"sourceFingerprint":"104A2FEB81AA0A198F26B92D950754DBCEB97561F96382CCDF9106CBFFB1E1DE","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n2608384353663397075.asset","reusedCache":false,"vertexCount":96,"triangleCount":48,"positionGroups":32,"coincidentPositionGroups":32,"compatibleGroups":32,"joinedGroups":32,"joinedVertices":96,"sourceNormalSplitGroups":32,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.0000013269514056446496}}'
+  assetBundleName: 
+  assetBundleVariant: 

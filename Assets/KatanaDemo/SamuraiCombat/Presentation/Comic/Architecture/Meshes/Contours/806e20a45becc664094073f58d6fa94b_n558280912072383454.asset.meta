@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 0a745515aba60d54f8d5c6ac7f085111
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"110F09AECDD03F7C97F7AAA97FF577B50E22539FF53393C9CED68C98E9E2844C","diagnostics":{"sourceName":"Storehouse_08_UpperBand-1.91_Timber","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-558280912072383454,"sourceFingerprint":"110F09AECDD03F7C97F7AAA97FF577B50E22539FF53393C9CED68C98E9E2844C","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n558280912072383454.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.00000477925732411677}}'
+  assetBundleName: 
+  assetBundleVariant: 

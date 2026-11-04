@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 8f37bb5cc1820a3428b30587f4aea2a2
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"9146E0010CB55E0B1DB535B5A2DADF1D035582592D361BA4916F8127A522A7B0","diagnostics":{"sourceName":"Pavilion_15_HippedRoof_Roof","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":3311464539198326324,"sourceFingerprint":"9146E0010CB55E0B1DB535B5A2DADF1D035582592D361BA4916F8127A522A7B0","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_3311464539198326324.asset","reusedCache":false,"vertexCount":148,"triangleCount":84,"positionGroups":44,"coincidentPositionGroups":44,"compatibleGroups":44,"joinedGroups":44,"joinedVertices":148,"sourceNormalSplitGroups":44,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":148,"blendShapeCount":0,"positionTolerance":0.000008732854439585935}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: e0d0ec47d5182754fbece5524d4e2388
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"F72BDD8ACB7E92A4FBCD8E93DE24A90ED257D0DDA6F2ACCB23787F8C05B3D4F4","diagnostics":{"sourceName":"Residence_15_SlidingScreen1_Backing_Paper","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-3876975539499973978,"sourceFingerprint":"F72BDD8ACB7E92A4FBCD8E93DE24A90ED257D0DDA6F2ACCB23787F8C05B3D4F4","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n3876975539499973978.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.0000033157991765619954}}'
+  assetBundleName: 
+  assetBundleVariant: 

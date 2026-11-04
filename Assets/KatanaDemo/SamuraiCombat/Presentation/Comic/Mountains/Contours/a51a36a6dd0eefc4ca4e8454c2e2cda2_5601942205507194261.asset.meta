@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: eda6693627f9f7e4fa2e18fc93000baf
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"EC2F1AB65455B252E5D339463F01667420CD292AF8032BEDDB28CE0513110863","diagnostics":{"sourceName":"Upper_Sanctuary_Crag","sourceGuid":"a51a36a6dd0eefc4ca4e8454c2e2cda2","sourceLocalFileId":5601942205507194261,"sourceFingerprint":"EC2F1AB65455B252E5D339463F01667420CD292AF8032BEDDB28CE0513110863","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Mountains/Contours/a51a36a6dd0eefc4ca4e8454c2e2cda2_5601942205507194261.asset","reusedCache":false,"vertexCount":6949,"triangleCount":4032,"positionGroups":2018,"coincidentPositionGroups":1731,"compatibleGroups":2018,"joinedGroups":1731,"joinedVertices":6662,"sourceNormalSplitGroups":1731,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":6762,"blendShapeCount":0,"positionTolerance":0.0002787337580230087}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: c14afba616c9552489b9aaf4b4967bd4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"147B35A44D6C6BD97957E3DAACAD0A63299CC556EFA5FDEB10BEAE47BAAE0436","diagnostics":{"sourceName":"GrandHall_32_RidgeEnds_Red","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":-6668290948475351709,"sourceFingerprint":"147B35A44D6C6BD97957E3DAACAD0A63299CC556EFA5FDEB10BEAE47BAAE0436","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_n6668290948475351709.asset","reusedCache":false,"vertexCount":192,"triangleCount":88,"positionGroups":48,"coincidentPositionGroups":48,"compatibleGroups":48,"joinedGroups":48,"joinedVertices":192,"sourceNormalSplitGroups":48,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":192,"blendShapeCount":0,"positionTolerance":0.00001558417352498509}}'
+  assetBundleName: 
+  assetBundleVariant: 

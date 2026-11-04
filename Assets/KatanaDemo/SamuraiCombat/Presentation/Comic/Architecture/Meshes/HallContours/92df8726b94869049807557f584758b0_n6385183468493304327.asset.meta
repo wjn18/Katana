@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: d0f49c1ffeef99849a441f2016e6a5a6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"251E8C1406CF58BB50F507ACE381047F910C2D164DDB1184159172C477AC9133","diagnostics":{"sourceName":"EasternHall_20_LowerWallBelts_Timber","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":-6385183468493304327,"sourceFingerprint":"251E8C1406CF58BB50F507ACE381047F910C2D164DDB1184159172C477AC9133","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_n6385183468493304327.asset","reusedCache":false,"vertexCount":288,"triangleCount":132,"positionGroups":72,"coincidentPositionGroups":72,"compatibleGroups":72,"joinedGroups":72,"joinedVertices":288,"sourceNormalSplitGroups":72,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":288,"blendShapeCount":0,"positionTolerance":0.000011419418115110602}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,23 @@
+原两殿 Blender 精修 · 2026-11-04
+
+当前资源
+沿用同路径、同GUID的 Courtyard_GrandPracticeHall.prefab 和 Courtyard_EasternHall.prefab，场景实例根位置/朝向/缩放及两根fileID保持。原旧两组几何、描边和碰撞已移除，替换为 Refined hall - 精修殿堂 下六类可调功能组。Prefab整体复用入口和另外三类房屋、入口台阶继续沿用。
+大殿：16×6米墙身，19.5×9.5米檐口，6.95米高；连续四坡裙檐配上层山墙主屋顶，77功能件/18544三角。
+中殿：10×5.2米墙身，13.5×8.7米檐口，6.31米高；较低的连续四坡屋面，59功能件/11612三角。
+两者基础最低点均为局部Y=-.545，地坪原点和原石基接合保持。前后/左右立面完整，真窗洞、内退窗纸、深框一体窗棂、门扇与护板、厚檐、托架、椽端、石基和木构适量倒角。仍为静态关闭门房，无开门/进入交互。
+材质继续共享原庭院色板；仅屋顶使用新Hall_roof_ink描边材质(.012米/.75像素、queue1999)，先描边后屋面遮住共面背面碎点，近远景已复核。不要直接换回通用3像素粗墨，否则薄曲面远处可能重新出现碎黑点。
+
+可编辑源
+工作区 斗笠剑士/模型资源/courtyard-architecture/output/Courtyard_RefinedHalls.blend。
+独立builder为同目录上级blender/build_refined_halls.py。运行后输出唯一Unity模型 Architecture/Models/Courtyard_RefinedHalls.fbx。先前Courtyard_Architecture.fbx/.blend与builder完整保持，继续负责侧屋、小仓房、茶亭和台阶。
+
+维护
+菜单 OC Design/Samurai Combat/Refine Original Courtyard Halls，在正式场景Edit模式运行。对已知旧两组几何仅迁移一次；已有Refined hall标记、Prefab手调和自定义描边材质保持。原Install Courtyard Architecture And Stairs入口已接线。
+同路径原位保存Prefab以保留GUID/rootfileID；旧场景尚未连接Prefab时可定向接到新版，未知追加子件、root自定义组件和位姿保留。重复运行零变化，不自动保存场景。
+
+质量检查
+136网格全部闭合、正体积；非流形/法线冲突/重面/退化均0，113单连通、23有意合并的离散装饰件，全部屋面和一体窗框/窗棂单连通。FBX往返最大误差约.0012毫米。Blender前/后侧双角度及Unity前/侧/背/远景已查看。
+两Prefab隔离实例化无缺失网格/材质或项目Editor/Tests/LookDev依赖，无运行脚本；四面封闭射线和两侧纸门射线通过。迁移夹具验证未知子件、root自定义Collider保留，最大世界误差小于.001毫米。2413外部Transform/启停保持，场景文件字节保持，两Prefab根11条override保持且无子override。Shader与Console错误0，收尾Edit、场景dirtyfalse。静态碰撞大殿33/中殿25，未作GPU性能计时。
+精简报告：斗笠剑士/整理记录/原两殿Blender精修-20261104.json
+图片：斗笠剑士/图片资源/模型预览/comic-lighting/refined-halls-20261104/
+2026-11-04碰撞更新：台阶外观保持，行走采用独立连续斜坡，原阶面碰撞关闭。每处阶/房屋根下Smooth ramp collision - 平滑斜坡碰撞可单独细调；房屋Prefab同步。维护Use Smooth Stair Ramp Collisions只补缺失，已有坡面保手调。完整说明见Unity Presentation/Comic/Collision/StairRamps/使用说明.txt，本条替代旧阶面行走碰撞描述。

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 54c343d5e7d83cb478c50d90aaf9de61
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"6DF5B5EC93087CD613BB14F85A2CB98AE0FBA2AC711AF0F608869C9108F952BD","diagnostics":{"sourceName":"GrandHall_07_RightWall_Plaster","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":-165296795251014903,"sourceFingerprint":"6DF5B5EC93087CD613BB14F85A2CB98AE0FBA2AC711AF0F608869C9108F952BD","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_n165296795251014903.asset","reusedCache":false,"vertexCount":384,"triangleCount":244,"positionGroups":120,"coincidentPositionGroups":120,"compatibleGroups":120,"joinedGroups":120,"joinedVertices":384,"sourceNormalSplitGroups":120,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":384,"blendShapeCount":0,"positionTolerance":0.000006915749963809503}}'
+  assetBundleName: 
+  assetBundleVariant: 

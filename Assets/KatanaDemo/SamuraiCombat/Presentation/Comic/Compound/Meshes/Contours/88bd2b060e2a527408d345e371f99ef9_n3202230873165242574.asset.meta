@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 0056d9f5c8ffec1408e5be569385c231
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"9DD670A3473D36E0A5AB59454925C23B3EB14CCB07BA843570EDF3BEF6882CBA","diagnostics":{"sourceName":"Pier_01_StoneBase_Stone","sourceGuid":"88bd2b060e2a527408d345e371f99ef9","sourceLocalFileId":-3202230873165242574,"sourceFingerprint":"9DD670A3473D36E0A5AB59454925C23B3EB14CCB07BA843570EDF3BEF6882CBA","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Compound/Meshes/Contours/88bd2b060e2a527408d345e371f99ef9_n3202230873165242574.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.0000010484750418982003}}'
+  assetBundleName: 
+  assetBundleVariant: 

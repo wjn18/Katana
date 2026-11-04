@@ -1,0 +1,31 @@
+2026-11-04更新：原大殿/中殿已替换为独立Blender精修版，原Prefab GUID与摆位保持；源Courtyard_RefinedHalls.blend、builder build_refined_halls.py、Unity模型Courtyard_RefinedHalls.fbx。两殿从Refined hall - 精修殿堂下细调；完整说明见同目录两殿精修说明.txt。下方原两殿新增部件描述属于首轮记录，当前以精修模型为准。
+
+庭院建筑与入口台阶 · 2026-11-04
+
+场景
+正式 SamuraiCombatDemo 的下庭入口补两段连续石阶，中间平台与朱红门楼脚部对齐，上端接庭院地坪。下段14级、上段4级，每级高0.20米；净宽3.6米，两侧石帮后外宽4米。当前保留阶梯外观，采用独立连续斜坡MeshCollider行走，保留中间与上平台；五房屋入口也已接到石台/木廊，原阶面碰撞关闭。细调各根下Smooth ramp collision - 平滑斜坡碰撞，维护与验证见Comic/Collision/StairRamps/使用说明.txt。旧入口South Wall (1)完整保留但关闭，避免双重碰撞；原连接桥和旧桥坡道状态保持。
+原大殿/中殿新增双扇门、侧窗、背面木框、门廊和踏步。新增东侧廊屋、山侧小仓房、开放茶亭；均沿用朱红木构、蓝灰屋面、暖纸窗及既有漫画材质/描边。五处建筑补独立接地石基，移开一棵山松和三块挡路散石。其余原对象位置保持，角色和战斗资源保持。
+
+直接复用
+Unity Project中打开 Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Prefabs/，把需要的Prefab整体拖入其他场景即可。五个房屋都已在正式场景内使用对应Prefab实例。
+Courtyard_GrandPracticeHall：16米宽大练习殿。
+Courtyard_EasternHall：10米宽中殿。
+Courtyard_SideResidence：8米宽廊屋，主屋顶加低门廊屋顶，前后及侧窗齐备。
+Courtyard_Storehouse：4.5米宽小仓房，厚墙、高窗、双开木门。
+Courtyard_TeaPavilion：5米宽开敞茶亭，柱、坐凳、茶桌与入亭小阶。
+Courtyard_EntranceStairs：门前整组18级石阶和两处平台。
+
+所有Prefab根位置/旋转为0、缩放1，正面朝局部-Z（台阶沿+Z向上）。新三类房屋根点为基础底部中心；原大殿/中殿保留庭院地坪原点，基础最低点位于根下0.545米。台阶根点为底端起步中心，主体底面下埋0.20米。放置时按这些锚点对地。
+房屋按石基与台阶、墙面、梁柱、门窗、屋顶、家具分组；原两殿现使用Refined hall - 精修殿堂下的六类功能组，详见两殿精修说明.txt。表面与对应描边一对一相随，可单独调门、窗、柱和屋檐。门目前为静态关闭表现与碰撞，小亭保持开放，不含开门交互。
+地形接地石基保存在场景 Courtyard dressing/06 Architecture sites 下，独立于房屋Prefab；复用到新地形时自行调整接地。不要把当前山崖的支撑高度作为新地形默认值。
+材质使用项目共享色板，直接修改共享材质会同时影响庭院其他部件；需要某一房屋独立颜色时先复制材质再赋给它。
+
+维护
+菜单 OC Design/Samurai Combat/Install Courtyard Architecture And Stairs，仅Edit且需打开正式SamuraiCombatDemo。补缺失Prefab/整栋房屋与台阶，重复调用保留已有摆位、开关、材质及Prefab手调，不自动保存场景。只对四处已知原位置进行一次景物避让，手动改过的位置不迁移。无需运行安装器即可在别的场景复用Prefab。
+Blender源与可复用builder：工作区 斗笠剑士/模型资源/courtyard-architecture/；Unity唯一运行模型 Models/Courtyard_Architecture.fbx。旧两殿网格仍直接引用原Decoration资产，未重复复制。
+
+验证
+146个新源网格、10372三角，Blender闭合/非流形/法线/重面检查通过；六份Prefab已在独立PreviewScene实例化，无缺失网格/材质，无场景或项目Editor/Tests/LookDev依赖，无运行脚本。URP材质可能携带官方AssetVersion编辑元数据，该项不是运行脚本依赖。
+玩家原CharacterController参数下左/中/右三路双向上下台阶通过。2278个原Transform路径全部保留，2269个世界矩阵不变，9个变化仅为一棵松树/三块散石及其子件；原入口块关闭。1118项战斗/角色/配置/项目设置文件逐字节保持。正式场景已保存，重复安装零变化，Shader/Console错误0。未新增寻路，未做正式GPU性能计时。
+图：斗笠剑士/图片资源/模型预览/comic-lighting/courtyard-architecture-20261104/
+简报：斗笠剑士/整理记录/庭院台阶与建筑Prefab-20261104.json

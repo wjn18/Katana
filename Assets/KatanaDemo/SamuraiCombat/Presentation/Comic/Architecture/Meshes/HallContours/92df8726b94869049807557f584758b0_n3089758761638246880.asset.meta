@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: a1cf3ecb4f74c2d48b67559fdae16077
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"8E37664E17699B84CA2C47C34309668826FC7B081B52AD1CDC8089AF487580B0","diagnostics":{"sourceName":"EasternHall_26_FrontAttic_Plaster","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":-3089758761638246880,"sourceFingerprint":"8E37664E17699B84CA2C47C34309668826FC7B081B52AD1CDC8089AF487580B0","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_n3089758761638246880.asset","reusedCache":false,"vertexCount":36,"triangleCount":24,"positionGroups":14,"coincidentPositionGroups":14,"compatibleGroups":14,"joinedGroups":14,"joinedVertices":36,"sourceNormalSplitGroups":14,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":36,"blendShapeCount":0,"positionTolerance":0.000009785705515241716}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 93aa01654553a4e4f8b75f6dce7fc515
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"75F2F32E621BD70A5EBA7EA7FBC72F12909A40788635402E567FB8E6CD3991EB","diagnostics":{"sourceName":"EasternHall_25_ContinuousHippedRoof_Roof","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":-8881931346250715759,"sourceFingerprint":"75F2F32E621BD70A5EBA7EA7FBC72F12909A40788635402E567FB8E6CD3991EB","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_n8881931346250715759.asset","reusedCache":false,"vertexCount":156,"triangleCount":84,"positionGroups":44,"coincidentPositionGroups":44,"compatibleGroups":44,"joinedGroups":44,"joinedVertices":156,"sourceNormalSplitGroups":44,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":156,"blendShapeCount":0,"positionTolerance":0.000016195413991226815}}'
+  assetBundleName: 
+  assetBundleVariant: 

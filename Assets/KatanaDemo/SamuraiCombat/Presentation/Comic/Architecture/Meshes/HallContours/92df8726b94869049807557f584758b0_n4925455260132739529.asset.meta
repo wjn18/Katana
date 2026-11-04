@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: ed9163f125fbf1d4fb0c7cde1c4edbe1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"A2DEB6BC28208646D208BAF2273BD2376A23BD8B1D1C92D9924E5DD078D67A50","diagnostics":{"sourceName":"GrandHall_02_Platform_Stone","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":-4925455260132739529,"sourceFingerprint":"A2DEB6BC28208646D208BAF2273BD2376A23BD8B1D1C92D9924E5DD078D67A50","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_n4925455260132739529.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.00001920136492117308}}'
+  assetBundleName: 
+  assetBundleVariant: 

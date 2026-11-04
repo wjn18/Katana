@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: acde8eafa27acf24695e13c0ec3bed20
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"33A0EB7FD63634A3282225667C8EDB1F7F57F9317C3CB1A30AEFB6607681613A","diagnostics":{"sourceName":"Residence_24_PorchPost1.63_Red","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-2326464880329586730,"sourceFingerprint":"33A0EB7FD63634A3282225667C8EDB1F7F57F9317C3CB1A30AEFB6607681613A","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n2326464880329586730.asset","reusedCache":false,"vertexCount":72,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":72,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":72,"blendShapeCount":0,"positionTolerance":0.00000298625150207954}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 62b4d5ef96d48334f9fadd3ee2c0b226
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"ABB5DDB74246C6E45200870FE3406FD2020666E4EA2466E229AD7B584C16630D","diagnostics":{"sourceName":"GrandHall_21_DoorKickboards_Timber","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":5376534993344255011,"sourceFingerprint":"ABB5DDB74246C6E45200870FE3406FD2020666E4EA2466E229AD7B584C16630D","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_5376534993344255011.asset","reusedCache":false,"vertexCount":192,"triangleCount":88,"positionGroups":48,"coincidentPositionGroups":48,"compatibleGroups":48,"joinedGroups":48,"joinedVertices":192,"sourceNormalSplitGroups":48,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":192,"blendShapeCount":0,"positionTolerance":0.000004662684204959078}}'
+  assetBundleName: 
+  assetBundleVariant: 

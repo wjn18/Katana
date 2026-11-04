@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 06745df562ef97040b0f855f2e2d3ad8
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"173DAB3D46786812B1DB46BBDE4B537D1D7557BF1466E7BB544F3E1023F4AC90","diagnostics":{"sourceName":"GrandHall_25_LowerHippedEaves_Roof","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":2530478598862989810,"sourceFingerprint":"173DAB3D46786812B1DB46BBDE4B537D1D7557BF1466E7BB544F3E1023F4AC90","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_2530478598862989810.asset","reusedCache":false,"vertexCount":160,"triangleCount":80,"positionGroups":40,"coincidentPositionGroups":40,"compatibleGroups":40,"joinedGroups":40,"joinedVertices":160,"sourceNormalSplitGroups":40,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":160,"blendShapeCount":0,"positionTolerance":0.000021738098439527676}}'
+  assetBundleName: 
+  assetBundleVariant: 

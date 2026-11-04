@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 5665c842f6e999f43b4556ea4c34f2c8
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"945304258452951EFD7800A216B6709D81834A2A9D031FD40F8DC5125AAA73B9","diagnostics":{"sourceName":"Storehouse_15_ApproachStepLower_Stone","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-877000725860739791,"sourceFingerprint":"945304258452951EFD7800A216B6709D81834A2A9D031FD40F8DC5125AAA73B9","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n877000725860739791.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.0000028351541914162226}}'
+  assetBundleName: 
+  assetBundleVariant: 

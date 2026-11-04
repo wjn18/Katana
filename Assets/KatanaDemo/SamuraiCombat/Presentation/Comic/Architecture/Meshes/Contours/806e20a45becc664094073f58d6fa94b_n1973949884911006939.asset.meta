@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: cd32dacca7112c84a8411ae6af3de1cb
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"88A3C2E8E02F770F67EFC180C1A7BD5C8C8925D4A128F669BF2E08C1CC0B6F69","diagnostics":{"sourceName":"Residence_09_FrontColumnFoot5_Stone","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-1973949884911006939,"sourceFingerprint":"88A3C2E8E02F770F67EFC180C1A7BD5C8C8925D4A128F669BF2E08C1CC0B6F69","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n1973949884911006939.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":6.574950361937226e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

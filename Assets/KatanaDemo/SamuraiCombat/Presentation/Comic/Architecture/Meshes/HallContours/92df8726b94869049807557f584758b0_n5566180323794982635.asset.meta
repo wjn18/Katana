@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 9d8b6ffc1b10ee0419514ab468fde7e5
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"05D07CE90311806A628A5DA4D726826213E34F9CDCBF9AA71985DDF2273E1AE2","diagnostics":{"sourceName":"GrandHall_33_LeftLantern_Caps_Red","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":-5566180323794982635,"sourceFingerprint":"05D07CE90311806A628A5DA4D726826213E34F9CDCBF9AA71985DDF2273E1AE2","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_n5566180323794982635.asset","reusedCache":false,"vertexCount":192,"triangleCount":88,"positionGroups":48,"coincidentPositionGroups":48,"compatibleGroups":48,"joinedGroups":48,"joinedVertices":192,"sourceNormalSplitGroups":48,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":192,"blendShapeCount":0,"positionTolerance":9.977969739338732e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

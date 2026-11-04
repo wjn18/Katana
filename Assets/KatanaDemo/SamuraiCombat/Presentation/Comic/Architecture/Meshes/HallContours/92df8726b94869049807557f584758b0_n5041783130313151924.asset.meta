@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 8fdfdb6dc2e4de64c856891884c7962d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"A68B057B8C900CF667E6A04CBEE41F715FAE25172A7AF4925142AAB874D9F8C0","diagnostics":{"sourceName":"EasternHall_03_VerandaDeck_Timber","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":-5041783130313151924,"sourceFingerprint":"A68B057B8C900CF667E6A04CBEE41F715FAE25172A7AF4925142AAB874D9F8C0","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_n5041783130313151924.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.000010382822438259609}}'
+  assetBundleName: 
+  assetBundleVariant: 

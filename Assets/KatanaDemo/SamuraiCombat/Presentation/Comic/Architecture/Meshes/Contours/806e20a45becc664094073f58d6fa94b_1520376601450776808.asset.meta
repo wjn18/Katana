@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: a750be8e45ad27e40b6da856aa1cccb2
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"DA1D39149DC4BAFC99DD388709E26CFC44A62194FC0F6E239C4B46E74A34EB7D","diagnostics":{"sourceName":"Residence_16_DoorKick1_Timber","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":1520376601450776808,"sourceFingerprint":"DA1D39149DC4BAFC99DD388709E26CFC44A62194FC0F6E239C4B46E74A34EB7D","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_1520376601450776808.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.000001696054141575587}}'
+  assetBundleName: 
+  assetBundleVariant: 

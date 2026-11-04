@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 60783306af0ae5848b2747d452c24d3b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"BA260E8E5C57862A894632B26423D543B2958820F1322919A72DFCBEEA3CCD88","diagnostics":{"sourceName":"Residence_26_PorchStepLower_Stone","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":1402441346228988743,"sourceFingerprint":"BA260E8E5C57862A894632B26423D543B2958820F1322919A72DFCBEEA3CCD88","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_1402441346228988743.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.000003560786581147113}}'
+  assetBundleName: 
+  assetBundleVariant: 

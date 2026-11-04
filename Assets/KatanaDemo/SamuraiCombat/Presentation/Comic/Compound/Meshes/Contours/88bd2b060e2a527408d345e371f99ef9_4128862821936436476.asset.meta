@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 04f7964fc343f564ea4ac68e81394624
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"2AA7914FAFE96CDC921EDAF9B36BC1B2A21DC3D85D65A413CEAF599EA744C7C1","diagnostics":{"sourceName":"Detail_Basin_01_CarvedStone_Stone","sourceGuid":"88bd2b060e2a527408d345e371f99ef9","sourceLocalFileId":4128862821936436476,"sourceFingerprint":"2AA7914FAFE96CDC921EDAF9B36BC1B2A21DC3D85D65A413CEAF599EA744C7C1","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Compound/Meshes/Contours/88bd2b060e2a527408d345e371f99ef9_4128862821936436476.asset","reusedCache":false,"vertexCount":128,"triangleCount":76,"positionGroups":40,"coincidentPositionGroups":40,"compatibleGroups":40,"joinedGroups":40,"joinedVertices":128,"sourceNormalSplitGroups":40,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":128,"blendShapeCount":0,"positionTolerance":0.0000017124543774116319}}'
+  assetBundleName: 
+  assetBundleVariant: 

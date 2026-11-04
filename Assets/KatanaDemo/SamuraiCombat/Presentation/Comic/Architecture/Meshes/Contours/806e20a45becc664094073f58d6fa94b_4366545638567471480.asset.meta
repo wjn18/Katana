@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 02d025cc606de0e40a515cfd893405a7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"97511F23FC898DBE5608C6AF2EEA71AEE8547F3A58AE4FB85F7C07B103365878","diagnostics":{"sourceName":"Pavilion_13_RearBalustrade_Timber","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":4366545638567471480,"sourceFingerprint":"97511F23FC898DBE5608C6AF2EEA71AEE8547F3A58AE4FB85F7C07B103365878","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_4366545638567471480.asset","reusedCache":false,"vertexCount":320,"triangleCount":280,"positionGroups":128,"coincidentPositionGroups":128,"compatibleGroups":128,"joinedGroups":128,"joinedVertices":320,"sourceNormalSplitGroups":128,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":320,"blendShapeCount":0,"positionTolerance":0.000004276458639651537}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 981c56973be4811428da611a469272d8
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"54359C2E4F980C641A84E170C2D6E72274E1E5D218AD53B7E04B0E0DE6A7F28E","diagnostics":{"sourceName":"Storehouse_03_WallBody_Plaster","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":1691437627018319369,"sourceFingerprint":"54359C2E4F980C641A84E170C2D6E72274E1E5D218AD53B7E04B0E0DE6A7F28E","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_1691437627018319369.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.000006530114660563413}}'
+  assetBundleName: 
+  assetBundleVariant: 

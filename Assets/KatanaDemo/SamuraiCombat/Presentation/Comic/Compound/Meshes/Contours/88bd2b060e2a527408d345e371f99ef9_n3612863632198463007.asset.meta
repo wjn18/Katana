@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 1cfd6049e91e23a4093f0099e36b8a4d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"744555AB775154EB02CB5D23F15F121377D1B1483D678C503CE4FBBA3B1CF4B9","diagnostics":{"sourceName":"Portal_07_ContinuousThickRoof_Roof","sourceGuid":"88bd2b060e2a527408d345e371f99ef9","sourceLocalFileId":-3612863632198463007,"sourceFingerprint":"744555AB775154EB02CB5D23F15F121377D1B1483D678C503CE4FBBA3B1CF4B9","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Compound/Meshes/Contours/88bd2b060e2a527408d345e371f99ef9_n3612863632198463007.asset","reusedCache":false,"vertexCount":76,"triangleCount":52,"positionGroups":28,"coincidentPositionGroups":28,"compatibleGroups":28,"joinedGroups":28,"joinedVertices":76,"sourceNormalSplitGroups":28,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":76,"blendShapeCount":0,"positionTolerance":0.0000054972215366433375}}'
+  assetBundleName: 
+  assetBundleVariant: 

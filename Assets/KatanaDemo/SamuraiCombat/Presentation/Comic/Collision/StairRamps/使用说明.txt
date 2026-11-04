@@ -1,0 +1,20 @@
+楼梯平滑行走碰撞 · 2026-11-04
+
+范围
+正式SamuraiCombatDemo的主入口长阶、上/中殿前径、茶庭阶、仓房外廊阶、东园阶，以及五栋房屋入口，共11组。可见台阶、描边、材质、摆位保持；行走改为连续斜坡。主长阶保留中间平台和上平台，侧帮也使用连续坡面。
+房屋入口坡面前伸约0.4米，并接到石台或木廊顶，避免最后一级再跳起。门、墙与廊柱仍按原设计阻挡。
+
+细调
+每组楼梯或房屋根下有 Smooth ramp collision - 平滑斜坡碰撞。仅含MeshCollider，没有Renderer或运行脚本；独立于可见台阶。13份闭合网格保存在本目录，总332三角。可在Hierarchy单独调整整组坡面的Transform，修改共享网格会影响使用同一网格的实例。
+主入口分为Walking surface、Left stone edge、Right stone edge三个碰撞件。原Surface上的阶面MeshCollider只关闭未删除；不要同时打开原阶面碰撞和新斜坡，否则会恢复台阶碰撞。
+6份Architecture/Prefabs资产均已同步：长阶及五类房屋，拖入其他场景即可复用；Prefab GUID和原子件位置保持。复用到其他地形时仍需让坡脚与地面平接。
+
+维护
+Editor/SamuraiStairRampCollisionSetup.cs，菜单 OC Design/Samurai Combat/Use Smooth Stair Ramp Collisions。仅在正式场景Edit模式显式升级缺失坡面，不自动保存；已有同名坡组保留全部手调。Architecture/HallRefinement/Compound新建阶梯已默认接线，无运行时生成。
+修改可见模型的踏步尺寸后，坡面需要相应手调，重复安装不会覆盖当前坡面。
+
+验证
+13网格闭合、正体积、无退化；原5097个Transform世界矩阵/启停和2615个Renderer完全保持。6Prefab无项目Editor/Tests/LookDev依赖，原16个阶面碰撞关闭、新13个碰撞启用。
+在独立PhysicsScene中复制829个当前静态碰撞体，用玩家CharacterController与当前重力22、贴地速度-2规则验证。主阶左中右双向6路、5院内阶双向10路、5屋入口双向10路，在步行3米/秒与奔跑6米/秒各26路通过。未启动正式场景Play，也未模拟其物理世界。
+3米步行主阶最大单帧高度变化约9.47→2.86厘米；恒坡段高度跟随连续直线，原周期阶跳消除。未改相机、角色运动参数或动画，仍有坡面转平台时正常的坡度变化。
+精简记录：斗笠剑士/整理记录/楼梯斜坡碰撞-20261104.json。

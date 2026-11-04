@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: bb0ede604ded759448741da2b8c34c49
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"1D35EE90D2D67E377C582FF1E860645928165AEC012C77976895964CE14CE315","diagnostics":{"sourceName":"Residence_23_PorchFascia_Timber","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":7524392572873637142,"sourceFingerprint":"1D35EE90D2D67E377C582FF1E860645928165AEC012C77976895964CE14CE315","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_7524392572873637142.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.000003928256319341017}}'
+  assetBundleName: 
+  assetBundleVariant: 

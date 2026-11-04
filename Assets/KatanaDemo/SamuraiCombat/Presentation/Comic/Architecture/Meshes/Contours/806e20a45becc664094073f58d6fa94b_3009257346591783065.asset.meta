@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: a9675a222ae78fc4fab347cce60a84ac
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"199BE81D53EE66DE5E3F6BD0295B7E4EF03FA062C4F5A66769C1020387F388FB","diagnostics":{"sourceName":"Pavilion_06_Capital4_Gold","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":3009257346591783065,"sourceFingerprint":"199BE81D53EE66DE5E3F6BD0295B7E4EF03FA062C4F5A66769C1020387F388FB","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_3009257346591783065.asset","reusedCache":false,"vertexCount":48,"triangleCount":24,"positionGroups":16,"coincidentPositionGroups":16,"compatibleGroups":16,"joinedGroups":16,"joinedVertices":48,"sourceNormalSplitGroups":16,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":48,"blendShapeCount":0,"positionTolerance":8.916279057302745e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

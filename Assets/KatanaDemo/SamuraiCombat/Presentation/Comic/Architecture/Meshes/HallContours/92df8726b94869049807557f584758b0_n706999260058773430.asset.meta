@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: c398f0db684756b40826b08a8245ca7a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"BCCAB42D4809832FF17D14046AC8073D475729DF96433DAC3BE50981167E4A3E","diagnostics":{"sourceName":"EasternHall_33_LeftLantern_Caps_Red","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":-706999260058773430,"sourceFingerprint":"BCCAB42D4809832FF17D14046AC8073D475729DF96433DAC3BE50981167E4A3E","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_n706999260058773430.asset","reusedCache":false,"vertexCount":192,"triangleCount":88,"positionGroups":48,"coincidentPositionGroups":48,"compatibleGroups":48,"joinedGroups":48,"joinedVertices":192,"sourceNormalSplitGroups":48,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":192,"blendShapeCount":0,"positionTolerance":9.977975423680618e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

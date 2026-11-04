@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 8baaa840e7cf8ff4b9700d9cfc5291bf
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"FB7A09EDF799E7400E1C9072FD369BE42D9B46393489F1AE0F80750BEA349300","diagnostics":{"sourceName":"EasternHall_04_EntryStep_Stone","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":-5865861304020304917,"sourceFingerprint":"FB7A09EDF799E7400E1C9072FD369BE42D9B46393489F1AE0F80750BEA349300","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_n5865861304020304917.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.0000037753543438157067}}'
+  assetBundleName: 
+  assetBundleVariant: 

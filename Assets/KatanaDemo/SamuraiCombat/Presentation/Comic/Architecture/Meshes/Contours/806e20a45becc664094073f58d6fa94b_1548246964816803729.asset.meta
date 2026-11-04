@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 1cee662b5b36e2e419a110a3f8548f43
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"E48C7224765C8A3F89099BFEA26DB5BD21ED165A67183BC7844665BB29017730","diagnostics":{"sourceName":"Storehouse_05_RightBackPost_Timber","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":1548246964816803729,"sourceFingerprint":"E48C7224765C8A3F89099BFEA26DB5BD21ED165A67183BC7844665BB29017730","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_1548246964816803729.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.0000030000835522514535}}'
+  assetBundleName: 
+  assetBundleVariant: 

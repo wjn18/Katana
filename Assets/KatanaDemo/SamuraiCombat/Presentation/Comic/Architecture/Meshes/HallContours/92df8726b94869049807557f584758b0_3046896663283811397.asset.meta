@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 28cdefff9016bea48b49c5121bfbcf14
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"E954BB112741577FD494CCC96131E1B4DF1F540A1BBD1D6D7D40CB8FF8FE3689","diagnostics":{"sourceName":"EasternHall_17_RearLintel_Timber","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":3046896663283811397,"sourceFingerprint":"E954BB112741577FD494CCC96131E1B4DF1F540A1BBD1D6D7D40CB8FF8FE3689","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_3046896663283811397.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.00001035656805470353}}'
+  assetBundleName: 
+  assetBundleVariant: 

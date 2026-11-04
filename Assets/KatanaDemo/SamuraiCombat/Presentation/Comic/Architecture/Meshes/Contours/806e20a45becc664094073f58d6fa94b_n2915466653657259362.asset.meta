@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 62f6e4defdef81742a1c7a564ddb0af2
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"703E80729FC688AE41C4EB82153684A7EC8AE1EE3BA81F79D6C66B57F644F871","diagnostics":{"sourceName":"Pavilion_03_TimberDeck_Timber","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-2915466653657259362,"sourceFingerprint":"703E80729FC688AE41C4EB82153684A7EC8AE1EE3BA81F79D6C66B57F644F871","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n2915466653657259362.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.00000665856578052626}}'
+  assetBundleName: 
+  assetBundleVariant: 

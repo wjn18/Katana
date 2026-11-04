@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 759a442794a996545b3ae846ba28339c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"A4AB039BA68775785EAF2161A04E2C913FA9558EFBA1AA23B2C4105E3B52CAB4","diagnostics":{"sourceName":"Detail_Basin_02_LowFoot_Slate","sourceGuid":"88bd2b060e2a527408d345e371f99ef9","sourceLocalFileId":1480809438178665443,"sourceFingerprint":"A4AB039BA68775785EAF2161A04E2C913FA9558EFBA1AA23B2C4105E3B52CAB4","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Compound/Meshes/Contours/88bd2b060e2a527408d345e371f99ef9_1480809438178665443.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.0000013712767668039305}}'
+  assetBundleName: 
+  assetBundleVariant: 

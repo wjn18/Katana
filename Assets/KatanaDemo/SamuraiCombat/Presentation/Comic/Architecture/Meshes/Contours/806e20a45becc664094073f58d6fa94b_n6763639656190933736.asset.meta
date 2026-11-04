@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 108470cd4beb02840b182c602ac49c97
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"EAD9EF3539C951C4DEA3803E71883BD4C10BCA3E1054E5708DF37494380932CD","diagnostics":{"sourceName":"Residence_08_FrontColumn1_Red","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-6763639656190933736,"sourceFingerprint":"EAD9EF3539C951C4DEA3803E71883BD4C10BCA3E1054E5708DF37494380932CD","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n6763639656190933736.asset","reusedCache":false,"vertexCount":72,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":72,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":72,"blendShapeCount":0,"positionTolerance":0.0000034925208183267387}}'
+  assetBundleName: 
+  assetBundleVariant: 

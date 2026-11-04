@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 1ffc9622d2e7c4f4b8205ee3c7563860
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"B7E7BF11262BDB1B8C68FFCFECF501B74C6D97EC950D31992D187C80DF72EE92","diagnostics":{"sourceName":"EasternHall_07_LeftWall_Plaster","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":6511957395150044044,"sourceFingerprint":"B7E7BF11262BDB1B8C68FFCFECF501B74C6D97EC950D31992D187C80DF72EE92","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_6511957395150044044.asset","reusedCache":false,"vertexCount":256,"triangleCount":160,"positionGroups":80,"coincidentPositionGroups":80,"compatibleGroups":80,"joinedGroups":80,"joinedVertices":256,"sourceNormalSplitGroups":80,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":256,"blendShapeCount":0,"positionTolerance":0.000006180744094308466}}'
+  assetBundleName: 
+  assetBundleVariant: 

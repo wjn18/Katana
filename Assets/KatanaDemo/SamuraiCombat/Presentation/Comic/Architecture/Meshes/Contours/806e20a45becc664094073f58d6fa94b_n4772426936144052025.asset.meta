@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 177cfe628eb1f994eae9613e92ff2271
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"FAE9F9765EFF63EE84718DEBBAD4EE1455D7D0B59E7B6AAB66B15F22AD0A0249","diagnostics":{"sourceName":"Residence_14_FrontWindow1_Backing_Paper","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-4772426936144052025,"sourceFingerprint":"FAE9F9765EFF63EE84718DEBBAD4EE1455D7D0B59E7B6AAB66B15F22AD0A0249","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n4772426936144052025.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.0000025531987830618164}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 5d0f94eb23823e14e8051f94307b395e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"1E6AD6E20A8B5DC19F4087EAF0FDA2385876078EB6D9D556F3221364C6ED2D3A","diagnostics":{"sourceName":"Residence_25a_PorchLanding_Stone","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":8466891458475553881,"sourceFingerprint":"1E6AD6E20A8B5DC19F4087EAF0FDA2385876078EB6D9D556F3221364C6ED2D3A","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_8466891458475553881.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.000003865798589686165}}'
+  assetBundleName: 
+  assetBundleVariant: 

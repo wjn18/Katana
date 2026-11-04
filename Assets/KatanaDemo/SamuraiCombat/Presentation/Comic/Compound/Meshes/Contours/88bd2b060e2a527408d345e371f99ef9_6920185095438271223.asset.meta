@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: f6d5b4507bd4f124bb5404e2e90b8571
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"700610E4FB268059CA394A2984B52C4364318427DB8327A3790F685E8325C462","diagnostics":{"sourceName":"Pier_04_ContinuousCap_Roof","sourceGuid":"88bd2b060e2a527408d345e371f99ef9","sourceLocalFileId":6920185095438271223,"sourceFingerprint":"700610E4FB268059CA394A2984B52C4364318427DB8327A3790F685E8325C462","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Compound/Meshes/Contours/88bd2b060e2a527408d345e371f99ef9_6920185095438271223.asset","reusedCache":false,"vertexCount":40,"triangleCount":20,"positionGroups":12,"coincidentPositionGroups":12,"compatibleGroups":12,"joinedGroups":12,"joinedVertices":40,"sourceNormalSplitGroups":12,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":40,"blendShapeCount":0,"positionTolerance":0.0000011822436363218003}}'
+  assetBundleName: 
+  assetBundleVariant: 

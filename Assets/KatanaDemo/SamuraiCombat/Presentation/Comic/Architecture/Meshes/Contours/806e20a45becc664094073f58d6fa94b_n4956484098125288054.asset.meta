@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: eeeb34332f8fe8f42a37b3ce31873094
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"454AC3B044A814F0947FE1766523F007DE7E92793BEDEC4FF52459EFCE3B3A52","diagnostics":{"sourceName":"Residence_22_PorchRoof_Roof","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-4956484098125288054,"sourceFingerprint":"454AC3B044A814F0947FE1766523F007DE7E92793BEDEC4FF52459EFCE3B3A52","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n4956484098125288054.asset","reusedCache":false,"vertexCount":156,"triangleCount":84,"positionGroups":44,"coincidentPositionGroups":44,"compatibleGroups":44,"joinedGroups":44,"joinedVertices":156,"sourceNormalSplitGroups":44,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":156,"blendShapeCount":0,"positionTolerance":0.000004528351382759865}}'
+  assetBundleName: 
+  assetBundleVariant: 

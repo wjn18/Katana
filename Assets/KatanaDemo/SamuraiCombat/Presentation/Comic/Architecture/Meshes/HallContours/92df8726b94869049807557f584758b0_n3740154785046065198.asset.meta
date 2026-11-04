@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 3e3b1046cb66ce54b83fdf30ad24b41c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"36A21E2A1C8D6EF5839DA3334E7FE158075AAF1BFEB6C560AAD080E2D2B1D4A6","diagnostics":{"sourceName":"EasternHall_34_RightLantern_Caps_Red","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":-3740154785046065198,"sourceFingerprint":"36A21E2A1C8D6EF5839DA3334E7FE158075AAF1BFEB6C560AAD080E2D2B1D4A6","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_n3740154785046065198.asset","reusedCache":false,"vertexCount":192,"triangleCount":88,"positionGroups":48,"coincidentPositionGroups":48,"compatibleGroups":48,"joinedGroups":48,"joinedVertices":192,"sourceNormalSplitGroups":48,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":192,"blendShapeCount":0,"positionTolerance":9.977975423680618e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: e79a7bfbc055edc47bd8be8aac0aec57
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"88D6FFE4430D41B52482B58440B429629BB55B2EE5A208EC75CF7365EEA0B227","diagnostics":{"sourceName":"Pavilion_11_BenchLeg-1_1.1_Timber","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-2881704785745583225,"sourceFingerprint":"88D6FFE4430D41B52482B58440B429629BB55B2EE5A208EC75CF7365EEA0B227","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n2881704785745583225.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":5.440588211058639e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

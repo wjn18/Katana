@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 748493ae1ed21a8469dd45846f536674
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"A8099E009A7161FA170BE1CEFF5D6D67588CA8C6A51078CCD30CB3AECAACB745","diagnostics":{"sourceName":"Storehouse_10_DoorFrame_Timber","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-8666791206420149430,"sourceFingerprint":"A8099E009A7161FA170BE1CEFF5D6D67588CA8C6A51078CCD30CB3AECAACB745","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n8666791206420149430.asset","reusedCache":false,"vertexCount":80,"triangleCount":64,"positionGroups":32,"coincidentPositionGroups":32,"compatibleGroups":32,"joinedGroups":32,"joinedVertices":80,"sourceNormalSplitGroups":32,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":80,"blendShapeCount":0,"positionTolerance":0.0000033856904337881133}}'
+  assetBundleName: 
+  assetBundleVariant: 

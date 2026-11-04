@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: a838a3bb25e48104db8d11fce52f31c6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"51180A83AD5F027E3B9CC23463CCE83F6E873A3B0C0FB7E93546873AAD9663E9","diagnostics":{"sourceName":"Storehouse_11_DoorLeaf2_Timber","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":7861389444008386070,"sourceFingerprint":"51180A83AD5F027E3B9CC23463CCE83F6E873A3B0C0FB7E93546873AAD9663E9","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_7861389444008386070.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.000002535650764912134}}'
+  assetBundleName: 
+  assetBundleVariant: 

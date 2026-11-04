@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: b782b10925e13bb4b970741eadc90163
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"A1C4DCFAC9CFE0B967733BACCD40C5FDF8C04C561CE246442AEC996C0DE9C188","diagnostics":{"sourceName":"GrandHall_20_LowerWallBelts_Timber","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":-3512066739457257025,"sourceFingerprint":"A1C4DCFAC9CFE0B967733BACCD40C5FDF8C04C561CE246442AEC996C0DE9C188","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_n3512066739457257025.asset","reusedCache":false,"vertexCount":288,"triangleCount":132,"positionGroups":72,"coincidentPositionGroups":72,"compatibleGroups":72,"joinedGroups":72,"joinedVertices":288,"sourceNormalSplitGroups":72,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":288,"blendShapeCount":0,"positionTolerance":0.000017244685295736417}}'
+  assetBundleName: 
+  assetBundleVariant: 

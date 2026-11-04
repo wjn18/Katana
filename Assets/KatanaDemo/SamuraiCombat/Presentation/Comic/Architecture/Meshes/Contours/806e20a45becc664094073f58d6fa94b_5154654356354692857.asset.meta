@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 5d28d5a7be22bdf4bbf0d22d797e0245
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"F8FDB9F1C1550917C9EF8615A3E789078241AB340EE63E1B903EAE6AF33702A7","diagnostics":{"sourceName":"Residence_19_MainRidge_Gold","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":5154654356354692857,"sourceFingerprint":"F8FDB9F1C1550917C9EF8615A3E789078241AB340EE63E1B903EAE6AF33702A7","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_5154654356354692857.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.000008753250767767895}}'
+  assetBundleName: 
+  assetBundleVariant: 

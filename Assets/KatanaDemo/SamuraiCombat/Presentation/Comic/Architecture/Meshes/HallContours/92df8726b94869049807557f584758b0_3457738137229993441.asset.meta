@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 9bf13577f3a72144586287f19fd4f7c7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"2CDF745E1BC473D1E57F779D32B5DF9BD0F28959D2E08452DED82592BC39AA19","diagnostics":{"sourceName":"EasternHall_11_Column2_Red","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":3457738137229993441,"sourceFingerprint":"2CDF745E1BC473D1E57F779D32B5DF9BD0F28959D2E08452DED82592BC39AA19","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_3457738137229993441.asset","reusedCache":false,"vertexCount":72,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":72,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":72,"blendShapeCount":0,"positionTolerance":0.000003894752808264457}}'
+  assetBundleName: 
+  assetBundleVariant: 

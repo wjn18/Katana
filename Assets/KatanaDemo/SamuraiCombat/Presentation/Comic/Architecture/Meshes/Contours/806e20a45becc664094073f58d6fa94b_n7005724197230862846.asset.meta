@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: aec5d7cb2f8c1dc4d9ce3ed6a93aa355
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"1FCABC41422BA507BCCC21A7EA482E26EC51664AD8D2614A4EC2B64AB5CA0E8B","diagnostics":{"sourceName":"Residence_28_Lantern2_Paper_Paper","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-7005724197230862846,"sourceFingerprint":"1FCABC41422BA507BCCC21A7EA482E26EC51664AD8D2614A4EC2B64AB5CA0E8B","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n7005724197230862846.asset","reusedCache":false,"vertexCount":72,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":72,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":72,"blendShapeCount":0,"positionTolerance":5.893455750083376e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

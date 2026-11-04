@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 3e2ba75aa4e4b5b49b2aa550ecc2141a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"C20774FAC32CC65BB7B79BCCE035FFB67A5CE6B8208AA754AFA0CF239C6481CD","diagnostics":{"sourceName":"Stairs_01_ContinuousSteps_Stone","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-6246224680309463004,"sourceFingerprint":"C20774FAC32CC65BB7B79BCCE035FFB67A5CE6B8208AA754AFA0CF239C6481CD","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n6246224680309463004.asset","reusedCache":false,"vertexCount":240,"triangleCount":160,"positionGroups":82,"coincidentPositionGroups":82,"compatibleGroups":82,"joinedGroups":82,"joinedVertices":240,"sourceNormalSplitGroups":82,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":4,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":236,"blendShapeCount":0,"positionTolerance":0.000014896319953550119}}'
+  assetBundleName: 
+  assetBundleVariant: 

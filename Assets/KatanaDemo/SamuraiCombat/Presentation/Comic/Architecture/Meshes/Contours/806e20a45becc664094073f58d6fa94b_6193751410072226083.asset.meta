@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 8cd72c425b017c24988e300585a9972e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"48ACB5993C39AF41921F5E51247CCAFB58BCD3096B2A29DC6866ABD8CC8B1BB8","diagnostics":{"sourceName":"Residence_20_LeftGable_Plaster","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":6193751410072226083,"sourceFingerprint":"48ACB5993C39AF41921F5E51247CCAFB58BCD3096B2A29DC6866ABD8CC8B1BB8","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_6193751410072226083.asset","reusedCache":false,"vertexCount":18,"triangleCount":8,"positionGroups":6,"coincidentPositionGroups":6,"compatibleGroups":6,"joinedGroups":6,"joinedVertices":18,"sourceNormalSplitGroups":6,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":18,"blendShapeCount":0,"positionTolerance":0.000004445671947905794}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 2aefffa9b0277874098c8ab4b15ab258
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"2E13B83FC98154A82D93A6E032C29B4A129568223E3E0E2AA9850A0630C8BCA5","diagnostics":{"sourceName":"Storehouse_18_Ridge_Roof","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-5940648012985111026,"sourceFingerprint":"2E13B83FC98154A82D93A6E032C29B4A129568223E3E0E2AA9850A0630C8BCA5","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n5940648012985111026.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.000003609432042139815}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 6a8d985f3c023394f838649e643643fd
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"B6E85AB880BCB78113945186C5D873F46847745C2BE4EFEBD0D3BA01BE5AC423","diagnostics":{"sourceName":"Detail_RightDrumStone_Stone","sourceGuid":"88bd2b060e2a527408d345e371f99ef9","sourceLocalFileId":6142440974491080451,"sourceFingerprint":"B6E85AB880BCB78113945186C5D873F46847745C2BE4EFEBD0D3BA01BE5AC423","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Compound/Meshes/Contours/88bd2b060e2a527408d345e371f99ef9_6142440974491080451.asset","reusedCache":false,"vertexCount":562,"triangleCount":300,"positionGroups":152,"coincidentPositionGroups":152,"compatibleGroups":152,"joinedGroups":152,"joinedVertices":562,"sourceNormalSplitGroups":152,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":4,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":562,"blendShapeCount":0,"positionTolerance":0.000001607637955203245}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 24ecebf2237c25b47892e268ebb6ce9c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"589F959AD846A40822049A9017EC5646170694AB2005F6B9CBE45434BE8ED2DF","diagnostics":{"sourceName":"EasternHall_27_LeftAttic_Plaster","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":-3776053827818851673,"sourceFingerprint":"589F959AD846A40822049A9017EC5646170694AB2005F6B9CBE45434BE8ED2DF","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_n3776053827818851673.asset","reusedCache":false,"vertexCount":42,"triangleCount":24,"positionGroups":14,"coincidentPositionGroups":14,"compatibleGroups":14,"joinedGroups":14,"joinedVertices":42,"sourceNormalSplitGroups":14,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":42,"blendShapeCount":0,"positionTolerance":0.0000051752658691839315}}'
+  assetBundleName: 
+  assetBundleVariant: 

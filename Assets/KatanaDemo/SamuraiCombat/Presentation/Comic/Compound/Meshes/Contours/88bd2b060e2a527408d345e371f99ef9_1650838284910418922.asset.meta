@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 10bb32942d5465246a84b0d2a19027ec
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"9BEEF818D6DB467A1524C8D99C5C47A7EE43F52D1303F39D435B3320A3F27D0D","diagnostics":{"sourceName":"WindowWall_05_ContinuousTileCap_Roof","sourceGuid":"88bd2b060e2a527408d345e371f99ef9","sourceLocalFileId":1650838284910418922,"sourceFingerprint":"9BEEF818D6DB467A1524C8D99C5C47A7EE43F52D1303F39D435B3320A3F27D0D","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Compound/Meshes/Contours/88bd2b060e2a527408d345e371f99ef9_1650838284910418922.asset","reusedCache":false,"vertexCount":76,"triangleCount":52,"positionGroups":28,"coincidentPositionGroups":28,"compatibleGroups":28,"joinedGroups":28,"joinedVertices":76,"sourceNormalSplitGroups":28,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":76,"blendShapeCount":0,"positionTolerance":0.000004075577180628898}}'
+  assetBundleName: 
+  assetBundleVariant: 

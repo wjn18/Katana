@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: c20b9a492b335f442bac9cf1672523d2
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"6760F6DE54AFA7ADA6A21BC3903C181EFC434E46D4BD36D4A8917880A9E2502D","diagnostics":{"sourceName":"EasternHall_15_FrontLintel_Red","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":-5259809767285417272,"sourceFingerprint":"6760F6DE54AFA7ADA6A21BC3903C181EFC434E46D4BD36D4A8917880A9E2502D","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_n5259809767285417272.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.000010709061825764365}}'
+  assetBundleName: 
+  assetBundleVariant: 

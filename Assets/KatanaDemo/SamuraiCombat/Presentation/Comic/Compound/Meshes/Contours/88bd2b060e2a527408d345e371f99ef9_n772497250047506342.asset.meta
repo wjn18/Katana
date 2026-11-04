@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: c6a5f851fa33619408e3564fb16d1af7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"3D6825512345481964FE06BD75FCE5BBBC6C9DDAAA43FEC9A53C8225C34D8783","diagnostics":{"sourceName":"Pier_03_QuietCollar_Red","sourceGuid":"88bd2b060e2a527408d345e371f99ef9","sourceLocalFileId":-772497250047506342,"sourceFingerprint":"3D6825512345481964FE06BD75FCE5BBBC6C9DDAAA43FEC9A53C8225C34D8783","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Compound/Meshes/Contours/88bd2b060e2a527408d345e371f99ef9_n772497250047506342.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":8.965488973444735e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

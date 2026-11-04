@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 7ab9ee345b725274d88d604f0c6a6326
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"63765E01FE6A87421D5914B176E3B33F461951847223D5B58CA088FFC00BA73B","diagnostics":{"sourceName":"Pavilion_05_Foot1_Stone","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-5727453145190488661,"sourceFingerprint":"63765E01FE6A87421D5914B176E3B33F461951847223D5B58CA088FFC00BA73B","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n5727453145190488661.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":7.605261203025293e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 318ca2d621a385642979f608b5adbb93
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"5B498AE1D00D11F2B70868BB8942D84FF4FAA38B2633FCEF66B217BBD487EEB8","diagnostics":{"sourceName":"Residence_03_VerandaDeck_Timber","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-4045811506072357148,"sourceFingerprint":"5B498AE1D00D11F2B70868BB8942D84FF4FAA38B2633FCEF66B217BBD487EEB8","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n4045811506072357148.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.000008317728315887507}}'
+  assetBundleName: 
+  assetBundleVariant: 

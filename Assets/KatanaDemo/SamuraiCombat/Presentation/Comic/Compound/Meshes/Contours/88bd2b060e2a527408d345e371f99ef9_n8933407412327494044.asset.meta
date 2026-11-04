@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: fcecab01d175517459b6e410165d902a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"5940D23F5D3B48458748BC4264CABE8FF4B0707C5BFA764EE0AFC6BFB47EB7D1","diagnostics":{"sourceName":"WindowWall_01_StoneFooting_Slate","sourceGuid":"88bd2b060e2a527408d345e371f99ef9","sourceLocalFileId":-8933407412327494044,"sourceFingerprint":"5940D23F5D3B48458748BC4264CABE8FF4B0707C5BFA764EE0AFC6BFB47EB7D1","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Compound/Meshes/Contours/88bd2b060e2a527408d345e371f99ef9_n8933407412327494044.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.000004038415227114456}}'
+  assetBundleName: 
+  assetBundleVariant: 

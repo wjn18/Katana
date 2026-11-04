@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: fa9f1692af6c23d47ad3df56306bcf19
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"53A34BC3AE1CF1D413AA4CCB5173B7959E00FE1E599A839112EC3D19E83461F0","diagnostics":{"sourceName":"EasternHall_21_DoorKickboards_Timber","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":-8644141780765116214,"sourceFingerprint":"53A34BC3AE1CF1D413AA4CCB5173B7959E00FE1E599A839112EC3D19E83461F0","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_n8644141780765116214.asset","reusedCache":false,"vertexCount":192,"triangleCount":88,"positionGroups":48,"coincidentPositionGroups":48,"compatibleGroups":48,"joinedGroups":48,"joinedVertices":192,"sourceNormalSplitGroups":48,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":192,"blendShapeCount":0,"positionTolerance":0.000004357146281108726}}'
+  assetBundleName: 
+  assetBundleVariant: 

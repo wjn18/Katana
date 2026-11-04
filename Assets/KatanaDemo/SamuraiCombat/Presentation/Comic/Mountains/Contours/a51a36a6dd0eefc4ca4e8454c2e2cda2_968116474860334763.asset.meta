@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 7fdfbf933878f41428f691b256212e60
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"6CA0030E5BC826C22624FB9E826DCA3FE8D2106C8098B9B796287CE200A832E5","diagnostics":{"sourceName":"Pine_C","sourceGuid":"a51a36a6dd0eefc4ca4e8454c2e2cda2","sourceLocalFileId":968116474860334763,"sourceFingerprint":"6CA0030E5BC826C22624FB9E826DCA3FE8D2106C8098B9B796287CE200A832E5","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Mountains/Contours/a51a36a6dd0eefc4ca4e8454c2e2cda2_968116474860334763.asset","reusedCache":false,"vertexCount":918,"triangleCount":472,"positionGroups":254,"coincidentPositionGroups":254,"compatibleGroups":254,"joinedGroups":254,"joinedVertices":918,"sourceNormalSplitGroups":254,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":918,"blendShapeCount":0,"positionTolerance":0.000009702474017103668}}'
+  assetBundleName: 
+  assetBundleVariant: 

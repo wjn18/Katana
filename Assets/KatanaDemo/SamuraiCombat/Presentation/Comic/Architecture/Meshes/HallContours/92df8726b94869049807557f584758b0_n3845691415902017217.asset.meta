@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 380394b0b3741f1489169d77d26eae64
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"8842177CAB79671737853C8EDA31CF2B493E7D64E7BF1E8C43289E89C9D38155","diagnostics":{"sourceName":"EasternHall_16_FrontSill_Timber","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":-3845691415902017217,"sourceFingerprint":"8842177CAB79671737853C8EDA31CF2B493E7D64E7BF1E8C43289E89C9D38155","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_n3845691415902017217.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.000010103960448759608}}'
+  assetBundleName: 
+  assetBundleVariant: 

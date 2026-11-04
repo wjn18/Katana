@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: db185ef1c5f22c043b5831bf127b2565
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"B595A80DC17259B7613550347F4B65C952B1135787D0A6A4EC551973C471F7CA","diagnostics":{"sourceName":"Storehouse_16_ApproachStepUpper_Stone","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-4760284360617514783,"sourceFingerprint":"B595A80DC17259B7613550347F4B65C952B1135787D0A6A4EC551973C471F7CA","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n4760284360617514783.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.0000028217903036420466}}'
+  assetBundleName: 
+  assetBundleVariant: 

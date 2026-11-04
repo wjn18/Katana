@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 8049d71534760024c964b1f7b6180a12
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"8D7BFEDF8A46E5C92F7213F1130EEBCD07E37A6F89B2AEDDB3F44206B7F50A28","diagnostics":{"sourceName":"EasternHall_05_FrontWall_Plaster","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":943443537100999580,"sourceFingerprint":"8D7BFEDF8A46E5C92F7213F1130EEBCD07E37A6F89B2AEDDB3F44206B7F50A28","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_943443537100999580.asset","reusedCache":false,"vertexCount":752,"triangleCount":540,"positionGroups":264,"coincidentPositionGroups":248,"compatibleGroups":264,"joinedGroups":248,"joinedVertices":736,"sourceNormalSplitGroups":248,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":736,"blendShapeCount":0,"positionTolerance":0.000010658330211299472}}'
+  assetBundleName: 
+  assetBundleVariant: 

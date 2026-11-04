@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: bfdf9740c33559243802669db098bf99
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"FD7F715814CF155B296D055A611894BFA05B5AA1EF58FEF18CBACAA11A92410A","diagnostics":{"sourceName":"Storehouse_17_HippedRoof_Roof","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":4068649761439444404,"sourceFingerprint":"FD7F715814CF155B296D055A611894BFA05B5AA1EF58FEF18CBACAA11A92410A","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_4068649761439444404.asset","reusedCache":false,"vertexCount":148,"triangleCount":84,"positionGroups":44,"coincidentPositionGroups":44,"compatibleGroups":44,"joinedGroups":44,"joinedVertices":148,"sourceNormalSplitGroups":44,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":148,"blendShapeCount":0,"positionTolerance":0.000008218949915317353}}'
+  assetBundleName: 
+  assetBundleVariant: 

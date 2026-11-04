@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: b782ead57702a1344b08b4357bfb341e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"32D90DFB631EAE04B864594B2C6B34866D1E3E3C18785199AEB429538027BF4D","diagnostics":{"sourceName":"EasternHall_19_CornerBindings_Timber","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":1215255382848370880,"sourceFingerprint":"32D90DFB631EAE04B864594B2C6B34866D1E3E3C18785199AEB429538027BF4D","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_1215255382848370880.asset","reusedCache":false,"vertexCount":384,"triangleCount":176,"positionGroups":96,"coincidentPositionGroups":96,"compatibleGroups":96,"joinedGroups":96,"joinedVertices":384,"sourceNormalSplitGroups":96,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":384,"blendShapeCount":0,"positionTolerance":0.000011991429346380755}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: ed9f37a5302ef3b45aa94fc2c0e2f772
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"B7466A482B560B088E4F8D1EEE9292DF7F10DACB92FC790EC7FB36C729791D3E","diagnostics":{"sourceName":"GrandHall_17_RearLintel_Timber","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":6318273259931615044,"sourceFingerprint":"B7466A482B560B088E4F8D1EEE9292DF7F10DACB92FC790EC7FB36C729791D3E","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_6318273259931615044.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.000016354159015463665}}'
+  assetBundleName: 
+  assetBundleVariant: 

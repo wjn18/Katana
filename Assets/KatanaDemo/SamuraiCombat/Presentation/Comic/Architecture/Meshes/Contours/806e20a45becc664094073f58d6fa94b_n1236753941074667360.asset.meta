@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 3e63a137d2863274f8dce5349e63f24c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"1E9331C95F76F3E13161DEBCA11823F4EE3D5E879C13F9A0734E9E02737B0CE3","diagnostics":{"sourceName":"Pavilion_16_Ridge_Gold","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-1236753941074667360,"sourceFingerprint":"1E9331C95F76F3E13161DEBCA11823F4EE3D5E879C13F9A0734E9E02737B0CE3","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n1236753941074667360.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.000003856552666547941}}'
+  assetBundleName: 
+  assetBundleVariant: 

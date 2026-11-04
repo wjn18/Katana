@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 8cab7d80650d8594c9a6a898e0b844e9
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"1EEE0C1F0200599D93A58E7F0B7073E1F2946CCD2A2A87DD91B3F21A8365994C","diagnostics":{"sourceName":"Pavilion_12_SideBalustrade-1_Timber","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":8279958654131859496,"sourceFingerprint":"1EEE0C1F0200599D93A58E7F0B7073E1F2946CCD2A2A87DD91B3F21A8365994C","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_8279958654131859496.asset","reusedCache":false,"vertexCount":240,"triangleCount":208,"positionGroups":96,"coincidentPositionGroups":96,"compatibleGroups":96,"joinedGroups":96,"joinedVertices":240,"sourceNormalSplitGroups":96,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":240,"blendShapeCount":0,"positionTolerance":0.000003260935272919596}}'
+  assetBundleName: 
+  assetBundleVariant: 

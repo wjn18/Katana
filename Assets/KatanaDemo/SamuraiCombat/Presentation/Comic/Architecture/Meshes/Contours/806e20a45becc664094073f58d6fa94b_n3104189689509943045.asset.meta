@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 234cebd7fcfdc6540be488039e73b119
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"9508B9D33F14230764F58B13A0076DE2C5D31F1E494BED761E1022813E50A8DC","diagnostics":{"sourceName":"Residence_17_FrontSill_Timber","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-3104189689509943045,"sourceFingerprint":"9508B9D33F14230764F58B13A0076DE2C5D31F1E494BED761E1022813E50A8DC","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n3104189689509943045.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.000007704965355515014}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: ad3465f0ec15cf0468159d7669a8ecd9
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"C7530DF7F0869DEC8EC1E69DBA92464C0B43CBC9C11380E7DD74AE321D10BC47","diagnostics":{"sourceName":"Pavilion_10_SideBench-1_Timber","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-8361412836787007717,"sourceFingerprint":"C7530DF7F0869DEC8EC1E69DBA92464C0B43CBC9C11380E7DD74AE321D10BC47","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n8361412836787007717.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.00000284480211121263}}'
+  assetBundleName: 
+  assetBundleVariant: 

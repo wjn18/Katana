@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: c25845e671a0bd044a07b7b7ede933fa
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"B73B9E7448F3FBA811A8B1DF860E4B894C57B0B71B238738037DB18B1DB907DE","diagnostics":{"sourceName":"Residence_05_LeftWall_Plaster","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":3465636108201189273,"sourceFingerprint":"B73B9E7448F3FBA811A8B1DF860E4B894C57B0B71B238738037DB18B1DB907DE","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_3465636108201189273.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.0000056531762311351486}}'
+  assetBundleName: 
+  assetBundleVariant: 

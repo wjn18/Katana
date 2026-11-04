@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 11b36c2436845524c9c7a1329abe3f41
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"F72882D822F2E5B3728F137F0DB7EAD03A64013FE57FC641A335483DEC1C671F","diagnostics":{"sourceName":"GrandHall_26_UpperGableRoof_Roof","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":7474149189816762518,"sourceFingerprint":"F72882D822F2E5B3728F137F0DB7EAD03A64013FE57FC641A335483DEC1C671F","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_7474149189816762518.asset","reusedCache":false,"vertexCount":532,"triangleCount":392,"positionGroups":198,"coincidentPositionGroups":186,"compatibleGroups":198,"joinedGroups":186,"joinedVertices":520,"sourceNormalSplitGroups":186,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":532,"blendShapeCount":0,"positionTolerance":0.000017532174751977436}}'
+  assetBundleName: 
+  assetBundleVariant: 

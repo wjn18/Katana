@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 618c5ffed3b01c74c8b0241d17050dba
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"E0C332166A5308F4D0A09BF3DEE341EF0981CB4E6660EFC0A040AB9090CC01A5","diagnostics":{"sourceName":"EasternHall_18_SideLintels_Timber","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":5466672494905639028,"sourceFingerprint":"E0C332166A5308F4D0A09BF3DEE341EF0981CB4E6660EFC0A040AB9090CC01A5","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_5466672494905639028.asset","reusedCache":false,"vertexCount":192,"triangleCount":88,"positionGroups":48,"coincidentPositionGroups":48,"compatibleGroups":48,"joinedGroups":48,"joinedVertices":192,"sourceNormalSplitGroups":48,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":192,"blendShapeCount":0,"positionTolerance":0.000011476607141958084}}'
+  assetBundleName: 
+  assetBundleVariant: 

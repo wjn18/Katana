@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: bd28ec6074da86f4a93d8476633f3675
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"D6FB01DE1A9CA3A5B53A19A0FF337C9F86BD3C073070FD361951117720797B37","diagnostics":{"sourceName":"EasternHall_02_Platform_Stone","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":1049146717765884173,"sourceFingerprint":"D6FB01DE1A9CA3A5B53A19A0FF337C9F86BD3C073070FD361951117720797B37","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_1049146717765884173.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.000013516375474864617}}'
+  assetBundleName: 
+  assetBundleVariant: 

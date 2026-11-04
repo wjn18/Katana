@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: beb88df51532f0a45802a6fac082b559
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"19199F2723967388938AACA98C614783A0C7D4D359D7FACFD2E9F743C1B24C22","diagnostics":{"sourceName":"EasternHall_13_ColumnBases_Stone","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":-4885527094306770215,"sourceFingerprint":"19199F2723967388938AACA98C614783A0C7D4D359D7FACFD2E9F743C1B24C22","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_n4885527094306770215.asset","reusedCache":false,"vertexCount":480,"triangleCount":220,"positionGroups":120,"coincidentPositionGroups":120,"compatibleGroups":120,"joinedGroups":120,"joinedVertices":480,"sourceNormalSplitGroups":120,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":480,"blendShapeCount":0,"positionTolerance":0.000009795774531085044}}'
+  assetBundleName: 
+  assetBundleVariant: 

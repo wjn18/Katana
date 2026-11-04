@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: ba2095b32de1e234c82e5cb207022af1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"7CBEA31FF8CDE225A1B2F2CF104452FBEDCFB9AA93DC4E338D6F9E8C3D9E1925","diagnostics":{"sourceName":"Portal_01_LeftFoot_Stone","sourceGuid":"88bd2b060e2a527408d345e371f99ef9","sourceLocalFileId":-7527101527866493422,"sourceFingerprint":"7CBEA31FF8CDE225A1B2F2CF104452FBEDCFB9AA93DC4E338D6F9E8C3D9E1925","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Compound/Meshes/Contours/88bd2b060e2a527408d345e371f99ef9_n7527101527866493422.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":8.082697604550049e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 1c67a39824a9b2340b622d69aace6fc8
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"614FE4D4FD9236676759CAD055266F682A2E2018C489DF3DDF0603727B10F383","diagnostics":{"sourceName":"Storehouse_06_LeftHighWindow_Backing_Paper","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":-8133376075588678266,"sourceFingerprint":"614FE4D4FD9236676759CAD055266F682A2E2018C489DF3DDF0603727B10F383","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_n8133376075588678266.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.0000013317001048562815}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: dc29231966dedb747b4af564e7c7c3ed
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"C604B4D22630B13182FC0BADB2E73676C33FCE6D33CFC21C5D24A99DD1403D1C","diagnostics":{"sourceName":"Residence_07_RightSideSkirt_Timber","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":8245145292132784261,"sourceFingerprint":"C604B4D22630B13182FC0BADB2E73676C33FCE6D33CFC21C5D24A99DD1403D1C","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_8245145292132784261.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.000004725283361040056}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: f146224cf020ef048876cd839d42fca7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"23D99C46F36040BFB7630103B994D8458F8115BB4D5E7B36E9CF5AA1248044AD","diagnostics":{"sourceName":"Pavilion_01_Foundation_Slate","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":6911801772340722367,"sourceFingerprint":"23D99C46F36040BFB7630103B994D8458F8115BB4D5E7B36E9CF5AA1248044AD","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_6911801772340722367.asset","reusedCache":false,"vertexCount":24,"triangleCount":12,"positionGroups":8,"coincidentPositionGroups":8,"compatibleGroups":8,"joinedGroups":8,"joinedVertices":24,"sourceNormalSplitGroups":8,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":24,"blendShapeCount":0,"positionTolerance":0.00000702662100593443}}'
+  assetBundleName: 
+  assetBundleVariant: 

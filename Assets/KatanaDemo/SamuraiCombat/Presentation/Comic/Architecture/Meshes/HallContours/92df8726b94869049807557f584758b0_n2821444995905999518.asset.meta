@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 1720ddc4bf9e393408d8947f69a4627f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"05A71F41862661C69D5014A449E02CDAA534AEFAE64FB5F938C5A2240E5B18BF","diagnostics":{"sourceName":"GrandHall_31_MainRidge_Gold","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":-2821444995905999518,"sourceFingerprint":"05A71F41862661C69D5014A449E02CDAA534AEFAE64FB5F938C5A2240E5B18BF","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_n2821444995905999518.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.000015802208508830518}}'
+  assetBundleName: 
+  assetBundleVariant: 

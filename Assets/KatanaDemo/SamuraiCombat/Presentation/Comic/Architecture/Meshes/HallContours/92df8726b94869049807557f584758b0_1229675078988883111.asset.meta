@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 5c2dd1f7a4ff43b44bf54a43f73f9367
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"AADFB9C42362A7C562BC682C0CB659157DE2BA6845197F9B374248A1D687C390","diagnostics":{"sourceName":"GrandHall_19_CornerBindings_Timber","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":1229675078988883111,"sourceFingerprint":"AADFB9C42362A7C562BC682C0CB659157DE2BA6845197F9B374248A1D687C390","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_1229675078988883111.asset","reusedCache":false,"vertexCount":384,"triangleCount":176,"positionGroups":96,"coincidentPositionGroups":96,"compatibleGroups":96,"joinedGroups":96,"joinedVertices":384,"sourceNormalSplitGroups":96,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":384,"blendShapeCount":0,"positionTolerance":0.00001759734186634887}}'
+  assetBundleName: 
+  assetBundleVariant: 

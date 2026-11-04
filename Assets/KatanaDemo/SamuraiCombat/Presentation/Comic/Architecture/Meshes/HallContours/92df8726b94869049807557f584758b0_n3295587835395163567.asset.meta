@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: f23001989d4e6d14282bdceec85cb24c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"D9B33E4215C4F4589347B5A9F68810C3AC4A9C2BFB4BF21DE4BCC7400CFBFC52","diagnostics":{"sourceName":"GrandHall_11_Column2_Red","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":-3295587835395163567,"sourceFingerprint":"D9B33E4215C4F4589347B5A9F68810C3AC4A9C2BFB4BF21DE4BCC7400CFBFC52","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_n3295587835395163567.asset","reusedCache":false,"vertexCount":72,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":72,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":72,"blendShapeCount":0,"positionTolerance":0.000004053775683132699}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 35487a3066039e44f8ed490a737b15f4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"619E0BE1902D0E90ACF331D8C5EFF82A856C9FD681BE53A8735EEE603955C044","diagnostics":{"sourceName":"Portal_05_UpperLintel_Timber","sourceGuid":"88bd2b060e2a527408d345e371f99ef9","sourceLocalFileId":-9039538898977527469,"sourceFingerprint":"619E0BE1902D0E90ACF331D8C5EFF82A856C9FD681BE53A8735EEE603955C044","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Compound/Meshes/Contours/88bd2b060e2a527408d345e371f99ef9_n9039538898977527469.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.000004749947038362734}}'
+  assetBundleName: 
+  assetBundleVariant: 

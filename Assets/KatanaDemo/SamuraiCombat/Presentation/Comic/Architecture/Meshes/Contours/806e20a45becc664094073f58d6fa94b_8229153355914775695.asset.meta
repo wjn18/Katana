@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 09f455e707b723d44906d6d166bf1cb8
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"F299F79BCE20C5790C75CE8DE9154EAA5891DA26F93E4EE53C808349DB9AFA09","diagnostics":{"sourceName":"Residence_28_Lantern2_Bottom_Red","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":8229153355914775695,"sourceFingerprint":"F299F79BCE20C5790C75CE8DE9154EAA5891DA26F93E4EE53C808349DB9AFA09","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_8229153355914775695.asset","reusedCache":false,"vertexCount":72,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":72,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":72,"blendShapeCount":0,"positionTolerance":4.503196464611392e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

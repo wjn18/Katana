@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 7b90fbb412769d54d825d86a34b566db
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"EB79D6EB2F7BD01EC8E466F1984408BBF4EE8A6067B2E164AE99C06704F05A92","diagnostics":{"sourceName":"EasternHall_29_RidgeEnds_Red","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":6664577928278367690,"sourceFingerprint":"EB79D6EB2F7BD01EC8E466F1984408BBF4EE8A6067B2E164AE99C06704F05A92","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_6664577928278367690.asset","reusedCache":false,"vertexCount":192,"triangleCount":88,"positionGroups":48,"coincidentPositionGroups":48,"compatibleGroups":48,"joinedGroups":48,"joinedVertices":192,"sourceNormalSplitGroups":48,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":192,"blendShapeCount":0,"positionTolerance":0.000007477091912733158}}'
+  assetBundleName: 
+  assetBundleVariant: 

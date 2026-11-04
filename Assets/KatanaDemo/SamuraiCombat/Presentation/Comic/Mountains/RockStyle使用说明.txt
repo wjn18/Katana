@@ -1,0 +1,27 @@
+山体连续岩层材质 · 2026-11-03
+
+当前设计
+统一偏暖灰岩面、冷蓝阴影，横向层理只保留低对比明暗和断续细缝，纵向风化痕迹沿岩壁展开。绿色由表面坡度连续混合，集中在山顶/缓坡，陡壁以岩石为主。近景可看细节，110–320米逐渐淡出岩层细线；远山更淡更偏蓝。所有细节是世界空间程序化表现，无新增位图贴图。
+
+实际使用的材质
+Materials/Rock_Strata_Near.mat：两庭承托岩峰、近山及风化石。
+Materials/Rock_Strata_Middle.mat：环绕山岭。
+Materials/Rock_Strata_Far.mat：远山。
+旧RockLight/RockShade/Moss等保留为Blender分区和历史材质，不再作为这些山体的当前分色。树木、溪流和原庭院材质保持。
+
+调参
+Sunlit palette / Shadow palette：岩石受光和阴影色。
+Vegetation sunlit / shadow：植被颜色；Vegetation coverage控制混合量。
+Vegetation slope start越大，植被越集中到平缓朝上的表面；softness控制边缘柔和程度。
+Rock beds per metre控制层理密度；Rock bed tonal variation控制强弱。
+Fine bed seam darkness控制细缝，设0关闭；Vertical weathering控制纵向风化，设0关闭。
+细节建议保持低反差，依靠山形、漫画明暗和轮廓承担主要体积。
+
+菜单
+OC Design > Samurai Combat > Refine Mountain Rock Materials。
+仅SamuraiCombatDemo Edit模式使用；把岩峰/山坡/岩石的槽统一套为近中远材质，保留这3份材质内部调参，原Transform/启停/网格/碰撞保持，不自动保存。显式再次套用会把单物件自定义材质切回这3份；正常重复应用无变化。
+完整山景安装器仅对新建整组默认接入，已有整组不自动覆盖手调。
+
+检查
+54个Renderer仅材质引用改变；2278个对象世界矩阵与启停保持，网格/碰撞/共享Shader/旧材质保持。Shader及最终Console错误0，重复应用零变化且场景dirty保持false。
+没有新增运行组件或生成位图；未做正式GPU/Player构建性能计时。

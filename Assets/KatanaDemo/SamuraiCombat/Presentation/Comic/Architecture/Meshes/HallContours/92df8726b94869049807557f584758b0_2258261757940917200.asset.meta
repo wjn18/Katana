@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: bf0d035f7274e154aa1368022f4ca9b3
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"FCDBF0BB85253E86586B14624E21360FB3BA14EEF54CDCCEE0ECBEA65CE760E2","diagnostics":{"sourceName":"EasternHall_23_Ceiling_Timber","sourceGuid":"92df8726b94869049807557f584758b0","sourceLocalFileId":2258261757940917200,"sourceFingerprint":"FCDBF0BB85253E86586B14624E21360FB3BA14EEF54CDCCEE0ECBEA65CE760E2","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/HallContours/92df8726b94869049807557f584758b0_2258261757940917200.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.000010948479939543176}}'
+  assetBundleName: 
+  assetBundleVariant: 

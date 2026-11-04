@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: bbcf8bef939c31f4386d765a39f2d0ec
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"DFB3B603E9F2FC219ECDEBCCDD54696322C14FC79397BA22B87D389A65F7B1DB","diagnostics":{"sourceName":"Pavilion_04_Column1_Red","sourceGuid":"806e20a45becc664094073f58d6fa94b","sourceLocalFileId":5082441986558628652,"sourceFingerprint":"DFB3B603E9F2FC219ECDEBCCDD54696322C14FC79397BA22B87D389A65F7B1DB","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Architecture/Meshes/Contours/806e20a45becc664094073f58d6fa94b_5082441986558628652.asset","reusedCache":false,"vertexCount":72,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":72,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":72,"blendShapeCount":0,"positionTolerance":0.0000032180896596401}}'
+  assetBundleName: 
+  assetBundleVariant: 
