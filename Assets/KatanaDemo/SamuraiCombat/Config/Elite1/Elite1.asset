@@ -52,7 +52,7 @@ MonoBehaviour:
   death: {fileID: 7400000, guid: 9a4d1adee521f1049b7e00e5d6fa2694, type: 2}
   disableCollisionOnDeath: 1
   charge: {fileID: 7400000, guid: f9c55374e08e4704db507cdbaa71b178, type: 2}
-  parry: {fileID: 7400000, guid: d516ebc865464c940accc04ce2d12866, type: 2}
+  parry: {fileID: 7400000, guid: 7b11213c146627c4d878941bb76a950d, type: 2}
   deflected: {fileID: 7400000, guid: 6764e2e57019f4c468b26d602f5d1a15, type: 2}
   directionalWalk:
   - {fileID: 7400000, guid: 7b8c80cf5112fe3419b06c4c183e8d00, type: 2}
@@ -180,7 +180,7 @@ MonoBehaviour:
   parryActiveSeconds: 0.2
   parryCooldownSeconds: 0.7
   parryStunSeconds: 1.1
-  parrySuccessRecoverySeconds: 0.28
+  parrySuccessRecoverySeconds: 0.6
   deflectEnabled: 0
   deflectActiveSeconds: 0.2
   deflectMissCooldownSeconds: 0.35

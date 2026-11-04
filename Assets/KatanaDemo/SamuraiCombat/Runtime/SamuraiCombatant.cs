@@ -130,6 +130,8 @@ namespace OCDesign.Samurai
         public event Action<int, bool> FrostMoonRequested;
         /// <summary>新式弹反成功：实际恢复耐力、命中点和来袭来源。每次成功结算一次。</summary>
         public event Action<float, Vector3, ISamuraiDamageReceiver> DeflectPerformed;
+        /// <summary>本角色的攻击被弹反且实际进入Deflected；不同于本角色成功弹反别人。</summary>
+        public event Action<float> DeflectReceived;
         /// <summary>普通/完美格挡各结算一次，供独立碰撞表现使用，不参与伤害判定。</summary>
         public event Action<SamuraiGuardContact> GuardContacted;
 
@@ -490,7 +492,11 @@ namespace OCDesign.Samurai
             if (!isActiveAndEnabled || !Compose() || IsDead || IsToughnessBroken || IsExecuting || IsBeingExecuted) return;
             knockback.Clear();
             if (actions.Toughness.Deflected(actions.Clock)) actions.ReactToToughnessBreak();
-            else actions.ReactToDeflected(seconds);
+            else
+            {
+                actions.ReactToDeflected(seconds);
+                DeflectReceived?.Invoke(actions.DeflectedRemainingSeconds);
+            }
         }
         void OnActionStateChanged(string state)
         {

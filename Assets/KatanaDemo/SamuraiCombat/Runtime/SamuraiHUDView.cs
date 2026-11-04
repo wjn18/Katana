@@ -366,6 +366,7 @@ namespace OCDesign.Samurai
             observedPlayer.KiPulsePerformed += OnKiPulse;
             observedPlayer.FluxPerformed += OnFlux;
             observedPlayer.DeflectPerformed += OnDeflect;
+            observedPlayer.DeflectReceived += OnDeflectReceived;
             observedPlayer.HitReceived += OnHitReceived;
             observedPlayer.StaminaInsufficient += OnStaminaInsufficient;
             observedPlayer.CombatReset += ResetVitalFeedback;
@@ -380,6 +381,7 @@ namespace OCDesign.Samurai
                 observedPlayer.KiPulsePerformed -= OnKiPulse;
                 observedPlayer.FluxPerformed -= OnFlux;
                 observedPlayer.DeflectPerformed -= OnDeflect;
+                observedPlayer.DeflectReceived -= OnDeflectReceived;
                 observedPlayer.HitReceived -= OnHitReceived;
                 observedPlayer.StaminaInsufficient -= OnStaminaInsufficient;
                 observedPlayer.CombatReset -= ResetVitalFeedback;
@@ -427,6 +429,8 @@ namespace OCDesign.Samurai
         private void OnDeflect(float amount, Vector3 point, ISamuraiDamageReceiver source) =>
             ShowFeedback("弹反", goldColor);
 
+        private void OnDeflectReceived(float seconds) =>
+            ShowFeedback("攻击被弹反", new Color(1f, .38f, .16f, 1f));
 
         private void OnHitReceived(SamuraiHitResult result)
         {

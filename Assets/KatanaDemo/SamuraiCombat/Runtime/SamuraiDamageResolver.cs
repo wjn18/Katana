@@ -39,21 +39,24 @@ namespace OCDesign.Samurai
             if (defense.WindowOpen(now, reactions.IsGuarding) && front && !hit.Unblockable)
             {
                 defense.ConsumeWindow();
+                bool broken = toughness != null && toughness.Contact(hit, now, toughnessReaction.ActionStaggerResistance, true, true);
+                // 同一接触打空韧性时，倒伏优先；不能一边倒伏一边反制或获得成功回耐。
+                if (broken)
+                {
+                    toughnessReaction.ReactToToughnessBreak();
+                    return SamuraiHitResult.GuardBroken;
+                }
                 if (profile.deflectEnabled)
                     vitals.RestoreStamina(vitals.MaxStamina * Mathf.Clamp01(profile.deflectRecoveryFraction));
-                bool broken = toughness != null && toughness.Contact(hit, now, toughnessReaction.ActionStaggerResistance, true, true);
-                if (broken) toughnessReaction.ReactToToughnessBreak();
-                else ReactToGuard(true, hit);
+                ReactToGuard(true, hit);
                 if (hit.Source != null && hit.Source.CanReceiveDamage)
                 {
-                    if (profile.deflectEnabled)
-                    {
-                        float seconds = Mathf.Max(.05f, profile.deflectStunSeconds);
-                        var deflectReaction = hit.Source as ISamuraiDeflectReaction;
-                        if (deflectReaction != null) deflectReaction.ReceiveDeflect(seconds);
-                        else hit.Source.Stagger(seconds);
-                    }
-                    else hit.Source.Stagger(profile.parryStunSeconds);
+                    // 新旧窗口沿用各自硬直秒数，攻击者统一使用明确的被弹反反应。
+                    float seconds = Mathf.Max(.05f, profile.deflectEnabled
+                        ? profile.deflectStunSeconds : profile.parryStunSeconds);
+                    var deflectReaction = hit.Source as ISamuraiDeflectReaction;
+                    if (deflectReaction != null) deflectReaction.ReceiveDeflect(seconds);
+                    else hit.Source.Stagger(seconds);
                 }
                 return SamuraiHitResult.PerfectGuard;
             }

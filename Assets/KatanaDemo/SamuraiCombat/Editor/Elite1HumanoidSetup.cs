@@ -42,6 +42,7 @@ namespace OCDesign.Samurai.EditorTools
             var clips=CopyClips(report); GroundRootHeight(clips,report);var controller=ConfigureController(clips);
             ReplaceProfileClips(clips); ConfigurePrefab(avatar,controller,clips,report);
             SamuraiEnemyReadabilitySetup.GroundDeath("Elite1",true);
+            Elite1ParrySetup.Install();
             var maintainedProfile=AssetDatabase.LoadAssetAtPath<SamuraiCombatProfile>(Elite1CombatSetup.ProfilePath);
             if(maintainedProfile!=null&&maintainedProfile.elitePoseContinuityVersion>0)SamuraiElitePoseContinuitySetup.Install();
             File.WriteAllText(Path.Combine(ReportFolder,"接入构建.json"),JsonUtility.ToJson(report,true));
@@ -112,7 +113,7 @@ namespace OCDesign.Samurai.EditorTools
                 if(clip.Key=="Death"&&profile!=null&&profile.elitePoseContinuityVersion>0&&existing!=null&&existing.motion!=null)continue;
                 SetState(machine,clip.Key,clip.Value);
             }
-            SetState(machine,"Guard_B",clips["Guard"]);for(int i=1;i<=3;i++)SetState(machine,"GuardBHit"+i,clips[i==1?"GuardHit":"GuardHit"+i]);SetState(machine,"Parry",clips["GuardHit"]);
+            SetState(machine,"Guard_B",clips["Guard"]);for(int i=1;i<=3;i++)SetState(machine,"GuardBHit"+i,clips[i==1?"GuardHit":"GuardHit"+i]);
             machine.defaultState=machine.states.First(s=>s.state.name=="Idle").state;EditorUtility.SetDirty(controller);AssetDatabase.SaveAssetIfDirty(controller);return controller;
         }
         static void SetState(AnimatorStateMachine machine,string name,AnimationClip clip)
