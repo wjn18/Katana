@@ -49,7 +49,7 @@ MonoBehaviour:
   - {fileID: 0}
   hitMediumStaminaDamage: 35
   hitHeavyStaminaDamage: 55
-  death: {fileID: 7400000, guid: 3aed46b7dd5bf804fa32df1d6feb09ac, type: 2}
+  death: {fileID: 7400000, guid: 9a4d1adee521f1049b7e00e5d6fa2694, type: 2}
   disableCollisionOnDeath: 1
   charge: {fileID: 7400000, guid: f9c55374e08e4704db507cdbaa71b178, type: 2}
   parry: {fileID: 7400000, guid: d516ebc865464c940accc04ce2d12866, type: 2}
@@ -109,13 +109,25 @@ MonoBehaviour:
   toughnessBreakSeconds: 4
   toughnessBrokenPose: 0.55
   toughnessBreakUsesDeflected: 1
+  toughnessBrokenHealthyLoop: {fileID: 7400000, guid: e4b84fc3992972643ab1918faf1fde40, type: 2}
+  toughnessBrokenLowHealthLoop: {fileID: 7400000, guid: f3091c0a25632394db3ac9907e8d457d, type: 2}
+  toughnessGetupHealthy: {fileID: 7400000, guid: 279cd97b7033f564a8a271ffe18e7202, type: 2}
+  toughnessGetupLowHealth: {fileID: 7400000, guid: 1a4c5792ce555f54e912181682e3c0ba, type: 2}
+  toughnessGetupTransitionSeconds: 0.3
+  elitePoseContinuityVersion: 6
   executionHealthFraction: 0.35
+  executionDamageMode: 1
+  executionFixedDamage: 45
+  executionSurvivingPair: {fileID: 11400000, guid: a7223221a6671914a87cc3b13b3fcae1, type: 2}
+  executionLethalPair: {fileID: 11400000, guid: 2e0650d141093a24d907824248199369, type: 2}
+  executionPairConfigurationVersion: 1
   baseStaggerResistance: 25
   maximumAccumulatedResistance: 120
   resistanceDecayDelay: 1.5
   resistanceDecayPerSecond: 40
   chargeStaggerResistanceBonus: 25
   resistedKnockbackMultiplier: 0.25
+  executionEnabled: 0
   executionAction: {fileID: 0}
   executionSurfaceRange: 1
   toughnessConfigurationVersion: 1

@@ -203,15 +203,6 @@ namespace OCDesign.EditorTools
                 fill.rectTransform.anchoredPosition = new Vector2(2f, -2f); fill.rectTransform.sizeDelta = new Vector2(176f, 3f);
                 hud.targetToughnessFill = fill; changed = true;
             }
-            if (hud.targetExecutionPrompt == null)
-            {
-                var text = UnityEngine.Object.Instantiate(hud.briefFeedback, hud.targetRoot, false);
-                text.name = "ExecutionPrompt"; text.fontSize = 18; text.color = new Color(1f, .8f, .2f, 1f);
-                text.alignment = TextAnchor.MiddleCenter; text.text = "E 处决";
-                text.rectTransform.anchorMin = text.rectTransform.anchorMax = text.rectTransform.pivot = Vector2.up;
-                text.rectTransform.anchoredPosition = new Vector2(-20f, 32f); text.rectTransform.sizeDelta = new Vector2(240f, 28f);
-                text.gameObject.SetActive(false); hud.targetExecutionPrompt = text; changed = true;
-            }
             if (changed) EditorUtility.SetDirty(hud);
             return changed;
         }

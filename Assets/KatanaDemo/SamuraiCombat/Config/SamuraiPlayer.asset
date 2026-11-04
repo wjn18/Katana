@@ -111,13 +111,26 @@ MonoBehaviour:
   deflectedToughnessFraction: 0.25
   toughnessBreakSeconds: 3
   toughnessBrokenPose: 0.55
+  toughnessBreakUsesDeflected: 0
+  toughnessBrokenHealthyLoop: {fileID: 0}
+  toughnessBrokenLowHealthLoop: {fileID: 0}
+  toughnessGetupHealthy: {fileID: 0}
+  toughnessGetupLowHealth: {fileID: 0}
+  toughnessGetupTransitionSeconds: -1
+  elitePoseContinuityVersion: 0
   executionHealthFraction: 1
+  executionDamageMode: 1
+  executionFixedDamage: 45
+  executionSurvivingPair: {fileID: 0}
+  executionLethalPair: {fileID: 0}
+  executionPairConfigurationVersion: 1
   baseStaggerResistance: 10
   maximumAccumulatedResistance: 90
   resistanceDecayDelay: 1.5
   resistanceDecayPerSecond: 30
   chargeStaggerResistanceBonus: 15
   resistedKnockbackMultiplier: 0.25
+  executionEnabled: 1
   executionAction: {fileID: 11400000, guid: 9485bf7a1b476564ebd924d16e51b206, type: 2}
   executionSurfaceRange: 1
   toughnessConfigurationVersion: 1

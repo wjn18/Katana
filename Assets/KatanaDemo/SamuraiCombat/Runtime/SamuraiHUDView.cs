@@ -285,11 +285,11 @@ namespace OCDesign.Samurai
                 float ratio = target.Toughness != null ? target.Toughness.Value / target.Toughness.Maximum : 1f;
                 SetFill(targetToughnessFill, ratio, ratio <= .25f ? new Color(1f, .34f, .12f, 1f) : goldColor);
             }
-            bool broken = showToughness && target.IsExecutionVulnerable && player.Profile != null && player.Profile.executionEnabled;
             if (targetExecutionPrompt != null)
             {
-                SetActive(targetExecutionPrompt.gameObject, broken);
-                if (broken) SetText(targetExecutionPrompt, player.CanExecuteTarget(target) ? "E 处决" : "失衡 · 靠近处决");
+                // Retain old scene references, but execution opportunities now use a world effect.
+                SetActive(targetExecutionPrompt.gameObject, false);
+                SetText(targetExecutionPrompt, string.Empty);
             }
             SetEnabled(lockMarker, showTarget && targetLock != null && targetLock.CurrentTarget == target);
             SetColor(lockMarker, goldColor);
@@ -426,6 +426,7 @@ namespace OCDesign.Samurai
 
         private void OnDeflect(float amount, Vector3 point, ISamuraiDamageReceiver source) =>
             ShowFeedback("弹反", goldColor);
+
 
         private void OnHitReceived(SamuraiHitResult result)
         {

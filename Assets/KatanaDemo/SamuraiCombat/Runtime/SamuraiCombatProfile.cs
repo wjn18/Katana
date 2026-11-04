@@ -81,7 +81,24 @@ namespace OCDesign.Samurai
         [Range(0f, 1f)] public float toughnessBrokenPose = .55f;
         [Tooltip("使用既有被弹反片段定格与恢复，避免倒地过渡中的腾空姿势。")]
         public bool toughnessBreakUsesDeflected;
+        [Tooltip("进入破韧时生命至少50%使用的倒伏保持循环；需ToughnessBrokenHealthy状态。未配置或缺状态时沿用原定格，不改变失衡和恢复时长。")]
+        public AnimationClip toughnessBrokenHealthyLoop;
+        [Tooltip("进入破韧时生命低于50%使用的倒伏保持循环；需ToughnessBrokenLowHealth状态。本次失衡期间跨越生命阈值不切换。")]
+        public AnimationClip toughnessBrokenLowHealthLoop;
+        [Tooltip("N7倒伏结束后的完整起身片段；需ToughnessGetupHealthy状态。缺失时保留原恢复动作。")]
+        public AnimationClip toughnessGetupHealthy;
+        [Tooltip("N8倒伏结束后的完整起身片段；需ToughnessGetupLowHealth状态。沿用本次倒伏选择，不重新判断生命。")]
+        public AnimationClip toughnessGetupLowHealth;
+        [Tooltip("Down-to-getup blend in seconds; negative keeps the existing profile blend capped at .08 seconds.")]
+        public float toughnessGetupTransitionSeconds=-1f;
+        [HideInInspector] public int elitePoseContinuityVersion;
         [Range(0f, 1f)] public float executionHealthFraction = 1f;
+        [Header("受处决：伤害在敌兵配置，未配置配对时禁止处决")]
+        public SamuraiExecutionDamageMode executionDamageMode = SamuraiExecutionDamageMode.MaximumHealthFraction;
+        [Min(0f)] public float executionFixedDamage = 45f;
+        public SamuraiExecutionPair executionSurvivingPair;
+        public SamuraiExecutionPair executionLethalPair;
+        [HideInInspector] public int executionPairConfigurationVersion;
         [Min(0f)] public float baseStaggerResistance = 10f;
         [Min(0f)] public float maximumAccumulatedResistance = 90f;
         [Min(0f)] public float resistanceDecayDelay = 1.5f;
@@ -89,7 +106,7 @@ namespace OCDesign.Samurai
         [Min(0f)] public float chargeStaggerResistanceBonus = 15f;
         [Range(0f, 1f)] public float resistedKnockbackMultiplier = .25f;
         [Header("玩家主动处决；不启用敌人处决玩家")]
-        [Tooltip("仅在适配专用处决动画后开启；当前版本默认停用。")]
+        [Tooltip("玩家E入口；目标还必须配置专用受方配对。")]
         public bool executionEnabled;
         public SamuraiActionDefinition executionAction;
         [Min(0f)] public float executionSurfaceRange = 1f;

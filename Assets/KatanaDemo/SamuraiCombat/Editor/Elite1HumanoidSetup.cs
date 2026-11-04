@@ -42,6 +42,8 @@ namespace OCDesign.Samurai.EditorTools
             var clips=CopyClips(report); GroundRootHeight(clips,report);var controller=ConfigureController(clips);
             ReplaceProfileClips(clips); ConfigurePrefab(avatar,controller,clips,report);
             SamuraiEnemyReadabilitySetup.GroundDeath("Elite1",true);
+            var maintainedProfile=AssetDatabase.LoadAssetAtPath<SamuraiCombatProfile>(Elite1CombatSetup.ProfilePath);
+            if(maintainedProfile!=null&&maintainedProfile.elitePoseContinuityVersion>0)SamuraiElitePoseContinuitySetup.Install();
             File.WriteAllText(Path.Combine(ReportFolder,"接入构建.json"),JsonUtility.ToJson(report,true));
             Debug.Log("Elite1 Humanoid installed: valid human Avatar, "+clips.Count+" muscle clips. Combat values and weapon assets retained.");
         }
@@ -102,7 +104,14 @@ namespace OCDesign.Samurai.EditorTools
             var controller=AssetDatabase.LoadAssetAtPath<AnimatorController>(path)??AnimatorController.CreateAnimatorControllerAtPath(path);
             if(!controller.parameters.Any(p=>p.name=="LocomotionRate"))controller.AddParameter(new AnimatorControllerParameter{name="LocomotionRate",type=AnimatorControllerParameterType.Float,defaultFloat=1});
             var machine=controller.layers[0].stateMachine;
-            foreach(var clip in clips)SetState(machine,clip.Key,clip.Value);
+            var profile=AssetDatabase.LoadAssetAtPath<SamuraiCombatProfile>(Elite1CombatSetup.ProfilePath);
+            foreach(var clip in clips)
+            {
+                // Preserve the installed settled death or any later authored Death binding.
+                var existing=machine.states.FirstOrDefault(s=>s.state.name==clip.Key).state;
+                if(clip.Key=="Death"&&profile!=null&&profile.elitePoseContinuityVersion>0&&existing!=null&&existing.motion!=null)continue;
+                SetState(machine,clip.Key,clip.Value);
+            }
             SetState(machine,"Guard_B",clips["Guard"]);for(int i=1;i<=3;i++)SetState(machine,"GuardBHit"+i,clips[i==1?"GuardHit":"GuardHit"+i]);SetState(machine,"Parry",clips["GuardHit"]);
             machine.defaultState=machine.states.First(s=>s.state.name=="Idle").state;EditorUtility.SetDirty(controller);AssetDatabase.SaveAssetIfDirty(controller);return controller;
         }

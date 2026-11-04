@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 7298882473059549192}
   - component: {fileID: 9092065137384105880}
   - component: {fileID: 5687391658313173391}
+  - component: {fileID: 1385819805737051850}
   m_Layer: 0
   m_Name: Elite1
   m_TagString: Untagged
@@ -397,6 +398,35 @@ MonoBehaviour:
   - 7.1451006
   - 5.735644
   - 7.083597
+--- !u!114 &1385819805737051850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8282274257416828247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44cd91475357c9242ae6007018db9e3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiExecutionCue
+  actor: {fileID: 7680140067542967229}
+  player: {fileID: 0}
+  cueMaterial: {fileID: 2100000, guid: f950b1b399cda0f44a76070bd4d774a5, type: 2}
+  visibleDistance: 16
+  visibilityMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  survivingBone: 2
+  lethalBone: 0
+  surfaceOffset: 0.18
+  bodyRadius: 0.17
+  standingRadius: 0.42
+  lineWidth: 0.025
+  groundLift: 0.025
+  pulseHz: 1.25
+  waitingColor: {r: 1.35, g: 0.94, b: 0.42, a: 0.85}
+  readyColor: {r: 1.6, g: 1.3, b: 0.76, a: 1}
 --- !u!1 &8845203112361052415
 GameObject:
   m_ObjectHideFlags: 0

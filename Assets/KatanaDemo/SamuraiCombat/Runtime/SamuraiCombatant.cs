@@ -68,7 +68,7 @@ namespace OCDesign.Samurai
         public bool IsCriticalAttack => actions != null && actions.IsCriticalAttack;
         public float AttackDamageMultiplier => actions != null ? actions.AttackDamageMultiplier : 1f;
         public int ComboIndex => actions != null ? actions.ComboIndex : -1;
-        public bool IsDead => actions != null && actions.IsDead;
+        public bool IsDead => actions != null && (actions.IsDead || initialized && vitals.Health <= 0f);
         public bool IsAttacking => actions != null && actions.IsAttacking;
         public bool IsGuarding => actions != null && actions.IsGuarding;
         public bool IsInvulnerable => actions != null && actions.IsInvulnerable;
@@ -109,7 +109,7 @@ namespace OCDesign.Samurai
         public SamuraiAttackApproach AttackApproach => actions != null ? actions.AttackApproach : null;
         public bool CanAct => actions != null && actions.CanAct;
         public bool IsInHitReaction => actions != null && actions.IsInHitReaction;
-        public bool CanReceiveDamage => profile != null && isActiveAndEnabled && !IsDead;
+        public bool CanReceiveDamage => profile != null && isActiveAndEnabled && !IsDead && !IsExecuting && !IsBeingExecuted;
         public SamuraiHitResult LastHitResult { get; private set; }
         public event Action<string> StateChanged;
         public event Action<SamuraiHitResult> HitReceived;
@@ -141,6 +141,7 @@ namespace OCDesign.Samurai
             // 停用后旧动作的未消费根位移不能在重新启用时追补；新出招或复位恢复。
             if (actions != null) suppressedRootMotionAttackSerial = actions.AttackSerial;
             AbortExecution();
+            SuspendExecutionPose();
             ClearHitStop();
             actions?.CancelInput();
             actions?.ClearKiPulse();
@@ -151,7 +152,7 @@ namespace OCDesign.Samurai
         }
         void Update() { if (Time.timeScale > 0f) AdvanceHitStop(Time.unscaledDeltaTime); }
         // Esc 设置暂停期间冻结命中查询，避免静止的攻击窗口继续结算接触。
-        void LateUpdate() { if (Time.timeScale > 0f) EvaluateWeaponContacts(); }
+        void LateUpdate() { EvaluateExecutionPose(); if (Time.timeScale > 0f) EvaluateWeaponContacts(); }
 
         /// <summary>只消费当前根运动动作的Animator增量；保持世界方向、横移与负向回收，不做距离夹紧。</summary>
         public void ApplyAnimationRootMotion(Animator source)
@@ -224,6 +225,7 @@ namespace OCDesign.Samurai
         public void ResetCombat()
         {
             AbortExecution();
+            ClearExecutionPose();
             ClearHitStop();
             rootMotionAttackSerial = -1;
             suppressedRootMotionAttackSerial = -1;
@@ -477,13 +479,13 @@ namespace OCDesign.Samurai
             && !float.IsNaN(value.y) && !float.IsInfinity(value.y) && !float.IsNaN(value.z) && !float.IsInfinity(value.z);
         public void Stagger(float seconds)
         {
-            if (!Compose() || IsDead || IsToughnessBroken) return;
+            if (!Compose() || IsDead || IsToughnessBroken || IsExecuting) return;
             if (actions.Toughness.Deflected(actions.Clock)) actions.ReactToToughnessBreak();
             else actions.ReactToHit(seconds);
         }
         public void ReceiveDeflect(float seconds)
         {
-            if (!isActiveAndEnabled || !Compose() || IsDead || IsToughnessBroken) return;
+            if (!isActiveAndEnabled || !Compose() || IsDead || IsToughnessBroken || IsExecuting || IsBeingExecuted) return;
             knockback.Clear();
             if (actions.Toughness.Deflected(actions.Clock)) actions.ReactToToughnessBreak();
             else actions.ReactToDeflected(seconds);

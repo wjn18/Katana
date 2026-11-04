@@ -5,7 +5,7 @@ using UnityEngine.Rendering.Universal;
 namespace OCDesign.Samurai
 {
     /// <summary>
-    /// 在环绕相机完成碰撞/锁定后叠加旋转震屏；蓄力冲刺按真实位移增加视野与镜头畸变。
+    /// 在环绕相机完成碰撞/锁定后叠加旋转震屏；蓄力冲刺增加视野，精英处决按接触时序推拉视野。
     /// 不改变相机位置、战斗计时或全局Volume资产。
     /// </summary>
     [DefaultExecutionOrder(500), DisallowMultipleComponent]
@@ -37,6 +37,7 @@ namespace OCDesign.Samurai
 
         const int RuntimeVolumeLayer = 31;
         const float FeedbackEpsilon = .0001f;
+        const float ExecutionFovReturnSeconds = .15f;
         Camera view;
         SamuraiOrbitCamera subscribedOrbit;
         SamuraiCombatant subscribedPlayer;
@@ -49,7 +50,12 @@ namespace OCDesign.Samurai
         bool previousPostProcessing;
         LayerMask previousVolumeMask;
         float baseFov, lastWrittenFov, appliedFovOffset;
+        float rushFovOffset, executionFovOffset, executionFovReturnStart, executionFovReturnElapsed;
+        bool executionFovReturning;
         float shakeElapsed, shakeDuration, shakeAmplitude;
+        bool executionShake;
+        public int ExecutionShakeCount { get; private set; }
+        public SamuraiCombatant TargetPlayer => player;
         float receivedShakeElapsed, receivedShakeDuration, receivedShakeAmplitude;
         float rushStrength, realPlanarSpeed;
         float rushFallElapsed, rushFallStart, heatElapsed, heatStrength;
@@ -66,6 +72,7 @@ namespace OCDesign.Samurai
         public float RushStrength => rushStrength;
         public float ActualPlanarSpeed => realPlanarSpeed;
         public float FieldOfViewOffset => appliedFovOffset;
+        public float ExecutionFovOffset => executionFovOffset;
         public float LensDistortionAmount => distortion != null ? distortion.intensity.value : 0f;
         public Vector3 ShakeEuler => appliedShakeEuler;
         public float ShakeRemaining => Mathf.Max(Mathf.Max(0f, shakeDuration - shakeElapsed), ReceivedDamageShakeRemaining);
@@ -190,12 +197,14 @@ namespace OCDesign.Samurai
             ReceivedDamageShakeCount++;
         }
 
+
         bool CanPlayShake() => Application.isPlaying && isActiveAndEnabled && view != null
             && orbit != null && orbit.isActiveAndEnabled && player != null && player.isActiveAndEnabled;
 
         /// <summary>由真实命中的反馈入口调用；蓄力比普通重击更重，不移动相机碰撞位置。</summary>
         public void PlayImpact(bool charged)
         {
+            executionShake = false;
             if (!CanPlayShake()) return;
             float nextAmplitude = charged ? chargedShakeDegrees : heavyShakeDegrees;
             float nextDuration = charged ? chargedShakeSeconds : heavyShakeSeconds;
@@ -203,6 +212,11 @@ namespace OCDesign.Samurai
                 Finite(nextAmplitude) ? Mathf.Clamp(nextAmplitude, 0f, 3f) : 0f);
             shakeDuration = Finite(nextDuration) ? Mathf.Clamp(nextDuration, .05f, .5f) : .17f;
             shakeElapsed = 0f;
+        }
+        public void PlayExecutionImpact(float degrees,float seconds)
+        {
+            if(!CanPlayShake())return;
+            executionShake=true;shakeElapsed=0;shakeDuration=Mathf.Clamp(seconds,.05f,.4f);shakeAmplitude=Mathf.Clamp(degrees,0,8f);ExecutionShakeCount++;
         }
 
         /// <summary>正常LateUpdate路径；独立诊断时也可在Orbit求值后传入缩放/真实时间。</summary>
@@ -241,6 +255,7 @@ namespace OCDesign.Samurai
             bool inRush = charged && progress >= action.stepStart && progress < action.stepEnd;
             float minSpeed = Finite(minimumRushSpeed) ? Mathf.Max(0f, minimumRushSpeed) : .5f;
             bool paused = scaledDeltaSeconds <= 0f || Time.timeScale <= 0f;
+            SampleExecutionFov(scaledDeltaSeconds, paused);
             bool interrupted = paused || player.IsHitStopped || !charged;
             bool startedHeat = false;
             if (inRush && !paused && !player.IsHitStopped && realPlanarSpeed > minSpeed)
@@ -305,10 +320,12 @@ namespace OCDesign.Samurai
 
         public void ClearFeedback()
         {
+            ResetExecutionFov();
             ResetRush();
             ResetHeat();
             shakeElapsed = shakeDuration = shakeAmplitude = 0f;
             receivedShakeElapsed = receivedShakeDuration = receivedShakeAmplitude = 0f;
+            executionShake = false;
             appliedShakeEuler = Vector3.zero;
             RestoreRotation();
             realPlanarSpeed = 0f;
@@ -325,7 +342,8 @@ namespace OCDesign.Samurai
         {
             if (view == null) return;
             baseFov = lastWrittenFov = view.fieldOfView;
-            appliedFovOffset = 0f;
+            appliedFovOffset = rushFovOffset = 0f;
+            ResetExecutionFov();
         }
 
         void ObserveExternalFov()
@@ -342,10 +360,8 @@ namespace OCDesign.Samurai
         {
             if (view == null || view.orthographic) { ResetRush(); return; }
             float boost = Finite(chargedFovBoost) ? Mathf.Clamp(chargedFovBoost, 0f, 24f) : 14f;
-            float targetFov = Mathf.Clamp(baseFov + boost * rushStrength, 10f, 100f);
-            appliedFovOffset = targetFov - baseFov;
-            lastWrittenFov = targetFov;
-            view.fieldOfView = targetFov;
+            rushFovOffset = boost * rushStrength;
+            ApplyFov();
             if (!EnsureVolume()) return;
             AcquirePostSettings();
             float amount = Finite(chargedLensDistortion) ? Mathf.Clamp(chargedLensDistortion, -.45f, 0f) : -.22f;
@@ -358,17 +374,74 @@ namespace OCDesign.Samurai
             rushStrength = 0f;
             rushFalling = false;
             rushFallElapsed = rushFallStart = 0f;
-            if (view != null && appliedFovOffset != 0f)
-            {
-                if (Mathf.Abs(view.fieldOfView - lastWrittenFov) <= .01f)
-                    view.fieldOfView = baseFov;
-                else baseFov = view.fieldOfView;
-                lastWrittenFov = view.fieldOfView;
-            }
-            appliedFovOffset = 0f;
+            rushFovOffset = 0f;
+            ApplyFov();
             if (distortion != null) { distortion.intensity.value = 0f; distortion.scale.value = 1f; }
             if (runtimeVolume != null) runtimeVolume.weight = 0f;
             RestorePostSettings();
+        }
+
+        void SampleExecutionFov(float deltaSeconds, bool paused)
+        {
+            if (view.orthographic) { ResetExecutionFov(); return; }
+            // 处决和接触停顿共用实际播放时钟；真正暂停保持当前视野。
+            if (paused) return;
+            var pair = player.IsExecuting ? player.ActiveExecutionPair : null;
+            float push = pair != null && Finite(pair.cameraPushFov) ? Mathf.Clamp(pair.cameraPushFov, 0f, 16f) : 0f;
+            float recoil = pair != null && Finite(pair.cameraRecoilFov) ? Mathf.Clamp(pair.cameraRecoilFov, 0f, 8f) : 0f;
+            if (pair != null && (push > 0f || recoil > 0f))
+            {
+                float elapsed = player.ExecutionPlaybackElapsed;
+                float impact = pair.PlaybackSecondsAt(pair.strikeSeconds);
+                float duration = pair.PlaybackDuration;
+                if (Finite(elapsed) && Finite(impact) && Finite(duration) && duration > 0f)
+                {
+                    executionFovReturning = false;
+                    executionFovReturnElapsed = executionFovReturnStart = 0f;
+                    float sinceImpact = elapsed - impact;
+                    if (sinceImpact <= 0f)
+                        executionFovOffset = -push * Mathf.SmoothStep(0f, 1f, elapsed / Mathf.Max(.01f, impact));
+                    else if (sinceImpact < .045f)
+                        executionFovOffset = Mathf.Lerp(-push, recoil, Mathf.SmoothStep(0f, 1f, sinceImpact / .045f));
+                    else if (sinceImpact < .16f)
+                        executionFovOffset = Mathf.Lerp(recoil, -push * .35f,
+                            Mathf.SmoothStep(0f, 1f, (sinceImpact - .045f) / .115f));
+                    else
+                        executionFovOffset = -push * .35f * (1f - Mathf.SmoothStep(0f, 1f,
+                            (sinceImpact - .16f) / Mathf.Max(.05f, duration - impact - .28f)));
+                    return;
+                }
+            }
+            // 正常收尾或被打断时短促平滑收回；复位、停用与换玩家由ClearFeedback立即清理。
+            if (Mathf.Abs(executionFovOffset) <= FeedbackEpsilon) { ResetExecutionFov(); return; }
+            if (!executionFovReturning)
+            {
+                executionFovReturning = true;
+                executionFovReturnStart = executionFovOffset;
+                executionFovReturnElapsed = 0f;
+            }
+            executionFovReturnElapsed += deltaSeconds;
+            executionFovOffset = executionFovReturnStart * (1f - Mathf.SmoothStep(0f, 1f,
+                executionFovReturnElapsed / ExecutionFovReturnSeconds));
+            if (executionFovReturnElapsed >= ExecutionFovReturnSeconds) ResetExecutionFov();
+        }
+
+        void ResetExecutionFov()
+        {
+            executionFovOffset = executionFovReturnStart = executionFovReturnElapsed = 0f;
+            executionFovReturning = false;
+        }
+
+        void ApplyFov()
+        {
+            if (view == null) return;
+            // 同一基础FOV上合并两种表现，ResetRush不能抹掉处决镜头，也不能把旧偏移累计进基础值。
+            ObserveExternalFov();
+            float offset = view.orthographic ? 0f : rushFovOffset + executionFovOffset;
+            float target = Mathf.Abs(offset) > FeedbackEpsilon ? Mathf.Clamp(baseFov + offset, 10f, 100f) : baseFov;
+            appliedFovOffset = target - baseFov;
+            lastWrittenFov = target;
+            view.fieldOfView = target;
         }
 
         void ResetHeat()
@@ -383,7 +456,7 @@ namespace OCDesign.Samurai
             if (!IsShaking) { RestoreRotation(); return; }
             appliedShakeEuler = Vector3.ClampMagnitude(
                 ShakeSample(shakeElapsed, shakeDuration, shakeAmplitude)
-                + ShakeSample(receivedShakeElapsed, receivedShakeDuration, receivedShakeAmplitude), 3f);
+                + ShakeSample(receivedShakeElapsed, receivedShakeDuration, receivedShakeAmplitude), executionShake && IsImpactShaking ? 6f : 3f);
             appliedBaseRotation = orbit.UnshakenRotation;
             view.transform.rotation = appliedBaseRotation * Quaternion.Euler(appliedShakeEuler);
             appliedShake = true;

@@ -31,8 +31,14 @@ namespace OCDesign.Samurai
         bool chargingSheathed;
         bool configurableCharge, chargePendingHold;
         public const float StandaloneHeavyHoldSeconds = .25f;
+        public const string ToughnessBrokenHealthyState = "ToughnessBrokenHealthy";
+        public const string ToughnessBrokenLowHealthState = "ToughnessBrokenLowHealth";
+        public const string ToughnessGetupHealthyState = "ToughnessGetupHealthy";
+        public const string ToughnessGetupLowHealthState = "ToughnessGetupLowHealth";
         const float ChargeTimeTolerance = .00001f;
         float stateTime, stateDuration = 1f, lastActionNormalized;
+        float executionGetupExitBlend=-1f;
+        string toughnessBrokenLoopState;
         float dodgeBufferedUntil = float.NegativeInfinity;
         bool comboQueued, sprintExhausted;
         bool canRaiseDeflectAtInput;
@@ -60,6 +66,9 @@ namespace OCDesign.Samurai
         public SamuraiToughness Toughness { get; }
         public bool IsToughnessBroken => Mode == SamuraiCombatMode.ToughnessBroken || Mode == SamuraiCombatMode.BeingExecuted;
         public bool IsExecutionVulnerable => Mode == SamuraiCombatMode.ToughnessBroken;
+        public bool IsGettingUp => Mode == SamuraiCombatMode.GuardBreak
+            && (StateName == ToughnessGetupHealthyState || StateName == ToughnessGetupLowHealthState
+                || StateName == "ExecutionGetupHealthy" || StateName == "ExecutionGetupLowHealth");
         public bool IsExecuting => Mode == SamuraiCombatMode.Executing;
         public bool IsBeingExecuted => Mode == SamuraiCombatMode.BeingExecuted;
         public float ToughnessBreakRemaining => IsExecutionVulnerable ? Mathf.Max(0f, stateDuration - stateTime) : 0f;
@@ -224,7 +233,7 @@ namespace OCDesign.Samurai
                     break;
                 case SamuraiCombatMode.Executing:
                 case SamuraiCombatMode.BeingExecuted:
-                    movement.Move(Vector3.zero, dt);
+                    // Receiver stays in place; the owner drives attacker alignment and the shared animation clock.
                     break;
                 case SamuraiCombatMode.Attack: TickAttack(input, move, facing, previousNormalized, dt, kiPulseInputTime); break;
                 case SamuraiCombatMode.Dodge: TickDodge(input, facing, previousNormalized, dt); break;
@@ -245,8 +254,9 @@ namespace OCDesign.Samurai
                     movement.Move(Vector3.zero, dt);
                     if (stateTime >= stateDuration)
                     {
-                        if (input.guardHeld) { movement.FaceDirection(input.facingWorld, dt); BeginGuard(false); }
-                        else EnterLocomotion();
+                        float exitBlend=IsGettingUp?executionGetupExitBlend:-1f;
+                        if (input.guardHeld) movement.FaceDirection(input.facingWorld, dt);
+                        if (!input.guardHeld || !BeginGuard(false,exitBlend)) EnterLocomotion(exitBlend);
                     }
                     break;
                 case SamuraiCombatMode.Deflected:
@@ -274,8 +284,8 @@ namespace OCDesign.Samurai
                         movement.Move(Vector3.zero, dt);
                         if (stateTime >= stateDuration)
                         {
-                            if (input.guardHeld) { movement.FaceDirection(input.facingWorld, dt); BeginGuard(false); }
-                            else EnterLocomotion();
+                            if (input.guardHeld) movement.FaceDirection(input.facingWorld, dt);
+                            if (!input.guardHeld || !BeginGuard(false)) EnterLocomotion();
                         }
                     }
                     break;
@@ -424,10 +434,10 @@ namespace OCDesign.Samurai
             if (input.guardHeld)
             {
                 movement.FaceDirection(input.facingWorld, dt);
-                if (Mode != SamuraiCombatMode.Guard) BeginGuard(defense.FreshPress);
+                bool defending=Mode==SamuraiCombatMode.Guard;
+                if (!defending) defending=BeginGuard(defense.FreshPress);
                 else TryRaiseGuardWindow(defense.FreshPress);
-                movement.Move(move * profile.guardWalkSpeed, dt);
-                return;
+                if(defending){movement.Move(move*profile.guardWalkSpeed,dt);return;}
             }
             if (Mode == SamuraiCombatMode.Guard) EnterLocomotion();
             bool moving = move.sqrMagnitude > .001f;
@@ -757,23 +767,24 @@ namespace OCDesign.Samurai
             animation.Play(useB ? "GuardB" : "Guard",
                 SamuraiAnimationDriver.ClipDuration(useB ? profile.guardB : profile.guard));
         }
-        void BeginGuard(bool fresh)
+        bool BeginGuard(bool fresh,float transitionSeconds=-1f)
         {
             bool useB = guardBackhand && profile.guardB != null && animation.HasState("GuardB");
             Enter(SamuraiCombatMode.Guard, useB ? "GuardB" : "Guard",
-                SamuraiAnimationDriver.ClipDuration(useB ? profile.guardB : profile.guard));
+                SamuraiAnimationDriver.ClipDuration(useB ? profile.guardB : profile.guard),transitionSeconds:transitionSeconds);
             TryRaiseGuardWindow(fresh);
+            return true;
         }
         void TryRaiseGuardWindow(bool fresh)
         {
             defense.TryRaise(profile.deflectEnabled ? parryInputTime : Clock,
                 fresh && (!profile.deflectEnabled || canRaiseDeflectAtInput));
         }
-        void EnterLocomotion()
+        void EnterLocomotion(float transitionSeconds=-1f)
         {
             ResetSprint();
             defense.CloseWindow();
-            Enter(SamuraiCombatMode.Locomotion, IdleStateName, SamuraiAnimationDriver.ClipDuration(IdleClip));
+            Enter(SamuraiCombatMode.Locomotion, IdleStateName, SamuraiAnimationDriver.ClipDuration(IdleClip),transitionSeconds:transitionSeconds);
         }
         bool HasStanceIdle => CurrentStance != null && CurrentStance.idle != null
             && !string.IsNullOrWhiteSpace(CurrentStance.idleStateName) && animation.HasState(CurrentStance.idleStateName);
@@ -825,6 +836,9 @@ namespace OCDesign.Samurai
             float transitionSeconds = -1f, bool fullyChargedRelease = false)
         {
             ClearGuardContactVisual();
+            executionGetupExitBlend=-1f;
+            if (next != SamuraiCombatMode.ToughnessBroken && next != SamuraiCombatMode.BeingExecuted)
+                toughnessBrokenLoopState = null;
             if (next != SamuraiCombatMode.Attack) animation.SetActionPlayback(null, 0f);
             approach.Reset();
             playingKiPulseAnimation = false;
@@ -1006,20 +1020,43 @@ namespace OCDesign.Samurai
         {
             if (IsDead || IsToughnessBroken) return;
             defense.CancelInput(); AttackSerial++;
-            Enter(SamuraiCombatMode.ToughnessBroken, "ToughnessBroken", Mathf.Max(.1f, profile.toughnessBreakSeconds), true);
-            animation.Play("ToughnessBroken", stateDuration, true, profile.toughnessBrokenPose);
+            // 在进入时只选一次；后续受击跨越50%也不重播或刷新原破韧时钟。
+            bool healthy = vitals.Health >= vitals.MaxHealth * .5f;
+            var clip = healthy ? profile.toughnessBrokenHealthyLoop : profile.toughnessBrokenLowHealthLoop;
+            string state = healthy ? ToughnessBrokenHealthyState : ToughnessBrokenLowHealthState;
+            toughnessBrokenLoopState = clip != null && animation.HasState(state) ? state : null;
+            EnterToughnessBroken(Mathf.Max(.1f, profile.toughnessBreakSeconds));
         }
         public void ResumeToughnessBreak(float remaining)
         {
             if (IsDead) return;
             if (remaining <= 0f) { RecoverFromToughnessBreak(); return; }
-            Enter(SamuraiCombatMode.ToughnessBroken, "ToughnessBroken", remaining, true);
-            animation.Play("ToughnessBroken", remaining, true, profile.toughnessBrokenPose);
+            // 延用本次失衡的选择；既有中止恢复入口不重新按生命值选动作。
+            EnterToughnessBroken(remaining);
+        }
+        void EnterToughnessBroken(float duration)
+        {
+            bool loop = !string.IsNullOrEmpty(toughnessBrokenLoopState) && animation.HasState(toughnessBrokenLoopState);
+            Enter(SamuraiCombatMode.ToughnessBroken, loop ? toughnessBrokenLoopState : "ToughnessBroken", duration, true);
+            // 新保持循环由Animator自然播放；仅旧回退仍取55%等配置相位定格。
+            if (!loop) animation.Play("ToughnessBroken", stateDuration, true, profile.toughnessBrokenPose);
         }
         public void RecoverFromToughnessBreak()
         {
-            if (IsDead) return;
+            if (IsDead || IsGettingUp) return;
             Toughness.Reset(); defense.CancelInput();
+            // 沿用本次倒伏分支。完整播放R7/R8；缺少对应片段/状态时才走旧55%恢复。
+            bool healthy = toughnessBrokenLoopState == ToughnessBrokenHealthyState;
+            bool low = toughnessBrokenLoopState == ToughnessBrokenLowHealthState;
+            var getup = healthy ? profile.toughnessGetupHealthy : low ? profile.toughnessGetupLowHealth : null;
+            string getupState = healthy ? ToughnessGetupHealthyState : ToughnessGetupLowHealthState;
+            if (getup != null && animation.HasState(getupState))
+            {
+                Enter(SamuraiCombatMode.GuardBreak, getupState, SamuraiAnimationDriver.ClipDuration(getup),
+                    transitionSeconds: profile.toughnessGetupTransitionSeconds>=0
+                        ?profile.toughnessGetupTransitionSeconds:Mathf.Min(profile.transitionSeconds,.08f));
+                return;
+            }
             bool deflected = profile.toughnessBreakUsesDeflected && profile.deflected != null && animation.HasState("Deflected");
             Enter(SamuraiCombatMode.GuardBreak, deflected ? "Deflected" : "GuardBreak",
                 SamuraiAnimationDriver.ClipDuration(deflected ? profile.deflected : profile.guardBreak),
@@ -1037,6 +1074,26 @@ namespace OCDesign.Samurai
             animation.Play("ToughnessBroken", duration, true, profile.toughnessBrokenPose);
         }
         public void FinishExecution() { if (IsExecuting) EnterLocomotion(); }
+        public bool DownBranchHealthy => toughnessBrokenLoopState == ToughnessBrokenHealthyState;
+        public void BeginPairedExecution(string state,float duration,bool receiver)
+        {
+            CancelInput();AttackSerial++;
+            Enter(receiver?SamuraiCombatMode.BeingExecuted:SamuraiCombatMode.Executing,state,duration,false,0,.12f);
+        }
+        public void CompletePairedExecution(SamuraiExecutionPair pair,bool killed,bool healthy)
+        {
+            if(killed)
+            {
+                Arts.Reset();var deathClip=healthy?pair.receiverClip:pair.receiverLowHealthClip;
+                Enter(SamuraiCombatMode.Dead,healthy?pair.receiverState:pair.receiverLowHealthState,deathClip.length,true,.99999f);return;
+            }
+            Toughness.Reset();defense.CancelInput();
+            var clip=healthy?pair.getupHealthy:pair.getupLowHealth;
+            var state=healthy?pair.getupHealthyState:pair.getupLowHealthState;
+            if(clip!=null&&animation.HasState(state))
+            {Enter(SamuraiCombatMode.GuardBreak,state,clip.length,false,0,.10f);executionGetupExitBlend=pair.getupExitBlendSeconds;}
+            else RecoverFromToughnessBreak();
+        }
     }
 }
 

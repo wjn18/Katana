@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a73ed971632a7e249a9fea20b7a5ecd5, type: 3}
+  m_Name: Enemy1_09702_V2
+  m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiExecutionPair
+  attackerClip: {fileID: 7400000, guid: 11f62e7bffc94e24dbcee3f57b450999, type: 2}
+  receiverClip: {fileID: 7400000, guid: 92bfa5095ef1ccb409d12935c57ec0ec, type: 2}
+  receiverLowHealthClip: {fileID: 7400000, guid: 31dd55e48fe2d7140982dc694570b0c9, type: 2}
+  attackerState: Execution09702
+  receiverState: ExecutionV2Healthy
+  receiverLowHealthState: ExecutionV2LowHealth
+  strikeSeconds: 0.6166667
+  receiverDelay: 0.56
+  receiverOffset: {x: 0.06, y: 0, z: 1.2}
+  receiverYaw: 180
+  alignSeconds: 0.18
+  receiverBlendSeconds: 0.18
+  attackerRootX:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 3
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  attackerRootZ:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 3
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  getupHealthy: {fileID: 7400000, guid: 55df0bff08ed8864d887b5e8d851634a, type: 2}
+  getupLowHealth: {fileID: 7400000, guid: f11c8dd08dcc86644b488af7e3377e67, type: 2}
+  getupHealthyState: ExecutionGetupHealthy
+  getupLowHealthState: ExecutionGetupLowHealth
+  bloodMaterial: {fileID: 2100000, guid: d7a638532a515b748a973e2f552238e0, type: 2}
+  bloodIntensity: 1.8
+  shakeDegrees: 5
+  shakeSeconds: 0.16

@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a73ed971632a7e249a9fea20b7a5ecd5, type: 3}
+  m_Name: Elite1_09600_V1
+  m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiExecutionPair
+  attackerClip: {fileID: 7400000, guid: bb1f97e81f854a149840b16843f36600, type: 2}
+  receiverClip: {fileID: 7400000, guid: 8dbbdd6fef998814fa3d97163a3ac2c1, type: 2}
+  receiverLowHealthClip: {fileID: 7400000, guid: 71cd2c1255502bc40a442a9a476c9d7e, type: 2}
+  attackerState: Execution09600
+  receiverState: ExecutionV1Healthy
+  receiverLowHealthState: ExecutionV1LowHealth
+  strikeSeconds: 0.43333334
+  receiverDelay: 0.43333334
+  receiverOffset: {x: 0.055354334, y: 0, z: 2.155158}
+  receiverYaw: 150
+  alignSeconds: 0.18
+  receiverBlendSeconds: 0.18
+  attackerStartSeconds: 0
+  receiverStartSeconds: 0.8
+  receiverPreparationSeconds: 0
+  receiverHoldDownUntilStrike: 1
+  receiverPlaybackVersion: 1
+  receiverPoseHealthy: {fileID: 11400000, guid: 1dc2160afa958bb4e9a6d8a39b426192, type: 2}
+  receiverPoseLowHealth: {fileID: 11400000, guid: ebbabe9bb3afc3b4aa2c090a45cf2962, type: 2}
+  getupPoseHealthy: {fileID: 11400000, guid: 5e31f79650dc154499d6af919d06540d, type: 2}
+  getupPoseLowHealth: {fileID: 11400000, guid: 71af605925cc475418da569aa661c9fc, type: 2}
+  corpseRestPose: {fileID: 0}
+  attackerRootX:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 3
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  attackerRootZ:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 3
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  getupHealthy: {fileID: 7400000, guid: 50428a0d61afabc4f8452c7913c2738c, type: 2}
+  getupLowHealth: {fileID: 7400000, guid: b614a99ef65c6264cbcb9367dc80961a, type: 2}
+  getupHealthyState: ExecutionGetupHealthy
+  getupLowHealthState: ExecutionGetupLowHealth
+  getupExitBlendSeconds: 0.35
+  bloodMaterial: {fileID: 2100000, guid: d7a638532a515b748a973e2f552238e0, type: 2}
+  bloodIntensity: 1.8
+  shakeDegrees: 5
+  shakeSeconds: 0.16
+  playbackRate: 0.8
+  strikePlaybackRate: 1
+  strikeLeadSeconds: 0.1
+  strikeTailSeconds: 0.08
+  impactHoldSeconds: 0.12
+  cameraPushFov: 6
+  cameraRecoilFov: 2
+  standingEntryRadius: 0.45
+  presentationVersion: 2

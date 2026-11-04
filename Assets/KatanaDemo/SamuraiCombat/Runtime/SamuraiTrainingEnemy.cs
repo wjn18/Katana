@@ -556,7 +556,7 @@ namespace OCDesign.Samurai
         {
             ClearPracticeIntent(); heavyReleaseNextFrame = false; guardRemaining = 0f;
             CancelTelegraph(attackInterval);
-            intent = actor.IsExecutionVulnerable ? "Toughness broken - execution available" : "Execution committed";
+            intent = actor.IsExecutionVulnerable ? (actor.HasExecutionReceiver ? "Toughness broken - execution available" : "Toughness broken") : "Execution committed";
             return NodeStatus.Running;
         }
         private NodeStatus RespondAtCloseRange()
