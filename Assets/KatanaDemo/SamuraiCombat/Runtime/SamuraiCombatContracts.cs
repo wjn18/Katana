@@ -116,6 +116,10 @@ namespace OCDesign.Samurai
         public bool HasClashPoint;
         public ISamuraiDamageReceiver Source;
         public float RestoredStamina;
+        /// <summary>来袭招式的削精力值；成功弹反不扣精力，用此值衡量冲击。</summary>
+        public float IncomingStaminaDamage;
+        /// <summary>本次防御实际扣除的精力，不含弹反恢复量。</summary>
+        public float ConsumedStamina;
     }
 
     /// <summary>伤害规则要求的反应接口；不依赖具体状态机或Animator实现。</summary>

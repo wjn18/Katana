@@ -452,7 +452,9 @@ namespace OCDesign.Samurai
                 GuardContacted?.Invoke(new SamuraiGuardContact
                 {
                     Result = result, Point = hit.Point, ClashPoint = clashPoint, HasClashPoint = hasClashPoint,
-                    Source = hit.Source, RestoredStamina = Mathf.Max(0f, vitals.Stamina - staminaBefore)
+                    Source = hit.Source, RestoredStamina = Mathf.Max(0f, vitals.Stamina - staminaBefore),
+                    IncomingStaminaDamage = hit.StaminaDamage,
+                    ConsumedStamina = Mathf.Max(0f, staminaBefore - vitals.Stamina)
                 });
             if (result == SamuraiHitResult.PerfectGuard && profile.deflectEnabled)
                 DeflectPerformed?.Invoke(Mathf.Max(0f, vitals.Stamina - staminaBefore), hit.Point, hit.Source);

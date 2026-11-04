@@ -159849,6 +159849,10 @@ MonoBehaviour:
   highDamageShakeDegrees: 2.1
   mediumDamageShakeSeconds: 0.16
   highDamageShakeSeconds: 0.3
+  parryShakeDegrees: {x: 0.4, y: 0.8, z: 1.2}
+  parryShakeSeconds: {x: 0.1, y: 0.13, z: 0.16}
+  guardShakeMultiplier: 0.55
+  guardShakeDurationMultiplier: 0.8
   chargedFovBoost: 14
   chargedLensDistortion: -0.22
   rushRiseSeconds: 0.055
