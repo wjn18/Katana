@@ -35,7 +35,7 @@ namespace OCDesign.Samurai
         {
             float activeSeconds = profile.deflectEnabled ? profile.deflectActiveSeconds : profile.parryActiveSeconds;
             if (!(activeSeconds > 0f)) return false;
-            return GuardHeld && guardState && !consumed && now >= raisedAt
+            return GuardHeld && (guardState || profile.parryOnlyDefense) && !consumed && now >= raisedAt
                 && now - raisedAt < Mathf.Max(.01f, activeSeconds);
         }
         public float CooldownRemaining(float now) => Mathf.Max(0f, readyAt - now);

@@ -96,7 +96,7 @@ namespace OCDesign.Samurai
                 // 压臂冲量在反应片段开头；较长的通用混合会把这一拍抹平。
                 // 仅缩短入混合，受力速度曲线烘焙在片段中，不占用HitStop控制的Animator.speed。
                 if (SamuraiGuardReactionSelector.IsReactionState(stateName) || SamuraiHitReactionSelector.IsReactionState(stateName)
-                    || stateName == "Parry" || stateName == "Deflected")
+                    || stateName == "Parry" || stateName == "Deflected" || profile!=null&&stateName==profile.deflectedStateName)
                     blend = Mathf.Min(blend, .018f);
                 animator.CrossFadeInFixedTime(hash, blend, 0, normalizedStart * Mathf.Max(0.02f, duration));
             }

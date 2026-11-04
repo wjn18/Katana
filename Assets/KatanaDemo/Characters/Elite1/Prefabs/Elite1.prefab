@@ -269,6 +269,9 @@ MonoBehaviour:
   telegraphSeconds: 0.65
   attackInterval: 1.25
   guardSeconds: 1.25
+  defenseReactionSeconds: 0.25
+  defenseRearmSeconds: 0.75
+  postDeflectDefenseDelay: 0.85
   chargeReactionSeconds: 0.35
   normalComboStrikeCount: 3
   normalAttackActions:

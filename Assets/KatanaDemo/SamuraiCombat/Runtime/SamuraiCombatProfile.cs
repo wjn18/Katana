@@ -42,6 +42,15 @@ namespace OCDesign.Samurai
         public AnimationClip parry;
         [Tooltip("攻击被弹反后的独立反应；未配置或控制器缺少 Deflected 状态时回退到 Hit 表现。")]
         public AnimationClip deflected;
+        public string deflectedStateName="Deflected";
+        [Tooltip("Play the complete Deflected clip before allowing actions again.")]
+        public bool deflectedUseFullClip;
+        [Tooltip("Cumulative backward distance in metres, keyed in Deflected animation seconds. Movement uses character collision.")]
+        public AnimationCurve deflectedRetreat;
+        [HideInInspector] public int deflectedStumbleVersion;
+        [Tooltip("Use a brief independent parry attempt without sustained blocking.")]
+        public bool parryOnlyDefense;
+        [HideInInspector] public int parryOnlyConfigurationVersion;
         [Tooltip("顺序：前、右前、右、右后、后、左后、左、左前。空项回退到Walk或Run。")]
         public AnimationClip[] directionalWalk = new AnimationClip[8];
         public AnimationClip[] directionalRun = new AnimationClip[8];

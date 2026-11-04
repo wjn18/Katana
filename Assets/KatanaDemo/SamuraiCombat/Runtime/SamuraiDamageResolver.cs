@@ -60,7 +60,7 @@ namespace OCDesign.Samurai
                 }
                 return SamuraiHitResult.PerfectGuard;
             }
-            if ((reactions.IsGuarding || attackGuard) && front && !hit.Unblockable)
+            if (!profile.parryOnlyDefense && (reactions.IsGuarding || attackGuard) && front && !hit.Unblockable)
             {
                 if (toughness != null)
                 {

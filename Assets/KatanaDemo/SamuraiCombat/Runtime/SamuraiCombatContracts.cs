@@ -35,7 +35,7 @@ namespace OCDesign.Samurai
 
     public enum SamuraiHitResult { Ignored, Dodged, Hit, Blocked, PerfectGuard, GuardBroken, Killed, Parried }
     public enum SamuraiCombatMode { Locomotion, Attack, Dodge, Charge, Guard, GuardHit, Hit, GuardBreak, Dead, Deflected,
-        ToughnessBroken, Executing, BeingExecuted }
+        ToughnessBroken, Executing, BeingExecuted, ParryReady }
     public enum SamuraiGuardSide { Automatic, Guard, GuardB }
 
     public interface ISamuraiVitalsView

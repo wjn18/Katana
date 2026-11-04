@@ -114,7 +114,7 @@ namespace OCDesign.EditorTools
         public static void ConfigureDefenseClips(SamuraiCombatProfile p)
         {
             p.parry=Clip("Parry");
-            p.deflected=Clip("Deflected");
+            if(p.deflectedStumbleVersion<1)p.deflected=Clip("Deflected");
             p.directionalWalk=DodgeNames.Select((d,i)=>i==0?p.walk:Clip("Walk"+d)).ToArray();
             p.directionalRun=DodgeNames.Select((d,i)=>i==0?p.run:Clip("Run"+d)).ToArray();
             p.parryActiveSeconds=.20f;p.parryCooldownSeconds=.7f;
@@ -128,7 +128,9 @@ namespace OCDesign.EditorTools
             var sm=c.layers[0].stateMachine;
             string[] names={"Idle","Walk","Run","Guard","GuardHit","GuardBreak","Hit","Death","Charge","Parry","Deflected"};
             AnimationClip[] clips={p.idle,p.walk,p.run,p.guard,p.guardHit,p.guardBreak,p.hit,p.death,p.charge,p.parry,p.deflected != null ? p.deflected : p.hit};
+            if(!string.IsNullOrEmpty(p.deflectedStateName)&&p.deflectedStateName!="Deflected")clips[10]=Clip("Deflected");
             for(int i=0;i<names.Length;i++)SetState(sm,names[i],clips[i],i);
+            if(!string.IsNullOrEmpty(p.deflectedStateName)&&p.deflectedStateName!="Deflected")SetState(sm,p.deflectedStateName,p.deflected,sm.states.Length);
             for(int i=1;i<DodgeNames.Length;i++)
             {
                 SetState(sm,"Walk"+DodgeNames[i],p.directionalWalk[i],sm.states.Length);

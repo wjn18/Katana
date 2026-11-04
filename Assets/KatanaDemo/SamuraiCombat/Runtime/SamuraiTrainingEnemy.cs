@@ -441,7 +441,7 @@ namespace OCDesign.Samurai
             {
                 threatSequence++;
                 defensiveRetreat = cautious || target.IsCharging || threatSequence % 3 == 0;
-                guardRemaining = Mathf.Max(0.5f, guardSeconds);
+                guardRemaining = DefenseAttemptSeconds;
                 // 贴身预警不能被玩家每一段攻击反复取消，或反复重置反击冷却。
                 if (targetDistance > NearSpacing && !telegraphing)
                     CancelTelegraph(Mathf.Max(0.6f, attackInterval));
@@ -452,6 +452,8 @@ namespace OCDesign.Samurai
 
         private bool NormalGuardApproved => guardRemaining > 0f && postDeflectDefenseRemaining <= 0f
             && actor != null && !actor.IsDeflected;
+        private float DefenseAttemptSeconds => actor!=null&&actor.Profile.parryOnlyDefense
+            ?Mathf.Max(.01f,actor.Profile.deflectEnabled?actor.Profile.deflectActiveSeconds:actor.Profile.parryActiveSeconds):Mathf.Max(.5f,guardSeconds);
 
         private void ClearObservedDefenseThreat()
         {
@@ -498,7 +500,7 @@ namespace OCDesign.Samurai
             defenseThreatConsumed = true;
             threatSequence++;
             defensiveRetreat = cautious || charging || threatSequence % 3 == 0;
-            guardRemaining = Mathf.Max(0.5f, guardSeconds);
+            guardRemaining = DefenseAttemptSeconds;
             // 远距改为防守时只取消预警一次，不能暂停旧预警后在守势结束直接续出。
             if (targetDistance > NearSpacing)
                 CancelTelegraph(Mathf.Max(0.6f, attackInterval));
@@ -588,6 +590,11 @@ namespace OCDesign.Samurai
         }
         private NodeStatus RecoverFromHit()
         {
+            if(actor.Profile.parryOnlyDefense&&actor.Actions.Mode==SamuraiCombatMode.ParryReady)
+            {
+                frame.guardHeld=guardRemaining>0f&&(IsPracticeMode||NormalGuardApproved);
+                intent="Brief parry attempt";return NodeStatus.Running;
+            }
             intent = actor.IsDeflected ? "Deflected - recovering" :
                 actor.IsGuardHit ? "Absorbing blocked hit" : "Recovering from hit";
             frame.guardHeld = actor.IsGuardHit && !defensiveRetreat && guardRemaining > 0f && !cautious

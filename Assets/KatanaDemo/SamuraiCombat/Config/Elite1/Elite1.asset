@@ -54,6 +54,16 @@ MonoBehaviour:
   charge: {fileID: 7400000, guid: f9c55374e08e4704db507cdbaa71b178, type: 2}
   parry: {fileID: 7400000, guid: 7b11213c146627c4d878941bb76a950d, type: 2}
   deflected: {fileID: 7400000, guid: 6764e2e57019f4c468b26d602f5d1a15, type: 2}
+  deflectedUseFullClip: 0
+  deflectedRetreat:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  deflectedStumbleVersion: 0
+  parryOnlyDefense: 1
+  parryOnlyConfigurationVersion: 1
   directionalWalk:
   - {fileID: 7400000, guid: 7b8c80cf5112fe3419b06c4c183e8d00, type: 2}
   - {fileID: 7400000, guid: 5d460ecf80cacd1429dbeb76ffc84369, type: 2}

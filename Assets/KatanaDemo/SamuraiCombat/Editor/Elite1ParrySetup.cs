@@ -65,7 +65,7 @@ namespace OCDesign.Samurai.EditorTools
                 EditorUtility.SetDirty(state); EditorUtility.SetDirty(controller);
                 AssetDatabase.SaveAssetIfDirty(controller);
             }
-
+            if(profile.parryOnlyConfigurationVersion>0)SamuraiParryOnlyStumbleSetup.InstallElite();
             Debug.Log("Elite1 independent parry installed; existing custom clips, recovery values and scene edits retained.");
         }
 

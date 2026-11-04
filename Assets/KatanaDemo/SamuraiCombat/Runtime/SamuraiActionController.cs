@@ -38,6 +38,7 @@ namespace OCDesign.Samurai
         const float ChargeTimeTolerance = .00001f;
         float stateTime, stateDuration = 1f, lastActionNormalized;
         float executionGetupExitBlend=-1f;
+        Vector3 deflectedRetreatDirection;
         string toughnessBrokenLoopState;
         float dodgeBufferedUntil = float.NegativeInfinity;
         bool comboQueued, sprintExhausted;
@@ -181,7 +182,7 @@ namespace OCDesign.Samurai
             dodgeFollowUp.Cancel();
             ResetSprint();
             defense.CancelInput();
-            if (Mode == SamuraiCombatMode.Charge || Mode == SamuraiCombatMode.Guard || playingKiPulseAnimation || playingStanceTransition)
+            if (Mode == SamuraiCombatMode.Charge || Mode == SamuraiCombatMode.Guard || Mode == SamuraiCombatMode.ParryReady || playingKiPulseAnimation || playingStanceTransition)
                 EnterLocomotion();
         }
         public void Tick(SamuraiInputFrame input, float dt)
@@ -235,6 +236,10 @@ namespace OCDesign.Samurai
                 case SamuraiCombatMode.BeingExecuted:
                     // Receiver stays in place; the owner drives attacker alignment and the shared animation clock.
                     break;
+                case SamuraiCombatMode.ParryReady:
+                    movement.Move(Vector3.zero,dt);
+                    if(stateTime>=stateDuration){defense.CloseWindow();EnterLocomotion();}
+                    break;
                 case SamuraiCombatMode.Attack: TickAttack(input, move, facing, previousNormalized, dt, kiPulseInputTime); break;
                 case SamuraiCombatMode.Dodge: TickDodge(input, facing, previousNormalized, dt); break;
                 case SamuraiCombatMode.Charge:
@@ -263,10 +268,14 @@ namespace OCDesign.Samurai
                     // 硬直内不缓存攻防闪输入；结束时只恢复持防或待机，不能补发旧按键。
                     dodgeBufferedUntil = float.NegativeInfinity;
                     movement.Move(Vector3.zero, dt);
+                    if(profile.deflectedRetreat!=null&&profile.deflectedRetreat.length>0)
+                    {
+                        float distance=profile.deflectedRetreat.Evaluate(stateTime)-profile.deflectedRetreat.Evaluate(Mathf.Max(0,stateTime-dt));
+                        if(!float.IsNaN(distance)&&!float.IsInfinity(distance)&&distance>0)movement.DisplacePlanar(deflectedRetreatDirection*distance);
+                    }
                     if (stateTime >= stateDuration)
                     {
-                        if (input.guardHeld) BeginGuard(false);
-                        else EnterLocomotion();
+                        if (!input.guardHeld || !BeginGuard(false)) EnterLocomotion();
                     }
                     break;
                 case SamuraiCombatMode.GuardHit:
@@ -437,7 +446,7 @@ namespace OCDesign.Samurai
                 bool defending=Mode==SamuraiCombatMode.Guard;
                 if (!defending) defending=BeginGuard(defense.FreshPress);
                 else TryRaiseGuardWindow(defense.FreshPress);
-                if(defending){movement.Move(move*profile.guardWalkSpeed,dt);return;}
+                if(defending){movement.Move(profile.parryOnlyDefense?Vector3.zero:move*profile.guardWalkSpeed,dt);return;}
             }
             if (Mode == SamuraiCombatMode.Guard) EnterLocomotion();
             bool moving = move.sqrMagnitude > .001f;
@@ -769,6 +778,13 @@ namespace OCDesign.Samurai
         }
         bool BeginGuard(bool fresh,float transitionSeconds=-1f)
         {
+            if(profile.parryOnlyDefense)
+            {
+                float duration=profile.deflectEnabled?profile.deflectActiveSeconds:profile.parryActiveSeconds;
+                if(!fresh||duration<=0||defense.CooldownRemaining(Clock)>0)return false;
+                Enter(SamuraiCombatMode.ParryReady,"ParryReady",duration,transitionSeconds:0);
+                TryRaiseGuardWindow(true);return true;
+            }
             bool useB = guardBackhand && profile.guardB != null && animation.HasState("GuardB");
             Enter(SamuraiCombatMode.Guard, useB ? "GuardB" : "Guard",
                 SamuraiAnimationDriver.ClipDuration(useB ? profile.guardB : profile.guard),transitionSeconds:transitionSeconds);
@@ -863,7 +879,7 @@ namespace OCDesign.Samurai
             lastActionNormalized = Mathf.Clamp01(normalizedStart); stateDuration = Mathf.Max(.02f, duration); StateName = state;
             if (next != SamuraiCombatMode.Locomotion) { ResetSprint(); animation.ResetLocomotionDirection(); }
             else if (state == IdleStateName) animation.ResetLocomotionDirection();
-            if (next != SamuraiCombatMode.Guard && next != SamuraiCombatMode.GuardHit) defense.CloseWindow();
+            if (next != SamuraiCombatMode.Guard && next != SamuraiCombatMode.GuardHit && next != SamuraiCombatMode.ParryReady) defense.CloseWindow();
             animation.Play(state, stateDuration, immediate, normalizedStart, transitionSeconds);
             StateChanged?.Invoke(state);
         }
@@ -970,13 +986,19 @@ namespace OCDesign.Samurai
             defense.CancelInput();
             // 旧攻击标识与取消中的扫掠同时失效，新的反击只能在硬直结束后另起一次。
             AttackSerial++;
-            string state = profile.deflected != null && animation.HasState("Deflected") ? "Deflected" : "Hit";
-            Enter(SamuraiCombatMode.Deflected, state, Mathf.Max(.05f, seconds));
+            string requested=string.IsNullOrEmpty(profile.deflectedStateName)?"Deflected":profile.deflectedStateName;
+            string state = profile.deflected != null && animation.HasState(requested) ? requested : "Hit";
+            float duration=Mathf.Max(.05f,seconds);
+            if(profile.deflectedUseFullClip&&profile.deflected!=null&&state==requested)duration=Mathf.Max(duration,profile.deflected.length);
+            bool restart=IsDeflected;
+            Enter(SamuraiCombatMode.Deflected, state, duration,restart);
+            deflectedRetreatDirection=Vector3.ProjectOnPlane(-root.forward,Vector3.up).normalized;
             vitals.DelayRecovery(Clock);
         }
         public void ReactToGuard(bool perfect) => ReactToGuard(perfect, default);
         public void ReactToGuard(bool perfect, SamuraiDamageHit hit)
         {
+            if(!perfect&&profile.parryOnlyDefense)return;
             if (!perfect)
             {
                 var selection = SamuraiGuardReactionSelector.Select(profile, hit, root, guardBackhand);
