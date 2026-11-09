@@ -12,7 +12,7 @@ namespace OCDesign.EditorTools
     {
         const string Root = "Assets/KatanaDemo/SamuraiCombat";
 
-        [MenuItem("Tools/OC Design/Samurai Combat/Install Toughness Getup Animations")]
+        [MenuItem("Katana/Samurai/Enemies/Install Toughness Getup Animations")]
         public static void Install()
         {
             Debug.Log("Toughness getups: " + InstallAll() + " missing references/states added.");

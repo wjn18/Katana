@@ -21,7 +21,7 @@ Courtyard_EntranceStairs：门前整组18级石阶和两处平台。
 材质使用项目共享色板，直接修改共享材质会同时影响庭院其他部件；需要某一房屋独立颜色时先复制材质再赋给它。
 
 维护
-菜单 OC Design/Samurai Combat/Install Courtyard Architecture And Stairs，仅Edit且需打开正式SamuraiCombatDemo。补缺失Prefab/整栋房屋与台阶，重复调用保留已有摆位、开关、材质及Prefab手调，不自动保存场景。只对四处已知原位置进行一次景物避让，手动改过的位置不迁移。无需运行安装器即可在别的场景复用Prefab。
+菜单 Katana/Level/Install Courtyard Architecture And Stairs，仅Edit且需打开正式SamuraiCombatDemo。补缺失Prefab/整栋房屋与台阶，重复调用保留已有摆位、开关、材质及Prefab手调，不自动保存场景。只对四处已知原位置进行一次景物避让，手动改过的位置不迁移。无需运行安装器即可在别的场景复用Prefab。
 Blender源与可复用builder：工作区 斗笠剑士/模型资源/courtyard-architecture/；Unity唯一运行模型 Models/Courtyard_Architecture.fbx。旧两殿网格仍直接引用原Decoration资产，未重复复制。
 
 验证

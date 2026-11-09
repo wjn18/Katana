@@ -12,7 +12,7 @@ namespace OCDesign.EditorTools
         public const string MaterialPath = SamuraiCombatSetup.Root + "/VFX/SamuraiBladeWind.mat";
         const string SourceMaterial = "Assets/KatanaDemo/NaginataCombat/VFX/Attack01BladeWind.mat";
 
-        [MenuItem("OC Design/Samurai/Install Blade Wind")]
+        [MenuItem("Katana/Samurai/Effects/Install Blade Wind")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)

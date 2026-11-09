@@ -12,7 +12,7 @@ namespace OCDesign.EditorTools
         const string Root = SamuraiCombatSetup.Root;
         const string Config = Root + "/Config/Nioh3";
 
-        [MenuItem("OC Design/Samurai/Install Command Slots And Customization")]
+        [MenuItem("Katana/Samurai/Player/Install Command Slots And Customization")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)
@@ -61,7 +61,6 @@ namespace OCDesign.EditorTools
             SamuraiMidStrongComboSetup.Configure();
         }
 
-        [MenuItem("OC Design/Samurai/Restore Original Iai And Whirlwind Timing")]
         public static void RestoreOriginalIaiAndWhirlwindTiming()
         {
             ConfigureStandaloneHoldSkills();
@@ -70,7 +69,6 @@ namespace OCDesign.EditorTools
             EditorUtility.SetDirty(whirlwind); AssetDatabase.SaveAssetIfDirty(whirlwind);
         }
 
-        [MenuItem("OC Design/Samurai/Configure Standalone Hold Skills")]
         public static void ConfigureStandaloneHoldSkills()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)

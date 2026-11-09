@@ -16,7 +16,7 @@ namespace OCDesign.EditorTools
             "Nioh3_Mid_KiPulse_02008", "Nioh3_High_KiPulse_03008", "Nioh3_Low_KiPulse_04008"
         };
 
-        [MenuItem("OC Design/Samurai/Install Ki Pulse Animations")]
+        [MenuItem("Katana/Samurai/Player/Install Ki Pulse Animations")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)

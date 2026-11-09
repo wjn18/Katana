@@ -13,7 +13,7 @@ namespace OCDesign.EditorTools
         const string ScenePath = "Assets/KatanaDemo/SamuraiCombat/Scenes/SamuraiCombatDemo.unity";
         const string ArtPath = "Assets/KatanaDemo/SamuraiCombat/UI/Art/";
 
-        [MenuItem("Tools/OC Design/Samurai/Install Fixed Elite HUD In Current Scene")]
+        [MenuItem("Katana/Samurai/HUD/Install Fixed Elite HUD In Current Scene")]
         public static void InstallInCurrentScene()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("请先退出Play。");

@@ -16,7 +16,7 @@ namespace OCDesign.EditorTools
         public const string HighName = "Nioh3_FrostMoon_High_16000";
         public const string MidName = "Nioh3_FrostMoon_Mid_16100";
 
-        [MenuItem("OC Design/Samurai/Install Frost Moon Animations")]
+        [MenuItem("Katana/Samurai/Player/Install Frost Moon Animations")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)

@@ -10,7 +10,7 @@
 - SamuraiRushHeat.mat：Maximum heat refraction = 0.0075，范围 0–0.012。置零可关闭折射，保留既有视野与镜头畸变。
 
 安装与渲染：
-OC Design/Samurai/Install Rush Heat 只向 Assets/Settings/PC_Renderer.asset 安装一个 Samurai Rush Heat Feature，并引用本目录材质；可重复运行，不重建角色和战斗资源。
+Katana/Samurai/Effects/Install Rush Heat 只向 Assets/Settings/PC_Renderer.asset 安装一个 Samurai Rush Heat Feature，并引用本目录材质；可重复运行，不重建角色和战斗资源。
 当前使用 Unity 6000.6 / URP 17.6 RenderGraph。仅携带启用的 SamuraiCombatCameraFeedback 且热浪强度大于零的游戏相机执行；在透明物体之后、URP 后处理和屏幕 HUD 之前采样真实场景颜色。不会对图像染黑。场景中的 World Space UI 属于场景颜色，会一起折射。
 只安装桌面 PC Renderer；若以后切换到移动 Renderer，需单独接入并在目标设备验证。当前未提供旧版 URP Compatibility Mode 路径。
 

@@ -36,7 +36,7 @@ namespace OCDesign.Samurai.EditorTools
             }
         }
 
-        [MenuItem("Tools/OC Design/Samurai Combat/Fix Elite1 Combo Impact Windows")]
+        [MenuItem("Katana/Samurai/Enemies/Fix Elite1 Combo Impact Windows")]
         public static void InstallAll() => InstallForStates(States);
 
         internal static void InstallForStates(IEnumerable<string> requested)

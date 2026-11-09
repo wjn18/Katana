@@ -18,7 +18,7 @@ namespace OCDesign.EditorTools
         public static SamuraiAttackChain CreateChain(IDictionary<string, SamuraiActionDefinition> actions)
             => new SamuraiAttackChain { displayName = "六连 1 → 2 → 3 → 4 → 5 → 6", attacks = Codes.Select(c => actions[c]).ToArray() };
 
-        [MenuItem("OC Design/Samurai/Install Mid Stance Six Hit Combo")]
+        [MenuItem("Katana/Samurai/Player/Install Mid Stance Six Hit Combo")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("请先退出Play模式。");

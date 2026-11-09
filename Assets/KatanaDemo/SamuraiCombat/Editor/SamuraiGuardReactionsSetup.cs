@@ -24,7 +24,7 @@ namespace OCDesign.EditorTools
             public CurveSample(float time, int sourceKey = -1) { Time = time; SourceKey = sourceKey; }
         }
 
-        [MenuItem("OC Design/Samurai/Install Guard Reactions")]
+        [MenuItem("Katana/Samurai/Player/Install Guard Reactions")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)

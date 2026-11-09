@@ -27,7 +27,7 @@ namespace OCDesign.Samurai.Editor
             "Eastern garden descending steps - 东园下行阶"
         };
 
-        [MenuItem("OC Design/Samurai Combat/Use Smooth Stair Ramp Collisions")]
+        [MenuItem("Katana/Level/Use Smooth Stair Ramp Collisions")]
         public static string Install()
         {
             var scene = SceneManager.GetActiveScene();

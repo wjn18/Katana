@@ -17,7 +17,7 @@ namespace OCDesign.EditorTools
         public static readonly float[] WalkPhases = { .0850f, .9925f, .2600f, .1900f };
         public static readonly float[] RunPhases = { .9400f, .9500f, .9300f, .0550f };
 
-        [MenuItem("OC Design/Samurai/Install Native Middle Walk And Run")]
+        [MenuItem("Katana/Samurai/Player/Install Native Middle Walk And Run")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("请先退出Play模式。");

@@ -203,7 +203,7 @@ namespace OCDesign.EditorTools
             return e.code+": Humanoid valid, "+clip.length.ToString("F3")+"s";
         }
 
-        [MenuItem("OC Design/Samurai/Install Selected Nioh3 Actions")]
+        [MenuItem("Katana/Samurai/Player/Install Selected Nioh3 Actions")]
         public static void Install()
         {
             RequireEdit();
@@ -251,7 +251,6 @@ namespace OCDesign.EditorTools
 
         // Explicit migration: movement only, without reimporting animations or
         // overwriting the existing damage, hit windows, stamina, or Avatar.
-        [MenuItem("OC Design/Samurai/Restore High Combo And Configure Approach")]
         public static void RestoreHighComboAndConfigureApproach()
         {
             RequireEdit();

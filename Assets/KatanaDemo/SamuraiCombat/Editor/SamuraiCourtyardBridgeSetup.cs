@@ -20,7 +20,7 @@ namespace OCDesign.Samurai.Editor
         public const string BridgeName = "04 Connecting bridge - 庭院连桥";
         public const string LegacyName = "Legacy short ramps - 旧连接坡道（保留关闭）";
 
-        [MenuItem("OC Design/Samurai Combat/Install Courtyard Bridge")]
+        [MenuItem("Katana/Level/Install Courtyard Bridge")]
         public static string Install()
         {
             var scene = SceneManager.GetActiveScene();

@@ -13,7 +13,7 @@ namespace OCDesign.EditorTools
         const string Root = "Assets/KatanaDemo/SamuraiCombat";
         const string Clips = Root + "/Animations/ToughnessBreak";
 
-        [MenuItem("Tools/OC Design/Samurai Combat/Install Toughness Break Pose Loops")]
+        [MenuItem("Katana/Samurai/Enemies/Install Toughness Break Pose Loops")]
         public static void Install()
         {
             int changed = InstallAll();

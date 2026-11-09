@@ -9,7 +9,7 @@
 
 入口
 场景：Assets/KatanaDemo/LookDev/ComicLighting/Scenes/ComicLightingCourtyard.unity
-菜单：OC Design > LookDev > Open Comic Lighting Courtyard
+菜单：Katana > LookDev > Open Comic Lighting Courtyard
 打开场景后点 Play，再点 Game 画面获得键鼠焦点。
 如另一个聊天正在操作同一个 Unity，请先协调使用时段，避免同时开关 Play 或切换场景。
 
@@ -48,21 +48,21 @@ SurfaceBrushStrength=.08 在累计不透明度约.25处定位可见云层，积�
 保留原世界尺寸反壳，使用 Assets/KatanaDemo/Rendering/ComicLighting/Editor/ComicOutlineHullFactory.cs 为通用描边生成独立网格副本：只对位置重合且蒙皮权重相容的顶点组计算角度加权法线，修复尖端与硬法线接缝。源网格及表面受光法线不改，派生副本保留位置、索引、UV、绑定姿势、完整骨骼权重和 BlendShape 等非 normal 通道；副本位于 Meshes/OutlineHulls/。
 Assets/KatanaDemo/Rendering/ComicLighting/Runtime/ComicScreenOutline.cs 仅在当前 ComicLightingCourtyard 样板的指定 Game 类型 Base 相机上工作。原模型通过 DrawRenderer 直接参与遮罩，支持当前蒙皮，不做逐帧 CPU BakeMesh；遮罩复用相机深度附件进行硬件可见性测试，以 RG32F（R32G32_SFloat）保存线性深度与覆盖率，再由 Assets/KatanaDemo/Rendering/ComicLighting/Shaders/ComicScreenOutline.shader 作圆盘半径3个渲染像素的外扩及前景深度拒绝合成。
 屏幕补线从原模型可见边界计算，与世界反壳覆盖同一外缘范围，不从已有黑边再向外叠加3像素，因此不会把3像素变成6像素。近景原世界厚度投影大于3像素时仍可保留；这里的3px指 render pixel，显示缩放或渲染分辨率变化后不等于固定屏幕物理像素。建筑 _BoxOutline 分支及其原边法线补偿保持。
-维护菜单：OC Design > LookDev > Repair Sharp Contours，由 Editor/ComicOutlineRepairSetup.cs 提供，仅在样板 Edit 模式下运行。重复安装复用派生网格和已有组件；已有组件的颜色、像素下限、相机引用及启停手调保留。停用 ComicScreenOutline 可关闭屏幕补线，停用对象或其原描边壳时不会额外补线；组件停用、销毁及有效相机切换时反注册或释放临时资源，原反壳继续按自身设置绘制。Assets/KatanaDemo/Rendering/ComicLighting/Shaders/ComicOutline.shader 仍负责世界反壳。
+维护菜单：Katana > LookDev > Repair Sharp Contours，由 Editor/ComicOutlineRepairSetup.cs 提供，仅在样板 Edit 模式下运行。重复安装复用派生网格和已有组件；已有组件的颜色、像素下限、相机引用及启停手调保留。停用 ComicScreenOutline 可关闭屏幕补线，停用对象或其原描边壳时不会额外补线；组件停用、销毁及有效相机切换时反注册或释放临时资源，原反壳继续按自身设置绘制。Assets/KatanaDemo/Rendering/ComicLighting/Shaders/ComicOutline.shader 仍负责世界反壳。
 本轮实拍及纯尖三角像素探针检查覆盖720p/1080p、距离3米/9米，四组尖端外扩均为3像素；前景遮挡测试的10374个像素未出现黑线穿透。26个描边壳使用21个独立派生网格，已核对全部非 normal 通道保持。
 诊断图片与检查报告归工作区 斗笠剑士/图片资源/模型预览/comic-lighting/outline-tip-20261029/，报告文件为 checks.json。上述结论仅覆盖本轮样板与测试；复杂透明表面、XR、MSAA尚未正式专项实测，不代表全部图形API或生产场景已验收。
 
 历史网格云（可选）
 07  Sculpted 3D clouds - flat paint 云组保留为此前的不透明雕塑网格方案，当前关闭。
 Shaders/ComicCloudSurface.shader、Materials/CloudSculpture.mat 与 Meshes/Clouds/ 下的网格资产仍保留供对照，不是当前密度云的渲染依赖。
-历史安装入口为 OC Design > LookDev > Legacy > Install Sculpted Mesh Clouds；已有网格、材质和云组启停保持手调。
+已有网格、材质和云组可在样板场景中手动调整。
 如需对照网格版本，可手动关闭08密度云组并开启07网格云组。
 
 历史全景背景（可选）
 ComicStormSky.mat、Shaders/ComicStormSky.shader 与 Textures/ComicStormSky.png 保留为此前的静态全景方案，已不是新建场景默认天空。
 历史贴图由内置 imagegen 制作，源图1774×887；完整提示词见工作区 斗笠剑士/图片资源/设定图/comic-sumi-lookdev-v1/sky-texture-prompt.txt。
-菜单 OC Design > LookDev > Legacy > Apply Panorama Storm Sky 可主动切换到历史全景背景；材质 Rotation 调整云隙方位，Exposure 只影响该背景。
-该菜单仅切换背景材质；如需查看纯全景版本，应同时停用08密度云组与07网格云组。
+将 Lighting 窗口中的 Skybox Material 设为 ComicStormSky 可查看历史全景背景。材质 Rotation 调整云隙方位，Exposure 只影响该背景。
+查看纯全景版本时，同时停用08密度云组与07网格云组。
 
 06 Pale distant horizon 用浅色低矮远景和低饱和细描边建立地平线；没有添加蓝雾。
 ComicVolume.asset 仅本场景覆盖色调映射、泛光、暗角、景深和运动模糊。
@@ -72,11 +72,10 @@ ComicVolume.asset 仅本场景覆盖色调映射、泛光、暗角、景深和�
 源 Prefab、模型、贴图、动画、战斗数值、正式场景和共享渲染管线均不由此工具改写。
 Editor/ComicLightingSceneBuilder.cs 用于首次构建；场景存在时拒绝重建，菜单只打开已有场景，保护手调。
 新建样板默认调用 Editor/ComicCloudVolumeSetup.cs 的 Install，采用真实3D密度云；Editor/ComicCloudDensityFactory.cs 生成Texture3D，Assets/KatanaDemo/Rendering/ComicLighting/Shaders/ComicCloudVolume.shader负责密度积分和透射。
-菜单 OC Design > LookDev > Use Painted Density Cloud Wall 仅能在当前样板的 Edit 模式下执行。该菜单明确切换天空方案：开启08密度云组、关闭07历史网格组，并使用CloudBackdrop背景。
+菜单 Katana > LookDev > Use Painted Density Cloud Wall 仅能在当前样板的 Edit 模式下执行。该菜单明确切换天空方案：开启08密度云组、关闭07历史网格组，并使用CloudBackdrop背景。
 已有根组、材质、纹理和Transform保留手调；已关闭根组也按场景根对象名称识别，不重复创建。此显式切换菜单会改变上述两组启停状态，普通重开场景不会自动调用或重置它们。
 当前密度菜单确保预览相机远裁面至少350；已经手调到更远的值保留。
 历史网格安装器 Editor/ComicCloudSceneSetup.cs 仍保留，已有网格云组、材质与网格不自动覆盖。
-Legacy/Apply Panorama Storm Sky 亦仅在当前样板的 Edit 模式下可用，已有历史天空材质的手调值保留。
 此场景继续属于LookDev独立美术预览。共用Shader、屏幕描边、描边工厂和3密度纹理已保GUID迁至Rendering/ComicLighting；正式战斗不引用本样板场景、材质、预览控制或缓存网格。
 
 预览边界与验证

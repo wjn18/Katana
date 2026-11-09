@@ -26,7 +26,7 @@ namespace OCDesign.EditorTools
         public const string HighToMidName = "Nioh3_HighToMid_05701";
         public const string MidToHighName = "Nioh3_MidToHigh_05701";
 
-        [MenuItem("OC Design/Samurai/Install Native High Four And Stance Transitions")]
+        [MenuItem("Katana/Samurai/Player/Install Native High Four And Stance Transitions")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)

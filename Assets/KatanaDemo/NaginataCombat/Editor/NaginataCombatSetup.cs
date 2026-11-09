@@ -26,7 +26,7 @@ namespace OCDesign.EditorTools
         private const string LegacyHeavyState = "NaginataHeavyAttack03";
         private const int AttackCount = 6;
 
-        [MenuItem("OC Design/Combat/Create Or Update Naginata Demo")]
+        [MenuItem("Katana/Naginata/Create Or Update Naginata Demo")]
         public static void CreateDemo()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)

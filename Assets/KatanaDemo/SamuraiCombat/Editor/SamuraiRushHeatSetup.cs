@@ -13,7 +13,7 @@ namespace OCDesign.EditorTools
         const string RendererPath = "Assets/Settings/PC_Renderer.asset";
         const string MaterialPath = SamuraiCombatSetup.Root + "/VFX/SamuraiRushHeat.mat";
 
-        [MenuItem("OC Design/Samurai/Install Rush Heat")]
+        [MenuItem("Katana/Samurai/Effects/Install Rush Heat")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)

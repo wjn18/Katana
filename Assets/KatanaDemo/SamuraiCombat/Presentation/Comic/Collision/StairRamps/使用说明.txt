@@ -10,7 +10,7 @@
 6份Architecture/Prefabs资产均已同步：长阶及五类房屋，拖入其他场景即可复用；Prefab GUID和原子件位置保持。复用到其他地形时仍需让坡脚与地面平接。
 
 维护
-Editor/SamuraiStairRampCollisionSetup.cs，菜单 OC Design/Samurai Combat/Use Smooth Stair Ramp Collisions。仅在正式场景Edit模式显式升级缺失坡面，不自动保存；已有同名坡组保留全部手调。Architecture/HallRefinement/Compound新建阶梯已默认接线，无运行时生成。
+Editor/SamuraiStairRampCollisionSetup.cs，菜单 Katana/Level/Use Smooth Stair Ramp Collisions。仅在正式场景Edit模式显式升级缺失坡面，不自动保存；已有同名坡组保留全部手调。Architecture/HallRefinement/Compound新建阶梯已默认接线，无运行时生成。
 修改可见模型的踏步尺寸后，坡面需要相应手调，重复安装不会覆盖当前坡面。
 
 验证

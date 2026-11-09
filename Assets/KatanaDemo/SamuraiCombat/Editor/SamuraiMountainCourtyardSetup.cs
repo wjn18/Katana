@@ -23,7 +23,7 @@ namespace OCDesign.Samurai.Editor
         [Serializable] public sealed class Placement { public string mesh, group; public Vector3 position; public float yaw, scale; }
         [Serializable] public sealed class Palette { public string name, lit, shade; }
 
-        [MenuItem("OC Design/Samurai Combat/Install Mountain Courtyard Surroundings")]
+        [MenuItem("Katana/Level/Install Mountain Courtyard Surroundings")]
         public static string Install()
         {
             var scene = SceneManager.GetActiveScene();

@@ -7,7 +7,7 @@ namespace OCDesign.EditorTools
     /// <summary>开启玩家琢技并登记现有居合武技；不重建场景/Prefab，不重设用户倍率。</summary>
     public static class SamuraiArtsSetup
     {
-        [MenuItem("OC Design/Samurai/Install Arts Proficiency")]
+        [MenuItem("Katana/Samurai/Player/Install Arts Proficiency")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)

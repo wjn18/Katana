@@ -35,7 +35,7 @@ namespace OCDesign.Samurai.Editor
             return AssetDatabase.LoadAssetAtPath<Material>(fine ? SamuraiCourtyardDecorationSetup.Root + "/Materials/Ink_Detail.mat" : SamuraiComicStyleSetup.Root + "/Materials/Ink.mat");
         }
 
-        [MenuItem("OC Design/Samurai Combat/Install Courtyard Architecture And Stairs")]
+        [MenuItem("Katana/Level/Install Courtyard Architecture And Stairs")]
         public static string Install()
         {
             var scene = SceneManager.GetActiveScene();

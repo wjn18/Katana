@@ -64,7 +64,7 @@ namespace OCDesign.Samurai.EditorTools
     public static class SamuraiEliteExecutionSetup
     {
         const string Root="Assets/KatanaDemo/SamuraiCombat";
-        [MenuItem("OC Design/Samurai Combat/Install Elite1 Paired Executions")]
+        [MenuItem("Katana/Samurai/Enemies/Install Elite1 Paired Executions")]
         public static void Install()
         {
             if(Application.isPlaying)throw new InvalidOperationException("Exit Play before installation.");

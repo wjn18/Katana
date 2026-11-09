@@ -14,7 +14,7 @@ namespace OCDesign.EditorTools
         public const string AttackPath = Root + "/Config/DodgeAttack.asset";
         public const string ReturnPath = Root + "/Config/DodgeAttackToCombo1.asset";
 
-        [MenuItem("OC Design/Samurai/Install Dodge Follow Up")]
+        [MenuItem("Katana/Samurai/Player/Install Dodge Follow Up")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)

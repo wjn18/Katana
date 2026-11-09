@@ -23,7 +23,6 @@ namespace OCDesign.EditorTools
         const string SwordSource = "Assets/KatanaDemo/UchigatanaCombat/Prefabs/UchigatanaCombatPlayer.prefab";
         static readonly string[] DodgeNames = {"Forward","ForwardRight","Right","BackwardRight","Backward","BackwardLeft","Left","ForwardLeft"};
 
-        [MenuItem("OC Design/Samurai/Create Independent Combat Demo")]
         public static void Build()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Exit Play mode first.");

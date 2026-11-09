@@ -224,7 +224,7 @@ namespace OCDesign.Samurai.EditorTools
     }
     public static class SamuraiElitePoseContinuitySetup
     {
-        [MenuItem("OC Design/Samurai Combat/Install Elite1 Pose Continuity Fixes")]
+        [MenuItem("Katana/Samurai/Enemies/Install Elite1 Pose Continuity Fixes")]
         public static void Install()
         {
             if(Application.isPlaying)throw new InvalidOperationException("Exit Play before maintenance.");

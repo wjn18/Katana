@@ -24,7 +24,6 @@ namespace OCDesign.Samurai.Editor
             {"Paper","Warm_lantern_paper"},{"Gold","Quiet_ochre"}
         };
 
-        [MenuItem("OC Design/Samurai Combat/Refine Original Courtyard Halls")]
         public static string Install()
         {
             var scene = SceneManager.GetActiveScene();

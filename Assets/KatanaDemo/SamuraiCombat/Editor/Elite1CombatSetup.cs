@@ -24,7 +24,7 @@ namespace OCDesign.Samurai.EditorTools
             public bool validTPose,avatarValid;public int mappedBones,bakedTransforms,sceneEnemies;
             public List<ClipReport> clips=new List<ClipReport>();
         }
-        [MenuItem("Tools/OC Design/Samurai Combat/Install Elite1 Combat In Current Scene")]
+        [MenuItem("Katana/Samurai/Enemies/Install Elite1 Combat In Current Scene")]
         public static void InstallInCurrentScene()
         {
             Elite1HumanoidSetup.Install();

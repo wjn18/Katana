@@ -47,7 +47,7 @@ namespace OCDesign.EditorTools
             foreach(var asset in assets){var p=new SerializedObject(asset).GetIterator();while(p.Next(true))if(p.propertyType==SerializedPropertyType.ObjectReference&&p.objectReferenceValue is SamuraiActionDefinition action)result.Add(action);}
             return result.OrderBy(a=>a.name,StringComparer.Ordinal).ToArray();
         }
-        [MenuItem("Tools/OC Design/Samurai Combat/Fill Missing Player Action Knockback")]
+        [MenuItem("Katana/Samurai/Player/Fill Missing Player Action Knockback")]
         public static void FillMissingDefaults()
         {
             if(Application.isPlaying)throw new InvalidOperationException("Exit Play before changing action assets.");

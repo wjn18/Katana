@@ -32,7 +32,7 @@ Samurai HUD Canvas
 SamuraiHUDView只绑定生命、精力/残心、架势、琢技、目标和事件数据，不在运行时重建或重新排列固定HUD布局。目标与预警根节点的屏幕投影属于正常的数据更新。
 SamuraiSettingsUI负责暂停恢复、按钮事件与四页切换，固定设置布局同样由场景提供。武技候选列表是唯一按装备选项动态复用的部分，使用场景中的CandidateTemplate；其他固定节点不会每次打开菜单重建。
 SamuraiMartialArtMenu只保存武技草稿，不再绘制OnGUI或自行监听M/Esc。打开时不可行动的角色可查看但不能改装备；应用才保存，取消草稿或返回游戏会丢弃未应用修改。
-Editor/SamuraiHUDSceneBuilder的菜单为Tools/OC Design/Samurai/Install Editable HUD In Current Scene，仅接受原SamuraiCombatDemo场景。首次安装创建Canvas；发现已有SamuraiHUDView时只重新绑定玩家、敌人、输入和相机引用，不覆盖现有布局、素材或颜色。
+Editor/SamuraiHUDSceneBuilder的菜单为Katana/Samurai/HUD/Install Editable HUD In Current Scene，仅接受原SamuraiCombatDemo场景。首次安装创建Canvas；发现已有SamuraiHUDView时只重新绑定玩家、敌人、输入和相机引用，不覆盖现有布局、素材或颜色。
 SamuraiSettingsUIBuilder是首次装配的辅助构建器，不是运行时重建入口。日常微调直接编辑场景中的Canvas即可，无需重新运行完整战斗装配工具。
 旧IMGUI HUD已移除；FPS、平均帧耗时和近1秒峰值只显示在Esc → 显示设置。相关历史验证数字仍属于各自制作轮次，本说明不新增测试计数。
 
@@ -40,4 +40,4 @@ SamuraiSettingsUIBuilder是首次装配的辅助构建器，不是运行时重�
 体力不足使攻击、蓄力或闪避不能执行，以及奔跑耗尽/破防时，剩余绿色精力条和原边框同步闪为偏白半透明。默认频率3Hz、持续1.2秒，实际绿色条长度仍等于剩余精力；为零时由边框提示。残心待回收/可回收层继续表示原有额度。
 玩家及当前敌方目标受到伤害后，红条立即到真实生命值；失去的部分显示为浅红偏白、alpha=0.56的残影，停留0.45秒后用0.45秒向左收完。连续受击累计剩余损失区间并重新停留；恢复生命、R复位、切换目标及HUD重新启用时同步当前值。没有替补目标时，敌人致死残影收完才隐藏血条；若已有新锁定目标，则立即显示新目标的正确生命值。暂停菜单冻结这些时间。
 在Samurai HUD Canvas的SamuraiHUDView中调整healthDamageHoldSeconds、healthDamageShrinkSeconds、healthDamageColor、staminaWarningSeconds、staminaWarningFrequency、staminaWarningColor。新增HealthDamageTrail/TargetHealthDamageTrail均在真实红条下方，沿用现有Sprite、坐标和尺寸。staminaBorder绑定原Border并记住其原色，闪烁结束恢复。
-只补装本项表现时，使用Tools/OC Design/Samurai/Install Vital HUD Feedback In Current Scene；重复安装不创建副本或覆盖既有布局。SamuraiHUDSceneBuilder首次/既有HUD安装也会补齐缺失层和引用。无需完整重装战斗。
+使用 Katana/Samurai/HUD/Install Editable HUD In Current Scene 补齐缺失层和引用。重复安装保留既有布局。

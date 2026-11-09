@@ -12,7 +12,7 @@ namespace OCDesign.Samurai.Editor
     {
         const string ShaderName = "OC Design/Comic Lighting/Stratified Mountain Rock";
 
-        [MenuItem("OC Design/Samurai Combat/Refine Mountain Rock Materials")]
+        [MenuItem("Katana/Level/Refine Mountain Rock Materials")]
         public static void Install()
         {
             var scene = SceneManager.GetActiveScene();

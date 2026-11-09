@@ -20,10 +20,9 @@ namespace OCDesign.Samurai.EditorTools
         public static string ReportFolder => Path.GetFullPath(Path.Combine(Application.dataPath,
             "../../镇门鬼将/动画资源/elite1-combat/analysis/attack-volumes-20261028"));
 
-        [MenuItem("Tools/OC Design/Samurai Combat/Install Elite1 Attack Volumes Pilot")]
         public static void InstallPilot() => Install(new[] { "Heavy", "Sweep" }, "横扫重劈安装参数.json");
 
-        [MenuItem("Tools/OC Design/Samurai Combat/Install Elite1 Attack Volumes All")]
+        [MenuItem("Katana/Samurai/Enemies/Install Elite1 Attack Volumes All")]
         public static void InstallAll() => Install(AllStates, "八招安装参数.json");
 
         static void Install(string[] states, string reportName)

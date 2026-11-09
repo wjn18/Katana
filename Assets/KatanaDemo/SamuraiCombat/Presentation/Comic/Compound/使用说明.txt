@@ -23,7 +23,7 @@ Unity：Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Compound/
 Prefabs内含实墙、透景墙、墙柱、小院门、石盆和左右抱鼓石7种Prefab，根归零/单位缩放，可跨场景拖放。墙沿局部X长4米，建议X缩放约.65..1.8；门通行沿局部Z，源净宽3.6米/净高3.4米，大角色需要对应增高。
 模型唯一为Models/Courtyard_Compound.fbx，26功能网格/2168三角。沿用现有共享材质和屋顶墨材质；若要单独配色，复制材质后赋值。
 可编辑Blender源、builder与网格检查归工作区 斗笠剑士/模型资源/courtyard-compound/。楼梯/小径的连续闭合轮廓与接地石基由Editor builder按当前地形生成，固定资产位于Meshes/Placed。
-菜单 OC Design/Samurai Combat/Enclose Mountain Courtyards，仅正式SamuraiCombatDemo的Edit模式。补缺失的合围整组，已有组全部保留手调，不自动保存场景。参数/默认折线见SamuraiMountainCompoundSetup.cs。无需运行安装器即可复用7类Prefab。
+菜单 Katana/Level/Enclose Mountain Courtyards，仅正式SamuraiCombatDemo的Edit模式。补缺失的合围整组，已有组全部保留手调，不自动保存场景。参数/默认折线见SamuraiMountainCompoundSetup.cs。无需运行安装器即可复用7类Prefab。
 
 验证与范围
 原2765个Transform路径全部保留：2744世界矩阵保持，21变化仅上述7棵松树及子件；原5演员布局和启停保持，7个已知旧组关闭。2247项既有战斗/角色/建筑Prefab/渲染/设置资产逐字节保持；无新增运行脚本。

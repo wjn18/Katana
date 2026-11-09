@@ -9,7 +9,7 @@ namespace OCDesign.EditorTools
     /// <summary>定向安装命中反馈和镜头表现，保留战斗与刀光的现有调参。</summary>
     public static class SamuraiImpactFeedbackSetup
     {
-        [MenuItem("OC Design/Samurai/Install Impact And Rush Feedback")]
+        [MenuItem("Katana/Samurai/Effects/Install Impact And Rush Feedback")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)

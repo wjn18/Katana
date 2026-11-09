@@ -14,7 +14,6 @@ namespace OCDesign.LookDev.Editor
         public const string Root = ComicLightingSceneBuilder.Root;
         public const string CloudRootName = "07  Sculpted 3D clouds - flat paint";
 
-        [MenuItem("OC Design/LookDev/Legacy/Install Sculpted Mesh Clouds")]
         public static string Install()
         {
             var scene = SceneManager.GetActiveScene();

@@ -10,7 +10,7 @@ namespace OCDesign.LookDev.Editor
     /// <summary>Repairs preview-only contour copies; source meshes and prefabs stay untouched.</summary>
     public static class ComicOutlineRepairSetup
     {
-        [MenuItem("OC Design/LookDev/Repair Sharp Contours")]
+        [MenuItem("Katana/LookDev/Repair Sharp Contours")]
         public static string Install()
         {
             var scene = SceneManager.GetActiveScene();

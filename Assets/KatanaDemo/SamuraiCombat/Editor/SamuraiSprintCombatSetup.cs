@@ -18,7 +18,7 @@ namespace OCDesign.EditorTools
         static readonly string[] Directions =
             { "", "ForwardRight", "Right", "BackwardRight", "Backward", "BackwardLeft", "Left", "ForwardLeft" };
 
-        [MenuItem("OC Design/Samurai/Install Held Run And Sprint Attack")]
+        [MenuItem("Katana/Samurai/Player/Install Held Run And Sprint Attack")]
         public static void Install()
         {
             RequireEditMode();
@@ -63,7 +63,6 @@ namespace OCDesign.EditorTools
             return true;
         }
 
-        [MenuItem("OC Design/Samurai/Initialize Attack Knockback Defaults")]
         public static void InitializeKnockbackDefaults()
         {
             RequireEditMode();

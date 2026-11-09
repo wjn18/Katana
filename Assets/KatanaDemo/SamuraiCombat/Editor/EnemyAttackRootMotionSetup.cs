@@ -46,13 +46,12 @@ namespace OCDesign.Samurai.EditorTools
             public float weaponRangeRadius;
         }
 
-        [MenuItem("Tools/OC Design/Samurai Combat/Install Enemy Attack Root Motion Pilot")]
         public static void InstallPilot() => InstallPilotWithMultiplier(EliteSourceDistanceMultiplier);
 
         public static void InstallPilotWithMultiplier(float eliteMultiplier) => Install(
             new[] { "Elite1/Heavy", "Elite1/Sweep" }, eliteMultiplier, 1f, "横扫重劈根运动安装.json");
 
-        [MenuItem("Tools/OC Design/Samurai Combat/Install Enemy Attack Root Motion All")]
+        [MenuItem("Katana/Samurai/Enemies/Install Enemy Attack Root Motion All")]
         public static void InstallAll() => InstallAllWithMultipliers(EliteSourceDistanceMultiplier, 1f);
 
         public static void InstallAllWithMultipliers(float eliteMultiplier, float enemyMultiplier) => Install(

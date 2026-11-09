@@ -10,7 +10,7 @@ namespace OCDesign.EditorTools
     public static class Attack01VfxSetup
     {
         public const string MaterialPath = "Assets/KatanaDemo/NaginataCombat/VFX/Attack01BladeWind.mat";
-        [MenuItem("OC Design/Combat/Install Naginata Blade Wind (All Six)")]
+        [MenuItem("Katana/Naginata/Install Naginata Blade Wind (All Six)")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)

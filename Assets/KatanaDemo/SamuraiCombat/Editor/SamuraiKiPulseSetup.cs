@@ -10,7 +10,6 @@ namespace OCDesign.EditorTools
     {
         const string Root = "Assets/KatanaDemo/SamuraiCombat";
 
-        [MenuItem("OC Design/Samurai/Enable Frost Moon Input")]
         public static void EnableFrostMoon()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)
@@ -23,7 +22,6 @@ namespace OCDesign.EditorTools
             AssetDatabase.SaveAssetIfDirty(profile);
         }
 
-        [MenuItem("OC Design/Samurai/Enable Ki Pulse Flux")]
         public static void EnableFlux()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)
@@ -36,7 +34,7 @@ namespace OCDesign.EditorTools
             AssetDatabase.SaveAssetIfDirty(profile);
         }
 
-        [MenuItem("OC Design/Samurai/Install Ki Pulse")]
+        [MenuItem("Katana/Samurai/Player/Install Ki Pulse")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)

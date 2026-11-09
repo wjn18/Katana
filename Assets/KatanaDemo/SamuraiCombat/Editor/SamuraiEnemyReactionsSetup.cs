@@ -35,7 +35,7 @@ namespace OCDesign.EditorTools
             public bool IsNew;
         }
 
-        [MenuItem("OC Design/Samurai/Install Enemy Hit And Guard Reactions")]
+        [MenuItem("Katana/Samurai/Enemies/Install Enemy Hit And Guard Reactions")]
         public static void Install()
         {
             RequireEditMode();
@@ -144,7 +144,7 @@ namespace OCDesign.EditorTools
         }
 
         /// <summary>仅补玩家普通受击引用；复用已安装片段和状态，不触碰格挡、敌人或动画资产。</summary>
-        [MenuItem("OC Design/Samurai/Install Player Hit Reactions")]
+        [MenuItem("Katana/Samurai/Player/Install Player Hit Reactions")]
         public static void InstallPlayerHitReactions()
         {
             RequireEditMode();

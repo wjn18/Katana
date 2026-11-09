@@ -10,7 +10,7 @@ namespace OCDesign.EditorTools
     {
         const string Root = "Assets/KatanaDemo/SamuraiCombat";
 
-        [MenuItem("OC Design/Samurai/Install Damage Feedback")]
+        [MenuItem("Katana/Samurai/Effects/Install Damage Feedback")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)

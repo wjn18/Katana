@@ -12,7 +12,7 @@ namespace OCDesign.Samurai.EditorTools
         const int Version = 1;
         static readonly string[] States = { "Light01", "Light02", "Heavy" };
 
-        [MenuItem("Tools/OC Design/Samurai Combat/Install Enemy1 Close Range Contacts")]
+        [MenuItem("Katana/Samurai/Enemies/Install Enemy1 Close Range Contacts")]
         public static void InstallAll()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)

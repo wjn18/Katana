@@ -13,7 +13,7 @@
 07 Talus stones：山脚落石；08 Summit outcrops：山顶风化石。
 表面下的Comic ink contour跟随该部件，Scene拾取关闭。远山分区共享接边，整体调整一层可保持地形连续；单独移动一块后应检查接边。移动庭院时需一并调整其承托岩峰和外圈树园。
 
-菜单：OC Design > Samurai Combat > Install Mountain Courtyard Surroundings。
+菜单：Katana > Level > Install Mountain Courtyard Surroundings。
 只在正式场景Edit使用；已有整组不覆盖Transform/材质/启停等手调，不自动保存。原Quiet northern peaks保留关闭作为历史；首次安装将Main Camera farClip500扩展为1050，以完整呈现远山，后续重装不改用户相机。
 
 来源：工作区斗笠剑士/模型资源/courtyard-mountains/output/Mountain_Courtyard.blend。

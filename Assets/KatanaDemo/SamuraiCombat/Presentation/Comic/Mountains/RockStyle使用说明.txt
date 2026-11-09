@@ -18,7 +18,7 @@ Fine bed seam darkness控制细缝，设0关闭；Vertical weathering控制纵�
 细节建议保持低反差，依靠山形、漫画明暗和轮廓承担主要体积。
 
 菜单
-OC Design > Samurai Combat > Refine Mountain Rock Materials。
+Katana > Level > Refine Mountain Rock Materials。
 仅SamuraiCombatDemo Edit模式使用；把岩峰/山坡/岩石的槽统一套为近中远材质，保留这3份材质内部调参，原Transform/启停/网格/碰撞保持，不自动保存。显式再次套用会把单物件自定义材质切回这3份；正常重复应用无变化。
 完整山景安装器仅对新建整组默认接入，已有整组不自动覆盖手调。
 

@@ -16,7 +16,7 @@ namespace OCDesign.Samurai.EditorTools
         public const string ClipPath = Elite1CombatSetup.ClipFolder + "/Elite1_Parry.anim";
         public const float DefaultRecoverySeconds = .6f;
 
-        [MenuItem("Tools/OC Design/Samurai Combat/Install Elite1 Independent Parry")]
+        [MenuItem("Katana/Samurai/Enemies/Install Elite1 Independent Parry")]
         public static void Install()
         {
             if (Application.isPlaying) throw new InvalidOperationException("Exit Play before installing Elite1 parry.");

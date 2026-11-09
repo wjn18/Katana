@@ -12,7 +12,7 @@ namespace OCDesign.EditorTools
     {
         const string Root = "Assets/KatanaDemo/SamuraiCombat";
 
-        [MenuItem("OC Design/Samurai/Install Deflect")]
+        [MenuItem("Katana/Samurai/Player/Install Deflect")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)

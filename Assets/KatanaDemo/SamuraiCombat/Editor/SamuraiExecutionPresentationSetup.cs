@@ -13,7 +13,7 @@ namespace OCDesign.Samurai.EditorTools
         public const string MaterialPath = "Assets/KatanaDemo/SamuraiCombat/Presentation/Execution/ExecutionCue.mat";
         public const string ScenePath = "Assets/KatanaDemo/SamuraiCombat/Scenes/SamuraiCombatDemo.unity";
 
-        [MenuItem("Tools/OC Design/Samurai Combat/Install Elite1 Execution Cue")]
+        [MenuItem("Katana/Samurai/Effects/Install Elite1 Execution Cue")]
         public static void InstallElite1()
         {
             RequireEditMode();

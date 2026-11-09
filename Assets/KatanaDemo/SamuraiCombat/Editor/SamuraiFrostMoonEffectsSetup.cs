@@ -10,7 +10,7 @@ namespace OCDesign.EditorTools
     {
         const string Root = SamuraiCombatSetup.Root;
         public const string MaterialPath = Root + "/VFX/SamuraiFrostMoon.mat";
-        [MenuItem("OC Design/Samurai/Install Frost Moon Effects")]
+        [MenuItem("Katana/Samurai/Effects/Install Frost Moon Effects")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("请先退出Play。");

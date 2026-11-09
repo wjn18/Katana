@@ -95,7 +95,7 @@ namespace OCDesign.Samurai.EditorTools
     }
     public static class SamuraiParryOnlyStumbleSetup
     {
-        [MenuItem("OC Design/Samurai Combat/Install Elite1 Parry Only And Player Stumble")]
+        [MenuItem("Katana/Samurai/Enemies/Install Elite1 Parry Only And Player Stumble")]
         public static void Install(){InstallElite();InstallPlayer();SamuraiQuickDeflectedSetup.Install();}
         public static void InstallElite()
         {

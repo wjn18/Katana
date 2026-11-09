@@ -12,7 +12,7 @@
 独立builder为同目录上级blender/build_refined_halls.py。运行后输出唯一Unity模型 Architecture/Models/Courtyard_RefinedHalls.fbx。先前Courtyard_Architecture.fbx/.blend与builder完整保持，继续负责侧屋、小仓房、茶亭和台阶。
 
 维护
-菜单 OC Design/Samurai Combat/Refine Original Courtyard Halls，在正式场景Edit模式运行。对已知旧两组几何仅迁移一次；已有Refined hall标记、Prefab手调和自定义描边材质保持。原Install Courtyard Architecture And Stairs入口已接线。
+使用 Katana/Level/Install Courtyard Architecture And Stairs 在正式场景 Edit 模式维护两殿 Prefab。对已知旧两组几何仅迁移一次；已有Refined hall标记、Prefab手调和自定义描边材质保持。
 同路径原位保存Prefab以保留GUID/rootfileID；旧场景尚未连接Prefab时可定向接到新版，未知追加子件、root自定义组件和位姿保留。重复运行零变化，不自动保存场景。
 
 质量检查

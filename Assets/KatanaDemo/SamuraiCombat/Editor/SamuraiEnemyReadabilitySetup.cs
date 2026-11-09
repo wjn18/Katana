@@ -16,7 +16,7 @@ namespace OCDesign.Samurai.EditorTools
             "../../斗笠剑士/动画资源/samurai-combat/analysis/enemy-readability-20261027"));
         public static string PrefabPath(string name) => "Assets/KatanaDemo/Characters/" + name + "/Prefabs/" + name + ".prefab";
 
-        [MenuItem("Tools/OC Design/Samurai Combat/Install Enemy Perception And Timing Fixes")]
+        [MenuItem("Katana/Samurai/Enemies/Install Enemy Perception And Timing Fixes")]
         public static void Install()
         {
             if (Application.isPlaying) throw new InvalidOperationException("Exit Play before maintaining enemy assets.");

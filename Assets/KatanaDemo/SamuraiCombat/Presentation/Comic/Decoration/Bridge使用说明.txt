@@ -18,7 +18,7 @@ Courtyard dressing / 04 Connecting bridge - 庭院连桥：
 共20个独立网格，包含12个柱帽与细板缝，可按功能部件分别调整。描边随对应表面；移动整桥请选择连桥根节点。
 
 安装与保留
-菜单OC Design > Samurai Combat > Install Courtyard Bridge。
+菜单Katana > Level > Install Courtyard Bridge。
 仅在SamuraiCombatDemo的Edit模式使用；只补缺失整桥，已有桥保留Transform、材质、启停等全部手调，不自动保存场景。
 原两段短坡道保留在Floor / 03 Connecting passage - 连接通道 / Legacy short ramps - 旧连接坡道（保留关闭），关闭而不删除；不复原用户已调整的坡面。
 

@@ -10,7 +10,7 @@ namespace OCDesign.Samurai.EditorTools
     {
         const string Root="Assets/KatanaDemo/SamuraiCombat";
         const string Anim=Root+"/Animations/Execution";
-        [MenuItem("OC Design/Samurai Combat/Install Enemy1 Paired Executions")]
+        [MenuItem("Katana/Samurai/Enemies/Install Enemy1 Paired Executions")]
         public static void Install()
         {
             if(Application.isPlaying)throw new InvalidOperationException("Exit Play before installation.");

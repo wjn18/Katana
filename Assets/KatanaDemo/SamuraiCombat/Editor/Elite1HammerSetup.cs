@@ -13,7 +13,7 @@ namespace OCDesign.Samurai.EditorTools
         public const string SourceRig="Assets/2Handed_Hammer_Set/Animations/Humanoid/00_T-pose.FBX";
         public const string MaterialPath="Assets/KatanaDemo/Characters/Elite1/Materials/Elite1_HammerWhite.mat";
 
-        [MenuItem("Tools/OC Design/Samurai Combat/Use Hammer Package Whitebox On Elite1")]
+        [MenuItem("Katana/Samurai/Enemies/Use Hammer Package Whitebox On Elite1")]
         public static void Install()
         {
             if(Application.isPlaying)throw new InvalidOperationException("Exit Play before changing the Elite1 weapon.");

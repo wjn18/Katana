@@ -14,7 +14,6 @@ namespace OCDesign.EditorTools
         public const string ScreenMaterialPath = Root + "/VFX/SamuraiCriticalScreen.mat";
         public const string WindMaterialPath = Root + "/VFX/SamuraiChargeWind.mat";
 
-        [MenuItem("OC Design/Samurai/Install Charge Wind")]
         public static void InstallWind()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)
@@ -43,7 +42,7 @@ namespace OCDesign.EditorTools
             finally { PrefabUtility.UnloadPrefabContents(contents); }
         }
 
-        [MenuItem("OC Design/Samurai/Install Charge Effects")]
+        [MenuItem("Katana/Samurai/Effects/Install Charge Effects")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)

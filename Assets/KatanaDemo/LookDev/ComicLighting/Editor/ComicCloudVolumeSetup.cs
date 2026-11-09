@@ -14,7 +14,7 @@ namespace OCDesign.LookDev.Editor
         const string DensityRoot = "Assets/KatanaDemo/Rendering/ComicLighting/Textures/CloudDensity";
         public const string CloudRootName = "08  Painted density cloud wall";
 
-        [MenuItem("OC Design/LookDev/Use Painted Density Cloud Wall")]
+        [MenuItem("Katana/LookDev/Use Painted Density Cloud Wall")]
         public static string Install()
         {
             var scene = SceneManager.GetActiveScene();

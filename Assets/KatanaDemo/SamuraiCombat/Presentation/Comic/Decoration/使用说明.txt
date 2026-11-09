@@ -20,8 +20,8 @@ Unity模型：Katana/Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/Decorati
 细窗棂使用Ink_Detail.mat的窄几何描边，避免粗壳在凹角挤出黑刺；实际游戏相机继续提供屏幕像素轮廓补线。
 
 维护
-菜单OC Design > Samurai Combat > Organize And Refine Courtyard。
-原Decorate Existing Courtyard菜单仍调用同一方法。仅正式场景Edit模式使用，不自动保存、不重建战斗。
+菜单Katana > Level > Organize And Refine Courtyard。
+仅正式场景Edit模式使用，不自动保存、不重建战斗。
 旧装饰首次执行时迁移为分件层级；已有可调结构仅补缺失整组，不重建组内子部件，保留既有Transform、材质和启停细调。原战斗安装器不负责本装饰。
 本次墙帽按各自当前墙体/柱体分别对齐，修复原合并墙帽跨两院一起移动造成的错位；下层手动横移约12.4米的位置保留，其余装饰手调位置随迁移保留。
 当前保留用户删除下层West Wall及原描边、调整连接坡面South Wall (4)的结果；West Wall - 独立压顶保留于新层级但关闭，重装不会恢复已删除的原墙体或开启该关闭墙帽。

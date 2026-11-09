@@ -6,5 +6,5 @@ Elite1／镇门鬼将，2026-10-27 当前骨骼版
 嘴罩／下颌及接缝已补全至1151个面部导入顶点的派生权重；原几何、UV、FBX保持。
 当前武器还原原RustCleaver网格比例，按用户确认保留整体等比放大；不以其握点约束骨骼，后续可独立换锤。
 没有逐指骨；厚甲／腰裙穿插及复杂地形限制保留。无GIF。
-维护：Tools > OC Design > Samurai Combat > Install Elite1 Combat In Current Scene。
+维护：Katana > Samurai > Enemies > Install Elite1 Combat In Current Scene。
 说明及本轮报告：工作区镇门鬼将/动画资源/elite1-combat/output/接入说明.txt、analysis/mouth-restore-20261027/。

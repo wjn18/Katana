@@ -18,7 +18,7 @@ namespace OCDesign.EditorTools
         public static string ReportFolder => Path.GetFullPath(Path.Combine(Application.dataPath,
             "../../斗笠剑士/动画资源/samurai-toughness/analysis/20261027"));
 
-        [MenuItem("Tools/OC Design/Samurai Combat/Install Enemy Toughness In Current Scene")]
+        [MenuItem("Katana/Samurai/Enemies/Install Enemy Toughness In Current Scene")]
         public static void Install()
         {
             if (Application.isPlaying) throw new InvalidOperationException("请先退出Play。");

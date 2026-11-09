@@ -23,7 +23,7 @@ namespace OCDesign.LookDev.Editor
         static Transform architecture;
         static readonly Dictionary<Material, Material> characterMaterials = new Dictionary<Material, Material>();
 
-        [MenuItem("OC Design/LookDev/Open Comic Lighting Courtyard")]
+        [MenuItem("Katana/LookDev/Open Comic Lighting Courtyard")]
         public static void Open()
         {
             if (EditorApplication.isPlaying) throw new InvalidOperationException("Exit Play mode before opening the sample.");
@@ -189,7 +189,6 @@ namespace OCDesign.LookDev.Editor
             return material;
         }
 
-        [MenuItem("OC Design/LookDev/Legacy/Apply Panorama Storm Sky")]
         public static void ApplyStormSky()
         {
             var scene=SceneManager.GetActiveScene();

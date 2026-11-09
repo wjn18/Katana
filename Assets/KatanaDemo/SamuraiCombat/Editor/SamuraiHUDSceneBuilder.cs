@@ -23,7 +23,7 @@ namespace OCDesign.EditorTools
         static Sprite solid, outline, ring, disc, gear;
         static Font font;
 
-        [MenuItem("Tools/OC Design/Samurai/Install Editable HUD In Current Scene")]
+        [MenuItem("Katana/Samurai/HUD/Install Editable HUD In Current Scene")]
         public static void InstallInCurrentScene()
         {
             if(EditorApplication.isPlaying) throw new InvalidOperationException("请先退出 Play。");
@@ -110,7 +110,6 @@ namespace OCDesign.EditorTools
             return view;
         }
 
-        [MenuItem("Tools/OC Design/Samurai/Install Vital HUD Feedback In Current Scene")]
         public static void InstallVitalFeedbackInCurrentScene()
         {
             if (EditorApplication.isPlaying) throw new InvalidOperationException("请先退出 Play。");

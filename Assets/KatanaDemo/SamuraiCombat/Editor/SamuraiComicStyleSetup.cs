@@ -22,7 +22,7 @@ namespace OCDesign.Samurai.Editor
         const string RootName = "Comic presentation";
         const string HullName = "Comic ink contour";
 
-        [MenuItem("OC Design/Samurai Combat/Install Comic Presentation In Current Scene")]
+        [MenuItem("Katana/Level/Install Comic Presentation In Current Scene")]
         public static string Install()
         {
             Scene scene = SceneManager.GetActiveScene();

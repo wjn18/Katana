@@ -91,7 +91,6 @@ namespace OCDesign.Samurai.EditorTools
     }
     public static class SamuraiQuickDeflectedSetup
     {
-        [MenuItem("OC Design/Samurai Combat/Install Quick Two-Step Deflected Reaction")]
         public static void Install()
         {
             if(Application.isPlaying)throw new InvalidOperationException("Exit Play before maintenance.");

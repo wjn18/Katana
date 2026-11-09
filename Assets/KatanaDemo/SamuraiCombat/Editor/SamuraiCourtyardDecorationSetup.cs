@@ -37,8 +37,7 @@ namespace OCDesign.Samurai.Editor
             public bool enabled=true, active=true, outlineEnabled=true, outlineActive=true;
         }
 
-        [MenuItem("OC Design/Samurai Combat/Decorate Existing Courtyard")]
-        [MenuItem("OC Design/Samurai Combat/Organize And Refine Courtyard")]
+        [MenuItem("Katana/Level/Organize And Refine Courtyard")]
         public static string Install()
         {
             var scene=SceneManager.GetActiveScene();

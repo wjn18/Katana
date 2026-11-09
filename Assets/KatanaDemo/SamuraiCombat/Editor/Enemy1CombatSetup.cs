@@ -54,7 +54,7 @@ namespace OCDesign.Samurai.EditorTools
             { this.state = state; this.source = source; this.loop = loop; this.guard = guard; this.holdAt = holdAt; }
         }
 
-        [MenuItem("Tools/OC Design/Samurai Combat/Install Enemy1 Combat In Current Scene")]
+        [MenuItem("Katana/Samurai/Enemies/Install Enemy1 Combat In Current Scene")]
         public static void InstallInCurrentScene()
         {
             if (Application.isPlaying) throw new InvalidOperationException("Exit Play before installing Enemy1.");

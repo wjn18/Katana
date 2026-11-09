@@ -28,9 +28,9 @@ Decoration/Materials：装饰配色。相同装饰几何共享网格，实例Tra
 分件增加Renderer数量，装饰标记了构建静态合批；标记不等于编辑器已合批。云取样、描边与分件均有绘制开销，未作正式帧时、移动端或所有图形API性能验收。
 
 维护
-漫画表现菜单：OC Design > Samurai Combat > Install Comic Presentation In Current Scene。
+漫画表现菜单：Katana > Level > Install Comic Presentation In Current Scene。
 仅在正式场景Edit模式补缺失对象/引用，不重建战斗、不自动保存，不覆盖已有材质、云Transform、相机设置或关闭状态；装饰子树和描边Renderer由各自工具维护，不递归加描边。
-装饰层级菜单：OC Design > Samurai Combat > Organize And Refine Courtyard；原Decorate Existing Courtyard菜单仍可用。首次迁移旧装饰，已有可调结构仅补缺失整组，保留组内细调；详见Decoration/使用说明.txt。
+装饰层级菜单：Katana > Level > Organize And Refine Courtyard。首次迁移旧装饰，已有可调结构仅补缺失整组，保留组内细调；详见Decoration/使用说明.txt。
 全新首次安装的调色模板由Editor工具读取LookDev；共享Shader、运行组件和密度纹理归Rendering/ComicLighting。
 
 既有记录

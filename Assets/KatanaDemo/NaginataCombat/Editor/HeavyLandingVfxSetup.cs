@@ -7,7 +7,7 @@ namespace OCDesign.EditorTools
 {
     public static class HeavyLandingVfxSetup
     {
-        [MenuItem("OC Design/Combat/Install Heavy Landing Impact")]
+        [MenuItem("Katana/Naginata/Install Heavy Landing Impact")]
         public static void Install()
         {
             if(EditorApplication.isPlayingOrWillChangePlaymode)throw new InvalidOperationException("Edit模式装配落地特效。");

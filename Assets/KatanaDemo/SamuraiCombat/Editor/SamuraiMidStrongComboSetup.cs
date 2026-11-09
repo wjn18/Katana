@@ -14,7 +14,7 @@ namespace OCDesign.EditorTools
         const string Config = Root + "/Config/Nioh3/";
         public static readonly string[] Codes = { "09600", "09601", "09602", "09603" };
 
-        [MenuItem("OC Design/Samurai/Install Mid Strong Four And Branches")]
+        [MenuItem("Katana/Samurai/Player/Install Mid Strong Four And Branches")]
         public static void Install()
         {
             RequireEdit();
