@@ -105,13 +105,16 @@ MonoBehaviour:
   minimumSafeDistance: 1.5
   spacingMinimum: 1.9
   spacingMaximum: 2.3
-  detectionDistance: 16
+  detectionDistance: 20
   horizontalViewAngle: 180
   verticalViewAngle: 160
   perceptionConfigurationVersion: 1
   telegraphSeconds: 0.7
   attackInterval: 1.1
   guardSeconds: 1.25
+  defenseReactionSeconds: 0.25
+  defenseRearmSeconds: 0.75
+  postDeflectDefenseDelay: 0.85
   chargeReactionSeconds: 0.35
   normalComboStrikeCount: 2
   normalAttackActions: []

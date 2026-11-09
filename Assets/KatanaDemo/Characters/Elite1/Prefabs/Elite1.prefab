@@ -1613,7 +1613,7 @@ Animator:
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that are already bound by a Humanoid avatar. These transforms can only be changed by Humanoid clips.\n\tTransform 'Hips'\n\tTransform 'RightUpLeg'\n\tTransform 'LeftToeBase'\n\tTransform 'Neck'\n\tTransform 'LeftHand'\n\tTransform 'Spine1'\n\tTransform 'LeftForeArm'\n\tTransform 'RightForeArm'\n\tTransform 'LeftFoot'\n\tTransform 'LeftLeg'\n\tand more ...\n\tFrom animation clip 'Elite1_ExecutionV1Healthy'\n\tFrom animation clip 'Elite1_ExecutionV1LowHealth'\n\tFrom animation clip 'Elite1_ExecutionGetupHealthy'\n\tFrom animation clip 'Elite1_ExecutionGetupLowHealth'\n\tFrom animation clip 'Elite1_ExecutionV2Healthy'\n\tFrom animation clip 'Elite1_ExecutionV2LowHealth'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
