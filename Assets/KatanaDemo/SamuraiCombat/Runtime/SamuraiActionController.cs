@@ -170,7 +170,8 @@ namespace OCDesign.Samurai
             AttackSerial++;
             Enter(SamuraiCombatMode.Locomotion, IdleStateName, SamuraiAnimationDriver.ClipDuration(IdleClip), true);
         }
-        public void CancelInput()
+        public void CancelInput() => CancelInput(true);
+        void CancelInput(bool returnToLocomotion)
         {
             ClearGuardContactVisual();
             approach.Reset();
@@ -182,7 +183,8 @@ namespace OCDesign.Samurai
             dodgeFollowUp.Cancel();
             ResetSprint();
             defense.CancelInput();
-            if (Mode == SamuraiCombatMode.Charge || Mode == SamuraiCombatMode.Guard || Mode == SamuraiCombatMode.ParryReady || playingKiPulseAnimation || playingStanceTransition)
+            if (returnToLocomotion && (Mode == SamuraiCombatMode.Charge || Mode == SamuraiCombatMode.Guard
+                || Mode == SamuraiCombatMode.ParryReady || playingKiPulseAnimation || playingStanceTransition))
                 EnterLocomotion();
         }
         public void Tick(SamuraiInputFrame input, float dt)
@@ -1099,7 +1101,8 @@ namespace OCDesign.Samurai
         public bool DownBranchHealthy => toughnessBrokenLoopState == ToughnessBrokenHealthyState;
         public void BeginPairedExecution(string state,float duration,bool receiver)
         {
-            CancelInput();AttackSerial++;
+            // 配对已经建立；中途发出Locomotion通知会被当成处决中止。
+            CancelInput(false);AttackSerial++;
             Enter(receiver?SamuraiCombatMode.BeingExecuted:SamuraiCombatMode.Executing,state,duration,false,0,.12f);
         }
         public void CompletePairedExecution(SamuraiExecutionPair pair,bool killed,bool healthy)

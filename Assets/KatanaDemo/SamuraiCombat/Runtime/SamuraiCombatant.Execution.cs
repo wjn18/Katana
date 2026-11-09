@@ -99,10 +99,14 @@ namespace OCDesign.Samurai
             savedBreakRemaining=target.ToughnessBreakRemaining;executionElapsed=0;executionDamageApplied=false;
             executionStart=transform.position;executionStartRotation=transform.rotation;executionAnchor=anchor;executionFacing=facing;
             executionActorSpeed=animator.speed;executionReceiverSpeed=target.animator.speed;
-            target.SetExecutionPose(executionHealthyBranch?pair.receiverPoseHealthy:pair.receiverPoseLowHealth,ReceiverState(),targetFloor);
-            target.CaptureExecutionAlignmentPose();
+            string receiverState=ReceiverState();
             actions.BeginPairedExecution(pair.attackerState,pair.TotalDuration,false);
-            target.actions.BeginPairedExecution(ReceiverState(),pair.TotalDuration,true);
+            // 状态通知可同步复位或停用任一角色。取消后不再启动另一半。
+            if(executionTarget!=target)return false;
+            target.SetExecutionPose(executionHealthyBranch?pair.receiverPoseHealthy:pair.receiverPoseLowHealth,receiverState,targetFloor);
+            target.CaptureExecutionAlignmentPose();
+            target.actions.BeginPairedExecution(receiverState,pair.TotalDuration,true);
+            if(executionTarget!=target)return false;
             SampleExecution(0);return true;
         }
         string ReceiverState()=>executionHealthyBranch?activeExecutionPair.receiverState:activeExecutionPair.receiverLowHealthState;

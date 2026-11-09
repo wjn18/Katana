@@ -60,12 +60,13 @@ namespace OCDesign.Samurai
                     hitMask, QueryTriggerInteraction.Ignore);
                 count = overlaps.Length;
             }
+            Vector3 bladeMiddle = (sweep.FromBase + sweep.FromTip) * .5f;
             for (int i = 0; i < count; i++)
             {
                 Collider collider = overlaps[i];
-                if (collider == null) continue;
-                AddContact(collider, collider.ClosestPoint((sweep.FromBase + sweep.FromTip) * .5f),
-                    sweep.FromBase, 0f, hitMask, filter);
+                // hitMask 也可能包含环境。先排除非目标，再查询目标表面。
+                if (!IsTarget(collider, hitMask, filter)) continue;
+                AddContact(collider, collider.ClosestPoint(bladeMiddle), sweep.FromBase, 0f);
             }
 
             // 密度由刀长而非帧间位移决定，覆盖Base/Tip之间的刀身。
@@ -108,7 +109,7 @@ namespace OCDesign.Samurai
             for (int i = 0; i < count; i++)
             {
                 Collider collider = overlaps[i];
-                if (!InMask(collider, hitMask) || !filter.IsTarget(collider)) continue;
+                if (!IsTarget(collider, hitMask, filter)) continue;
                 Vector3 point = collider.ClosestPoint(origin);
                 Vector3 delta = point - origin;
                 if (delta.sqrMagnitude > reach * reach) continue;
@@ -120,7 +121,7 @@ namespace OCDesign.Samurai
                     delta.y = 0f;
                 }
                 if (delta.sqrMagnitude < .000001f || Vector3.Dot(forward, delta.normalized) < minimumDot) continue;
-                AddContact(collider, point, origin, Vector3.Distance(origin, point) / reach, hitMask, filter);
+                AddContact(collider, point, origin, Vector3.Distance(origin, point) / reach);
             }
             contacts.Sort(ContactComparison);
             return contacts;
@@ -170,10 +171,10 @@ namespace OCDesign.Samurai
             {
                 RaycastHit hit = hits[i];
                 // 零距离接触交给起点Overlap，避免使用Cast未定义的接触点。
-                if (hit.distance <= 0f || hit.distance >= blockedAt) continue;
+                if (hit.distance <= 0f || hit.distance >= blockedAt || !IsTarget(hit.collider, hitMask, filter)) continue;
                 float time = Mathf.Clamp01(hit.distance / distance);
                 AddContact(hit.collider, hit.point, Vector3.Lerp(fromBase, toBase, time),
-                    time, hitMask, filter);
+                    time);
             }
         }
 
@@ -192,10 +193,8 @@ namespace OCDesign.Samurai
             return false;
         }
 
-        void AddContact(Collider collider, Vector3 point, Vector3 bladeBase, float time,
-            int hitMask, IWeaponTrailFilter filter)
+        void AddContact(Collider collider, Vector3 point, Vector3 bladeBase, float time)
         {
-            if (!InMask(collider, hitMask) || !filter.IsTarget(collider)) return;
             contacts.Add(new WeaponTrailContact
             {
                 Collider = collider, Point = point, BladeBase = bladeBase, Time = time
@@ -204,6 +203,9 @@ namespace OCDesign.Samurai
 
         static bool InMask(Collider collider, int mask) =>
             collider != null && (mask & (1 << collider.gameObject.layer)) != 0;
+
+        static bool IsTarget(Collider collider, int mask, IWeaponTrailFilter filter) =>
+            InMask(collider, mask) && filter.IsTarget(collider);
 
         static bool IsEnvironment(Collider collider, int mask, IWeaponTrailFilter filter) =>
             InMask(collider, mask) && filter.IsEnvironment(collider);
