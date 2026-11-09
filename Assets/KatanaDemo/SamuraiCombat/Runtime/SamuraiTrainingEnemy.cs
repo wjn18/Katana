@@ -89,6 +89,8 @@ namespace OCDesign.Samurai
         private bool visibleTarget;
         private SamuraiCombatant trackedTarget;
         private SamuraiCombatant subscribedActor;
+        private SamuraiPatrolAgent patrolAgent;
+        private SamuraiPlayerInput patrolControlInput;
         private SamuraiActionDefinition distanceAction;
         private SamuraiCombatant distanceTarget;
         private float plannedStrikeDistance, maximumStrikeDistance, distanceRefreshRemaining, distanceTargetHeight;
@@ -163,6 +165,7 @@ namespace OCDesign.Samurai
             // 完整敌人Prefab不能保存场景玩家引用；启动及无目标时只从视野内发现玩家。
             if (actor == null) actor = GetComponent<SamuraiCombatant>();
             if (actor == null) return;
+            if (patrolAgent == null) patrolAgent = GetComponent<SamuraiPatrolAgent>();
             SubscribeToAttacks();
             if (target == null)
             {
@@ -316,8 +319,38 @@ namespace OCDesign.Samurai
             if (deltaTime <= 0f || float.IsNaN(deltaTime) || float.IsInfinity(deltaTime)) return frame;
             dt = Mathf.Min(deltaTime, 0.1f);
             PrepareContext();
+            // 巡逻只产生同一份输入；角色仍由 Update 中唯一一次 Tick 驱动。
+            // 追踪与鼠标捕获分开判断，失焦不会被误当作脱战。
+            if (patrolAgent == null) patrolAgent = GetComponent<SamuraiPatrolAgent>();
+            if (patrolAgent != null && patrolAgent.isActiveAndEnabled && patrolAgent.patrolEnabled)
+            {
+                patrolAgent.SetEngaged(actor, trackedTarget != null);
+                if (!IsPracticeMode && !canTrain && PatrolAllowed())
+                {
+                    StopTraining();
+                    if (patrolAgent.TryBuildFrame(actor, dt, out SamuraiInputFrame patrolFrame))
+                    {
+                        frame = patrolFrame;
+                        DecisionBranch = patrolAgent.IsReturning ? "Return to patrol" : "Patrol";
+                        intent = patrolAgent.Status;
+                        return frame;
+                    }
+                }
+            }
             decisionTree.Tick();
             return frame;
+        }
+        private bool PatrolAllowed()
+        {
+            if (!activeTraining || actor == null || !actor.isActiveAndEnabled || actor.Profile == null
+                || actor.IsDead || Time.timeScale <= 0f || trackedTarget != null) return false;
+            if (!waitForPlayerCapture) return true;
+            // 未发现玩家时也遵守暂停/失焦规则，但不因此提前授予交战目标。
+            if (playerInput != null) return playerInput.HasCursorCapture;
+            if (patrolControlInput == null || patrolControlInput.gameObject.scene != gameObject.scene)
+                foreach (var input in FindObjectsByType<SamuraiPlayerInput>())
+                    if (input.gameObject.scene == gameObject.scene) { patrolControlInput = input; break; }
+            return patrolControlInput == null || patrolControlInput.HasCursorCapture;
         }
         private void BuildTree()
         {
