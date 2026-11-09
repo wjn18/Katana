@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 64f8c2d6aa157d9428c25cd34af8eb6d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"A5D8E804FFF13DD3CCDF5F8E39F0BD4E8CD9360C9C3F132E4B25B75ABA4CC3D4","diagnostics":{"sourceName":"Key_03_BlueCord_Roof","sourceGuid":"6443514d33aa4ca40bdac423b16462c0","sourceLocalFileId":-5593979957228282366,"sourceFingerprint":"A5D8E804FFF13DD3CCDF5F8E39F0BD4E8CD9360C9C3F132E4B25B75ABA4CC3D4","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/LevelFlow/Meshes/Contours/6443514d33aa4ca40bdac423b16462c0_n5593979957228282366.asset","reusedCache":false,"vertexCount":144,"triangleCount":76,"positionGroups":40,"coincidentPositionGroups":40,"compatibleGroups":40,"joinedGroups":40,"joinedVertices":144,"sourceNormalSplitGroups":40,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":144,"blendShapeCount":0,"positionTolerance":2.003994694632638e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

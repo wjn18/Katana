@@ -20,6 +20,7 @@ namespace OCDesign.Samurai.Editor
         public const string Root = SamuraiComicStyleSetup.Root + "/Compound";
         public const string ModelPath = Root + "/Models/Courtyard_Compound.fbx";
         public const string RootName = "07 Mountain compound - 合围山院";
+        public const string EliteCourtWallRootName = "15 Elite court enclosure - 精英内院同制围墙";
         static Transform dressing, compound;
         static MeshCollider[] ground;
         static Mesh cube;
@@ -43,7 +44,7 @@ namespace OCDesign.Samurai.Editor
             N(19.25f,-19.4f,-.8f),N(18.2f,-24.5f),N(15,-27),N(8.5f,-27),N(3,-23),N(.1f,-12.2f,0),N(.1f,-3.525f,0)
         };
 
-        [MenuItem("OC Design/Samurai Combat/Enclose Mountain Courtyards")]
+        [MenuItem("Katana/Level/Enclose Mountain Courtyards")]
         public static string Install()
         {
             var scene = SceneManager.GetActiveScene();
@@ -52,7 +53,10 @@ namespace OCDesign.Samurai.Editor
             var d = scene.GetRootGameObjects().FirstOrDefault(g => g.name == "Courtyard dressing");
             if (!d) throw new InvalidOperationException("Install the courtyard and mountain environment first.");
             dressing = d.transform;
-            if (dressing.Find(RootName)) return "Mountain compound already exists. All edited placements, materials and enabled states retained.";
+            if (dressing.Find(RootName)) {
+                SamuraiCourtyardRoadSetup.EnsureMissing();
+                return "Mountain compound already exists. All edited placements, materials and enabled states retained.";
+            }
             ground = dressing.GetComponentsInChildren<MeshCollider>().Where(c => c.name.Contains("Sanctuary_Crag")).ToArray();
             if (ground.Length != 2) throw new InvalidOperationException("Expected the two summit collision meshes.");
             var meshes = AssetDatabase.LoadAllAssetsAtPath(ModelPath).OfType<Mesh>().OrderBy(m => m.name).ToArray();
@@ -111,11 +115,113 @@ namespace OCDesign.Samurai.Editor
             AddLantern(details,"Entry basin lantern - 净手石灯",new Vector2(15.2f,-17.2f),.62f);
             SupportExistingLanterns(details);
             int trees = ClearWallTrunks();
+            SamuraiCourtyardRoadSetup.EnsureMissing();
             foreach (var r in compound.GetComponentsInChildren<Renderer>())
                 if (r.transform.parent && r.transform.parent.GetComponent<Renderer>()) SceneVisibilityManager.instance.DisablePicking(r.gameObject,false);
             if (Camera.main && Camera.main.TryGetComponent<ComicScreenOutline>(out var screen)) screen.RefreshSources();
             Physics.SyncTransforms(); EditorSceneManager.MarkSceneDirty(scene); Undo.CollapseUndoOperations(undo);
             return $"Mountain compound: {sections} wall panels, {piers} piers, three portals, three inner openings, garden paths and arrival details. {trees} obstructing pine trunks repositioned; primary route retained.";
+        }
+
+        [MenuItem("Katana/Level/Match Elite Court Walls To Outer Enclosure")]
+        public static string RefineEliteCourtWalls()
+        {
+            var scene = SceneManager.GetActiveScene();
+            if (EditorApplication.isPlayingOrWillChangePlaymode || scene.path != SamuraiComicStyleSetup.ScenePath)
+                throw new InvalidOperationException("Open SamuraiCombatDemo in Edit mode first.");
+            var decor = scene.GetRootGameObjects().First(g => g.name == "Courtyard dressing").transform;
+            if (decor.Find(EliteCourtWallRootName)) return "Elite court enclosure already fitted. Existing edits retained.";
+
+            var floor = scene.GetRootGameObjects().First(g => g.name == "Floor").transform;
+            var sides = floor.Find("01 Upper court - 上层场地/02 Walls and ramps - 围墙与坡面");
+            var coping = decor.Find("01 Upper courtyard - 上层庭院/01 Structure - 场地装饰/Wall coping - 逐段墙帽");
+            var access = decor.Find(RootName + "/03 Inner court access - 内院通口与石阶");
+            if (!sides || !coping || !access) throw new InvalidOperationException("The original Elite court walls and compound openings are required.");
+            var north = access.Find("Upper hall doorway - 上殿通口");
+            var south = access.Find("Garden side doorway - 茶庭侧门");
+            if (!north || !south) throw new InvalidOperationException("The original Elite court doorways are missing.");
+
+            var runs = new[]
+            {
+                (body: sides.Find("West Wall (1)"), cap: coping.Find("West Wall (1) - 独立压顶"), label: "01 West - 西墙"),
+                (body: sides.Find("East Wall (1)"), cap: coping.Find("East Wall (1) - 独立压顶"), label: "02 East above bridge - 东墙桥北"),
+                (body: sides.Find("East Wall (2)"), cap: coping.Find("East Wall (2) - 独立压顶"), label: "03 East below bridge - 东墙桥南"),
+                (body: north.Find("Left retained-style wall"), cap: north.Find("Left coping"), label: "04 North west of hall entry - 北墙殿门西"),
+                (body: north.Find("Right retained-style wall"), cap: north.Find("Right coping"), label: "05 North east of hall entry - 北墙殿门东"),
+                (body: south.Find("Left retained-style wall"), cap: south.Find("Left coping"), label: "06 South west of garden gate - 南墙侧门西"),
+                (body: south.Find("Right retained-style wall"), cap: south.Find("Right coping"), label: "07 South east of garden gate - 南墙侧门东")
+            };
+            if (runs.Any(r => !r.body || !r.cap || !r.body.gameObject.activeInHierarchy || !r.body.GetComponent<Renderer>()))
+                throw new InvalidOperationException("All seven original court wall runs must be available for fitting.");
+
+            var wall = AssetDatabase.LoadAssetAtPath<GameObject>(Root + "/Prefabs/Compound_Wall.prefab");
+            var pier = AssetDatabase.LoadAssetAtPath<GameObject>(Root + "/Prefabs/Compound_Pier.prefab");
+            ground = decor.GetComponentsInChildren<MeshCollider>().Where(c => c.name.Contains("Sanctuary_Crag")).ToArray();
+            cube = AssetDatabase.LoadAssetAtPath<Mesh>(SamuraiCourtyardDecorationSetup.Root + "/Meshes/Shapes/Block.asset");
+            if (!wall || !pier || !cube || ground.Length != 2) throw new InvalidOperationException("The original wall modules and summit supports are required.");
+
+            Undo.IncrementCurrentGroup();
+            int undo = Undo.GetCurrentGroup();
+            Undo.SetCurrentGroupName("Match Elite courtyard walls to the outer enclosure");
+            try
+            {
+                var root = Child(decor, EliteCourtWallRootName);
+                Undo.RegisterCreatedObjectUndo(root.gameObject, "Create Elite court enclosure");
+                sections = piers = 0;
+                var bounds = runs.Select(r => r.body.GetComponent<Renderer>().bounds).ToArray();
+                for (int i = 0; i < runs.Length; i++)
+                {
+                    var area = Child(root, runs[i].label);
+                    FitEliteWallSpan(area, bounds[i], wall, pier, i == 3, i == 4);
+                }
+
+                var corners = Child(root, "08 Corner piers - 转角墙柱");
+                AddPier(corners, pier, new Vector3(bounds[0].center.x, 0, bounds[3].center.z), bounds[0].min.y, 0, "Inner");
+                AddPier(corners, pier, new Vector3(bounds[0].center.x, 0, bounds[5].center.z), bounds[0].min.y, 0, "Inner");
+                AddPier(corners, pier, new Vector3(bounds[1].center.x, 0, bounds[4].center.z), bounds[1].min.y, bounds[4].min.y - bounds[1].min.y, "Inner");
+                AddPier(corners, pier, new Vector3(bounds[2].center.x, 0, bounds[6].center.z), bounds[2].min.y, bounds[6].min.y - bounds[2].min.y, "Inner");
+
+                foreach (var run in runs)
+                {
+                    Undo.RecordObject(run.body.gameObject, "Retain original court wall");
+                    Undo.RecordObject(run.cap.gameObject, "Retain original court coping");
+                    run.body.gameObject.SetActive(false);
+                    run.cap.gameObject.SetActive(false);
+                }
+                if (Camera.main && Camera.main.TryGetComponent<ComicScreenOutline>(out var screen)) screen.RefreshSources();
+                Physics.SyncTransforms();
+                EditorSceneManager.MarkSceneDirty(scene);
+                Undo.CollapseUndoOperations(undo);
+                return $"Matched the seven Elite court runs using {sections} outer wall panels and {piers} piers.";
+            }
+            catch
+            {
+                Undo.RevertAllDownToGroup(undo);
+                throw;
+            }
+        }
+
+        static void FitEliteWallSpan(Transform parent, Bounds bounds, GameObject wall, GameObject pier, bool northLeft, bool northRight)
+        {
+            bool alongX = bounds.size.x > bounds.size.z;
+            var axis = alongX ? Vector3.right : Vector3.forward;
+            float length = alongX ? bounds.size.x : bounds.size.z;
+            var start = new Vector3(bounds.center.x, bounds.min.y, bounds.center.z) - axis * (length * .5f);
+            float yaw = alongX ? 0f : -90f;
+            int count = Mathf.CeilToInt(length / 5.2f);
+            float spacing = length / count;
+            for (int i = 0; i < count; i++)
+            {
+                var center = start + axis * (spacing * (i + .5f));
+                var panel = Instance(wall, parent, "Inner wall " + (++sections).ToString("000"), center, yaw);
+                panel.localScale = new Vector3(spacing / 4f, 1f, 1f);
+                PrefabUtility.RecordPrefabInstancePropertyModifications(panel);
+                Support(parent, "Inner wall footing " + sections, center, new Vector2(spacing + .02f, .52f), yaw);
+                if (i > 0) AddPier(parent, pier, start + axis * (spacing * i), bounds.min.y, 0, "Inner");
+            }
+            // The cap extends .41m from its axis. Keep both hall entrance piers entirely inside the wall runs.
+            if (northLeft) AddPier(parent, pier, start + axis * (length - .43f), bounds.min.y, 0, "Hall entry");
+            if (northRight) AddPier(parent, pier, start + axis * .43f, bounds.min.y, 0, "Hall entry");
         }
 
         static Material Mat(string suffix) { return AssetDatabase.LoadAssetAtPath<Material>(SamuraiCourtyardDecorationSetup.Root+"/Materials/"+Palette[suffix]+".mat"); }

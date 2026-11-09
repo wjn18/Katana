@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 5962acd08c03c7c419843a730d7d1f09
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"5984AD516B6DAA0A539AE17D9982A1A0CAEFF69CD9124F4AE1A2715E5A601466","diagnostics":{"sourceName":"Hall_34_WestFurnitureShelf_Timber","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":4116384873025961007,"sourceFingerprint":"5984AD516B6DAA0A539AE17D9982A1A0CAEFF69CD9124F4AE1A2715E5A601466","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_4116384873025961007.asset","reusedCache":false,"vertexCount":480,"triangleCount":220,"positionGroups":120,"coincidentPositionGroups":120,"compatibleGroups":120,"joinedGroups":120,"joinedVertices":480,"sourceNormalSplitGroups":120,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":480,"blendShapeCount":0,"positionTolerance":0.0000030067271836742293}}'
+  assetBundleName: 
+  assetBundleVariant: 

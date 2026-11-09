@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 420fd2a98e931ab42a6bb5b5914e84eb
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"B65637B66EEE7B6269230DBC3C89F69249FA298DBF7047CF0A5E2FA726563DB7","diagnostics":{"sourceName":"Hall_05_FloorBorder_Gold","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":756034988930763297,"sourceFingerprint":"B65637B66EEE7B6269230DBC3C89F69249FA298DBF7047CF0A5E2FA726563DB7","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_756034988930763297.asset","reusedCache":false,"vertexCount":384,"triangleCount":176,"positionGroups":96,"coincidentPositionGroups":96,"compatibleGroups":96,"joinedGroups":96,"joinedVertices":384,"sourceNormalSplitGroups":96,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":384,"blendShapeCount":0,"positionTolerance":0.00001105381397792371}}'
+  assetBundleName: 
+  assetBundleVariant: 

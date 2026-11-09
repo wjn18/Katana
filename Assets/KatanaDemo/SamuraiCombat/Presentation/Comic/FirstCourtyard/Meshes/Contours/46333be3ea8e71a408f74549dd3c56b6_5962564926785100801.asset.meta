@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: ed92b658b5ef2464aba2c0cb1fee1ebe
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"BC5D289C4C6A4A22C1A998294D8164F8440457A050B5EFA057FE9DB0C61129EC","diagnostics":{"sourceName":"Hall_20_Ceiling_Timber","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":5962564926785100801,"sourceFingerprint":"BC5D289C4C6A4A22C1A998294D8164F8440457A050B5EFA057FE9DB0C61129EC","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_5962564926785100801.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.00002192092506447807}}'
+  assetBundleName: 
+  assetBundleVariant: 

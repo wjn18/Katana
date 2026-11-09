@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 7c199ac38bc37a6419e5b2191f781352
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"95BB934DD5B133CC860742B32D9E5B41C5D902DF051DC5CA66768641B70D276E","diagnostics":{"sourceName":"Key_01_HollowRing_Gold","sourceGuid":"6443514d33aa4ca40bdac423b16462c0","sourceLocalFileId":-1330727687830180148,"sourceFingerprint":"95BB934DD5B133CC860742B32D9E5B41C5D902DF051DC5CA66768641B70D276E","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/LevelFlow/Meshes/Contours/6443514d33aa4ca40bdac423b16462c0_n1330727687830180148.asset","reusedCache":false,"vertexCount":400,"triangleCount":240,"positionGroups":120,"coincidentPositionGroups":120,"compatibleGroups":120,"joinedGroups":120,"joinedVertices":400,"sourceNormalSplitGroups":120,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":400,"blendShapeCount":0,"positionTolerance":3.328092077481415e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

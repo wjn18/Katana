@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: d746b0c1d51c5a944aab665645688855
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"C155355F1AFA3F9078E9F98DF5F7F745ABDED13A36679AC7AD8E9EF436B606F5","diagnostics":{"sourceName":"KeyStand_05_KeyRest_Stone","sourceGuid":"6443514d33aa4ca40bdac423b16462c0","sourceLocalFileId":-3758027081763788464,"sourceFingerprint":"C155355F1AFA3F9078E9F98DF5F7F745ABDED13A36679AC7AD8E9EF436B606F5","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/LevelFlow/Meshes/Contours/6443514d33aa4ca40bdac423b16462c0_n3758027081763788464.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":4.850772938880255e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 501a90ec6eda7244b84bc772482b5350
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"64F379404FAC561E8CD0EB158FEFE375BF014F317CE5EF255E2E81B3C6C8B1C0","diagnostics":{"sourceName":"Hall_27_RidgeEnds_Red","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":5934132120687446300,"sourceFingerprint":"64F379404FAC561E8CD0EB158FEFE375BF014F317CE5EF255E2E81B3C6C8B1C0","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_5934132120687446300.asset","reusedCache":false,"vertexCount":192,"triangleCount":88,"positionGroups":48,"coincidentPositionGroups":48,"compatibleGroups":48,"joinedGroups":48,"joinedVertices":192,"sourceNormalSplitGroups":48,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":192,"blendShapeCount":0,"positionTolerance":0.000018024993551080115}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: c53a45c5f9032f1448dd8201f386d7ce
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"5DB501897FA29B1F4BC34DF31B0276B423784B420487EDC58675F0E65A86EF92","diagnostics":{"sourceName":"Gallery_05_Ridge_Gold","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":2458283777721896248,"sourceFingerprint":"5DB501897FA29B1F4BC34DF31B0276B423784B420487EDC58675F0E65A86EF92","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_2458283777721896248.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.000006102663519413909}}'
+  assetBundleName: 
+  assetBundleVariant: 

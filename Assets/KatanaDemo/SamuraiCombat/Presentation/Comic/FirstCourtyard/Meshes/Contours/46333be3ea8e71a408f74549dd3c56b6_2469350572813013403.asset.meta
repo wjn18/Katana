@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 7578d52edd48658468d138a698a5ae60
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"E3ADCDF6202A30DD73F40135C3F51EC84558FD3F40E08ADB436E6CA267B42C12","diagnostics":{"sourceName":"Hall_01_Foundation_Slate","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":2469350572813013403,"sourceFingerprint":"E3ADCDF6202A30DD73F40135C3F51EC84558FD3F40E08ADB436E6CA267B42C12","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_2469350572813013403.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.000022827956854598597}}'
+  assetBundleName: 
+  assetBundleVariant: 

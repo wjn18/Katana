@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 1cd46634a39cba544be5e722aa483bc5
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"6375F2B6F4F01E5981E943B860B2A4D9A52092C3B83BB426361EEF1A30888A03","diagnostics":{"sourceName":"SideFrame_02_StoneFeet_Slate","sourceGuid":"6443514d33aa4ca40bdac423b16462c0","sourceLocalFileId":-6635784408297184287,"sourceFingerprint":"6375F2B6F4F01E5981E943B860B2A4D9A52092C3B83BB426361EEF1A30888A03","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/LevelFlow/Meshes/Contours/6443514d33aa4ca40bdac423b16462c0_n6635784408297184287.asset","reusedCache":false,"vertexCount":192,"triangleCount":88,"positionGroups":48,"coincidentPositionGroups":48,"compatibleGroups":48,"joinedGroups":48,"joinedVertices":192,"sourceNormalSplitGroups":48,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":192,"blendShapeCount":0,"positionTolerance":0.0000031936813229549443}}'
+  assetBundleName: 
+  assetBundleVariant: 

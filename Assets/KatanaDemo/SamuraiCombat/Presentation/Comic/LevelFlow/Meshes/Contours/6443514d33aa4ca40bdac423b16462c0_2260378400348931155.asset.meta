@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: c04ab535222574340990dad1468cfac1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"6A5FB22A236DB0834CC77C869FC79573D699C524DE3974B962F48E870FA37145","diagnostics":{"sourceName":"Key_04_CordKnot_Roof","sourceGuid":"6443514d33aa4ca40bdac423b16462c0","sourceLocalFileId":2260378400348931155,"sourceFingerprint":"6A5FB22A236DB0834CC77C869FC79573D699C524DE3974B962F48E870FA37145","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/LevelFlow/Meshes/Contours/6443514d33aa4ca40bdac423b16462c0_2260378400348931155.asset","reusedCache":false,"vertexCount":240,"triangleCount":120,"positionGroups":60,"coincidentPositionGroups":60,"compatibleGroups":60,"joinedGroups":60,"joinedVertices":240,"sourceNormalSplitGroups":60,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":240,"blendShapeCount":0,"positionTolerance":1.0000000116860974e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 95b7ee8239119ec44998979529605892
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"15AE1983911647413ADBB947D4A5241C2F3354A811FBDE82CCA1DB87270722FC","diagnostics":{"sourceName":"Shrine_07_Roof_Roof","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":9158495290061110543,"sourceFingerprint":"15AE1983911647413ADBB947D4A5241C2F3354A811FBDE82CCA1DB87270722FC","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_9158495290061110543.asset","reusedCache":false,"vertexCount":156,"triangleCount":84,"positionGroups":44,"coincidentPositionGroups":44,"compatibleGroups":44,"joinedGroups":44,"joinedVertices":156,"sourceNormalSplitGroups":44,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":156,"blendShapeCount":0,"positionTolerance":0.0000020023244360345416}}'
+  assetBundleName: 
+  assetBundleVariant: 

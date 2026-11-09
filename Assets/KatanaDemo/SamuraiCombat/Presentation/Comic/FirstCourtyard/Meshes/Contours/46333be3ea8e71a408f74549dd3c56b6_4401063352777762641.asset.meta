@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 6c75b15ca5be91e46ab8673bd20bf254
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"639661004BBC39AB09E2251759039A7ECE520EE834EE33B9DFA50D9567841160","diagnostics":{"sourceName":"Chest_03_Bindings_Gold","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":4401063352777762641,"sourceFingerprint":"639661004BBC39AB09E2251759039A7ECE520EE834EE33B9DFA50D9567841160","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_4401063352777762641.asset","reusedCache":false,"vertexCount":576,"triangleCount":264,"positionGroups":144,"coincidentPositionGroups":144,"compatibleGroups":144,"joinedGroups":144,"joinedVertices":576,"sourceNormalSplitGroups":144,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":576,"blendShapeCount":0,"positionTolerance":0.0000016708706880308455}}'
+  assetBundleName: 
+  assetBundleVariant: 

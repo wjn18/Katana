@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: cc7bef65e3626f044a2f35b57fa1a3a4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"A924D7CCBE27CF4B37FD03FFD2EC2C90020469789316CCFFCF620447AE9E28D4","diagnostics":{"sourceName":"SideLeft_01_ThickPlankBody_Timber","sourceGuid":"6443514d33aa4ca40bdac423b16462c0","sourceLocalFileId":-1627294429051996826,"sourceFingerprint":"A924D7CCBE27CF4B37FD03FFD2EC2C90020469789316CCFFCF620447AE9E28D4","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/LevelFlow/Meshes/Contours/6443514d33aa4ca40bdac423b16462c0_n1627294429051996826.asset","reusedCache":false,"vertexCount":256,"triangleCount":160,"positionGroups":80,"coincidentPositionGroups":80,"compatibleGroups":80,"joinedGroups":80,"joinedVertices":256,"sourceNormalSplitGroups":80,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":256,"blendShapeCount":0,"positionTolerance":0.000003013702098542126}}'
+  assetBundleName: 
+  assetBundleVariant: 

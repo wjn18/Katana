@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 0e9dd929f48b9d44b95bdc44a12a84cd
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"86B1732ED8DE7F0F88B7D430C0F5865C4498E871656DE142645A1E5BEFE3950C","diagnostics":{"sourceName":"Hall_15_WestChamberDoor_DoorFrame_Timber","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":6031876110285598993,"sourceFingerprint":"86B1732ED8DE7F0F88B7D430C0F5865C4498E871656DE142645A1E5BEFE3950C","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_6031876110285598993.asset","reusedCache":false,"vertexCount":288,"triangleCount":132,"positionGroups":68,"coincidentPositionGroups":68,"compatibleGroups":68,"joinedGroups":68,"joinedVertices":288,"sourceNormalSplitGroups":68,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":288,"blendShapeCount":0,"positionTolerance":0.000004551538040686864}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 3a3f18ad97e97ba42a3c39e66703bb9e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"E8A9C5EB8FA82ED3D4B94A159BAB4E90D8254EB378CA676ADDD3DCE9817A56B4","diagnostics":{"sourceName":"SideFrame_04_LightRoof_Roof","sourceGuid":"6443514d33aa4ca40bdac423b16462c0","sourceLocalFileId":-898963673244913113,"sourceFingerprint":"E8A9C5EB8FA82ED3D4B94A159BAB4E90D8254EB378CA676ADDD3DCE9817A56B4","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/LevelFlow/Meshes/Contours/6443514d33aa4ca40bdac423b16462c0_n898963673244913113.asset","reusedCache":false,"vertexCount":548,"triangleCount":392,"positionGroups":198,"coincidentPositionGroups":186,"compatibleGroups":198,"joinedGroups":186,"joinedVertices":536,"sourceNormalSplitGroups":186,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":548,"blendShapeCount":0,"positionTolerance":0.000003977522283094004}}'
+  assetBundleName: 
+  assetBundleVariant: 

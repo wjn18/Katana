@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: fe62d79ae318e794c83d4388a0d86bf7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"04EE9E77399B4C5EC5309BCD8F7C91EDCB5206F1E672D93BC523CC75AF2FD236","diagnostics":{"sourceName":"Gallery_03_Beams_Timber","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":571591442617169356,"sourceFingerprint":"04EE9E77399B4C5EC5309BCD8F7C91EDCB5206F1E672D93BC523CC75AF2FD236","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_571591442617169356.asset","reusedCache":false,"vertexCount":192,"triangleCount":88,"positionGroups":48,"coincidentPositionGroups":48,"compatibleGroups":48,"joinedGroups":48,"joinedVertices":192,"sourceNormalSplitGroups":48,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":192,"blendShapeCount":0,"positionTolerance":0.000006386924269463634}}'
+  assetBundleName: 
+  assetBundleVariant: 

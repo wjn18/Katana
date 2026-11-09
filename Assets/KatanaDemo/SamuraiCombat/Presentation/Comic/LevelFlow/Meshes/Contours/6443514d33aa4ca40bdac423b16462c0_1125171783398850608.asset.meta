@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: b677caa2b8a0b7f4fa78a96c417939d7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"37C4FB812DC918814DED564B1F3842A9E62588C43E2375A2E8F2E4DA3CE59CA2","diagnostics":{"sourceName":"SideFrame_01_Columns_Timber","sourceGuid":"6443514d33aa4ca40bdac423b16462c0","sourceLocalFileId":1125171783398850608,"sourceFingerprint":"37C4FB812DC918814DED564B1F3842A9E62588C43E2375A2E8F2E4DA3CE59CA2","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/LevelFlow/Meshes/Contours/6443514d33aa4ca40bdac423b16462c0_1125171783398850608.asset","reusedCache":false,"vertexCount":192,"triangleCount":88,"positionGroups":48,"coincidentPositionGroups":48,"compatibleGroups":48,"joinedGroups":48,"joinedVertices":192,"sourceNormalSplitGroups":48,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":192,"blendShapeCount":0,"positionTolerance":0.000004196426743874326}}'
+  assetBundleName: 
+  assetBundleVariant: 

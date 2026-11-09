@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 95ef0a0701d604a4f9b5a45cad224170
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"474BAEECF33FF665D1EE9178F99D4B6A018D5B0C7276F311FBB32B0DD641AD22","diagnostics":{"sourceName":"Room_04_Entrance_DoorFrame_Timber","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":3296118105588252515,"sourceFingerprint":"474BAEECF33FF665D1EE9178F99D4B6A018D5B0C7276F311FBB32B0DD641AD22","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_3296118105588252515.asset","reusedCache":false,"vertexCount":288,"triangleCount":132,"positionGroups":68,"coincidentPositionGroups":68,"compatibleGroups":68,"joinedGroups":68,"joinedVertices":288,"sourceNormalSplitGroups":68,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":288,"blendShapeCount":0,"positionTolerance":0.000003880064014083473}}'
+  assetBundleName: 
+  assetBundleVariant: 

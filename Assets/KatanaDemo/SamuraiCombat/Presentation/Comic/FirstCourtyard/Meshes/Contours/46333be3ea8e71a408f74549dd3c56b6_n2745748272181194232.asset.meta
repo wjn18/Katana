@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 8607d09fb75b16c479f964c306844cb0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"6FA9EB51EBF66C82BC6A6441FA7428B2CCFEA136637E40C9784AF51D7BBCD8A9","diagnostics":{"sourceName":"Chest_05_Feet_Slate","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":-2745748272181194232,"sourceFingerprint":"6FA9EB51EBF66C82BC6A6441FA7428B2CCFEA136637E40C9784AF51D7BBCD8A9","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_n2745748272181194232.asset","reusedCache":false,"vertexCount":384,"triangleCount":176,"positionGroups":96,"coincidentPositionGroups":96,"compatibleGroups":96,"joinedGroups":96,"joinedVertices":384,"sourceNormalSplitGroups":96,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":384,"blendShapeCount":0,"positionTolerance":0.000001332291276412434}}'
+  assetBundleName: 
+  assetBundleVariant: 

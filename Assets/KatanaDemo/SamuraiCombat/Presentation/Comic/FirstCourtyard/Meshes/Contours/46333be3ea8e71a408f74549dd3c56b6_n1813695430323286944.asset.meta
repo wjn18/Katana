@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 25db848d44965a04cabce3acc9d8a272
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"5F190A91B05D3D298DA4729D6B4E3D844B766BE27458DC23BE94ED8A6FBC3A74","diagnostics":{"sourceName":"Room_18_WallSkirts_Timber","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":-1813695430323286944,"sourceFingerprint":"5F190A91B05D3D298DA4729D6B4E3D844B766BE27458DC23BE94ED8A6FBC3A74","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_n1813695430323286944.asset","reusedCache":false,"vertexCount":384,"triangleCount":176,"positionGroups":96,"coincidentPositionGroups":96,"compatibleGroups":96,"joinedGroups":96,"joinedVertices":384,"sourceNormalSplitGroups":96,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":384,"blendShapeCount":0,"positionTolerance":0.000007685915079491679}}'
+  assetBundleName: 
+  assetBundleVariant: 

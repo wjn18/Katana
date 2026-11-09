@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 06a3800fbc9dbf446a302cf1ab27764b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"1C1A4566D905369646E13901EA6859505F56D2977C7D123DB668F4BD25A517BF","diagnostics":{"sourceName":"Gallery_01_Floor_Stone","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":6105088913380388110,"sourceFingerprint":"1C1A4566D905369646E13901EA6859505F56D2977C7D123DB668F4BD25A517BF","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_6105088913380388110.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.0000063256934481614735}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 6de9ff27c6bd36a438c57835041a1773
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"DD59524B94462EBE934256D126385886A64D6C6867EF84A756BD33160E080700","diagnostics":{"sourceName":"Hall_24_EastGable_Plaster","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":-1890002105445006781,"sourceFingerprint":"DD59524B94462EBE934256D126385886A64D6C6867EF84A756BD33160E080700","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_n1890002105445006781.asset","reusedCache":false,"vertexCount":216,"triangleCount":128,"positionGroups":66,"coincidentPositionGroups":66,"compatibleGroups":66,"joinedGroups":66,"joinedVertices":216,"sourceNormalSplitGroups":66,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":216,"blendShapeCount":0,"positionTolerance":0.0000066147372308478225}}'
+  assetBundleName: 
+  assetBundleVariant: 

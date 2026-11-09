@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: c8182238900200046914b1d1371022ad
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"AE9B57C7D099A755512BD7CA8E38CA577A04C2EF5DA4330682BBB3AF9FBFCF9D","diagnostics":{"sourceName":"Hall_32_EntryPlaque_Roof","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":-7657128546241479249,"sourceFingerprint":"AE9B57C7D099A755512BD7CA8E38CA577A04C2EF5DA4330682BBB3AF9FBFCF9D","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_n7657128546241479249.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.000002447938186378451}}'
+  assetBundleName: 
+  assetBundleVariant: 

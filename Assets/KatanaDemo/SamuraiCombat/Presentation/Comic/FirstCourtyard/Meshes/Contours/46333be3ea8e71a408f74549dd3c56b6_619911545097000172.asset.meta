@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: a8f3c5c90a615ca4e87f0289656b83a6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"8DFB3DF39ACE79E6C064798340F34F8C22805606A8B5E8985BC87C389488843C","diagnostics":{"sourceName":"Hall_10_EastSideEntrance_DoorFrame_Timber","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":619911545097000172,"sourceFingerprint":"8DFB3DF39ACE79E6C064798340F34F8C22805606A8B5E8985BC87C389488843C","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_619911545097000172.asset","reusedCache":false,"vertexCount":288,"triangleCount":132,"positionGroups":68,"coincidentPositionGroups":68,"compatibleGroups":68,"joinedGroups":68,"joinedVertices":288,"sourceNormalSplitGroups":68,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":288,"blendShapeCount":0,"positionTolerance":0.000004595095106196823}}'
+  assetBundleName: 
+  assetBundleVariant: 

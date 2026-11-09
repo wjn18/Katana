@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 7ed2c6b21490f194298d2ca6dc37ac45
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"9BEA5ED7381D68C2CE25D9AE8D88D07D7E94964284FDF5BF19A43805EA914B5B","diagnostics":{"sourceName":"Faceted_garden_stone","sourceGuid":"e10d58187494b34458dfc9103d953070","sourceLocalFileId":4300000,"sourceFingerprint":"9BEA5ED7381D68C2CE25D9AE8D88D07D7E94964284FDF5BF19A43805EA914B5B","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/e10d58187494b34458dfc9103d953070_4300000.asset","reusedCache":false,"vertexCount":108,"triangleCount":36,"positionGroups":22,"coincidentPositionGroups":22,"compatibleGroups":22,"joinedGroups":22,"joinedVertices":108,"sourceNormalSplitGroups":22,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":108,"blendShapeCount":0,"positionTolerance":0.0000016256428807537304}}'
+  assetBundleName: 
+  assetBundleVariant: 

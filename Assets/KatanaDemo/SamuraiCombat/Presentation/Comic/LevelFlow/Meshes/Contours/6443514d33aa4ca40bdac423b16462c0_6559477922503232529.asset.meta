@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: ecdf6d2486392ee42a316b38b55e0d0d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"9A9F99B324043273A9060729E5CF10D2AB122D5ACE0422050963A01918064E70","diagnostics":{"sourceName":"Key_02_TwoToothShaft_Gold","sourceGuid":"6443514d33aa4ca40bdac423b16462c0","sourceLocalFileId":6559477922503232529,"sourceFingerprint":"9A9F99B324043273A9060729E5CF10D2AB122D5ACE0422050963A01918064E70","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/LevelFlow/Meshes/Contours/6443514d33aa4ca40bdac423b16462c0_6559477922503232529.asset","reusedCache":false,"vertexCount":72,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":72,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":72,"blendShapeCount":0,"positionTolerance":3.826605734502664e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

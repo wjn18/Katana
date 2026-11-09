@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: b669a93ce74d78447b2bae1fbf909cff
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"5C0E5F4A1F2E3C5027D3342A33F685DD5CC54D7EE880C1F5333E1C8DD5A46019","diagnostics":{"sourceName":"KeyStand_03_LowerRails_Timber","sourceGuid":"6443514d33aa4ca40bdac423b16462c0","sourceLocalFileId":9201372687559488929,"sourceFingerprint":"5C0E5F4A1F2E3C5027D3342A33F685DD5CC54D7EE880C1F5333E1C8DD5A46019","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/LevelFlow/Meshes/Contours/6443514d33aa4ca40bdac423b16462c0_9201372687559488929.asset","reusedCache":false,"vertexCount":384,"triangleCount":176,"positionGroups":96,"coincidentPositionGroups":96,"compatibleGroups":96,"joinedGroups":96,"joinedVertices":384,"sourceNormalSplitGroups":96,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":384,"blendShapeCount":0,"positionTolerance":7.5670340038414e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

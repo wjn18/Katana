@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 4b92d6b8edb8a714c8a04f66daee4b7e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"3C62A2DF3F08B7AD2A0245727A939EB629A93941A609EED120D78FFEFE56C611","diagnostics":{"sourceName":"Room_17_FurnitureShelf_Timber","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":-4461469228273778762,"sourceFingerprint":"3C62A2DF3F08B7AD2A0245727A939EB629A93941A609EED120D78FFEFE56C611","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_n4461469228273778762.asset","reusedCache":false,"vertexCount":480,"triangleCount":220,"positionGroups":120,"coincidentPositionGroups":120,"compatibleGroups":120,"joinedGroups":120,"joinedVertices":480,"sourceNormalSplitGroups":120,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":480,"blendShapeCount":0,"positionTolerance":0.0000020253150978533085}}'
+  assetBundleName: 
+  assetBundleVariant: 

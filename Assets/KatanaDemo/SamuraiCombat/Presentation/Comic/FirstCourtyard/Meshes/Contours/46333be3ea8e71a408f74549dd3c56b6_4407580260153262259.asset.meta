@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 2d776ee330caddb43a032b31bf624c11
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"F0F9A46C00DD7415D65330827D45AA78354455E9CB1A14ED96453DC0DEDE8D15","diagnostics":{"sourceName":"Shrine_01_Base_Stone","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":4407580260153262259,"sourceFingerprint":"F0F9A46C00DD7415D65330827D45AA78354455E9CB1A14ED96453DC0DEDE8D15","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_4407580260153262259.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.0000016815469052744447}}'
+  assetBundleName: 
+  assetBundleVariant: 

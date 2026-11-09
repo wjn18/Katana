@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: a2e5ca092aaa31448a365214f6719b0b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"10589DCF02DE5459E40DE57F030C90963973BE3CA8E297471E33A1FF4CB82F15","diagnostics":{"sourceName":"Shrine_02_Plinth_Slate","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":6086768168017529095,"sourceFingerprint":"10589DCF02DE5459E40DE57F030C90963973BE3CA8E297471E33A1FF4CB82F15","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_6086768168017529095.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.0000013007689858568483}}'
+  assetBundleName: 
+  assetBundleVariant: 

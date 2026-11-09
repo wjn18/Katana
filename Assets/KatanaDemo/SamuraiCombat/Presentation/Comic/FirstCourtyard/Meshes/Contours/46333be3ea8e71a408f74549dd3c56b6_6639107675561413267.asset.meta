@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: e01234fd5d6825c47a40ccb094d2af9a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"5EE3D483FA66684D65F5C5CD9FB7AF17E5ABF341048A744B38D906581A4747C4","diagnostics":{"sourceName":"Hall_21_LowerEaves_Roof","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":6639107675561413267,"sourceFingerprint":"5EE3D483FA66684D65F5C5CD9FB7AF17E5ABF341048A744B38D906581A4747C4","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_6639107675561413267.asset","reusedCache":false,"vertexCount":160,"triangleCount":80,"positionGroups":40,"coincidentPositionGroups":40,"compatibleGroups":40,"joinedGroups":40,"joinedVertices":160,"sourceNormalSplitGroups":40,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":160,"blendShapeCount":0,"positionTolerance":0.00002561371547926683}}'
+  assetBundleName: 
+  assetBundleVariant: 

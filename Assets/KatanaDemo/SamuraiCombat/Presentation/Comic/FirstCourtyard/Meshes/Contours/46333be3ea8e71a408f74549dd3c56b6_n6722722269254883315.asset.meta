@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 6e74ee15dfe8dd942a246f09fb70c120
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"B458D5B0B9BA0C743A1F528CF2BB8F13E25085C96BD0FB8B808565199B2E6BFC","diagnostics":{"sourceName":"Hall_17_ColumnFeet_Stone","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":-6722722269254883315,"sourceFingerprint":"B458D5B0B9BA0C743A1F528CF2BB8F13E25085C96BD0FB8B808565199B2E6BFC","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_n6722722269254883315.asset","reusedCache":false,"vertexCount":576,"triangleCount":264,"positionGroups":144,"coincidentPositionGroups":144,"compatibleGroups":144,"joinedGroups":144,"joinedVertices":576,"sourceNormalSplitGroups":144,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":576,"blendShapeCount":0,"positionTolerance":0.000022209556846064515}}'
+  assetBundleName: 
+  assetBundleVariant: 

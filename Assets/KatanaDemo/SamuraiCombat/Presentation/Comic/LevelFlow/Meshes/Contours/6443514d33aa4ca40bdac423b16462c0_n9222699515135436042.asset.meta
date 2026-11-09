@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: c794be87a087afe4ab84b9143872b747
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"30BF8F3D8AE8DF64D2F6CD371B6FE622E8CD1372F3D8AD55E2A564492BC67C1F","diagnostics":{"sourceName":"SideFrame_05_Ridge_Gold","sourceGuid":"6443514d33aa4ca40bdac423b16462c0","sourceLocalFileId":-9222699515135436042,"sourceFingerprint":"30BF8F3D8AE8DF64D2F6CD371B6FE622E8CD1372F3D8AD55E2A564492BC67C1F","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/LevelFlow/Meshes/Contours/6443514d33aa4ca40bdac423b16462c0_n9222699515135436042.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.000003286776518507395}}'
+  assetBundleName: 
+  assetBundleVariant: 

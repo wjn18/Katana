@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: e32389462b80fe546beb959aee50a138
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"E1F89AEFFE90F25FE82A4404E958D2D06CBA9D219B8E08169566A65B06D96386","diagnostics":{"sourceName":"Hall_22_UpperRoof_Roof","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":-1401183601382778008,"sourceFingerprint":"E1F89AEFFE90F25FE82A4404E958D2D06CBA9D219B8E08169566A65B06D96386","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_n1401183601382778008.asset","reusedCache":false,"vertexCount":516,"triangleCount":392,"positionGroups":198,"coincidentPositionGroups":186,"compatibleGroups":198,"joinedGroups":186,"joinedVertices":504,"sourceNormalSplitGroups":186,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":516,"blendShapeCount":0,"positionTolerance":0.000020615028915926814}}'
+  assetBundleName: 
+  assetBundleVariant: 

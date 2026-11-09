@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 999f6ae13928c3e48837208d20b82760
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"5BAA44097A13097DE0B6AEE0D157329DAEDFDF42751DF5A131B194F0147E39A4","diagnostics":{"sourceName":"Hall_09_West_Wall_Plaster","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":8439629282701439529,"sourceFingerprint":"5BAA44097A13097DE0B6AEE0D157329DAEDFDF42751DF5A131B194F0147E39A4","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_8439629282701439529.asset","reusedCache":false,"vertexCount":420,"triangleCount":280,"positionGroups":140,"coincidentPositionGroups":136,"compatibleGroups":140,"joinedGroups":136,"joinedVertices":416,"sourceNormalSplitGroups":136,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":416,"blendShapeCount":0,"positionTolerance":0.000011167327102157287}}'
+  assetBundleName: 
+  assetBundleVariant: 

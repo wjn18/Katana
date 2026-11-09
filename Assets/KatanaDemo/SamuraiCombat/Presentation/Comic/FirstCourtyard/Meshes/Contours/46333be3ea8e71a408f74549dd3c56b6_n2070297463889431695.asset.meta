@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 7928b80c7358ab842b370bd02af06e98
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"50E92375AB11DEB96F3BF73E9F29C41EAC5FBA5664BD75F0AC0A210DA2C5336F","diagnostics":{"sourceName":"Hall_04_CentralFloor_Stone","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":-2070297463889431695,"sourceFingerprint":"50E92375AB11DEB96F3BF73E9F29C41EAC5FBA5664BD75F0AC0A210DA2C5336F","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_n2070297463889431695.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.00001119129501603311}}'
+  assetBundleName: 
+  assetBundleVariant: 

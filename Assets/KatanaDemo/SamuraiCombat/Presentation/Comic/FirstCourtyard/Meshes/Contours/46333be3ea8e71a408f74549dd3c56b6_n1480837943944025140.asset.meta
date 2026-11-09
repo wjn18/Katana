@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 0736811f2c012a147b5ff4d647310f66
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"0DDBFF7CE9BD65891F162161EE4B3707432CB4D173063EB91EF5A96E410404A2","diagnostics":{"sourceName":"Hall_33_PlaqueMarks_Gold","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":-1480837943944025140,"sourceFingerprint":"0DDBFF7CE9BD65891F162161EE4B3707432CB4D173063EB91EF5A96E410404A2","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_n1480837943944025140.asset","reusedCache":false,"vertexCount":384,"triangleCount":176,"positionGroups":96,"coincidentPositionGroups":96,"compatibleGroups":96,"joinedGroups":96,"joinedVertices":384,"sourceNormalSplitGroups":96,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":384,"blendShapeCount":0,"positionTolerance":0.0000011935177326449775}}'
+  assetBundleName: 
+  assetBundleVariant: 

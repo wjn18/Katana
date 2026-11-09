@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: f5630e717446d694c989b23e9ae95401
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"3A608176EA08106352A00B85F33C647DDF90933454C786A94C4D1C0968AED8A7","diagnostics":{"sourceName":"KeyStand_04_TableTop_Timber","sourceGuid":"6443514d33aa4ca40bdac423b16462c0","sourceLocalFileId":-477643679729829526,"sourceFingerprint":"3A608176EA08106352A00B85F33C647DDF90933454C786A94C4D1C0968AED8A7","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/LevelFlow/Meshes/Contours/6443514d33aa4ca40bdac423b16462c0_n477643679729829526.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":9.627564168113167e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

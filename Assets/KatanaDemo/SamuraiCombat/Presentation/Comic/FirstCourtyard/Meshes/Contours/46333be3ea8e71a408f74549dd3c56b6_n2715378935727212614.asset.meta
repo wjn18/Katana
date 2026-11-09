@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 27ce7a6570ce8d8419d1635a5672a20b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"B2880C80E8D34FF264A77376BDADB449B21E3DE4F992DDCC82A5C25C57D09507","diagnostics":{"sourceName":"Shrine_05_Core_Gold","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":-2715378935727212614,"sourceFingerprint":"B2880C80E8D34FF264A77376BDADB449B21E3DE4F992DDCC82A5C25C57D09507","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_n2715378935727212614.asset","reusedCache":false,"vertexCount":36,"triangleCount":20,"positionGroups":12,"coincidentPositionGroups":12,"compatibleGroups":12,"joinedGroups":12,"joinedVertices":36,"sourceNormalSplitGroups":12,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":36,"blendShapeCount":0,"positionTolerance":8.411302019339928e-7}}'
+  assetBundleName: 
+  assetBundleVariant: 

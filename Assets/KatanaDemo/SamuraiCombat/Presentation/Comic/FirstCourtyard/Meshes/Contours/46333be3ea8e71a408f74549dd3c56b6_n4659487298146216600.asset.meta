@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: d21202761e3274d459c321a875de053e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"DB43E5DA45CB3EE98A2403F3EFBB27E19E0309FA18DA061896C74CEC30ED94D1","diagnostics":{"sourceName":"Hall_03_VestibuleFloor_Slate","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":-4659487298146216600,"sourceFingerprint":"DB43E5DA45CB3EE98A2403F3EFBB27E19E0309FA18DA061896C74CEC30ED94D1","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_n4659487298146216600.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.000019035363948205486}}'
+  assetBundleName: 
+  assetBundleVariant: 

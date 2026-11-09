@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: d9c5414ccaac48345a4223d10d335d12
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"A029E84A4B301773A365B0F955A2347F60EB889329A8279F4D0759CF09B1CC65","diagnostics":{"sourceName":"Hall_36_BackAltarTop_Gold","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":-6950399588545900934,"sourceFingerprint":"A029E84A4B301773A365B0F955A2347F60EB889329A8279F4D0759CF09B1CC65","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_n6950399588545900934.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.000003932047548005357}}'
+  assetBundleName: 
+  assetBundleVariant: 

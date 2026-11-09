@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 71c393ff0db5155408e182c9dc80a14c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"B41944233E23957D38EF7B2E5DCA3A17E74B7DFDAB535FFA99F0BF102787082A","diagnostics":{"sourceName":"Room_09_Columns_Timber","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":5552743646833638482,"sourceFingerprint":"B41944233E23957D38EF7B2E5DCA3A17E74B7DFDAB535FFA99F0BF102787082A","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_5552743646833638482.asset","reusedCache":false,"vertexCount":384,"triangleCount":176,"positionGroups":96,"coincidentPositionGroups":96,"compatibleGroups":96,"joinedGroups":96,"joinedVertices":384,"sourceNormalSplitGroups":96,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":384,"blendShapeCount":0,"positionTolerance":0.00000800314865045948}}'
+  assetBundleName: 
+  assetBundleVariant: 

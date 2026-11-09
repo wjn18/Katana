@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 0a1a4dc14f572804a998ac2f8791402f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"71535835630CDC757DA4D72B39F0FBCF746EB7A9CABADCF517651D673D6B1007","diagnostics":{"sourceName":"Hall_16_Column4_Red","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":8694077484112031412,"sourceFingerprint":"71535835630CDC757DA4D72B39F0FBCF746EB7A9CABADCF517651D673D6B1007","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_8694077484112031412.asset","reusedCache":false,"vertexCount":72,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":72,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":72,"blendShapeCount":0,"positionTolerance":0.000004582400833896827}}'
+  assetBundleName: 
+  assetBundleVariant: 

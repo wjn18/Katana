@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 799f6a222aabc664bb37801e3157180d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"AC9EFDA6F9F3BD231CF78F35CBFBDBF300C324ED74EDECC057F5E4A91D3D7B7B","diagnostics":{"sourceName":"Hall_23_Clerestory_Timber","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":1636488605981114889,"sourceFingerprint":"AC9EFDA6F9F3BD231CF78F35CBFBDBF300C324ED74EDECC057F5E4A91D3D7B7B","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_1636488605981114889.asset","reusedCache":false,"vertexCount":192,"triangleCount":88,"positionGroups":48,"coincidentPositionGroups":48,"compatibleGroups":48,"joinedGroups":48,"joinedVertices":192,"sourceNormalSplitGroups":48,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":192,"blendShapeCount":0,"positionTolerance":0.0000185971748578595}}'
+  assetBundleName: 
+  assetBundleVariant: 

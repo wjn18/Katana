@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 103a669a5ed716a468c17c71a581ac4a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"398BD952883F3A582B8822870873383B614B06986FDF9805EB543BE0EF37BE6B","diagnostics":{"sourceName":"Chest_02_Lid_Red","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":7830208606814051569,"sourceFingerprint":"398BD952883F3A582B8822870873383B614B06986FDF9805EB543BE0EF37BE6B","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_7830208606814051569.asset","reusedCache":false,"vertexCount":172,"triangleCount":84,"positionGroups":44,"coincidentPositionGroups":44,"compatibleGroups":44,"joinedGroups":44,"joinedVertices":172,"sourceNormalSplitGroups":44,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":172,"blendShapeCount":0,"positionTolerance":0.0000016116140386657207}}'
+  assetBundleName: 
+  assetBundleVariant: 

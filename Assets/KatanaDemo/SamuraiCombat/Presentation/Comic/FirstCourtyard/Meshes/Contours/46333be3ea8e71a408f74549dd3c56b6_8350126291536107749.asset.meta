@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: cc974a91caff9724d94e39c9712962c3
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"8992CFE833E6BE05F0C830C4CB046A01065AC4A9DBA1D3A0BED9B52733468F57","diagnostics":{"sourceName":"Hall_24_WestGable_Plaster","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":8350126291536107749,"sourceFingerprint":"8992CFE833E6BE05F0C830C4CB046A01065AC4A9DBA1D3A0BED9B52733468F57","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_8350126291536107749.asset","reusedCache":false,"vertexCount":216,"triangleCount":128,"positionGroups":66,"coincidentPositionGroups":66,"compatibleGroups":66,"joinedGroups":66,"joinedVertices":216,"sourceNormalSplitGroups":66,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":216,"blendShapeCount":0,"positionTolerance":0.0000066147372308478225}}'
+  assetBundleName: 
+  assetBundleVariant: 

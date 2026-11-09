@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 45a6e75939bcacb4bb0e9314f8ec28df
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"D760B773D1839DE18190EDB1F01E2A5B251367F8B729130A557FF4AE9F6179F3","diagnostics":{"sourceName":"Hall_18_UpperBeams_Timber","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":-5768680524315365708,"sourceFingerprint":"D760B773D1839DE18190EDB1F01E2A5B251367F8B729130A557FF4AE9F6179F3","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_n5768680524315365708.asset","reusedCache":false,"vertexCount":576,"triangleCount":264,"positionGroups":144,"coincidentPositionGroups":144,"compatibleGroups":144,"joinedGroups":144,"joinedVertices":576,"sourceNormalSplitGroups":144,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":576,"blendShapeCount":0,"positionTolerance":0.00002251652767881751}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: a75c22675fbab834fa75bd34ea502b1b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"957BEC794224A6E1419002E60CB0989716AF919FF19F2ED2FB7DE16858B1B134","diagnostics":{"sourceName":"Hall_35_BackAltarFurniture_Red","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":8330668673402626101,"sourceFingerprint":"957BEC794224A6E1419002E60CB0989716AF919FF19F2ED2FB7DE16858B1B134","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_8330668673402626101.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.0000037529321161855478}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 78ea721d2b871fe4f947cdd8c690eb09
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"F46DF130F049AAA9D06BDE25BDB4F72C46026C372227BF6F96AEB59969879672","diagnostics":{"sourceName":"Room_10_UpperBeams_Red","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":-5386628861350757328,"sourceFingerprint":"F46DF130F049AAA9D06BDE25BDB4F72C46026C372227BF6F96AEB59969879672","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_n5386628861350757328.asset","reusedCache":false,"vertexCount":384,"triangleCount":176,"positionGroups":96,"coincidentPositionGroups":96,"compatibleGroups":96,"joinedGroups":96,"joinedVertices":384,"sourceNormalSplitGroups":96,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":384,"blendShapeCount":0,"positionTolerance":0.000007633845598320477}}'
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 4234153bf71505c4594cb72fd021309e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"EAB7A80CD2ED2905E64D5F9DCE37763B6E7D516B164628A0E5D091FD69626B67","diagnostics":{"sourceName":"Hall_14_EastPartitionWall_Plaster","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":4075503991333348750,"sourceFingerprint":"EAB7A80CD2ED2905E64D5F9DCE37763B6E7D516B164628A0E5D091FD69626B67","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_4075503991333348750.asset","reusedCache":false,"vertexCount":288,"triangleCount":132,"positionGroups":68,"coincidentPositionGroups":68,"compatibleGroups":68,"joinedGroups":68,"joinedVertices":288,"sourceNormalSplitGroups":68,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":288,"blendShapeCount":0,"positionTolerance":0.00000801763053459581}}'
+  assetBundleName: 
+  assetBundleVariant: 

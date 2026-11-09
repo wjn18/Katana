@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 4314d6e54f3ff8f4587f55d77a1e31da
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"CB8366BCC12C61CEE759E6032AEC5F60CC85C72FADDC22D90D687F2A29C30072","diagnostics":{"sourceName":"Hall_19_InteriorCeilingBeams_Timber","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":-2110862005490342772,"sourceFingerprint":"CB8366BCC12C61CEE759E6032AEC5F60CC85C72FADDC22D90D687F2A29C30072","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_n2110862005490342772.asset","reusedCache":false,"vertexCount":288,"triangleCount":132,"positionGroups":72,"coincidentPositionGroups":72,"compatibleGroups":72,"joinedGroups":72,"joinedVertices":288,"sourceNormalSplitGroups":72,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":288,"blendShapeCount":0,"positionTolerance":0.000019957484255428426}}'
+  assetBundleName: 
+  assetBundleVariant: 

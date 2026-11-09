@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 561a4259116f6ed4c8a659f66541bbd8
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"56055DD35A64690F2886E606B07FF49604F5095220C4C0DB2C0467B2CAC15ADE","diagnostics":{"sourceName":"Room_12_Roof_Roof","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":2380305011093960743,"sourceFingerprint":"56055DD35A64690F2886E606B07FF49604F5095220C4C0DB2C0467B2CAC15ADE","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_2380305011093960743.asset","reusedCache":false,"vertexCount":156,"triangleCount":84,"positionGroups":44,"coincidentPositionGroups":44,"compatibleGroups":44,"joinedGroups":44,"joinedVertices":156,"sourceNormalSplitGroups":44,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":156,"blendShapeCount":0,"positionTolerance":0.000009026743100548629}}'
+  assetBundleName: 
+  assetBundleVariant: 

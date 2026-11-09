@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: f3e5b2f06d4fafe48943a16bd189ce38
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"19A4E3D8A3BBBCB0C3C813E6879E2A4D633B8B0B0F6B97BEB41C9CFAF90CAB9F","diagnostics":{"sourceName":"Hall_26_Ridge_Gold","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":-2493035823936935603,"sourceFingerprint":"19A4E3D8A3BBBCB0C3C813E6879E2A4D633B8B0B0F6B97BEB41C9CFAF90CAB9F","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_n2493035823936935603.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.000018202621504315175}}'
+  assetBundleName: 
+  assetBundleVariant: 

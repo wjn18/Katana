@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: c1d7dc1ebb3902743a7b26629c966096
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"C8F971C24986C92ACA4C7EDFB03EA25DAE87048488856DE518DC603AA39BD4CE","diagnostics":{"sourceName":"BridgeRight_01_ThickPlankBody_Timber","sourceGuid":"6443514d33aa4ca40bdac423b16462c0","sourceLocalFileId":-4298395623586624609,"sourceFingerprint":"C8F971C24986C92ACA4C7EDFB03EA25DAE87048488856DE518DC603AA39BD4CE","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/LevelFlow/Meshes/Contours/6443514d33aa4ca40bdac423b16462c0_n4298395623586624609.asset","reusedCache":false,"vertexCount":256,"triangleCount":160,"positionGroups":80,"coincidentPositionGroups":80,"compatibleGroups":80,"joinedGroups":80,"joinedVertices":256,"sourceNormalSplitGroups":80,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":256,"blendShapeCount":0,"positionTolerance":0.0000042086103348992765}}'
+  assetBundleName: 
+  assetBundleVariant: 

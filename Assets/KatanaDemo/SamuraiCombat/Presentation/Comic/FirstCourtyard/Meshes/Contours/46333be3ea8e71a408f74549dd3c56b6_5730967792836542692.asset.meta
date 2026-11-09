@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 3b9e561da83433b44bdfb381e0796e38
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"8284F13E40F45BFFAA2D1B893127213AEDA19C5BB42FB3816212175DB029C9C3","diagnostics":{"sourceName":"Room_15_RidgeEnds_Red","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":5730967792836542692,"sourceFingerprint":"8284F13E40F45BFFAA2D1B893127213AEDA19C5BB42FB3816212175DB029C9C3","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_5730967792836542692.asset","reusedCache":false,"vertexCount":192,"triangleCount":88,"positionGroups":48,"coincidentPositionGroups":48,"compatibleGroups":48,"joinedGroups":48,"joinedVertices":192,"sourceNormalSplitGroups":48,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":192,"blendShapeCount":0,"positionTolerance":0.000003932352683477802}}'
+  assetBundleName: 
+  assetBundleVariant: 

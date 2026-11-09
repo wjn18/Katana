@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: c7667d606ce25e344ab50eb83778e7e0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"26823A2B445CBB13721CAA6B7813E99F53D81E61DA9B50C249A08ED301CFCD9B","diagnostics":{"sourceName":"Room_07_Back_Wall_Plaster","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":2001634847568310439,"sourceFingerprint":"26823A2B445CBB13721CAA6B7813E99F53D81E61DA9B50C249A08ED301CFCD9B","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_2001634847568310439.asset","reusedCache":false,"vertexCount":256,"triangleCount":160,"positionGroups":80,"coincidentPositionGroups":80,"compatibleGroups":80,"joinedGroups":80,"joinedVertices":256,"sourceNormalSplitGroups":80,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":256,"blendShapeCount":0,"positionTolerance":0.0000065120807448693085}}'
+  assetBundleName: 
+  assetBundleVariant: 

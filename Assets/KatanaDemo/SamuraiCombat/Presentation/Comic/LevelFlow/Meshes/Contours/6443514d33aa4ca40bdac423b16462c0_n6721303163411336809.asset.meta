@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 2df0633e6b287b54384e86dccd0aec32
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"E7C9FCE94D11C25AD2E3B680FFA7A437AA7A4791F1C281B7F342A502EF77FBC3","diagnostics":{"sourceName":"KeyStand_02_TableLegs_Timber","sourceGuid":"6443514d33aa4ca40bdac423b16462c0","sourceLocalFileId":-6721303163411336809,"sourceFingerprint":"E7C9FCE94D11C25AD2E3B680FFA7A437AA7A4791F1C281B7F342A502EF77FBC3","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/LevelFlow/Meshes/Contours/6443514d33aa4ca40bdac423b16462c0_n6721303163411336809.asset","reusedCache":false,"vertexCount":384,"triangleCount":176,"positionGroups":96,"coincidentPositionGroups":96,"compatibleGroups":96,"joinedGroups":96,"joinedVertices":384,"sourceNormalSplitGroups":96,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":384,"blendShapeCount":0,"positionTolerance":0.0000010131386716238922}}'
+  assetBundleName: 
+  assetBundleVariant: 

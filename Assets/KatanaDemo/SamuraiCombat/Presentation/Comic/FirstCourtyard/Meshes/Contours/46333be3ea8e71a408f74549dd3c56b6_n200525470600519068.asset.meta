@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 07b03208ba16dc44b835ac667d767f74
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"286DC98420DAD7A16C5C2A2FBBDD67BFB425888D4D582A4B8A8F6891CA88BA9A","diagnostics":{"sourceName":"Shrine_03_Body_Red","sourceGuid":"46333be3ea8e71a408f74549dd3c56b6","sourceLocalFileId":-200525470600519068,"sourceFingerprint":"286DC98420DAD7A16C5C2A2FBBDD67BFB425888D4D582A4B8A8F6891CA88BA9A","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/FirstCourtyard/Meshes/Contours/46333be3ea8e71a408f74549dd3c56b6_n200525470600519068.asset","reusedCache":false,"vertexCount":96,"triangleCount":44,"positionGroups":24,"coincidentPositionGroups":24,"compatibleGroups":24,"joinedGroups":24,"joinedVertices":96,"sourceNormalSplitGroups":24,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":96,"blendShapeCount":0,"positionTolerance":0.0000015208220247586723}}'
+  assetBundleName: 
+  assetBundleVariant: 
