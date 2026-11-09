@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: fd8d5a7d4369f054bac23519506fc3c4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"78BA04F3DDAE2BBE165A241F3B3ECF598F1E3B0EFD3B56C7DF65DC34D28DA65F","diagnostics":{"sourceName":"RidgeHall_Continuous_Deck","sourceGuid":"43bea4e19cc03bf4daa82c4e2deb7e54","sourceLocalFileId":4300000,"sourceFingerprint":"78BA04F3DDAE2BBE165A241F3B3ECF598F1E3B0EFD3B56C7DF65DC34D28DA65F","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/RidgeHall/Contours/43bea4e19cc03bf4daa82c4e2deb7e54_4300000.asset","reusedCache":false,"vertexCount":260,"triangleCount":516,"positionGroups":260,"coincidentPositionGroups":0,"compatibleGroups":260,"joinedGroups":0,"joinedVertices":0,"sourceNormalSplitGroups":0,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":260,"blendShapeCount":0,"positionTolerance":0.000011962908502027858}}'
+  assetBundleName: 
+  assetBundleVariant: 

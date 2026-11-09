@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: c8102a45979956d4887ba736c87161e7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"7AF7F9D75A6E7A4FA551AB3FE048C2A429951CF99E387B7BE8965C14B1AACBCC","diagnostics":{"sourceName":"EliteHallLink_Continuous_Tiled_Roof","sourceGuid":"3bd48cbf03b166e41b39bf5083a6ffee","sourceLocalFileId":4300000,"sourceFingerprint":"7AF7F9D75A6E7A4FA551AB3FE048C2A429951CF99E387B7BE8965C14B1AACBCC","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/LinkedHalls/Contours/3bd48cbf03b166e41b39bf5083a6ffee_4300000.asset","reusedCache":false,"vertexCount":40,"triangleCount":76,"positionGroups":40,"coincidentPositionGroups":0,"compatibleGroups":40,"joinedGroups":0,"joinedVertices":0,"sourceNormalSplitGroups":0,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":40,"blendShapeCount":0,"positionTolerance":0.000008757339855947066}}'
+  assetBundleName: 
+  assetBundleVariant: 

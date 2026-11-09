@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 003648a7795bce24d80faaf6350ec611
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"CFA83F29FEF5F0374AEB9A79410592CEDAC8DBA9C7A5BCF9C869EB17B88288F3","diagnostics":{"sourceName":"LowerCourtRegradedAscent_Continuous_Tiled_Roof","sourceGuid":"dd2ed2c4beb118442a99318b7e334155","sourceLocalFileId":4300000,"sourceFingerprint":"CFA83F29FEF5F0374AEB9A79410592CEDAC8DBA9C7A5BCF9C869EB17B88288F3","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/LinkedHalls/Contours/dd2ed2c4beb118442a99318b7e334155_4300000.asset","reusedCache":false,"vertexCount":50,"triangleCount":96,"positionGroups":50,"coincidentPositionGroups":0,"compatibleGroups":50,"joinedGroups":0,"joinedVertices":0,"sourceNormalSplitGroups":0,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":50,"blendShapeCount":0,"positionTolerance":0.00001444303234166}}'
+  assetBundleName: 
+  assetBundleVariant: 

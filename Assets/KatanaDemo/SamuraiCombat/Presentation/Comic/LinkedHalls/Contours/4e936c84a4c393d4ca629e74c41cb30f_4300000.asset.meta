@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: acb0dbbee9790504db40c655f6e3d4d5
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"F72A62A7813763679DB33701391D2D15C3DB16CF659DA5029BE4FD70AC6EB792","diagnostics":{"sourceName":"LowerHall_CurvedMountainLink_TiledRoof","sourceGuid":"4e936c84a4c393d4ca629e74c41cb30f","sourceLocalFileId":4300000,"sourceFingerprint":"F72A62A7813763679DB33701391D2D15C3DB16CF659DA5029BE4FD70AC6EB792","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/LinkedHalls/Contours/4e936c84a4c393d4ca629e74c41cb30f_4300000.asset","reusedCache":false,"vertexCount":430,"triangleCount":856,"positionGroups":430,"coincidentPositionGroups":0,"compatibleGroups":430,"joinedGroups":0,"joinedVertices":0,"sourceNormalSplitGroups":0,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":430,"blendShapeCount":0,"positionTolerance":0.000014554098925145809}}'
+  assetBundleName: 
+  assetBundleVariant: 

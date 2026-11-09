@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: deaeb34a25d00864f84ef4593d094fdd
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"4858F469624AA7FF35A3F4D5DE6E00A4E5280DA42CFCD14EC11CE6279BE81BD3","diagnostics":{"sourceName":"EastWing_Continuous_Tiled_Roof","sourceGuid":"6f6cca2dfa5ccbf45a8a098bae284173","sourceLocalFileId":4300000,"sourceFingerprint":"4858F469624AA7FF35A3F4D5DE6E00A4E5280DA42CFCD14EC11CE6279BE81BD3","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/LinkedHalls/Contours/6f6cca2dfa5ccbf45a8a098bae284173_4300000.asset","reusedCache":false,"vertexCount":70,"triangleCount":136,"positionGroups":70,"coincidentPositionGroups":0,"compatibleGroups":70,"joinedGroups":0,"joinedVertices":0,"sourceNormalSplitGroups":0,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":70,"blendShapeCount":0,"positionTolerance":0.000021097403077874333}}'
+  assetBundleName: 
+  assetBundleVariant: 

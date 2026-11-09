@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 723c3383c96b4ba419acd662d4e19abf
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"E345B019E90FBD4B0CE6CC877DB17E2349A7E1C90B1263364F7A8404B8297623","diagnostics":{"sourceName":"LowerHall_TwoStorey_CurvedGableRoof","sourceGuid":"73e712d6a4c2cd74f833d9e296e6dd76","sourceLocalFileId":4300000,"sourceFingerprint":"E345B019E90FBD4B0CE6CC877DB17E2349A7E1C90B1263364F7A8404B8297623","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/LinkedHalls/Contours/73e712d6a4c2cd74f833d9e296e6dd76_4300000.asset","reusedCache":false,"vertexCount":330,"triangleCount":656,"positionGroups":330,"coincidentPositionGroups":0,"compatibleGroups":330,"joinedGroups":0,"joinedVertices":0,"sourceNormalSplitGroups":0,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":328,"blendShapeCount":0,"positionTolerance":0.00002477292946423404}}'
+  assetBundleName: 
+  assetBundleVariant: 

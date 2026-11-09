@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 2fae8a1666d1c304da49a7e5f717b1bb
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"B00BCBCEC6A57D1C33ABC8A7899E5321BB3C9DDFE49B587197EED4A020B2532B","diagnostics":{"sourceName":"HallLandmarkTower_Roof","sourceGuid":"1e28368e43883574aa307479ab130cef","sourceLocalFileId":4300000,"sourceFingerprint":"B00BCBCEC6A57D1C33ABC8A7899E5321BB3C9DDFE49B587197EED4A020B2532B","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/LandmarkTower/Contours/1e28368e43883574aa307479ab130cef_4300000.asset","reusedCache":false,"vertexCount":1154,"triangleCount":2304,"positionGroups":1154,"coincidentPositionGroups":0,"compatibleGroups":1154,"joinedGroups":0,"joinedVertices":0,"sourceNormalSplitGroups":0,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":1152,"blendShapeCount":0,"positionTolerance":0.000016727255570003763}}'
+  assetBundleName: 
+  assetBundleVariant: 

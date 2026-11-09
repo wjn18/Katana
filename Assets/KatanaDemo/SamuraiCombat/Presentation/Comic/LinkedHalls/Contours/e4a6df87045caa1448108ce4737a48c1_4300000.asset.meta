@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: dac99cb0f63c5144fa3414b7dddf2a5c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"403FC91EEFEDCCC4DD9908A4EFC150745D38059C9F0619A5B9FA964AA054C705","diagnostics":{"sourceName":"Ascent_Continuous_Tiled_Roof","sourceGuid":"e4a6df87045caa1448108ce4737a48c1","sourceLocalFileId":4300000,"sourceFingerprint":"403FC91EEFEDCCC4DD9908A4EFC150745D38059C9F0619A5B9FA964AA054C705","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/LinkedHalls/Contours/e4a6df87045caa1448108ce4737a48c1_4300000.asset","reusedCache":false,"vertexCount":50,"triangleCount":96,"positionGroups":50,"coincidentPositionGroups":0,"compatibleGroups":50,"joinedGroups":0,"joinedVertices":0,"sourceNormalSplitGroups":0,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":50,"blendShapeCount":0,"positionTolerance":0.000013262550055515021}}'
+  assetBundleName: 
+  assetBundleVariant: 

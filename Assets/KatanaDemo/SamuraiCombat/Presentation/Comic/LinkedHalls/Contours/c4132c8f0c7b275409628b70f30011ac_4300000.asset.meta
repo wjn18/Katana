@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: 58ae8fbb16763014b8aaff1b793b1b92
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"FC6944578E353770A87366CEE28AFE76D6E4A713BB378BB8138D74F790D14169","diagnostics":{"sourceName":"EliteGrandHall_CurvedGableRoof","sourceGuid":"c4132c8f0c7b275409628b70f30011ac","sourceLocalFileId":4300000,"sourceFingerprint":"FC6944578E353770A87366CEE28AFE76D6E4A713BB378BB8138D74F790D14169","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/LinkedHalls/Contours/c4132c8f0c7b275409628b70f30011ac_4300000.asset","reusedCache":false,"vertexCount":330,"triangleCount":656,"positionGroups":330,"coincidentPositionGroups":0,"compatibleGroups":330,"joinedGroups":0,"joinedVertices":0,"sourceNormalSplitGroups":0,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":328,"blendShapeCount":0,"positionTolerance":0.00002206379758717958}}'
+  assetBundleName: 
+  assetBundleVariant: 
