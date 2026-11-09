@@ -33,8 +33,11 @@ namespace OCDesign.Samurai
         [Min(0.01f)] public float collisionPadding = 0.07f;
         [Tooltip("环境碰撞层；触发器、跟随角色及所有战斗角色（含子碰撞体）自动忽略，不受锁定或生死状态影响。")]
         public LayerMask obstacleMask = ~0;
+        [Tooltip("渐隐挡住玩家视线的已配置建筑构件，同时显示角色和周围场景。")]
+        public bool softenPlayerOcclusion = true;
 
         private readonly RaycastHit[] collisionHits = new RaycastHit[48];
+        private SamuraiCameraOcclusion occlusion;
         private Vector3 pivot;
         private Vector3 pivotVelocity;
         private float yaw;
@@ -68,9 +71,17 @@ namespace OCDesign.Samurai
             ResetView();
         }
 
-        private void OnEnable() => ResetView();
+        private void OnEnable()
+        {
+            if (Application.isPlaying)
+                occlusion = new SamuraiCameraOcclusion(this);
+            ResetView();
+        }
+
         private void OnDisable()
         {
+            occlusion?.Dispose();
+            occlusion = null;
             ViewReset?.Invoke();
             HasSolvedPose = false;
             initialized = false;

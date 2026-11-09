@@ -208,6 +208,8 @@ namespace OCDesign.LookDev
             CoreUtils.SetKeyword(mask, "_ALPHATEST_ON", clipped);
             mask.SetFloat("_Cutoff", original.HasProperty("_Cutoff") ? original.GetFloat("_Cutoff") : 0.5f);
             mask.SetFloat("_Cull", original.HasProperty("_Cull") ? original.GetFloat("_Cull") : (float)CullMode.Back);
+            mask.SetFloat("_SamuraiOcclusionFade", original.HasProperty("_SamuraiOcclusionFade")
+                ? original.GetFloat("_SamuraiOcclusionFade") : 0f);
             return mask;
         }
 

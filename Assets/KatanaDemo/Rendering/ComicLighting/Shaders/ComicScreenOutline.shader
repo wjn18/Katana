@@ -7,6 +7,7 @@ Shader "Hidden/OC Design/Comic Screen Outline"
         _AlphaClip("Alpha clipping", Float) = 0
         _Cutoff("Alpha cutoff", Float) = 0.5
         _Cull("Source cull mode", Float) = 2
+        [HideInInspector] _SamuraiOcclusionFade("Samurai occluder fade", Float) = 0
         _OutlineColor("Ink", Color) = (0.188235,0.160784,0.137255,1)
         _OutlinePixels("Minimum contour radius in render pixels", Float) = 3
         _DepthTolerance("Depth tolerance in metres", Float) = 0.0005
@@ -16,6 +17,7 @@ Shader "Hidden/OC Design/Comic Screen Outline"
         Tags { "RenderPipeline"="UniversalPipeline" }
         HLSLINCLUDE
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+        #include "SamuraiOcclusionAperture.hlsl"
         TEXTURE2D_X_FLOAT(_ComicSceneDepth);
         TEXTURE2D_X(_ComicOutlineMask);
         TEXTURE2D(_BaseMap); SAMPLER(sampler_BaseMap);
@@ -29,6 +31,7 @@ Shader "Hidden/OC Design/Comic Screen Outline"
             float _Cull;
             float _OutlinePixels;
             float _DepthTolerance;
+            float _SamuraiOcclusionFade;
         CBUFFER_END
         float ComicEyeDepth(float rawDepth)
         {
@@ -71,6 +74,7 @@ Shader "Hidden/OC Design/Comic Screen Outline"
                 float4 positionCS : SV_POSITION;
                 float2 uv : TEXCOORD0;
                 float eyeDepth : TEXCOORD1;
+                float3 positionWS : TEXCOORD2;
                 UNITY_VERTEX_OUTPUT_STEREO
             };
             Varyings MaskVertex(Attributes input)
@@ -79,6 +83,7 @@ Shader "Hidden/OC Design/Comic Screen Outline"
                 UNITY_SETUP_INSTANCE_ID(input);
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
                 float3 world = TransformObjectToWorld(input.positionOS.xyz);
+                output.positionWS = world;
                 output.positionCS = TransformWorldToHClip(world);
                 output.eyeDepth = -TransformWorldToView(world).z;
                 output.uv = TRANSFORM_TEX(input.uv, _BaseMap);
@@ -91,6 +96,8 @@ Shader "Hidden/OC Design/Comic Screen Outline"
                     clip(SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.uv).a * _BaseColor.a - _Cutoff);
                 // Hardware depth compares against the actual camera attachment.
                 // The coverage channel makes resolved MSAA boundary samples safe.
+                // Let revealed geometry supply its own screen ink.
+                SamuraiOcclusionClip(input.positionWS, _SamuraiOcclusionFade);
                 return float2(input.eyeDepth, 1.0);
             }
             ENDHLSL

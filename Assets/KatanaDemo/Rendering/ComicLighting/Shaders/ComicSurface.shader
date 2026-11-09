@@ -17,6 +17,7 @@ Shader "OC Design/Comic Lighting/Surface"
         [Toggle(_ALPHATEST_ON)] _AlphaClip("Alpha clipping", Float) = 0
         _Cutoff("Alpha cutoff", Range(0, 1)) = 0.5
         [Enum(UnityEngine.Rendering.CullMode)] _Cull("Cull", Float) = 2
+        [HideInInspector] _SamuraiOcclusionFade("Samurai occluder fade", Float) = 0
     }
 
     SubShader
@@ -28,6 +29,7 @@ Shader "OC Design/Comic Lighting/Surface"
         HLSLINCLUDE
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+        #include "Assets/KatanaDemo/Rendering/ComicLighting/Shaders/SamuraiOcclusionAperture.hlsl"
 
         TEXTURE2D(_BaseMap);
         SAMPLER(sampler_BaseMap);
@@ -48,6 +50,7 @@ Shader "OC Design/Comic Lighting/Surface"
             float _AlphaClip;
             float _Cutoff;
             float _Cull;
+            float _SamuraiOcclusionFade;
         CBUFFER_END
 
         struct ComicAttributes
@@ -132,6 +135,34 @@ Shader "OC Design/Comic Lighting/Surface"
             coverage *= 1.0 - smoothstep(float2(0.18, 0.18), float2(0.7, 0.7), footprint);
             return max(coverage.x, coverage.y);
         }
+
+        half3 ComicLighting(ComicVaryings input)
+        {
+            half4 texel = ComicSample(input.uv);
+            half3 normalWS = NormalizeNormalPerPixel(input.normalWS);
+            // Evaluate shadow coordinates per pixel: correct across cascades and
+            // the URP screen-space shadow variant, including large ground meshes.
+            float4 shadowCoord = TransformWorldToShadowCoord(input.positionWS);
+            Light sun = GetMainLight(shadowCoord);
+            float edge = max(_Feather, 0.001);
+            float formLight = smoothstep(_Threshold - edge, _Threshold + edge,
+                                         dot(normalWS, sun.direction));
+            float shadow = lerp(1.0, sun.shadowAttenuation, _ShadowStrength);
+            float weight = formLight * shadow;
+            half3 textureColor = lerp(half3(1,1,1), texel.rgb, _TextureStrength);
+            half3 palette = lerp(_ShadowColor.rgb, _BaseColor.rgb, weight);
+            half3 color = textureColor * palette;
+            color *= lerp(half3(1,1,1), sun.color, _LightColorInfluence * weight);
+            float paper = ComicNoise(input.positionWS * _PaperScale);
+            color *= 1.0 + (paper - 0.5) * _PaperStrength * 2.0;
+            float paving = ComicPavingCoverage(input.positionWS.xz)
+                * smoothstep(0.65, 0.95, normalWS.y) * _PavingStrength;
+            color *= 1.0 - 0.12 * paving;
+            // Fog remains scene-controlled. Material colors are authored as the
+            // final palette; this shader intentionally does not add PBR or GI.
+            float fog = ComputeFogFactor(TransformWorldToHClip(input.positionWS).z);
+            return MixFog(color, fog);
+        }
         ENDHLSL
 
         Pass
@@ -153,30 +184,34 @@ Shader "OC Design/Comic Lighting/Surface"
             {
                 UNITY_SETUP_INSTANCE_ID(input);
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
-                half4 texel = ComicSample(input.uv);
-                half3 normalWS = NormalizeNormalPerPixel(input.normalWS);
-                // Evaluate shadow coordinates per pixel: correct across cascades and
-                // the URP screen-space shadow variant, including large ground meshes.
-                float4 shadowCoord = TransformWorldToShadowCoord(input.positionWS);
-                Light sun = GetMainLight(shadowCoord);
-                float edge = max(_Feather, 0.001);
-                float formLight = smoothstep(_Threshold - edge, _Threshold + edge,
-                                             dot(normalWS, sun.direction));
-                float shadow = lerp(1.0, sun.shadowAttenuation, _ShadowStrength);
-                float weight = formLight * shadow;
-                half3 textureColor = lerp(half3(1,1,1), texel.rgb, _TextureStrength);
-                half3 palette = lerp(_ShadowColor.rgb, _BaseColor.rgb, weight);
-                half3 color = textureColor * palette;
-                color *= lerp(half3(1,1,1), sun.color, _LightColorInfluence * weight);
-                float paper = ComicNoise(input.positionWS * _PaperScale);
-                color *= 1.0 + (paper - 0.5) * _PaperStrength * 2.0;
-                float paving = ComicPavingCoverage(input.positionWS.xz)
-                    * smoothstep(0.65, 0.95, normalWS.y) * _PavingStrength;
-                color *= 1.0 - 0.12 * paving;
-                // Fog remains scene-controlled. Material colors are authored as the
-                // final palette; this shader intentionally does not add PBR or GI.
-                float fog = ComputeFogFactor(TransformWorldToHClip(input.positionWS).z);
-                return half4(MixFog(color, fog), 1);
+                SamuraiOcclusionClip(input.positionWS, _SamuraiOcclusionFade);
+                return half4(ComicLighting(input), 1.0);
+            }
+            ENDHLSL
+        }
+
+        Pass
+        {
+            Name "SamuraiOcclusionForeground"
+            Tags { "LightMode"="SamuraiOcclusionForeground" }
+            ZWrite On
+            HLSLPROGRAM
+            #pragma target 3.5
+            #pragma vertex ComicVertex
+            #pragma fragment ComicForegroundFragment
+            #pragma multi_compile_instancing
+            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
+            #pragma multi_compile_fragment _ _SHADOWS_SOFT _SHADOWS_SOFT_LOW _SHADOWS_SOFT_MEDIUM _SHADOWS_SOFT_HIGH
+            #pragma multi_compile_fog
+            #pragma shader_feature_local_fragment _ALPHATEST_ON
+
+            half4 ComicForegroundFragment(ComicVaryings input) : SV_Target
+            {
+                UNITY_SETUP_INSTANCE_ID(input);
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
+                float alpha = SamuraiOcclusionForegroundAlpha(input.positionWS, input.positionCS,
+                    _SamuraiOcclusionFade);
+                return half4(ComicLighting(input), alpha);
             }
             ENDHLSL
         }
@@ -236,6 +271,7 @@ Shader "OC Design/Comic Lighting/Surface"
             {
                 UNITY_SETUP_INSTANCE_ID(input);
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
+                SamuraiOcclusionClip(input.positionWS, _SamuraiOcclusionFade);
                 ComicSample(input.uv);
                 return input.positionCS.z;
             }
@@ -258,6 +294,7 @@ Shader "OC Design/Comic Lighting/Surface"
             {
                 UNITY_SETUP_INSTANCE_ID(input);
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
+                SamuraiOcclusionClip(input.positionWS, _SamuraiOcclusionFade);
                 ComicSample(input.uv);
                 float3 normalWS = NormalizeNormalPerPixel(input.normalWS);
                 #if defined(_GBUFFER_NORMALS_OCT)
