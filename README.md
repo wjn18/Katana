@@ -1,23 +1,26 @@
 # Katana
 
-斗笠剑士的 Unity 演示项目，包含打刀 Generic 动画与平地操控，以及薙刀 Humanoid 第三人称战斗。
+Unity 第三人称近战原型，使用 **C# / URP / Blender**，实现架势连段、精力与残心、格挡弹反、双人处决及山寺探索关卡。
 
-## 打开项目
+![山寺关卡总览](docs/images/level-overview.png)
 
-1. 安装 Unity **6000.6.5f1**，在 Unity Hub 中添加此项目目录。
-2. 首次打开等待 Unity 还原 `Packages/` 中声明的依赖并导入资源。Git 包依赖需要联网访问 GitHub。
-3. 打刀入口为 `Assets/KatanaDemo/UchigatanaCombat/Scenes/UchigatanaCombatDemo.unity`；薙刀入口为 `Assets/KatanaDemo/NaginataCombat/Scenes/NaginataThirdPersonCombat.unity`。
+## 技术实现
 
-打刀进入 Play 后自动待机，WASD / 方向键慢走，Shift 快走，Ctrl 奔跑，左键单次攻击，R 复位。完整玩家为 `UchigatanaCombat/Prefabs/UchigatanaCombatPlayer.prefab`，独立武器为 `Weapons/Uchigatana/Prefabs/InitialUchigatana.prefab`；两者均有实际引用。
+- **战斗架构**：`ScriptableObject` 配置招式与架势；玩家和 AI 共用输入帧、动作状态机及每角色唯一 `Tick`。
+- **近战判定**：动画后采样武器轨迹，`SphereCast` 扫掠与初始重叠补偿；按命中窗口去重，处理阵营过滤与墙体遮挡。
+- **动画与移动**：Humanoid 重定向、八向步态相位衔接；根轨迹增量交给 `CharacterController`，配套双人处决对位与起身衔接。
+- **AI 与巡逻**：行为树生成输入，脱战沿实际追击轨迹返回；Scene 路点支持贴地拖动、停留朝向、循环/往返与 Undo。
+- **漫画渲染**：URP 自定义明暗分层、描边、世界空间岩层材质与镜头遮挡处理。
+- **关卡工具**：Blender 模块化资产与连续坡面碰撞；钥匙及门状态与检查点分开持久化。
 
-薙刀支持 WASD 移动、Shift 奔跑、鼠标环绕、左键逐次连招、右键重击和数字 1–6 单招。完整操作见 `Assets/KatanaDemo/NaginataCombat/使用说明.txt`。
+| 双人处决 | Scene 巡逻路线编辑 |
+| :---: | :---: |
+| ![双人处决实机画面](docs/images/paired-execution.png) | ![路点编号、停留时间与拖动手柄](docs/images/patrol-editor.png) |
 
-打刀移动用于平地测试，无重力或碰撞；两种武器当前均无敌人或命中扣血，角色大幅抬腿仍可能出现衣物穿模。当前目录与维护规则见 `Assets/KatanaDemo/资源目录规范.md`。
+## 运行
 
-## 仓库内容
+1. 安装 Git LFS，克隆后执行 `git lfs pull` 拉取模型资源。
+2. 用 Unity Hub 以 **6000.6.5f1** 打开项目，等待依赖还原与导入；Git 包依赖需要访问 GitHub。
+3. 打开 `Assets/KatanaDemo/SamuraiCombat/Scenes/SamuraiCombatDemo_BlenderAssembly.unity`，进入 Play 后点击游戏画面。
 
-- `Assets/`：模型、贴图、动画、场景、预制体、脚本及对应 `.meta` 文件。
-- `Packages/`：包依赖与锁定文件。
-- `ProjectSettings/`：项目配置与 Unity 版本。
-
-Unity 缓存、构建输出、IDE 配置和本地验证截图不纳入版本控制。外部 Blender 制作文件和角色设定资料位于此仓库之外。
+[操作说明](Assets/KatanaDemo/SamuraiCombat/使用说明.txt) · [架构与扩展](Assets/KatanaDemo/SamuraiCombat/架构与扩展说明.txt) · [巡逻编辑器](Assets/KatanaDemo/SamuraiCombat/巡逻路径编辑器使用说明.txt)
