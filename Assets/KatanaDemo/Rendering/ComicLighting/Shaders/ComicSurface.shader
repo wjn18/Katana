@@ -18,6 +18,14 @@ Shader "OC Design/Comic Lighting/Surface"
         _Cutoff("Alpha cutoff", Range(0, 1)) = 0.5
         [Enum(UnityEngine.Rendering.CullMode)] _Cull("Cull", Float) = 2
         [HideInInspector] _SamuraiOcclusionFade("Samurai occluder fade", Float) = 0
+        [Toggle(_SAMURAI_GARDEN_MOSS)] _GardenMoss("Moss on stone", Float) = 0
+        [HideInInspector] _GardenMossBakedProjection("Moss travels with the mesh", Float) = 0
+        _GardenMossAnchor("Moss center XZ and inverse radii", Vector) = (0, 0, 1, 1)
+        _GardenMossColor("Sunlit moss", Color) = (0.545, 0.580, 0.435, 1)
+        _GardenMossShadow("Shaded moss", Color) = (0.318, 0.424, 0.431, 1)
+        [Enum(None,0,Stone,1,Cedar,2,Cloth,3,RakedGravel,4)] _TempleSurface("Temple surface detail", Float) = 0
+        _TempleDetailStrength("Temple detail strength", Range(0,1)) = 0.12
+        _TempleAnchor("Gravel centre XZ", Vector) = (0,0,0,0)
     }
 
     SubShader
@@ -51,6 +59,13 @@ Shader "OC Design/Comic Lighting/Surface"
             float _Cutoff;
             float _Cull;
             float _SamuraiOcclusionFade;
+            float4 _GardenMossAnchor;
+            float _GardenMossBakedProjection;
+            half4 _GardenMossColor;
+            half4 _GardenMossShadow;
+            float _TempleSurface;
+            float _TempleDetailStrength;
+            float4 _TempleAnchor;
         CBUFFER_END
 
         struct ComicAttributes
@@ -58,6 +73,7 @@ Shader "OC Design/Comic Lighting/Surface"
             float4 positionOS : POSITION;
             float3 normalOS : NORMAL;
             float2 uv : TEXCOORD0;
+            float3 mossProjection : TEXCOORD3;
             UNITY_VERTEX_INPUT_INSTANCE_ID
         };
 
@@ -67,6 +83,7 @@ Shader "OC Design/Comic Lighting/Surface"
             float3 positionWS : TEXCOORD0;
             half3 normalWS : TEXCOORD1;
             float2 uv : TEXCOORD2;
+            float3 mossProjection : TEXCOORD3;
             UNITY_VERTEX_INPUT_INSTANCE_ID
             UNITY_VERTEX_OUTPUT_STEREO
         };
@@ -82,6 +99,7 @@ Shader "OC Design/Comic Lighting/Surface"
             output.positionWS = position.positionWS;
             output.normalWS = TransformObjectToWorldNormal(input.normalOS);
             output.uv = TRANSFORM_TEX(input.uv, _BaseMap);
+            output.mossProjection = input.mossProjection;
             return output;
         }
 
@@ -114,6 +132,19 @@ Shader "OC Design/Comic Lighting/Surface"
             return lerp(z0, z1, f.z);
         }
 
+        float GardenMossMask(float3 projection, float upward)
+        {
+            float2 footprint = (projection.xz - _GardenMossAnchor.xy) * _GardenMossAnchor.zw;
+            float broad = ComicNoise(projection * 1.05);
+            float fine = ComicNoise(projection * 2.65 + 19.7);
+            float radius = length(footprint);
+            float rim = 1.0 - smoothstep(0.63, 0.99, radius + (broad - 0.5) * 0.28);
+            float top = smoothstep(0.40, 0.79, upward);
+            float rootPocket = (1.0 - smoothstep(0.08, 0.61, radius)) * 0.22;
+            float pockets = smoothstep(0.45, 0.68, broad * 0.77 + fine * 0.23 + rootPocket);
+            return rim * top * pockets;
+        }
+
         float ComicPavingCoverage(float2 worldXZ)
         {
             // A few slow bends give the large slabs a drawn edge without grain.
@@ -136,6 +167,49 @@ Shader "OC Design/Comic Lighting/Surface"
             return max(coverage.x, coverage.y);
         }
 
+        float TempleGroove(float phase, float width)
+        {
+            float footprint = max(fwidth(phase), 0.0001);
+            float distance = abs(frac(phase + 0.5) - 0.5);
+            float coverage = saturate((width - distance + footprint * 0.5) / footprint)
+                           - saturate((-width - distance + footprint * 0.5) / footprint);
+            return coverage * (1.0 - smoothstep(0.3, 0.8, footprint));
+        }
+
+        float TempleSurfaceDetail(float3 position, half3 normal)
+        {
+            if (_TempleSurface < 0.5) return 1.0;
+            float strength = _TempleDetailStrength;
+            float broad = ComicNoise(position * 3.1);
+            if (_TempleSurface < 1.5)
+            {
+                float course = position.y / 0.36;
+                float horizontal = abs(normal.x) > abs(normal.z) ? position.z : position.x;
+                float joint = max(TempleGroove(course, 0.012),
+                    TempleGroove(horizontal / 0.78 + floor(course) * 0.5, 0.009));
+                return 1.0 + (broad - 0.5) * strength * 0.35
+                    - joint * strength * (1.0 - smoothstep(0.4, 0.7, normal.y));
+            }
+            if (_TempleSurface < 2.5)
+            {
+                float horizontal = abs(normal.x) > abs(normal.z) ? position.z : position.x;
+                float grain = TempleGroove(horizontal * 14.0 + ComicNoise(position * 0.5) * 1.8, 0.07);
+                return 1.0 - grain * strength + (broad - 0.5) * strength * 0.6;
+            }
+            if (_TempleSurface < 3.5)
+            {
+                float horizontal = abs(normal.x) > abs(normal.z) ? position.z : position.x;
+                float weave = max(TempleGroove(horizontal * 90.0, 0.1),
+                    TempleGroove(position.y * 90.0, 0.1));
+                return 1.0 - weave * strength * 0.7 + (broad - 0.5) * strength * 0.6;
+            }
+            float2 relative = position.xz - _TempleAnchor.xy;
+            float radius = length(relative * float2(1.0, 0.92));
+            float arcs = TempleGroove(radius / 0.095, 0.09);
+            return 1.0 - arcs * strength * smoothstep(0.6, 0.94, normal.y)
+                + (broad - 0.5) * strength * 0.3;
+        }
+
         half3 ComicLighting(ComicVaryings input)
         {
             half4 texel = ComicSample(input.uv);
@@ -151,6 +225,11 @@ Shader "OC Design/Comic Lighting/Surface"
             float weight = formLight * shadow;
             half3 textureColor = lerp(half3(1,1,1), texel.rgb, _TextureStrength);
             half3 palette = lerp(_ShadowColor.rgb, _BaseColor.rgb, weight);
+            #if defined(_SAMURAI_GARDEN_MOSS)
+                half3 moss = lerp(_GardenMossShadow.rgb, _GardenMossColor.rgb, weight);
+                float3 projection = lerp(input.positionWS, input.mossProjection, _GardenMossBakedProjection);
+                palette = lerp(palette, moss, GardenMossMask(projection, normalWS.y));
+            #endif
             half3 color = textureColor * palette;
             color *= lerp(half3(1,1,1), sun.color, _LightColorInfluence * weight);
             float paper = ComicNoise(input.positionWS * _PaperScale);
@@ -158,6 +237,7 @@ Shader "OC Design/Comic Lighting/Surface"
             float paving = ComicPavingCoverage(input.positionWS.xz)
                 * smoothstep(0.65, 0.95, normalWS.y) * _PavingStrength;
             color *= 1.0 - 0.12 * paving;
+            color *= TempleSurfaceDetail(input.positionWS, normalWS);
             // Fog remains scene-controlled. Material colors are authored as the
             // final palette; this shader intentionally does not add PBR or GI.
             float fog = ComputeFogFactor(TransformWorldToHClip(input.positionWS).z);
@@ -179,6 +259,7 @@ Shader "OC Design/Comic Lighting/Surface"
             #pragma multi_compile_fragment _ _SHADOWS_SOFT _SHADOWS_SOFT_LOW _SHADOWS_SOFT_MEDIUM _SHADOWS_SOFT_HIGH
             #pragma multi_compile_fog
             #pragma shader_feature_local_fragment _ALPHATEST_ON
+            #pragma shader_feature_local_fragment _SAMURAI_GARDEN_MOSS
 
             half4 ComicFragment(ComicVaryings input) : SV_Target
             {
@@ -204,6 +285,7 @@ Shader "OC Design/Comic Lighting/Surface"
             #pragma multi_compile_fragment _ _SHADOWS_SOFT _SHADOWS_SOFT_LOW _SHADOWS_SOFT_MEDIUM _SHADOWS_SOFT_HIGH
             #pragma multi_compile_fog
             #pragma shader_feature_local_fragment _ALPHATEST_ON
+            #pragma shader_feature_local_fragment _SAMURAI_GARDEN_MOSS
 
             half4 ComicForegroundFragment(ComicVaryings input) : SV_Target
             {

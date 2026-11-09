@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Copper maple garden 5 - Moss on stone
+  m_Shader: {fileID: 4800000, guid: e700348053081554194fa0eed4fa9ceb, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _SAMURAI_GARDEN_MOSS
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaClip: 0
+    - _Cull: 0
+    - _Cutoff: 0.5
+    - _Feather: 0.025
+    - _GardenMoss: 1
+    - _GardenMossBakedProjection: 1
+    - _LightColorInfluence: 0
+    - _PaperScale: 1
+    - _PaperStrength: 0.035
+    - _PavingStrength: 0
+    - _PavingWobble: 0.008
+    - _SamuraiOcclusionFade: 0
+    - _SamuraiOcclusionKeep: 0
+    - _SamuraiOcclusionMinWorldY: -10000
+    - _ShadowStrength: 1
+    - _TextureStrength: 0
+    - _Threshold: 0.16
+    m_Colors:
+    - _BaseColor: {r: 0.47058824, g: 0.5411765, b: 0.5686275, a: 1}
+    - _GardenMossAnchor: {r: 5.2005014, g: -15.804377, b: 0.31312656, a: 0.41150895}
+    - _GardenMossColor: {r: 0.545098, g: 0.5803921, b: 0.4352941, a: 1}
+    - _GardenMossShadow: {r: 0.31764704, g: 0.4235294, b: 0.4313725, a: 1}
+    - _ShadowColor: {r: 0.20784314, g: 0.30980393, b: 0.39607844, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

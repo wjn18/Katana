@@ -1,0 +1,8 @@
+fileFormatVersion: 2
+guid: e1248fd1ce842224eb043362fe44bce0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: '{"owner":"ComicOutlineHullFactory","version":1,"sourceFingerprint":"4E3871922622774BCA4080856F964F8E7681B4A9CD3EF8D8F7AF7A9D1933D984","diagnostics":{"sourceName":"LowerPine_043","sourceGuid":"83b7fdafe9cdb4d44906f51181f24084","sourceLocalFileId":4300000,"sourceFingerprint":"4E3871922622774BCA4080856F964F8E7681B4A9CD3EF8D8F7AF7A9D1933D984","outlineAssetPath":"Assets/KatanaDemo/SamuraiCombat/Presentation/Comic/BlenderAssembly/PineCrownDetails/Contours/83b7fdafe9cdb4d44906f51181f24084_4300000.asset","reusedCache":false,"vertexCount":643,"triangleCount":1158,"positionGroups":632,"coincidentPositionGroups":4,"compatibleGroups":632,"joinedGroups":4,"joinedVertices":15,"sourceNormalSplitGroups":4,"weightSplitPositionGroups":0,"fallbackNormalGroups":0,"degenerateTriangles":0,"skippedNonTriangleSubmeshes":0,"changedNormalVertices":620,"blendShapeCount":0,"positionTolerance":0.000006146084160718601}}'
+  assetBundleName: 
+  assetBundleVariant: 
