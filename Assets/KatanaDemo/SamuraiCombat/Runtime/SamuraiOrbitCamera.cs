@@ -21,6 +21,13 @@ namespace OCDesign.Samurai
         [Min(0f)] public float followSmoothTime = 0.055f;
         [Min(0f)] public float distanceSmoothTime = 0.12f;
         [Min(0f)] public float lockRotationSmoothTime = 0.14f;
+        [Header("普通体型目标锁定取景")]
+        [Tooltip("普通体型目标的最低锁定俯角；抬高视线，避免目标被主角斗笠和身体挡住。出生和复位镜头仍使用 initialPitch。")]
+        [Range(8f, 68f)] public float humanTargetLockPitch = 20f;
+        [Tooltip("普通体型目标的锁定侧偏角；负值让主角偏画面左侧。沿用锁定旋转平滑，不改变角色朝向。")]
+        [Range(-30f, 30f)] public float humanTargetLockYawOffset = 0f;
+        [Tooltip("按角色胶囊的世界高度取景：低于 X 完整应用，高于 Y 保留原锁定视角；中间平滑过渡。")]
+        public Vector2 humanTargetLockHeightRange = new Vector2(2f, 3f);
         [Header("中架势冬月位移镜头")]
         public bool middleFrostMoonLagEnabled = true;
         [Tooltip("仅中冬月快速位移时，镜头暂留在移动前的位置；不会改动角色运动。")]
@@ -147,22 +154,26 @@ namespace OCDesign.Samurai
             if (targetDelta.sqrMagnitude > 25f) { ResetView(); return; }
             Vector3 destination = target.position + targetOffset;
             framingDistance = distance;
-            // Keep the paired receiver framed through its lethal reaction, including unlocked backstabs.
+            // A paired backstab frames both actors even without a user lock, and keeps its
+            // receiver through the lethal contact until the complete reaction has played.
             var framingTarget = BackstabFramingTarget;
             if (framingTarget == null && targetLock != null) framingTarget = targetLock.CurrentTarget;
             if (framingTarget != null)
             {
+                float humanFraming = HumanTargetFramingWeight(framingTarget);
                 Vector3 targetPoint = SamuraiTargetLock.AimPoint(framingTarget);
                 Vector3 direction = targetPoint - destination;
                 Vector3 planar = new Vector3(direction.x, 0f, direction.z);
                 destination = Vector3.Lerp(destination, targetPoint, 0.5f);
                 if (planar.sqrMagnitude > 0.0025f)
                 {
-                    float desiredYaw = Mathf.Atan2(planar.x, planar.z) * Mathf.Rad2Deg;
+                    float desiredYaw = Mathf.Atan2(planar.x, planar.z) * Mathf.Rad2Deg
+                        + humanTargetLockYawOffset * humanFraming;
                     yaw = lockRotationSmoothTime <= 0f ? desiredYaw : Mathf.SmoothDampAngle(yaw, desiredYaw,
                         ref yawVelocity, lockRotationSmoothTime, Mathf.Infinity, deltaTime);
                 }
-                float desiredPitch = Mathf.Clamp(initialPitch, pitchLimits.x, pitchLimits.y);
+                float desiredPitch = Mathf.Clamp(Mathf.Lerp(initialPitch,
+                    Mathf.Max(initialPitch, humanTargetLockPitch), humanFraming), pitchLimits.x, pitchLimits.y);
                 pitch = lockRotationSmoothTime <= 0f ? desiredPitch : Mathf.SmoothDampAngle(pitch, desiredPitch,
                     ref pitchVelocity, lockRotationSmoothTime, Mathf.Infinity, deltaTime);
                 // 以双方中点取景，目标越远相机适度后退，玩家与目标均保留在同一视野。
@@ -184,6 +195,18 @@ namespace OCDesign.Samurai
 
         private SamuraiCombatant BackstabFramingTarget => followedActor != null && followedActor.IsBackstabbing
             ? followedActor.ActiveBackstabTarget : null;
+
+        private float HumanTargetFramingWeight(SamuraiCombatant lockedActor)
+        {
+            // 胶囊高度不随持刀、攻击或伏地姿势变化，避免取景在动作中抖动。
+            // 没有胶囊的逻辑目标保留原取景；大型角色（如 Elite1）权重为零。
+            if (lockedActor.Motor == null) return 0f;
+            float height = lockedActor.Motor.height * Mathf.Abs(lockedActor.Motor.transform.lossyScale.y);
+            float fullHeight = Mathf.Max(.1f, humanTargetLockHeightRange.x);
+            float originalHeight = Mathf.Max(fullHeight + .01f, humanTargetLockHeightRange.y);
+            float weight = 1f - Mathf.InverseLerp(fullHeight, originalHeight, height);
+            return Mathf.SmoothStep(0f, 1f, weight);
+        }
 
         private bool IsMiddleFrostMoon()
         {
@@ -279,6 +302,10 @@ namespace OCDesign.Samurai
             initialPitch = Mathf.Clamp(initialPitch, pitchLimits.x, pitchLimits.y);
             collisionRadius = Mathf.Max(0.01f, collisionRadius);
             collisionPadding = Mathf.Max(0.01f, collisionPadding);
+            humanTargetLockPitch = Mathf.Clamp(humanTargetLockPitch, 8f, 68f);
+            humanTargetLockYawOffset = Mathf.Clamp(humanTargetLockYawOffset, -30f, 30f);
+            humanTargetLockHeightRange.x = Mathf.Max(.1f, humanTargetLockHeightRange.x);
+            humanTargetLockHeightRange.y = Mathf.Max(humanTargetLockHeightRange.x + .01f, humanTargetLockHeightRange.y);
             middleFrostMoonMaxLag = Mathf.Max(0f, middleFrostMoonMaxLag);
             middleFrostMoonLagSeconds = Mathf.Max(.01f, middleFrostMoonLagSeconds);
             middleFrostMoonCatchUpSeconds = Mathf.Max(.01f, middleFrostMoonCatchUpSeconds);

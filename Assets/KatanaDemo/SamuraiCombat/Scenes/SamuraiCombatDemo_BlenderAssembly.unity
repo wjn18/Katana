@@ -322061,6 +322061,9 @@ MonoBehaviour:
   followSmoothTime: 0.055
   distanceSmoothTime: 0.12
   lockRotationSmoothTime: 0.14
+  humanTargetLockPitch: 20
+  humanTargetLockYawOffset: -15
+  humanTargetLockHeightRange: {x: 2, y: 3}
   middleFrostMoonLagEnabled: 1
   middleFrostMoonLagStrength: 0.9
   middleFrostMoonMaxLag: 1.35
