@@ -71,8 +71,8 @@ MonoBehaviour:
   toughnessConfigurationVersion: 1
   unblockable: 0
   guardReactionSide: 0
-  knockbackDistance: 0.25
-  knockbackSeconds: 0.16
+  knockbackDistance: 0.42
+  knockbackSeconds: 0.2
   damageStart: 0.36752135
   damageEnd: 0.4188034
   damageWindows:
