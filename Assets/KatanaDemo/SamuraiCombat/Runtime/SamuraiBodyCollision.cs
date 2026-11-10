@@ -20,8 +20,10 @@ namespace OCDesign.Samurai
         struct Body
         {
             public CharacterController controller;
+            public SamuraiCombatant actor;
             public Vector2 center;
-            public float radius, bottom, top;
+            public Vector2 forward;
+            public float radius, bottom, top, height, forwardClearance, maxTargetHeight;
             public int index;
         }
 
@@ -73,7 +75,8 @@ namespace OCDesign.Samurai
                 for (int i = 0; i < bodies.Count; i++)
                 {
                     safeStep = Mathf.Min(safeStep, bodies[i].radius * .25f);
-                    float reach = own.radius + bodies[i].radius + requested.magnitude + .01f;
+                    float reach = own.radius + bodies[i].radius + requested.magnitude + .01f
+                        + Extension(own, bodies[i]).magnitude + Extension(bodies[i], own).magnitude;
                     if ((own.center - bodies[i].center).sqrMagnitude <= reach * reach) near = true;
                 }
                 if (near) parts = Mathf.Max(1, Mathf.CeilToInt(requested.magnitude / Mathf.Max(.005f, safeStep)));
@@ -136,9 +139,124 @@ namespace OCDesign.Samurai
             float height = Mathf.Max(source.height * Mathf.Abs(scale.y), radius * 2f);
             float skin = source.skinWidth * horizontal;
             Vector3 center = source.transform.TransformPoint(source.center);
-            return new Body { controller = source, center = new Vector2(center.x, center.z),
+            var actor = source.GetComponent<SamuraiCombatant>();
+            var profile = actor != null ? actor.Profile : null;
+            Vector3 facing = source.transform.forward;
+            float padding = profile != null ? profile.bodyForwardClearance : 0f;
+            float maxHeight = profile != null ? profile.bodyForwardClearanceMaxTargetHeight : 0f;
+            return new Body { controller = source, actor = actor, center = new Vector2(center.x, center.z),
+                forward = new Vector2(facing.x, facing.z).normalized, height = height,
+                forwardClearance = Finite(padding) ? Mathf.Max(0f, padding) : 0f,
+                maxTargetHeight = Finite(maxHeight) ? Mathf.Max(0f, maxHeight) : 0f,
                 radius = radius + skin + Clearance * .5f, bottom = center.y - height * .5f - skin,
                 top = center.y + height * .5f + skin, index = index };
+        }
+
+        static Vector2 Extension(Body body, Body other)
+        {
+            if (body.forwardClearance <= 0f || other.height > body.maxTargetHeight
+                || body.actor == null || other.actor == null || body.actor.Team == other.actor.Team
+                || !body.actor.isActiveAndEnabled || !other.actor.isActiveAndEnabled
+                || body.actor.IsDead || other.actor.IsDead
+                || body.actor.IsExecuting || body.actor.IsBeingExecuted
+                || other.actor.IsExecuting || other.actor.IsBeingExecuted) return Vector2.zero;
+            return body.forward * body.forwardClearance;
+        }
+
+        // Closest points of the two forward centre segments. Their radius sums give the
+        // exact XZ capsule separation, including when both profiles opt into clearance.
+        static Vector2 SegmentDelta(Vector2 first, Vector2 firstExtension, Vector2 second, Vector2 secondExtension)
+        {
+            Vector2 offset = first - second;
+            float a = firstExtension.sqrMagnitude, e = secondExtension.sqrMagnitude;
+            if (a <= Epsilon * Epsilon && e <= Epsilon * Epsilon) return offset;
+            float s, t;
+            float f = Vector2.Dot(secondExtension, offset);
+            if (a <= Epsilon * Epsilon) { s = 0f; t = Mathf.Clamp01(f / e); }
+            else
+            {
+                float c = Vector2.Dot(firstExtension, offset);
+                if (e <= Epsilon * Epsilon) { t = 0f; s = Mathf.Clamp01(-c / a); }
+                else
+                {
+                    float b = Vector2.Dot(firstExtension, secondExtension);
+                    float denominator = a * e - b * b;
+                    s = denominator > Epsilon * Epsilon ? Mathf.Clamp01((b * f - c * e) / denominator) : 0f;
+                    t = (b * s + f) / e;
+                    if (t < 0f) { t = 0f; s = Mathf.Clamp01(-c / a); }
+                    else if (t > 1f) { t = 1f; s = Mathf.Clamp01((b - c) / a); }
+                }
+            }
+            return offset + firstExtension * s - secondExtension * t;
+        }
+
+        static Vector2 ContactNormal(Vector2 delta, Vector2 centerDelta, int firstIndex, int secondIndex)
+        {
+            if (delta.sqrMagnitude > Epsilon * Epsilon) return delta.normalized;
+            if (centerDelta.sqrMagnitude > Epsilon * Epsilon) return centerDelta.normalized;
+            return new Vector2(firstIndex < secondIndex ? -1f : 1f, 0f);
+        }
+
+        // Convex capsule distance supplies a supporting plane at every step. Advancing
+        // only to that plane cannot skip a contact; the fixed budget stops safely at
+        // the last bound for near-tangent convergence instead of allowing tunnelling.
+        static bool SweepExtended(Body own, Vector2 position, Body other, Vector2 ownExtension,
+            Vector2 otherExtension, Vector2 displacement, float radius, float limit,
+            out float fraction, out Vector2 normal)
+        {
+            fraction = 0f; normal = Vector2.zero;
+            for (int iteration = 0; iteration < 24; iteration++)
+            {
+                Vector2 current = position + displacement * fraction;
+                Vector2 delta = SegmentDelta(current, ownExtension, other.center, otherExtension);
+                float distance = delta.magnitude;
+                normal = ContactNormal(delta, current - other.center, own.index, other.index);
+                float closing = -Vector2.Dot(displacement, normal);
+                if (closing <= Epsilon) return false;
+                if (distance <= radius + .00001f) return true;
+                float next = fraction + (distance - radius) / closing;
+                if (next > limit || next < fraction) return false;
+                fraction = next;
+            }
+            return true;
+        }
+
+        /// <summary>攻击推人的接触距离与前向身体留距共用；无额外留距时返回false，保留旧圆形求解。</summary>
+        public static bool TryGetExtendedContactDistance(CharacterController first, CharacterController second,
+            Vector3 direction, float gap, out float distance)
+        {
+            distance = float.PositiveInfinity;
+            if (first == null || second == null || !Finite(direction)) return false;
+            Body own = Snapshot(first, -1), other = Snapshot(second, 0);
+            Vector2 ownExtension = Extension(own, other), otherExtension = Extension(other, own);
+            if (ownExtension.sqrMagnitude <= Epsilon * Epsilon && otherExtension.sqrMagnitude <= Epsilon * Epsilon) return false;
+            Vector2 planar = new Vector2(direction.x, direction.z);
+            if (planar.sqrMagnitude <= Epsilon * Epsilon || !VerticalOverlap(own, other, 0f)) return true;
+            planar.Normalize();
+            float radius = own.radius + other.radius - Clearance + Mathf.Max(0f, gap);
+            float range = (own.center - other.center).magnitude + ownExtension.magnitude + otherExtension.magnitude + radius + 1f;
+            float fraction; Vector2 normal;
+            if (SweepExtended(own, own.center, other, ownExtension, otherExtension,
+                planar * range, radius, 1f, out fraction, out normal)) distance = fraction * range;
+            return true;
+        }
+
+        /// <summary>物理胶囊查询的保守扩展量；仅放宽候选搜索，精确接触仍由身体胶囊求解。</summary>
+        public static float GetBodyQueryExpansion(CharacterController source)
+        {
+            if (source == null) return 0f;
+            Body own = Snapshot(source, -1);
+            float expansion = own.forwardClearance;
+            var physicsScene = source.gameObject.scene.GetPhysicsScene();
+            for (int i = 0; i < Actors.Count; i++)
+            {
+                var actor = Actors[i]; var other = actor != null ? actor.Motor : null;
+                if (other == null || other == source || !other.enabled || !other.detectCollisions
+                    || !other.gameObject.activeInHierarchy || other.gameObject.scene.GetPhysicsScene() != physicsScene) continue;
+                Body candidate = Snapshot(other, i);
+                expansion = Mathf.Max(expansion, Extension(own, candidate).magnitude + Extension(candidate, own).magnitude);
+            }
+            return expansion;
         }
 
         static bool VerticalOverlap(Body own, Body other, float vertical)
@@ -159,10 +277,13 @@ namespace OCDesign.Samurai
                     Body other = bodies[i];
                     if (other.controller == null || !other.controller.enabled || !VerticalOverlap(own, other, vertical)) continue;
                     float radius = own.radius + other.radius;
-                    Vector2 delta = position - other.center;
+                    Vector2 ownExtension = Extension(own, other), otherExtension = Extension(other, own);
+                    bool extended = ownExtension.sqrMagnitude > Epsilon * Epsilon || otherExtension.sqrMagnitude > Epsilon * Epsilon;
+                    Vector2 delta = extended ? SegmentDelta(position, ownExtension, other.center, otherExtension) : position - other.center;
                     float distance = delta.magnitude;
                     if (distance >= radius - Epsilon) continue;
-                    Vector2 normal = distance > Epsilon ? delta / distance
+                    Vector2 normal = extended ? ContactNormal(delta, position - other.center, ownIndex, other.index)
+                        : distance > Epsilon ? delta / distance
                         : new Vector2(ownIndex < other.index ? -1f : 1f, 0f);
                     position += normal * (radius - distance + Epsilon);
                     separated = true;
@@ -186,6 +307,15 @@ namespace OCDesign.Samurai
                     Body other = bodies[i];
                     if (other.controller == null || !other.controller.enabled || !VerticalOverlap(own, other, vertical)) continue;
                     float radius = own.radius + other.radius;
+                    Vector2 ownExtension = Extension(own, other), otherExtension = Extension(other, own);
+                    if (ownExtension.sqrMagnitude > Epsilon * Epsilon || otherExtension.sqrMagnitude > Epsilon * Epsilon)
+                    {
+                        float extendedTime; Vector2 extendedNormal;
+                        if (SweepExtended(own, position, other, ownExtension, otherExtension, remaining,
+                            radius, first, out extendedTime, out extendedNormal))
+                        { first = Mathf.Max(0f, extendedTime); normal = extendedNormal; hit = true; }
+                        continue;
+                    }
                     Vector2 delta = position - other.center;
                     float distance = delta.magnitude;
                     Vector2 away = distance > Epsilon ? delta / distance
@@ -223,5 +353,6 @@ namespace OCDesign.Samurai
 
         static bool Finite(Vector3 value) => !float.IsNaN(value.x) && !float.IsInfinity(value.x)
             && !float.IsNaN(value.y) && !float.IsInfinity(value.y) && !float.IsNaN(value.z) && !float.IsInfinity(value.z);
+        static bool Finite(float value) => !float.IsNaN(value) && !float.IsInfinity(value);
     }
 }

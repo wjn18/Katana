@@ -3157,6 +3157,8 @@ MonoBehaviour:
   sprintAttackMinRunSeconds: 0.15
   guardWalkSpeed: 0
   turnSpeed: 720
+  bodyForwardClearance: 0.5
+  bodyForwardClearanceMaxTargetHeight: 2.2
   locomotionDirectionHysteresis: 7
   gravity: 22
   terminalFallSpeed: 35

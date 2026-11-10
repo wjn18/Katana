@@ -54,6 +54,17 @@ MonoBehaviour:
   charge: {fileID: 7400000, guid: 452605c68fd6307418b969637929d021, type: 2}
   parry: {fileID: 7400000, guid: e9add72ac536ffc42b69e38966673660, type: 2}
   deflected: {fileID: 7400000, guid: f6fe2a0e0ed0ff346bda57d1ee397cca, type: 2}
+  deflectedStateName: Deflected
+  deflectedUseFullClip: 0
+  deflectedRetreat:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  deflectedStumbleVersion: 0
+  parryOnlyDefense: 0
+  parryOnlyConfigurationVersion: 0
   directionalWalk:
   - {fileID: 7400000, guid: 7bfdd3afb9441fb4f8ba50dc49a73ba1, type: 2}
   - {fileID: 7400000, guid: 56b0fdeecd916074b9844bd31a47fe2c, type: 2}
@@ -113,6 +124,8 @@ MonoBehaviour:
   toughnessBrokenLowHealthLoop: {fileID: 7400000, guid: 3b0139996399afb42926ba130396055a, type: 2}
   toughnessGetupHealthy: {fileID: 7400000, guid: 4b49775d193ad09408da4a5ed31d3859, type: 2}
   toughnessGetupLowHealth: {fileID: 7400000, guid: c0acd7b4e6468fb4eabbeb5ed2196832, type: 2}
+  toughnessGetupTransitionSeconds: -1
+  elitePoseContinuityVersion: 0
   executionHealthFraction: 1
   executionDamageMode: 0
   executionFixedDamage: 45
@@ -162,6 +175,8 @@ MonoBehaviour:
   sprintAttackMinRunSeconds: 0.15
   guardWalkSpeed: 0
   turnSpeed: 420
+  bodyForwardClearance: 0
+  bodyForwardClearanceMaxTargetHeight: 2.2
   locomotionDirectionHysteresis: 7
   gravity: 22
   terminalFallSpeed: 35

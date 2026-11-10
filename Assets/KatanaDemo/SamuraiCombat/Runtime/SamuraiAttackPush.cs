@@ -120,6 +120,7 @@ namespace OCDesign.Samurai
             Capsule(controller, out lower, out upper, out radius);
             SamuraiCombatant nearest = null;
             float nearestDistance = float.PositiveInfinity;
+            float queryPadding = QueryPadding + SamuraiBodyCollision.GetBodyQueryExpansion(controller);
             // CCT查询代理在同一帧多次Move后可能滞后。保存本招已发现的对象，用实时Transform
             // 重算接触距离；仍重新检查存活、队伍、层碰撞和位于前方，墙体查询也照常执行。
             for (int i = 0; i < knownEnemies.Count; i++)
@@ -129,23 +130,23 @@ namespace OCDesign.Samurai
                     ConsiderActor(candidate, controller, direction, range, depth, ref nearest, ref nearestDistance);
             }
             int count = Physics.CapsuleCastNonAlloc(lower, upper, radius, direction, hits,
-                range + QueryPadding, ~0, QueryTriggerInteraction.Ignore);
+                range + queryPadding, ~0, QueryTriggerInteraction.Ignore);
             RaycastHit[] found = hits;
             if (count == hits.Length)
             {
                 found = Physics.CapsuleCastAll(lower, upper, radius, direction,
-                    range + QueryPadding, ~0, QueryTriggerInteraction.Ignore);
+                    range + queryPadding, ~0, QueryTriggerInteraction.Ignore);
                 count = found.Length;
             }
             for (int i = 0; i < count; i++)
                 ConsiderEnemy(found[i].collider, controller, direction, range, depth, ref nearest, ref nearestDistance);
             // CapsuleCast不保证报告起点重叠；角色皮肤容差内也必须能继续推动。
-            count = Physics.OverlapCapsuleNonAlloc(lower, upper, radius + QueryPadding,
+            count = Physics.OverlapCapsuleNonAlloc(lower, upper, radius + queryPadding,
                 overlaps, ~0, QueryTriggerInteraction.Ignore);
             Collider[] touching = overlaps;
             if (count == overlaps.Length)
             {
-                touching = Physics.OverlapCapsule(lower, upper, radius + QueryPadding,
+                touching = Physics.OverlapCapsule(lower, upper, radius + queryPadding,
                     ~0, QueryTriggerInteraction.Ignore);
                 count = touching.Length;
             }
@@ -227,6 +228,9 @@ namespace OCDesign.Samurai
         {
             if (first.bounds.min.y > second.bounds.max.y || second.bounds.min.y > first.bounds.max.y)
                 return float.PositiveInfinity;
+            float extendedDistance;
+            if (SamuraiBodyCollision.TryGetExtendedContactDistance(first, second, direction, BodyGap, out extendedDistance))
+                return extendedDistance;
             Vector3 delta = second.transform.TransformPoint(second.center) - first.transform.TransformPoint(first.center);
             delta.y = 0f;
             float along = Vector3.Dot(delta, direction);

@@ -171,6 +171,10 @@ namespace OCDesign.Samurai
         [Min(0f)] public float sprintAttackMinRunSeconds = .15f;
         [Min(0f)] public float guardWalkSpeed = 0.65f;
         [Min(0f)] public float turnSpeed = 720f;
+        [Tooltip("仅角色身体之间的前向留距（世界米）；从胶囊中心向前延伸，不改变环境碰撞、受击范围或侧后方宽度。0沿用原身体碰撞。")]
+        [Min(0f)] public float bodyForwardClearance;
+        [Tooltip("前向留距仅对不高于此世界胶囊高度的敌方角色生效；大型角色保持原身体碰撞。")]
+        [Min(.1f)] public float bodyForwardClearanceMaxTargetHeight = 2.2f;
         [Tooltip("在45度方向分界之外额外保留的角度，减少锁定绕行时的片段反复切换。")]
         [Range(0f, 20f)] public float locomotionDirectionHysteresis = 7f;
         [Min(0f)] public float gravity = 22f;
