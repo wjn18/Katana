@@ -106,7 +106,7 @@ namespace OCDesign.Samurai.EditorTools
         const string RootName = "Patrol routes - 小兵巡逻路径";
         static SamuraiPatrolRoute editedRoute;
         static int selectedPoint;
-        static bool addMode, snapDragged = true, restrictFloor = true, editHandles = true;
+        static bool addMode, snapDragged = true, restrictFloor = true, editHandles;
         static bool ownsToolVisibility, previousToolsHidden;
         static GUIStyle pointLabelStyle;
         static readonly Dictionary<SamuraiPatrolRoute, CheckResult> checks = new Dictionary<SamuraiPatrolRoute, CheckResult>();
@@ -138,11 +138,12 @@ namespace OCDesign.Samurai.EditorTools
         static void OnSelectionChanged()
         {
             addMode = false;
+            editHandles = false;
             UpdateToolVisibility();
             SceneView.RepaintAll();
         }
         static void OnPlayModeChanged(PlayModeStateChange state)
-        { addMode = false; checks.Clear(); UpdateToolVisibility(); SceneView.RepaintAll(); }
+        { addMode = editHandles = false; checks.Clear(); UpdateToolVisibility(); SceneView.RepaintAll(); }
         static void UpdateToolVisibility()
         {
             var route = SelectedRoute(out _);
@@ -256,7 +257,7 @@ namespace OCDesign.Samurai.EditorTools
         internal static void DrawTools(SamuraiPatrolRoute route)
         {
             if (route == null) return;
-            bool nextEditHandles = EditorGUILayout.Toggle(new GUIContent("编辑路点手柄", "开启时隐藏对象的普通 Transform 手柄，避免误移动小兵；关闭后可整体移动路线或小兵。"), editHandles);
+            bool nextEditHandles = EditorGUILayout.Toggle(new GUIContent("编辑路点手柄", "默认关闭，可正常移动小兵或整条路线。手动开启后拖动单个路点；按 Esc 或切换选择恢复普通移动。"), editHandles);
             if (nextEditHandles != editHandles)
             {
                 editHandles = nextEditHandles;
@@ -351,8 +352,13 @@ namespace OCDesign.Samurai.EditorTools
             if (editedRoute != route) { editedRoute = route; selectedPoint = 0; addMode = false; }
             selectedPoint = Mathf.Clamp(selectedPoint, 0, Mathf.Max(0, route.points.Count - 1));
             Event evt = Event.current;
-            if (evt.type == EventType.KeyDown && evt.keyCode == KeyCode.Escape && addMode)
-            { addMode = false; evt.Use(); view.Repaint(); }
+            if (evt.type == EventType.KeyDown && evt.keyCode == KeyCode.Escape && editHandles && GUIUtility.hotControl == 0)
+            {
+                addMode = editHandles = false;
+                UpdateToolVisibility();
+                evt.Use();
+                view.Repaint();
+            }
             checks.TryGetValue(route, out var result);
             int segments = route.mode == SamuraiPatrolMode.Loop ? route.points.Count : route.points.Count - 1;
             for (int i = 0; route.points.Count > 1 && i < segments; i++)
