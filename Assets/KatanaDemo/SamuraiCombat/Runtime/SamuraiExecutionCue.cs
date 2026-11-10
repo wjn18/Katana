@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 namespace OCDesign.Samurai
 {
     /// <summary>
-    /// Opt-in execution guide for an elite/boss. All geometry is independent of the actor's
-    /// skeleton. The shared execution planner owns the standing point and actual readiness.
+    /// Opt-in execution/backstab guide. The shared action planners own the standing point
+    /// and actual readiness; this component never changes an actor or approves an action.
     /// </summary>
     [DisallowMultipleComponent]
     [DefaultExecutionOrder(120)]
@@ -27,6 +27,13 @@ namespace OCDesign.Samurai
         [Tooltip("World-space outward offset at a two-metre actor height; scaled for the actor's size.")]
         [Min(0f)] public float surfaceOffset = .18f;
         [Min(.01f)] public float bodyRadius = .17f;
+        [Header("Backstab heart light")]
+        [Tooltip("Only show the standing backstab opportunity; keep the original downed execution cue off on this actor.")]
+        public bool backstabOnly;
+        [Min(.01f)] public float backstabRadius = .11f;
+        [ColorUsage(true, true)] public Color backstabColor = new Color(1.4f, 1.4f, 1.4f, 1f);
+        [Tooltip("Heart offset from the chest bone, in actor-left/up metres at a two-metre actor height.")]
+        public Vector2 backstabHeartOffset = new Vector2(.07f, .02f);
         [Header("Ground guide")]
         [Min(.05f)] public float standingRadius = .42f;
         [Min(.005f)] public float lineWidth = .025f;
@@ -42,6 +49,8 @@ namespace OCDesign.Samurai
         public CueState State { get; private set; }
         public bool CueVisible => State != CueState.Hidden;
         public bool Ready => State == CueState.Ready;
+        public bool IsBackstabOpportunity { get; private set; }
+        public string PromptText => !Ready ? string.Empty : IsBackstabOpportunity ? "[E 背刺]" : "[E 处决]";
         public bool ApproachAvailable { get; private set; }
         public Vector3 StandingPoint { get; private set; }
         public Quaternion StandingFacing { get; private set; }
@@ -58,7 +67,7 @@ namespace OCDesign.Samurai
         MaterialPropertyBlock bodyProperties;
         SamuraiCombatant subscribedActor;
         Animator boundAnimator;
-        Transform survivingAttachment, lethalAttachment;
+        Transform survivingAttachment, lethalAttachment, backstabAttachment;
         Camera viewCamera;
         GameObject visualRoot, groundRoot;
         Transform bodyVisual;
@@ -77,7 +86,7 @@ namespace OCDesign.Samurai
             player = viewingPlayer;
             viewingInput = player != null ? player.GetComponent<SamuraiPlayerInput>() : null;
             boundAnimator = null;
-            survivingAttachment = lethalAttachment = null;
+            survivingAttachment = lethalAttachment = backstabAttachment = null;
             viewCamera = null;
             discoveryAfter = 0f;
             if (isActiveAndEnabled) Subscribe();
@@ -121,7 +130,7 @@ namespace OCDesign.Samurai
 
         void OnStateChanged(string state)
         {
-            if (actor == null || actor.IsDead || !actor.IsExecutionVulnerable
+            if (actor == null || actor.IsDead || (!actor.IsExecutionVulnerable && !actor.HasBackstabReceiver)
                 || actor.IsBeingExecuted || actor.IsExecuting) Hide();
         }
 
@@ -129,22 +138,36 @@ namespace OCDesign.Samurai
         public void RefreshCue(float deltaTime)
         {
             if (!isActiveAndEnabled || actor == null || !actor.isActiveAndEnabled || actor.IsDead
-                || !actor.IsExecutionVulnerable || actor.IsBeingExecuted || actor.IsExecuting
-                || !actor.HasExecutionReceiver || visibleDistance <= 0f)
+                || actor.IsBeingExecuted || actor.IsExecuting || visibleDistance <= 0f)
             { Hide(); return; }
+            bool downOpportunity = actor.IsExecutionVulnerable && actor.HasExecutionReceiver;
+            if (backstabOnly && downOpportunity) { Hide(); return; }
+            if (!downOpportunity && !actor.HasBackstabReceiver) { Hide(); return; }
             DiscoverViewer();
             if (player == null || viewingInput == null || !viewingInput.isActiveAndEnabled || !player.isActiveAndEnabled || player.IsDead || player.IsExecuting
                 || player.IsBeingExecuted || player.Team == actor.Team || player.Profile == null
-                || !player.Profile.executionEnabled || player.gameObject.scene != actor.gameObject.scene
+                || player.gameObject.scene != actor.gameObject.scene
                 || viewCamera == null || !viewCamera.isActiveAndEnabled
                 || (player.transform.position - actor.transform.position).sqrMagnitude > visibleDistance * visibleDistance)
             { Hide(); return; }
 
+            // Backstab opportunities are shown only for the same unique candidate used by E.
+            // Unaware-but-ineligible targets must not advertise an approach or blocked marker.
+            bool backstabOpportunity = !downOpportunity;
+            if (backstabOpportunity && (!viewingInput.HasCursorCapture || !player.IsBackstabCandidate(actor) || player.FindBackstabTarget() != actor))
+            { Hide(); return; }
+            if (downOpportunity && !player.Profile.executionEnabled) { Hide(); return; }
+
             BindAttachments();
-            ApproachAvailable = player.TryGetExecutionApproach(actor, out var point, out var facing);
+            Vector3 point; Quaternion facing;
+            ApproachAvailable = backstabOpportunity
+                ? player.TryGetBackstabApproach(actor, out point, out facing)
+                : player.TryGetExecutionApproach(actor, out point, out facing);
+            if (backstabOpportunity && !ApproachAvailable) { Hide(); return; }
+            IsBackstabOpportunity = backstabOpportunity;
             StandingPoint = point;
             StandingFacing = facing;
-            BodyPoint = AttachedBodyPoint(point);
+            BodyPoint = backstabOpportunity ? AttachedBackstabPoint() : AttachedBodyPoint(point);
             Vector3 viewport = viewCamera.WorldToViewportPoint(BodyPoint);
             if (viewport.z <= 0f || viewport.x < 0f || viewport.x > 1f || viewport.y < 0f || viewport.y > 1f
                 || !sensors.HasLineOfSight(player, actor, visibilityMask & player.Profile.obstructionMask)
@@ -153,20 +176,25 @@ namespace OCDesign.Samurai
             if (!EnsureVisuals()) { Hide(); return; }
 
             // This is intentionally the exact input gate, never a separate visual approximation.
-            bool ready = ApproachAvailable && player.CanExecuteTarget(actor);
+            bool ready = ApproachAvailable && (backstabOpportunity || player.CanExecuteTarget(actor));
+            if (backstabOpportunity && !ready) { Hide(); return; }
             State = ready ? CueState.Ready : ChooseHint();
             visualRoot.SetActive(true);
             pulseClock += Mathf.Max(0f, deltaTime);
             float pulse = .5f + .5f * Mathf.Sin(pulseClock * pulseHz * Mathf.PI * 2f);
-            Color tint = ready ? readyColor : waitingColor;
+            Color tint = backstabOpportunity ? backstabColor : ready ? readyColor : waitingColor;
             bodyVisual.SetPositionAndRotation(BodyPoint, viewCamera.transform.rotation);
             // A soft, irregular light patch with free space for fine radiating motes.
             // The skeleton and the contact/standing plans are strictly read-only here.
-            bodyVisual.localScale = new Vector3(1f, 1.12f, 1f) * (bodyRadius * 5.2f);
+            bodyVisual.localScale = new Vector3(1f, 1.12f, 1f) * ((backstabOpportunity ? backstabRadius : bodyRadius) * 5.2f);
             bodyProperties.SetColor(TintId, new Color(tint.r, tint.g, tint.b, tint.a * Mathf.Lerp(.86f, 1f, pulse)));
-            bodyProperties.SetFloat(ShapeId, 1f);
+            bodyProperties.SetFloat(ShapeId, backstabOpportunity ? 2f : 1f);
             bodyProperties.SetFloat(CueTimeId, pulseClock);
             bodyRenderer.SetPropertyBlock(bodyProperties);
+
+            // A ready heart light is sufficient for backstabs. The original execution
+            // standing ring/arrow remains available only to its existing downed cue.
+            if (backstabOpportunity) { groundRoot.SetActive(false); return; }
 
             Vector3 ground = point, normal = Vector3.up;
             bool hasGround = ApproachAvailable && TryGround(point, out ground, out normal);
@@ -235,10 +263,33 @@ namespace OCDesign.Samurai
             var animator = actor.Animator;
             if (animator == boundAnimator) return;
             boundAnimator = animator;
-            survivingAttachment = lethalAttachment = null;
-            if (animator == null || animator.avatar == null || !animator.avatar.isValid || !animator.avatar.isHuman) return;
-            survivingAttachment = animator.GetBoneTransform(survivingBone);
-            lethalAttachment = animator.GetBoneTransform(lethalBone);
+            survivingAttachment = lethalAttachment = backstabAttachment = null;
+            if (animator == null) return;
+            if (animator.avatar != null && animator.avatar.isValid && animator.avatar.isHuman)
+            {
+                survivingAttachment = animator.GetBoneTransform(survivingBone);
+                lethalAttachment = animator.GetBoneTransform(lethalBone);
+                backstabAttachment = animator.GetBoneTransform(HumanBodyBones.Chest);
+                if (backstabAttachment == null) backstabAttachment = animator.GetBoneTransform(HumanBodyBones.UpperChest);
+            }
+            else
+            {
+                // Enemy1 intentionally keeps its Generic runtime rig.
+                foreach (var bone in animator.GetComponentsInChildren<Transform>(true))
+                {
+                    if (bone.name == "Spine1") { backstabAttachment = bone; break; }
+                    if (bone.name == "Spine2") backstabAttachment = bone;
+                }
+            }
+        }
+
+        Vector3 AttachedBackstabPoint()
+        {
+            float height = actor.Motor != null ? actor.Motor.height * Mathf.Abs(actor.transform.lossyScale.y) : 2f;
+            Vector3 anchor = backstabAttachment != null ? backstabAttachment.position : actor.transform.position + Vector3.up * height * .55f;
+            float scale = Mathf.Clamp(height * .5f, .7f, 2.5f);
+            return anchor + (-actor.transform.right * backstabHeartOffset.x
+                + actor.transform.up * backstabHeartOffset.y - actor.transform.forward * surfaceOffset) * scale;
         }
 
         Vector3 AttachedBodyPoint(Vector3 approach)
@@ -293,7 +344,7 @@ namespace OCDesign.Samurai
             visualRoot = new GameObject("Execution opportunity (runtime)") { hideFlags = HideFlags.DontSave };
             SceneManager.MoveGameObjectToScene(visualRoot, actor.gameObject.scene);
             visualRoot.SetActive(false);
-            var body = new GameObject("Golden vulnerability glow", typeof(MeshFilter), typeof(MeshRenderer));
+            var body = new GameObject("Vulnerability glow", typeof(MeshFilter), typeof(MeshRenderer));
             body.transform.SetParent(visualRoot.transform, false);
             bodyVisual = body.transform;
             bodyMesh = new Mesh { name = "Execution cue billboard", hideFlags = HideFlags.DontSave };
@@ -341,6 +392,7 @@ namespace OCDesign.Samurai
         public void Hide()
         {
             State = CueState.Hidden;
+            IsBackstabOpportunity = false;
             ApproachAvailable = false;
             if (visualRoot != null) visualRoot.SetActive(false);
         }

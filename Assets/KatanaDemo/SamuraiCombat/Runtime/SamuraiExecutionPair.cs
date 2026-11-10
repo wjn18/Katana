@@ -16,6 +16,11 @@ namespace OCDesign.Samurai
         [Min(0f)] public float receiverDelay=.35f;
         public Vector3 receiverOffset=new Vector3(0,0,.85f);
         public float receiverYaw=180f;
+        [Tooltip("Standing stealth pair; ordinary execution assets retain their existing clock and recovery.")]
+        public bool isBackstab;
+        [Tooltip("Authored receiver visual displacement for environmental clearance; the lethal receiver logical root stays anchored.")]
+        public AnimationCurve receiverRootX=AnimationCurve.Constant(0,2,0);
+        public AnimationCurve receiverRootZ=AnimationCurve.Constant(0,2,0);
         [Min(.05f)] public float alignSeconds=.18f;
         [Min(.01f)] public float receiverBlendSeconds=.18f;
         [Min(0f)] public float attackerStartSeconds;
@@ -50,7 +55,10 @@ namespace OCDesign.Samurai
         [Tooltip("Additional valid input area around the authored standing point, for large receivers whose capsule surface is misleading.")]
         [Range(0f,.6f)] public float standingEntryRadius;
         [HideInInspector] public int presentationVersion;
-        public float Duration => Mathf.Max(attackerClip!=null?attackerStartSeconds+attackerClip.length:0,receiverClip!=null?Mathf.Max(0,receiverClip.length-receiverStartSeconds):0);
+        public float Duration => Mathf.Max(attackerClip!=null?attackerStartSeconds+attackerClip.length:0,
+            receiverClip!=null?Mathf.Max(0,receiverClip.length-receiverStartSeconds)+(isBackstab?Mathf.Max(0,receiverDelay):0):0);
+        public float ReceiverSecondsAt(float sourceSeconds)=>Mathf.Max(0,sourceSeconds-(isBackstab?Mathf.Max(0,receiverDelay):0))+Mathf.Max(0,receiverStartSeconds);
+        public Vector3 ReceiverRootAt(float seconds)=>new Vector3(receiverRootX!=null?receiverRootX.Evaluate(seconds):0,0,receiverRootZ!=null?receiverRootZ.Evaluate(seconds):0);
         static float Rate(float value)=>float.IsNaN(value)||float.IsInfinity(value)?1f:Mathf.Clamp(value,.1f,2f);
         static float Nonnegative(float value)=>float.IsNaN(value)||float.IsInfinity(value)?0f:Mathf.Max(0,value);
         float Contact=>Mathf.Clamp(strikeSeconds,0,Duration);

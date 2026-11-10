@@ -3,7 +3,7 @@ Shader "OC Design/Execution Cue"
     Properties
     {
         [HDR] _Tint ("Tint", Color) = (1,1,1,1)
-        _Shape ("Body pulse (zero for lines)", Float) = 0
+        _Shape ("Glow: execution 1, backstab 2, lines 0", Float) = 0
         _CueTime ("Cue animation time", Float) = 0
         [Enum(UnityEngine.Rendering.BlendMode)] _DestinationBlend ("Destination blend", Float) = 10
         [Enum(UnityEngine.Rendering.CompareFunction)] _DepthTest ("Depth test", Float) = 4
@@ -80,6 +80,7 @@ Shader "OC Design/Execution Cue"
                 float light=core+ember+halo+threads*.8+motes*.75;
                 light*=1-smoothstep(.82,.98,length(p));
                 half3 warmth=lerp(half3(1,.53,.12),half3(1,.95,.72),saturate(core*1.6+ember));
+                if (_Shape > 1.5) warmth=half3(1,1,1);
                 return half4(i.color.rgb*warmth*1.45,i.color.a*saturate(light));
             }
             ENDHLSL

@@ -258,7 +258,18 @@ namespace OCDesign.Samurai
         private void RefreshTarget()
         {
             SamuraiTargetLock targetLock = input != null ? input.targetLock : null;
-            SamuraiCombatant target = targetLock != null && targetLock.CurrentTarget != null
+            // Match the actual E arbitration: a valid backstab first, otherwise the existing
+            // downed execution. The prompt may therefore follow a nearby unlocked enemy.
+            SamuraiCombatant backstab = player.FindBackstabTarget();
+            bool readyBackstab = backstab != null;
+            SamuraiCombatant execution = readyBackstab ? null : player.FindExecutionTarget();
+            bool readyExecution = execution != null && player.CanExecuteTarget(execution);
+            SamuraiCombatant actionTarget = readyBackstab ? backstab : readyExecution ? execution : null;
+            // Keep the actual paired receiver, including its lethal fall, when no user lock
+            // exists or a different opponent was locked before the backstab began.
+            SamuraiCombatant target = player.ActiveBackstabTarget;
+            if (target == null) target = actionTarget;
+            if (target == null) target = targetLock != null && targetLock.CurrentTarget != null
                 ? targetLock.CurrentTarget : enemy != null ? enemy.actor : null;
             bool fixedElite = eliteRoot != null && SamuraiEliteHUDPresenter.IsElite(target);
             BindHealthTarget(target);
@@ -287,9 +298,10 @@ namespace OCDesign.Samurai
             }
             if (targetExecutionPrompt != null)
             {
-                // Retain old scene references, but execution opportunities now use a world effect.
-                SetActive(targetExecutionPrompt.gameObject, false);
-                SetText(targetExecutionPrompt, string.Empty);
+                bool showPrompt = showTarget && actionTarget == target && input != null
+                    && input.HasCursorCapture && Time.timeScale > 0f;
+                SetActive(targetExecutionPrompt.gameObject, showPrompt);
+                SetText(targetExecutionPrompt, showPrompt ? (readyBackstab ? "[E 背刺]" : "[E 处决]") : string.Empty);
             }
             SetEnabled(lockMarker, showTarget && targetLock != null && targetLock.CurrentTarget == target);
             SetColor(lockMarker, goldColor);

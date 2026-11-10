@@ -108,6 +108,16 @@ namespace OCDesign.Samurai
         public SamuraiExecutionPair executionSurvivingPair;
         public SamuraiExecutionPair executionLethalPair;
         [HideInInspector] public int executionPairConfigurationVersion;
+        [Header("背刺：仅明确配置的未警觉普通兵")]
+        public SamuraiExecutionPair backstabPair;
+        [Tooltip("玩家E背刺入口，与伏地处决开关独立。")]
+        public bool backstabEnabled;
+        [Tooltip("玩家离已验证的背刺站位最远距离；不扩大旧伏地处决范围。")]
+        [Range(.05f,.6f)] public float backstabApproachRange=.55f;
+        [Range(5f,80f)] public float backstabRearHalfAngle=50f;
+        [Range(5f,90f)] public float backstabFacingAngle=60f;
+        [Min(.1f)] public float backstabMaximumTargetHeight=2.2f;
+        [HideInInspector] public int backstabConfigurationVersion;
         [Min(0f)] public float baseStaggerResistance = 10f;
         [Min(0f)] public float maximumAccumulatedResistance = 90f;
         [Min(0f)] public float resistanceDecayDelay = 1.5f;

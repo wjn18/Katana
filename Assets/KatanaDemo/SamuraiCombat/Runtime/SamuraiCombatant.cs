@@ -137,13 +137,14 @@ namespace OCDesign.Samurai
 
         void Awake() { if (profile != null) ResetCombat(); }
         void OnEnable() { SamuraiBodyCollision.Register(this); }
-        void OnDestroy() { SamuraiBodyCollision.Unregister(this); }
+        void OnDestroy() { ReleaseExecutionGroundSkins();SamuraiBodyCollision.Unregister(this); }
         void OnDisable()
         {
             // 停用后旧动作的未消费根位移不能在重新启用时追补；新出招或复位恢复。
             if (actions != null) suppressedRootMotionAttackSerial = actions.AttackSerial;
             AbortExecution();
             SuspendExecutionPose();
+            ReleaseExecutionGroundSkins();
             ClearHitStop();
             actions?.CancelInput();
             actions?.ClearKiPulse();
@@ -226,7 +227,7 @@ namespace OCDesign.Samurai
         }
         public void ResetCombat()
         {
-            AbortExecution();
+            AbortExecution(true);
             ClearExecutionPose();
             ClearHitStop();
             rootMotionAttackSerial = -1;
@@ -358,7 +359,8 @@ namespace OCDesign.Samurai
             input.frostMoonFollowUpStance = pausedEdges.frostMoonFollowUpStance;
             input.frostMoonFollowUpTimestamp = pausedEdges.frostMoonFollowUpTimestamp;
             pausedEdges = default;
-            if (input.executionPressed && TryExecute(FindExecutionTarget())) input = default;
+            if (input.executionPressed && dt>0f && !float.IsNaN(dt) && !float.IsInfinity(dt)
+                && (TryBackstab(FindBackstabTarget()) || TryExecute(FindExecutionTarget()))) input = default;
             if (IsExecuting || IsBeingExecuted || IsToughnessBroken) input = default;
             actions.Tick(input, dt);
             AdvanceExecution(dt);

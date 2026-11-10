@@ -11,6 +11,7 @@ namespace OCDesign.Samurai
         SamuraiExecutionPair activeExecutionPair;
         float executionElapsed,executionDamage,savedBreakRemaining,executionActorSpeed,executionReceiverSpeed;
         bool executionDamageApplied,executionHealthyBranch;
+        int executionVersion;
         Vector3 executionStart,executionAnchor;
         Quaternion executionFacing,executionStartRotation;
         public SamuraiExecutionPair ActiveExecutionPair=>activeExecutionPair;
@@ -22,10 +23,12 @@ namespace OCDesign.Samurai
         bool IsExecutionHoldingDown=>activeExecutionPair!=null&&activeExecutionPair.receiverHoldDownUntilStrike
             &&(IsExecutionAligning||ExecutionElapsed<activeExecutionPair.strikeSeconds);
         bool IsExecutionPreparing=>activeExecutionPair!=null&&!IsExecutionAligning
-            &&executionElapsed<activeExecutionPair.alignSeconds+activeExecutionPair.PreparationSeconds;
-        float ExecutionPreparationProgress=>activeExecutionPair==null||activeExecutionPair.PreparationSeconds<=0?1f:
-            Mathf.Clamp01((executionElapsed-activeExecutionPair.alignSeconds)/activeExecutionPair.PreparationSeconds);
-        float ExecutionReceiverTime=>ExecutionElapsed+(activeExecutionPair!=null?Mathf.Max(0,activeExecutionPair.receiverStartSeconds):0);
+            &&(activeExecutionPair.isBackstab?ExecutionElapsed<Mathf.Max(0,activeExecutionPair.receiverDelay):
+                executionElapsed<activeExecutionPair.alignSeconds+activeExecutionPair.PreparationSeconds);
+        float ExecutionPreparationProgress=>activeExecutionPair==null?1f:activeExecutionPair.isBackstab
+            ?Mathf.Clamp01(ExecutionElapsed/Mathf.Max(.0001f,activeExecutionPair.receiverDelay))
+            :activeExecutionPair.PreparationSeconds<=0?1f:Mathf.Clamp01((executionElapsed-activeExecutionPair.alignSeconds)/activeExecutionPair.PreparationSeconds);
+        float ExecutionReceiverTime=>activeExecutionPair!=null?activeExecutionPair.ReceiverSecondsAt(ExecutionElapsed):0;
         public float ConfiguredExecutionDamage=>profile==null?0:profile.executionDamageMode==SamuraiExecutionDamageMode.FixedAmount
             ?Mathf.Max(0,profile.executionFixedDamage):MaxHealth*Mathf.Clamp01(profile.executionHealthFraction);
 
@@ -93,20 +96,27 @@ namespace OCDesign.Samurai
             if(!CanExecuteTarget(target))return false;
             var pair=ChooseExecution(target);Vector3 anchor;Quaternion facing;float targetFloor;
             if(!PlanExecutionApproach(target,out anchor,out facing,out targetFloor))return false;
+            return BeginPairedExecution(target,pair,anchor,facing,targetFloor,target.ConfiguredExecutionDamage,target.actions.DownBranchHealthy);
+        }
+        bool BeginPairedExecution(SamuraiCombatant target,SamuraiExecutionPair pair,Vector3 anchor,Quaternion facing,
+            float targetFloor,float damage,bool healthy)
+        {
+            int version=++executionVersion;
             ClearHitStop();knockback.Clear();target.ClearHitStop();target.knockback.Clear();
             activeExecutionPair=pair;executionTarget=target;target.executionOwner=this;
-            executionDamage=target.ConfiguredExecutionDamage;executionHealthyBranch=target.actions.DownBranchHealthy;
+            executionDamage=damage;executionHealthyBranch=healthy;
             savedBreakRemaining=target.ToughnessBreakRemaining;executionElapsed=0;executionDamageApplied=false;
             executionStart=transform.position;executionStartRotation=transform.rotation;executionAnchor=anchor;executionFacing=facing;
             executionActorSpeed=animator.speed;executionReceiverSpeed=target.animator.speed;
+            backstabLastSourceTime=0;backstabReceiverCheckedPoint=target.transform.position;
             string receiverState=ReceiverState();
             actions.BeginPairedExecution(pair.attackerState,pair.TotalDuration,false);
             // 状态通知可同步复位或停用任一角色。取消后不再启动另一半。
-            if(executionTarget!=target)return false;
+            if(executionTarget!=target||executionVersion!=version)return false;
             target.SetExecutionPose(executionHealthyBranch?pair.receiverPoseHealthy:pair.receiverPoseLowHealth,receiverState,targetFloor);
             target.CaptureExecutionAlignmentPose();
             target.actions.BeginPairedExecution(receiverState,pair.TotalDuration,true);
-            if(executionTarget!=target)return false;
+            if(executionTarget!=target||executionVersion!=version)return false;
             SampleExecution(0);return true;
         }
         string ReceiverState()=>executionHealthyBranch?activeExecutionPair.receiverState:activeExecutionPair.receiverLowHealthState;
@@ -118,7 +128,7 @@ namespace OCDesign.Samurai
             animator.Play(pair.attackerState,0,Mathf.Clamp((time-pair.attackerStartSeconds)/pair.attackerClip.length,0,.99999f));animator.Update(0);
             if(IsExecutionHoldingDown){executionTarget.ApplyExecutionDownPose(executionElapsed);return;}
             if(IsExecutionAligning){executionTarget.ApplyExecutionAlignmentPose();return;}
-            float receiverTime=time+Mathf.Max(0,pair.receiverStartSeconds);
+            float receiverTime=pair.ReceiverSecondsAt(time);
             var clip=ReceiverClip();executionTarget.animator.Play(ReceiverState(),0,Mathf.Clamp(receiverTime/clip.length,0,.99999f));executionTarget.animator.Update(0);
             if(IsExecutionPreparing)executionTarget.ApplyExecutionPreparation(receiverTime,ExecutionPreparationProgress);
             else {executionTarget.executionAlignmentPose=null;executionTarget.ApplyExecutionPose(receiverTime);}
@@ -126,23 +136,29 @@ namespace OCDesign.Samurai
         void AdvanceExecution(float dt)
         {
             if(!IsExecuting)return;
-            if(profile==null||!profile.executionEnabled||activeExecutionPair==null||executionTarget==null
+            if(profile==null||activeExecutionPair==null
+                ||(activeExecutionPair.isBackstab?!profile.backstabEnabled:!profile.executionEnabled)||executionTarget==null
                 ||!executionTarget.isActiveAndEnabled||executionTarget.executionOwner!=this
                 ||executionTarget.gameObject.scene!=gameObject.scene){AbortExecution();return;}
             if(Time.timeScale<=0||dt<=0||float.IsNaN(dt)||float.IsInfinity(dt))return;
             executionElapsed+=Mathf.Min(dt,.1f);var pair=activeExecutionPair;
             float time=ExecutionElapsed;float align=Mathf.SmoothStep(0,1,Mathf.Clamp01(executionElapsed/Mathf.Max(.0001f,pair.alignSeconds)));
             Vector3 desired=Vector3.Lerp(executionStart,executionAnchor,align)+executionFacing*pair.RootAt(time);
-            if(!ExecutionSpaceClear(executionTarget,transform.position,desired)||!ExecutionGround(desired,executionAnchor.y)) {AbortExecution();return;}
+            if(!ExecutionSpaceClear(executionTarget,transform.position,desired)||!ExecutionGround(desired,executionAnchor.y)
+                ||!BackstabReceiverSpaceClear(time)) {AbortExecution();return;}
             transform.SetPositionAndRotation(desired,Quaternion.Slerp(executionStartRotation,executionFacing,align));
+            if(pair.isBackstab)backstabLastSourceTime=time;
             SampleExecution(time);
             if(!executionDamageApplied&&time>=pair.strikeSeconds)
             {
                 executionDamageApplied=true;
                 SampleExecution(pair.strikeSeconds);
                 Vector3 contact=ExecutionContact();
-                executionTarget.ReceiveExecutionDamage(this,executionDamage,contact);
-                SamuraiExecutionBlood.Spawn(this,executionTarget,contact,transform.forward,pair);
+                var victim=executionTarget;int version=executionVersion;
+                victim.ReceiveExecutionDamage(this,executionDamage,contact);
+                // Damage/death subscribers can synchronously reset or disable either side.
+                if(executionTarget!=victim||activeExecutionPair!=pair||executionVersion!=version)return;
+                SamuraiExecutionBlood.Spawn(this,victim,contact,transform.forward,pair);
                 foreach(var camera in FindObjectsByType<SamuraiCombatCameraFeedback>())if(camera.TargetPlayer==this)camera.PlayExecutionImpact(pair.shakeDegrees,pair.shakeSeconds);
                 SampleExecution(time);
             }
@@ -159,32 +175,40 @@ namespace OCDesign.Samurai
         void ReceiveExecutionDamage(SamuraiCombatant source,float amount,Vector3 point)
         {
             if(executionOwner!=source||!IsBeingExecuted||IsDead)return;
+            int version=source.executionVersion;
             float before=vitals.Health;vitals.Damage(Mathf.Max(0,amount));
             var hit=new SamuraiDamageHit {Damage=amount,Source=source,SourcePosition=source.transform.position,Point=point,Unblockable=true};
             var result=vitals.Health<=0?SamuraiHitResult.Killed:SamuraiHitResult.Hit;
             // Death events happen at contact; the selected V2 continues to its prone end.
             if(result==SamuraiHitResult.Killed)OnActionStateChanged(StateName);
-            LastHitResult=result;HitReceived?.Invoke(result);AttackReceived?.Invoke(hit,result);
+            if(executionOwner!=source||source.executionVersion!=version||!IsBeingExecuted)return;
+            LastHitResult=result;HitReceived?.Invoke(result);
+            if(executionOwner!=source||source.executionVersion!=version||!IsBeingExecuted)return;
+            AttackReceived?.Invoke(hit,result);
+            if(executionOwner!=source||source.executionVersion!=version||!IsBeingExecuted)return;
             if(before>vitals.Health)DamageReceived?.Invoke(new SamuraiDamageFeedback(hit,result,before-vitals.Health));
+            if(executionOwner!=source||source.executionVersion!=version||!IsBeingExecuted)return;
             if(result==SamuraiHitResult.Killed)Died?.Invoke();
         }
         void CompleteExecution()
         {
+            int version=++executionVersion;
             var target=executionTarget;var pair=activeExecutionPair;executionTarget=null;activeExecutionPair=null;
             animator.speed=executionActorSpeed;
             if(target!=null&&target.executionOwner==this)
             {target.executionOwner=null;target.animator.speed=executionReceiverSpeed;target.actions.CompletePairedExecution(pair,target.Health<=0,executionHealthyBranch);target.CompleteExecutionPose(pair,target.Health<=0,executionHealthyBranch);}
-            actions.FinishExecution();
+            if(executionVersion==version)actions.FinishExecution();
         }
         void HandleExecutionStateChanged()
         {
             if(executionTarget!=null&&!IsExecuting)AbortExecution();
             if(executionOwner!=null&&!IsBeingExecuted){var owner=executionOwner;executionOwner=null;owner.AbortExecution();}
         }
-        void AbortExecution()
+        void AbortExecution(bool resetting=false)
         {
             if(executionOwner!=null&&executionOwner.executionTarget==this)
-            {var source=executionOwner;source.AbortExecution();executionOwner=null;return;}
+            {var source=executionOwner;source.AbortExecution(resetting);executionOwner=null;return;}
+            int version=++executionVersion;
             var target=executionTarget;var owner=executionOwner;var pair=activeExecutionPair;
             executionTarget=executionOwner=null;activeExecutionPair=null;
             if(pair!=null&&animator!=null)animator.speed=executionActorSpeed;
@@ -193,16 +217,25 @@ namespace OCDesign.Samurai
                 target.executionOwner=null;if(target.animator!=null)target.animator.speed=executionReceiverSpeed;
                 if(target.actions!=null&&target.IsBeingExecuted)
                 {
-                    if(executionDamageApplied){target.actions.CompletePairedExecution(pair,target.Health<=0,executionHealthyBranch);target.CompleteExecutionPose(pair,target.Health<=0,executionHealthyBranch);}
+                    if(executionDamageApplied)
+                    {
+                        target.actions.CompletePairedExecution(pair,target.Health<=0,executionHealthyBranch);target.CompleteExecutionPose(pair,target.Health<=0,executionHealthyBranch);
+                        if(pair.isBackstab&&target.IsDead)target.FreezeExecutionCorpsePose(pair.ReceiverSecondsAt(backstabLastSourceTime));
+                    }
+                    else if(pair.isBackstab)
+                    {
+                        target.ClearExecutionPose();target.actions.CancelStandingPairedExecution();
+                        var ai=target.GetComponent<SamuraiTrainingEnemy>();if(!resetting&&ai!=null)ai.NoticeInterruptedBackstab(this);
+                    }
                     else {target.ClearExecutionPose();target.actions.ResumeToughnessBreak(savedBreakRemaining-executionElapsed);}
                 }
             }
             if(owner!=null&&owner.executionTarget==this)owner.AbortExecution();
-            executionElapsed=0;if(actions!=null&&actions.IsExecuting)actions.FinishExecution();
+            if(executionVersion==version){executionElapsed=0;if(actions!=null&&actions.IsExecuting)actions.FinishExecution();}
         }
-        bool ExecutionSpaceClear(SamuraiCombatant target,Vector3 from,Vector3 to)
+        bool ExecutionSpaceClear(SamuraiCombatant target,Vector3 from,Vector3 to,bool allowDisabledMotor=false)
         {
-            if(motor==null||!motor.enabled)return false;
+            if(motor==null||!motor.enabled&&!allowDisabledMotor)return false;
             float radius=motor.radius*Mathf.Max(transform.lossyScale.x,transform.lossyScale.z)*.95f;
             float height=Mathf.Max(radius*2,motor.height*transform.lossyScale.y);
             Vector3 a=from+Vector3.up*(radius+.08f),b=from+Vector3.up*(height-radius);

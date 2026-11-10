@@ -1,3 +1,12 @@
+2026-11-10 B2 背刺与心脏提示
+从背后靠近未警觉的普通 Enemy1，出现 [E 背刺] 后按 E，一击击杀。追踪玩家、追击返程、练习假人和 Elite1 不参与。后方半角50°、玩家面向60°、动作站位容差0.55米；双方落地、高差不超过0.25米，视线、完整动作路径与落脚空间均有效才允许触发。E仍兼容原伏地处决。
+可触发时，Chest/Spine1心脏对应的背部位置显示白色呼吸光点；需要捕获输入，暂停、失焦、条件失效、动作开始或死亡后隐藏。普通兵只显示心点，Elite1保留原处决光效和地面引导。
+B2保持原速，受方延迟0.10秒；含对位与0.12秒命中停顿总约2.30秒，保留1.8强度血效、5°/0.16秒震屏和6°推近/2°回冲，基础FOV沿用当前相机。配对结束后释放玩家，致死受方保留完整倒地动作。
+玩家与普通兵配置：Config/SamuraiPlayer.asset、Config/Enemy1/Enemy1.asset；配对参数：Config/Backstab/Enemy1_BackstabB2.asset。心点大小、颜色和偏移在Enemy1 Prefab的SamuraiExecutionCue中调整。
+Edit维护菜单：Katana/Samurai/Enemies/Install B2 Backstab；单独补提示：Katana/Samurai/Effects/Install Backstab Heart Cue。重复安装保留已有绑定、开关及手调，不保存场景。
+贴地过渡兼容不可读模型：使用私有可读烘焙快照采样，并在准备结束、取消、复位、停用和销毁时释放；不要求修改模型Read/Write导入设置。
+验证工具：Editor/SamuraiBackstabValidation.cs（292项）、SamuraiExecutionValidation.cs（170项）、SamuraiUnreadableExecutionValidation.cs（73项）、SamuraiBackstabCueValidation.cs（28项）。使用暂停Play隔离副本，不写正式进度。
+
 2026-11-03 格挡与弹反分档震屏（当前）
 玩家普通格挡与成功弹反都增加独立旋转震屏；沿用Profile防御阈值：0<体力值<35轻、35<=值<55中、>=55重。格挡按本次实际扣体力，弹反按来袭招式削体力值（弹反仍按原规则回体力，不以恢复量/剩余量判强度）。弹反三档0.4/0.8/1.2度、.10/.13/.16秒；格挡震幅55%、时长80%，即.22/.44/.66度、.08/.104/.128秒。
 参数在Main Camera的SamuraiCombatCameraFeedback：parryShakeDegrees/parryShakeSeconds的X/Y/Z分别为轻/中/重，guardShakeMultiplier/guardShakeDurationMultiplier控制格挡倍率；0可关闭，既有手调保持。连续接招不累加、不重启旧重震；回防保留余震、局部顿帧继续震、真正暂停冻结，复位/停用/换绑定玩家清理。破防仅沿原受伤通道，敌人防御不震玩家。原伤害、体力、动画、特效、后退和Elite1处决.12秒停顿保持。

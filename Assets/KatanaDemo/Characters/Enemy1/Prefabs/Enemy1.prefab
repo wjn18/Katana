@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5579612268194881041}
   - component: {fileID: 4975539891306275891}
   - component: {fileID: 3504980015324166630}
+  - component: {fileID: 6216661108255288330}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Untagged
@@ -205,6 +206,41 @@ MonoBehaviour:
   hitStopSeconds: 0.04
   soundVolume: 0.24
   sparkColor: {r: 1, g: 0.73, b: 0.22, a: 1}
+--- !u!114 &6216661108255288330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4516579673045158418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44cd91475357c9242ae6007018db9e3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OCDesign.Samurai.SamuraiExecutionCue
+  actor: {fileID: 5293577539836545811}
+  player: {fileID: 0}
+  cueMaterial: {fileID: 2100000, guid: f950b1b399cda0f44a76070bd4d774a5, type: 2}
+  visibleDistance: 16
+  visibilityMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  survivingBone: 2
+  lethalBone: 0
+  surfaceOffset: 0.18
+  bodyRadius: 0.17
+  backstabOnly: 1
+  backstabRadius: 0.11
+  backstabColor: {r: 1.4, g: 1.4, b: 1.4, a: 1}
+  backstabHeartOffset: {x: 0.07, y: 0.02}
+  standingRadius: 0.42
+  lineWidth: 0.025
+  groundLift: 0.025
+  pulseHz: 1.25
+  waitingColor: {r: 1.35, g: 0.94, b: 0.42, a: 0.85}
+  readyColor: {r: 1.6, g: 1.3, b: 0.76, a: 1}
+  waitingGroundColor: {r: 0.8, g: 0.32, b: 0.035, a: 0.95}
+  readyGroundColor: {r: 1, g: 0.55, b: 0.055, a: 1}
 --- !u!1 &5305788577154850277
 GameObject:
   m_ObjectHideFlags: 0

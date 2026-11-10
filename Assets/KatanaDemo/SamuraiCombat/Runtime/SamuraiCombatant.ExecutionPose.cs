@@ -13,6 +13,7 @@ namespace OCDesign.Samurai
         float executionPoseFloor;
         bool settlingCorpsePose;
         float corpseRestStartedAt;
+        float frozenExecutionCorpseTime=-1f;
         struct AlignmentTransform
         {
             public Transform bone;
@@ -25,22 +26,59 @@ namespace OCDesign.Samurai
         ExecutionGroundSkin[] executionGroundSkins;
         sealed class ExecutionGroundSkin
         {
+            readonly SkinnedMeshRenderer skin;
             readonly Transform[] bones;readonly Matrix4x4[] bind,matrices;
             readonly Vector3[] vertices;readonly BoneWeight[] weights;
+            Mesh bakedMesh;
+            readonly List<Vector3> bakedVertices;
             public ExecutionGroundSkin(SkinnedMeshRenderer skin)
-            {bones=skin.bones;bind=skin.sharedMesh.bindposes;vertices=skin.sharedMesh.vertices;weights=skin.sharedMesh.boneWeights;matrices=new Matrix4x4[bones.Length];}
+            {
+                this.skin=skin;
+                if(!skin.sharedMesh.isReadable)
+                {
+                    // Imported meshes can discard CPU data in Play/builds. Bake only a private
+                    // readable snapshot; leave the source model and its import settings intact.
+                    bakedMesh=new Mesh{name="Execution ground sample (runtime)",hideFlags=HideFlags.HideAndDontSave};
+                    bakedVertices=new List<Vector3>(skin.sharedMesh.vertexCount);
+                    return;
+                }
+                bones=skin.bones;bind=skin.sharedMesh.bindposes;vertices=skin.sharedMesh.vertices;weights=skin.sharedMesh.boneWeights;matrices=new Matrix4x4[bones.Length];
+            }
             public float Minimum()
             {
+                if(skin==null)return float.PositiveInfinity;
+                if(bakedMesh!=null)
+                {
+                    // BakeMesh(false) omits renderer scale; the complete Transform below
+                    // restores scale exactly once, including parent scale and world height.
+                    skin.BakeMesh(bakedMesh,false);bakedMesh.GetVertices(bakedVertices);
+                    float lowest=float.PositiveInfinity;
+                    var world=skin.transform.localToWorldMatrix;
+                    foreach(var vertex in bakedVertices)lowest=Mathf.Min(lowest,world.MultiplyPoint3x4(vertex).y);
+                    return lowest;
+                }
                 for(int i=0;i<bones.Length;i++)matrices[i]=bones[i].localToWorldMatrix*bind[i];
                 float min=float.PositiveInfinity;
                 for(int i=0;i<vertices.Length;i++)
                 {var w=weights[i];var v=vertices[i];var p=matrices[w.boneIndex0].MultiplyPoint3x4(v)*w.weight0+matrices[w.boneIndex1].MultiplyPoint3x4(v)*w.weight1+matrices[w.boneIndex2].MultiplyPoint3x4(v)*w.weight2+matrices[w.boneIndex3].MultiplyPoint3x4(v)*w.weight3;min=Mathf.Min(min,p.y);}
                 return min;
             }
+            public void Dispose()
+            {
+                var snapshot=bakedMesh;bakedMesh=null;
+                if(snapshot==null)return;
+                if(Application.isPlaying)Object.Destroy(snapshot);else Object.DestroyImmediate(snapshot);
+            }
+        }
+        void ReleaseExecutionGroundSkins()
+        {
+            var skins=executionGroundSkins;executionGroundSkins=null;
+            if(skins==null)return;
+            foreach(var skin in skins)skin.Dispose();
         }
         void CaptureExecutionAlignmentPose()
         {
-            executionGroundSkins=null;
+            ReleaseExecutionGroundSkins();
             executionDownState=StateName;
             var state=animator.GetCurrentAnimatorStateInfo(0);
             if(animator.IsInTransition(0))
@@ -118,7 +156,7 @@ namespace OCDesign.Samurai
         {
             if(clip==null){ClearExecutionPose();return;}
             if(executionPose==null)executionVisualHome=animator.transform.localPosition;
-            executionPose=clip;executionPoseState=state;executionPoseFloor=floor;settlingCorpsePose=false;
+            executionPose=clip;executionPoseState=state;executionPoseFloor=floor;settlingCorpsePose=false;frozenExecutionCorpseTime=-1f;
         }
         void ApplyExecutionPose(float time)
         {
@@ -143,10 +181,11 @@ namespace OCDesign.Samurai
                 {ApplyExecutionPreparation(executionOwner.ExecutionReceiverTime,executionOwner.ExecutionPreparationProgress);return;}
                 executionAlignmentPose=null;
             }
+            ReleaseExecutionGroundSkins();
             if(executionPose==null)return;
             if(!isActiveAndEnabled||StateName!=executionPoseState){ClearExecutionPose();return;}
             if(executionOwner!=null&&IsBeingExecuted)ApplyExecutionPose(executionOwner.ExecutionReceiverTime);
-            else if(IsDead)ApplyExecutionPose(settlingCorpsePose&&actions!=null
+            else if(IsDead)ApplyExecutionPose(frozenExecutionCorpseTime>=0?frozenExecutionCorpseTime:settlingCorpsePose&&actions!=null
                 ?Mathf.Clamp(actions.Clock-corpseRestStartedAt,0,executionPose.duration):executionPose.duration);
             else if(actions!=null&&actions.IsGettingUp)ApplyExecutionPose(actions.StateNormalizedTime*executionPose.duration);
             else ClearExecutionPose();
@@ -162,8 +201,14 @@ namespace OCDesign.Samurai
         void ClearExecutionPose()
         {
             SuspendExecutionPose();
-            executionPose=null;executionPoseState=null;executionAlignmentPose=null;executionGroundSkins=null;settlingCorpsePose=false;
-            executionDownState=null;executionDownPhase=executionDownLength=0;
+            ReleaseExecutionGroundSkins();
+            executionPose=null;executionPoseState=null;executionAlignmentPose=null;settlingCorpsePose=false;
+            executionDownState=null;executionDownPhase=executionDownLength=0;frozenExecutionCorpseTime=-1f;
+        }
+        void FreezeExecutionCorpsePose(float time)
+        {
+            if(executionPose==null)return;
+            frozenExecutionCorpseTime=Mathf.Clamp(time,0,executionPose.duration);ApplyExecutionPose(frozenExecutionCorpseTime);
         }
         void SuspendExecutionPose()
         {if(executionPose!=null&&animator!=null)animator.transform.localPosition=executionVisualHome;}

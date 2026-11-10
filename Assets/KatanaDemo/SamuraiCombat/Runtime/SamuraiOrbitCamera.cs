@@ -94,7 +94,7 @@ namespace OCDesign.Samurai
         {
             if (!isActiveAndEnabled || target == null || (input != null && !input.HasCursorCapture)) return;
             if (!initialized) ResetView();
-            if (targetLock == null || !targetLock.IsLocked)
+            if (BackstabFramingTarget == null && (targetLock == null || !targetLock.IsLocked))
             {
                 yaw = Mathf.Repeat(yaw + pixels.x * sensitivity + 180f, 360f) - 180f;
                 pitch = Mathf.Clamp(pitch - pixels.y * sensitivity, pitchLimits.x, pitchLimits.y);
@@ -147,9 +147,12 @@ namespace OCDesign.Samurai
             if (targetDelta.sqrMagnitude > 25f) { ResetView(); return; }
             Vector3 destination = target.position + targetOffset;
             framingDistance = distance;
-            if (targetLock != null && targetLock.CurrentTarget != null)
+            // Keep the paired receiver framed through its lethal reaction, including unlocked backstabs.
+            var framingTarget = BackstabFramingTarget;
+            if (framingTarget == null && targetLock != null) framingTarget = targetLock.CurrentTarget;
+            if (framingTarget != null)
             {
-                Vector3 targetPoint = targetLock.TargetPoint;
+                Vector3 targetPoint = SamuraiTargetLock.AimPoint(framingTarget);
                 Vector3 direction = targetPoint - destination;
                 Vector3 planar = new Vector3(direction.x, 0f, direction.z);
                 destination = Vector3.Lerp(destination, targetPoint, 0.5f);
@@ -178,6 +181,9 @@ namespace OCDesign.Samurai
                 followSmoothTime, Mathf.Infinity, deltaTime);
             PlaceCamera(deltaTime);
         }
+
+        private SamuraiCombatant BackstabFramingTarget => followedActor != null && followedActor.IsBackstabbing
+            ? followedActor.ActiveBackstabTarget : null;
 
         private bool IsMiddleFrostMoon()
         {

@@ -75,7 +75,7 @@ namespace OCDesign.Samurai
         public void ToggleLock()
         {
             if (!ReferenceEquals(currentTarget, null)) { ClearLock(); return; }
-            if (!isActiveAndEnabled || actor == null || !actor.isActiveAndEnabled || actor.IsDead) return;
+            if (!isActiveAndEnabled || actor == null || !actor.isActiveAndEnabled || actor.IsDead || actor.IsBackstabbing) return;
             SetTarget(FindTarget(SearchMode.Centered, Vector2.zero));
         }
 
@@ -147,6 +147,11 @@ namespace OCDesign.Samurai
             if (ReferenceEquals(currentTarget, null)) return;
             if (!isActiveAndEnabled || actor == null || !actor.isActiveAndEnabled || actor.IsDead)
             { ClearLock(); return; }
+            // Contact can kill the receiver before its paired fall finishes. Retain only that
+            // existing lock; manual ClearLock still wins and no new target is acquired here.
+            if (actor.IsBackstabbing && currentTarget != null && currentTarget == actor.ActiveBackstabTarget
+                && currentTarget.isActiveAndEnabled && currentTarget.gameObject.activeInHierarchy
+                && currentTarget.gameObject.scene == actor.gameObject.scene) return;
             if (currentTarget == null || !IsEligible(currentTarget, Mathf.Max(acquireDistance, releaseDistance)) ||
                 !IsShown(currentTarget, targetRenderers))
                 SetTarget(FindTarget(SearchMode.Nearest, Vector2.zero));
@@ -155,7 +160,7 @@ namespace OCDesign.Samurai
         /// <summary>相对当前目标的屏幕方向，选择同方向的可见邻近敌人；无候选时保留原锁定。</summary>
         public bool TrySwitchTarget(Vector2 screenDirection)
         {
-            if (!isActiveAndEnabled || actor == null || !actor.isActiveAndEnabled || actor.IsDead || currentTarget == null ||
+            if (!isActiveAndEnabled || actor == null || !actor.isActiveAndEnabled || actor.IsDead || actor.IsBackstabbing || currentTarget == null ||
                 !IsFinite(screenDirection) || screenDirection.sqrMagnitude < .0001f) return false;
             var next = FindTarget(SearchMode.Directional, screenDirection.normalized);
             if (next == null) return false;
@@ -166,7 +171,7 @@ namespace OCDesign.Samurai
         /// <summary>输入层仅在捕获鼠标时提交像素增量和真实帧时长；一次连续快速移动只触发一次。</summary>
         public bool ReadMouseSwitch(Vector2 pixels, float deltaTime)
         {
-            if (!isActiveAndEnabled || currentTarget == null || actor == null || !actor.isActiveAndEnabled || actor.IsDead)
+            if (!isActiveAndEnabled || currentTarget == null || actor == null || !actor.isActiveAndEnabled || actor.IsDead || actor.IsBackstabbing)
             { ResetMouseSwitch(); return false; }
             if (!IsFinite(pixels) || float.IsNaN(deltaTime) || float.IsInfinity(deltaTime) || deltaTime <= 0f)
             {

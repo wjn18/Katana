@@ -3114,6 +3114,13 @@ MonoBehaviour:
   executionSurvivingPair: {fileID: 0}
   executionLethalPair: {fileID: 0}
   executionPairConfigurationVersion: 1
+  backstabPair: {fileID: 0}
+  backstabEnabled: 1
+  backstabApproachRange: 0.55
+  backstabRearHalfAngle: 50
+  backstabFacingAngle: 60
+  backstabMaximumTargetHeight: 2.2
+  backstabConfigurationVersion: 1
   baseStaggerResistance: 10
   maximumAccumulatedResistance: 90
   resistanceDecayDelay: 1.5

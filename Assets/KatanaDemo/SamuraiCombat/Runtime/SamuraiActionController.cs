@@ -1098,6 +1098,10 @@ namespace OCDesign.Samurai
             animation.Play("ToughnessBroken", duration, true, profile.toughnessBrokenPose);
         }
         public void FinishExecution() { if (IsExecuting) EnterLocomotion(); }
+        public void CancelStandingPairedExecution()
+        {
+            if(IsExecuting||IsBeingExecuted){defense.CancelInput();EnterLocomotion();}
+        }
         public bool DownBranchHealthy => toughnessBrokenLoopState == ToughnessBrokenHealthyState;
         public void BeginPairedExecution(string state,float duration,bool receiver)
         {

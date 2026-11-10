@@ -97,6 +97,24 @@ namespace OCDesign.Samurai
         private bool actionDistanceAvailable;
         public bool HasVisibleTarget => visibleTarget;
         public bool HasTrackedTarget => trackedTarget != null;
+        /// <summary>Read-only, immediate perception check shared by the E action and its cue.</summary>
+        public bool IsUnawareForBackstab(SamuraiCombatant attacker)
+        {
+            if(!isActiveAndEnabled||!activeTraining||IsPracticeMode||actor==null||actor.Profile==null
+                ||!actor.isActiveAndEnabled||actor.IsDead||attacker==null||trackedTarget!=null
+                ||IsTelegraphing||!actor.CanAct||actor.IsBeingKnockedBack||actor.IsHitStopped)return false;
+            var patrol=patrolAgent!=null?patrolAgent:GetComponent<SamuraiPatrolAgent>();
+            if(patrol!=null&&(patrol.IsEngaged||patrol.IsReturning||patrol.ReturnTraceOverflowed))return false;
+            // Player input ticks before AI. Recheck real view now so E cannot beat discovery from the front.
+            return !sensors.CanSee(actor,attacker,detectionDistance,horizontalViewAngle,verticalViewAngle,actor.Profile.obstructionMask);
+        }
+        public void NoticeInterruptedBackstab(SamuraiCombatant attacker)
+        {
+            if(!isActiveAndEnabled||!activeTraining||actor==null||actor.IsDead||attacker==null
+                ||attacker.IsDead||attacker.Team==actor.Team||attacker.gameObject.scene!=gameObject.scene)return;
+            target=trackedTarget=attacker;playerInput=attacker.GetComponent<SamuraiPlayerInput>();
+            perceptionScanRemaining=0;intent="Backstab interrupted - tracking opponent";
+        }
         public SamuraiActionDefinition PlannedAttack => telegraphing ? telegraphedAction ?? telegraphedRangeAction : NextPlanningAction;
         private SamuraiActionDefinition NextPlanningAction => NextCustomAction != null ? NextCustomAction : actor == null || actor.Profile == null ? null :
             NextStrikeIsHeavy ? actor.Profile.heavy : actor.Profile.combo != null && actor.Profile.combo.Length > 0 ? actor.Profile.combo[0] : null;
